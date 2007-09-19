@@ -1,0 +1,42 @@
+Coding Standards:
+
+
+Packages:
+
+	1)	Use the java package system.  That is, organize classes in the root directory tree by what package/subsytem they belong to.
+		for example, a class BinaryAnd that is part of circuit subsystem would be declared with "package drk.circuit;" 
+		in the FIRST line of the java file, and the java source file should be drk/circuit/BinaryAnd.java in the source tree.
+	
+		"drk" is the root package of the whole system.
+
+Development environment:
+	
+	USE ECLIPSE:
+		or anything else...but building and running the whole subsystem will be done with eclipse on my end, so I highly recommend it
+
+
+Style:
+	As often as possible, use object oriented design correctly.  This means use inheritance when objects are similar,
+	use public, private,package (default), and protected appropriately!  
+	
+	Methods should be simple, and accomplish one specific purpose.  AVOID LONG METHODS.  Split it up when possible...no method shhould 
+	be more than 120 lines in length unless there is a damn good reason.
+
+	Use java's embedded classes as much as possible.  Instead of implementing a linked list, use vector.  Instead of implementing sorting,
+	use Array.sort()..  Etc.  Do as little as nessecary.
+	
+	Having 5 .java files and 5 classes inside one package is FAR superior to having one file for simplicity, but the file is 
+	ambiguous and has thousands of methods.
+
+	Comments are optional,  but put your name on everything you write/change.  Preferrably
+	Also include a how and why something was changed.  Method prototypes should have comments, however, and the 
+	function should behave as described.
+
+	For error handling, use exception handling.  We will develop an error handling static class that should be called for major errors,
+	but avoid boolean or integer flag results for errors unless there is a good reason.
+
+	HEADER:	At the top of each .java file (under the package), put a brief description of who wrote it first, the date, and a brief 
+		description (as much as you want, but probably only like a sentance)
+
+SVN:
+	We have svn 
