@@ -17,7 +17,7 @@ Development environment:
 
 Style:
 	As often as possible, use object oriented design correctly.  This means use inheritance when objects are similar,
-	use public, private,package (default), and protected appropriately!  
+	use public, private,package (default), and protected appropriately.  
 	
 	Methods should be simple, and accomplish one specific purpose.  AVOID LONG METHODS.  Split it up when possible...no method shhould 
 	be more than 120 lines in length unless there is a damn good reason.
@@ -38,5 +38,13 @@ Style:
 	HEADER:	At the top of each .java file (under the package), put a brief description of who wrote it first, the date, and a brief 
 		description (as much as you want, but probably only like a sentance)
 
+	As much as it is possible, classes should represent NOUNS only, and methods (even static ones) should represent verbs.
+	Model real-world behavior as much as you can...classes should represent real objects (or at least nouns)
+
 SVN:
 	We have svn 
+
+PRIDE:
+	I think it is a really big important step that we comment eachothers code, and ask questions using the issue tracker...
+	We should do as much as possible to improve upon the code of eachother and optimize.  See something unessecary?  Ask about it, then
+	remove it.
