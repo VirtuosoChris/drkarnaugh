@@ -1,5 +1,4 @@
 package drk.circuit;
-import java.util.Vector;
 
 public abstract class MultiGate extends OutputSystem
 {

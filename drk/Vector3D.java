@@ -8,7 +8,7 @@ import java.lang.Math;
 
 public class Vector3D
 {
-	double x,y,z;
+	public double x,y,z;
 	
 	public Vector3D()
 	{
