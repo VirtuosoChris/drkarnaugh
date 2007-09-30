@@ -1,7 +1,7 @@
 package drk.graphics;
 import javax.swing.*;
 import javax.media.opengl.*;
-import java.awt.*;
+//import java.awt.*;
 import com.sun.opengl.util.*;
 
 public abstract class RenderedGraphicsListener implements GLEventListener
