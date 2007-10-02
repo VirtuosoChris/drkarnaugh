@@ -40,6 +40,13 @@ private static final File LOG = new File("log.txt");
     	System.out.println(e);
 	}
 	
+	public static final boolean debugmode=true;
+	public static void debug(String s,boolean deb)
+	{
+		if(debugmode && deb)
+			System.err.println(s);
+	}
+	
 	
 	//an overloaded version of log that writes an exception
 	public static void log(Exception e){
