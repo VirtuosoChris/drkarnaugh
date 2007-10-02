@@ -19,7 +19,9 @@ public class EulerCamera extends Camera
 	{
 		super(c);
 		Vector3D nyrot=new Vector3D(c.ZNormal.x,0.0,c.ZNormal.z);
+		double tm=nyrot.mag();
 		nyrot.enormal();
+		
 		yrotation=Math.toDegrees
 		(
 			Math.atan2(nyrot.x,nyrot.z)
@@ -30,7 +32,7 @@ public class EulerCamera extends Camera
 			Math.atan2
 			(
 				c.ZNormal.y,
-				nyrot.mag()
+				tm
 			)
 		);
 		///\nxrot.enormal();
