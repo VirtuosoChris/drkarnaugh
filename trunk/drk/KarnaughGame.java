@@ -1,6 +1,5 @@
 package drk;
-
-import drk.maze.*;`
+import drk.maze.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -27,9 +26,9 @@ public class KarnaughGame{
 	public static void main(String args[]){
 		
 		
-	  	KarnaughGame.clearLog(); //we want a fresh log every time we run the program
+	  	KarnaughLog.clearLog(); //we want a fresh log every time we run the program
 		
-		log("Starting Dr. Karnaugh's Lab");
+		KarnaughLog.log("Starting Dr. Karnaugh's Lab");
 		
 		GraphicsEnvironment ge = null;
 		GraphicsDevice gd = null;
@@ -50,12 +49,12 @@ public class KarnaughGame{
 		  }
 		   
 		}catch(Exception e){
-			log(e);
-			log("Could not get the graphics device.  Program will now close");
+			KarnaughLog.log(e);
+			KarnaughLog.log("Could not get the graphics device.  Program will now close");
 			return;
 		}
 		
-		log("Fullscreen available = " + gd.isFullScreenSupported());
+		KarnaughLog.log("Fullscreen available = " + gd.isFullScreenSupported());
 		
 	  //The window object	
       JFrame j = new JFrame();
@@ -73,10 +72,10 @@ public class KarnaughGame{
 	  KarnaughMaze k = KarnaughMaze.loadMaze("test");
 	  
 	  if(k == null){
-		KarnaughGame.log("Could not load test level.  Program shutting down");
+		KarnaughLog.log("Could not load test level.  Program shutting down");
 		System.exit(0);	  	
 	  }else {
-	  	KarnaughGame.log("Map loaded successfully, game loop may begin");
+	  	KarnaughLog.log("Map loaded successfully, game loop may begin");
 	  }
 	  
 	  

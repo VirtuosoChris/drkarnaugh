@@ -1,10 +1,10 @@
 package drk.maze;
 
-
+import drk.*;
 import java.util.*;
 import java.io.*;
 
-public class KarnaughMaze extends Maze
+public class KarnaughMaze //extends Maze
 {
 	
 	private int timelimit;
@@ -18,7 +18,7 @@ public class KarnaughMaze extends Maze
 	//constructor, takes width, height, timelimit, next map, and an arraylist of components to populate the maze with.
 	public KarnaughMaze(int w, int h, int t, String n, ArrayList<MazeItem> c){
 		
-		super(w,h);
+//		super(w,h);
 		
 		timelimit = t;
 		nextmap = n;
@@ -30,7 +30,7 @@ public class KarnaughMaze extends Maze
 	//loads a map.  adds extension to f
 	public static KarnaughMaze loadMaze(String f){
 		
-		KarnaughGame.log("\nLoading map "+f+".kar");
+		KarnaughLog.log("\nLoading map "+f+".kar");
 		
 		int mazewidth = 0;
 		int mazeheight = 0;
@@ -48,36 +48,36 @@ public class KarnaughMaze extends Maze
 		 mazeheight = s.nextInt();	   //
 		 
 		 if(mazewidth <= 0 || mazeheight <=0){
-		 	throw new KarnaughException("Invalid Maze Dimensions");
+		 	throw new Exception("Invalid Maze Dimensions");
 		 }
 		 
-		 KarnaughGame.log("Maze is "+mazewidth+" by "+mazeheight);
+		 KarnaughLog.log("Maze is "+mazewidth+" by "+mazeheight);
 		 
 		 timelimit = s.nextInt();      //how many seconds the maze allows the player before they face gruesome death
 		 
 		 if(timelimit <= 0){
-		 	throw new KarnaughException("Invalid Time Limit");
+		 	throw new Exception("Invalid Time Limit");
 		 }
 		 
-		 KarnaughGame.log("TimeLimit is "+timelimit+" seconds");
+		 KarnaughLog.log("TimeLimit is "+timelimit+" seconds");
 		 
 		 nextmap = s.next();           //when the map is finished, start this one as part of its "campaign"
 		 numcomponents = s.nextInt();  //map file stores number of components that we should expect in the file
 		 
 		 if(nextmap.equals("LAST_LEVEL")){
-		 	KarnaughGame.log("This is the last level of this campaign");
+		 	KarnaughLog.log("This is the last level of this campaign");
 		 }else{
-		 	KarnaughGame.log("Next map is "+nextmap);
+		 	KarnaughLog.log("Next map is "+nextmap);
 		 }
 		 
 		 //minus 2 because the entrance and exit will be hard coded into the maze generation.  only guarantee that there will
 		 //be at least one of each
 		 //the map designer can put multiples of each in to help the player escape the bunny and or confuse the fuck out of them  
 		 if(numcomponents > (mazewidth*mazeheight)-2 || numcomponents < 0){
-		 	throw new KarnaughException("Invalid number of components for maze");
+		 	throw new Exception("Invalid number of components for maze");
 		 }
 		 
-		 KarnaughGame.log("There are "+numcomponents+" components in this maze");
+		 KarnaughLog.log("There are "+numcomponents+" components in this maze");
 		 
 		 //generates the classes from the string given.  need some kind of extra processing for things like notes which 
 		 //can't be instantiated without further arguments to be loaded from the file
@@ -93,20 +93,20 @@ public class KarnaughMaze extends Maze
 		
 		
 		}catch(FileNotFoundException e){
-		  KarnaughGame.log("Map file "+f+" not found");
+		  KarnaughLog.log("Map file "+f+" not found");
 		  return null;
 		}catch(ClassNotFoundException e){
-		  KarnaughGame.log(e);
+		  KarnaughLog.log(e);
 		  	//do other stuff here if we add the component browser
 		  	return null;
 		}
 		catch(Exception e){
-		  KarnaughGame.log(e);
-		  KarnaughGame.log("File contains invalid data");
+		  KarnaughLog.log(e);
+		  KarnaughLog.log("File contains invalid data");
 		  return null;
 		}
 		
-		KarnaughGame.log("\n");
+		KarnaughLog.log("\n");
 		
 		//if we got all the data create a new maze object for use in the game
 		return new KarnaughMaze(mazewidth, mazeheight, timelimit, nextmap, components);
@@ -115,7 +115,7 @@ public class KarnaughMaze extends Maze
 	
 	
 	public static void main(String args[]){
-		KarnaughGame.log("Please run KarnaughGame.class to play");
+		KarnaughLog.log("Please run KarnaughGame.class to play");
 	}
 	
 	
