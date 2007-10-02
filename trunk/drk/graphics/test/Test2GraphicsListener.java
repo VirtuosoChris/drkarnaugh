@@ -6,22 +6,24 @@ import drk.graphics.GLRenderedGraphicsListener;
 import drk.graphics.EulerCamera;
 
 
-public class TestGraphicsListener extends GLRenderedGraphicsListener
+public class Test2GraphicsListener extends GLRenderedGraphicsListener
 {
 	double timePassed;
 	int numframes;
 	EulerCamera ec;
-	public TestGraphicsListener()
+	public Test2GraphicsListener()
 	{
 		super();
 		timePassed=0.0;
 		numframes=0;
+		
 	}
 	public void init(GLAutoDrawable arg0)
 	{
 	// TODO Auto-generated method stub
 		frameTimer.update();
 		ec=(EulerCamera)camera;
+		
 	}
 
 	public void display(GLAutoDrawable arg0)
@@ -29,6 +31,8 @@ public class TestGraphicsListener extends GLRenderedGraphicsListener
 		GL gl=arg0.getGL();
 		gl.glClearColor(1.0f,0.0f,1.0f,1.0f);
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT);
+		gl.glMatrixMode(GL.GL_MODELVIEW);
+		gl.glLoadIdentity();
 		
 		frameTimer.update();
 		
@@ -48,10 +52,10 @@ public class TestGraphicsListener extends GLRenderedGraphicsListener
 		
 		gl.glBegin(GL.GL_QUADS);
 		{
-			gl.glVertex3f(1.0f,-1.0f,10.0f);
-			gl.glVertex3f(-1.0f,-1,10.0f);
-			gl.glVertex3f(-1.0f,1.0f,10.0f);
-			gl.glVertex3f(1.0f,1.0f,10.0f);
+			gl.glVertex3f(1.0f,-1.0f,-10.0f);
+			gl.glVertex3f(-1.0f,-1,-10.0f);
+			gl.glVertex3f(-1.0f,1.0f,-10.0f);
+			gl.glVertex3f(1.0f,1.0f,-10.0f);
 		}
 		gl.glEnd();
 	// TODO Auto-generated method stub
@@ -60,7 +64,7 @@ public class TestGraphicsListener extends GLRenderedGraphicsListener
 	
 	public static void main(String[] argv)
 	{
-		TestGraphicsListener tgl=new TestGraphicsListener();
+		Test2GraphicsListener tgl=new Test2GraphicsListener();
 		tgl.camera.fovy=30.0;
 		
 		tgl.doMain(640,480,null);
