@@ -1,3 +1,6 @@
+package drk.maze;
+
+
 import java.util.*;
 import java.io.*;
 
