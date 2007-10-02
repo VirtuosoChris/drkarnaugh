@@ -16,6 +16,7 @@ public class DeltaTimer implements Updatable
 	{
 		last=0;
 		dt=0;
+		update();
 	}
 	
 	public void update()
@@ -27,7 +28,14 @@ public class DeltaTimer implements Updatable
 	
 	public double getDeltaTimeSeconds()
 	{
-		double td=(double)last;
+		double td=(double)dt;
+		return td*1e-9;
+	}
+	public double getSecondsSinceLastUpdate()
+	{
+		long tmp=System.nanoTime()-last;
+		
+		double td=(double)tmp;
 		return td*1e-9;
 	}
 }
