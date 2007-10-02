@@ -2,6 +2,7 @@ package drk;
 
 public interface Loadable
 {
+//Comment
 	public static class LoadException extends Exception
 	{
 
