@@ -4,5 +4,5 @@ public interface Updatable
 {
 	public boolean isUpdated=false;
 	
-	public void update();
+	public void update(DeltaTimer dt);
 }
