@@ -4,6 +4,7 @@ public class DeltaTimer implements Updatable
 {
 	long last;
 	long dt;
+	public double ddt;
 	
 	static DeltaTimer StaticTimer;
 	
@@ -24,12 +25,13 @@ public class DeltaTimer implements Updatable
 		long tmp=last;
 		last=System.nanoTime();
 		dt=last-tmp;
+		ddt=(double)dt;
+		ddt*=1e-9;
 	}
 	
 	public double getDeltaTimeSeconds()
 	{
-		double td=(double)dt;
-		return td*1e-9;
+		return ddt;
 	}
 	public double getSecondsSinceLastUpdate()
 	{

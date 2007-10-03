@@ -2,16 +2,6 @@ package drk;
 import drk.maze.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import java.io.*;
-
-
-class KarnaughException extends Exception{
-	public KarnaughException(String s){
-		super(s);
-	}
-}
 
 
 public class KarnaughGame{
@@ -39,13 +29,13 @@ public class KarnaughGame{
 		  ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		  
 		  if(ge == null){
-		  	throw new KarnaughException("graphics environment returned null");
+		  	throw new Exception("graphics environment returned null");
 		  }
 		  
 		  gd = ge.getDefaultScreenDevice();
 		  
 		  if(gd == null){
-		  	throw new KarnaughException("graphics device returned null");
+		  	throw new Exception("graphics device returned null");
 		  }
 		   
 		}catch(Exception e){
