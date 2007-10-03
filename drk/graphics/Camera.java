@@ -28,6 +28,8 @@ public abstract class Camera implements GLRenderable,GLInitializable
 		XNormal =new Vector3D(1.0,0.0,0.0);
 		YNormal =new Vector3D(0.0,1.0,0.0);
 		ZNormal =new Vector3D(0.0,0.0,1.0);
+		zNear=0.001; // one millimeter
+		zFar=1000.0; // 1000 meters away
 	}
 	
 	public Camera(Camera c)
