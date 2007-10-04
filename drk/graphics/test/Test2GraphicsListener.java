@@ -56,18 +56,18 @@ public class Test2GraphicsListener extends GLRenderedGraphicsListener implements
 		ec.render(gl);
 		render(gl);
 		
-		
-		
+		update();
 		
 		gl.glFlush();
+		//gl.glFlush();
 	// TODO Auto-generated method stub
 
 	}
 	
 	public void update()
 	{
-		ec.xrotation=60.0*frameTimer.ddt;
-		ec.yrotation+=10.0*frameTimer.ddt;
+		//ec.xrotation=60.0*frameTimer.ddt;
+		//ec.yrotation+=10.0*frameTimer.ddt;
 	}
 	
 	public void render(GL gl)
