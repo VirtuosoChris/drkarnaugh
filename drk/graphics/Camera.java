@@ -43,4 +43,19 @@ public abstract class Camera implements GLRenderable,GLInitializable
 		zNear=c.zNear;
 		zFar=c.zFar;
 	}
+	
+	public static void buildProjectionMatrixFromEyeData()//doesn't work
+	{
+	
+	}
+	
+	
+	public static double getFovyFromScreenInfo(double VerticalScreenHeight,double WindowPercentage,double eye_dist)
+	{
+		//assumes window perfectly in perpendicular with eye;
+		double absw=VerticalScreenHeight*WindowPercentage;
+		absw*=0.5;
+		
+		return 2.0*Math.toDegrees(Math.atan2(absw,eye_dist));
+	}
 }

@@ -40,4 +40,13 @@ public class DeltaTimer implements Updatable
 		double td=(double)tmp;
 		return td*1e-9;
 	}
+	
+	public static double getMicrosecondsPerFrame(double timePassed,double framesPassed)
+	{
+		return timePassed*1e6/framesPassed;
+	}
+	public static double getFramesPerSecond(double timePassed,double framesPassed)
+	{
+		return framesPassed/timePassed;
+	}
 }

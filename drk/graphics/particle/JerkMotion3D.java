@@ -1,7 +1,6 @@
 package drk.graphics.particle;
 
 import drk.Vector3D;
-import drk.DeltaTimer;
 
 public class JerkMotion3D extends AccelerationMotion3D
 {
@@ -11,9 +10,9 @@ public class JerkMotion3D extends AccelerationMotion3D
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public void update(DeltaTimer dt)
+	public void update()
 	{
-		super.update(dt);
+		super.update();
 		double t=dt.ddt;
 		
 		Position.eplus(Jerk.times(t*t*t*0.16666666666));

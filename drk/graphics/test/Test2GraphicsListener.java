@@ -1,6 +1,7 @@
 package drk.graphics.test;
 
 import javax.media.opengl.*;
+import drk.*;
 import drk.graphics.*;
 
 public class Test2GraphicsListener extends GLRenderedGraphicsListener implements GLRenderable
@@ -27,7 +28,7 @@ public class Test2GraphicsListener extends GLRenderedGraphicsListener implements
 		gl.glClearDepth(1.0f);							// Depth Buffer Setup
 		gl.glEnable(GL.GL_DEPTH_TEST);						// Enables Depth Testing
 		gl.glDepthFunc(GL.GL_LEQUAL);							// The Type Of Depth Test To Do
-		camera.fovy=80.0;
+		camera.fovy=50.0;
 		ec.initialize(gl);	
 	}
 
@@ -37,11 +38,14 @@ public class Test2GraphicsListener extends GLRenderedGraphicsListener implements
 		
 		timePassed+=frameTimer.getDeltaTimeSeconds();
 		numframes++;
-		if((numframes & 0xFFF)==0x000)
+		if(timePassed > 1.0)
 		{
-			System.err.println("AverageFramerate: " + timePassed*(1e6)/(256.0*16.0)+" uspf, "+(16.0*256.0)/timePassed + "fps");
+			System.err.println("AverageFramerate: " + 
+					DeltaTimer.getMicrosecondsPerFrame(timePassed,(double)numframes)
+					+" uspf, "+
+					DeltaTimer.getFramesPerSecond(timePassed,(double)numframes)+ "fps");
 			timePassed=0.0;
-			numframes=1;
+			numframes=0;
 		}
 		
 		GL gl=arg0.getGL();
@@ -89,7 +93,7 @@ public class Test2GraphicsListener extends GLRenderedGraphicsListener implements
 		Test2GraphicsListener tgl=new Test2GraphicsListener();
 		tgl.camera.fovy=30.0;
 		
-		tgl.doMain(640,480,null);
+		tgl.doMain(640,480,null,true);
 		
 	}
 
