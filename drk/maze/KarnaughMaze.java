@@ -84,9 +84,13 @@ public class KarnaughMaze //extends Maze
 		 //also exception handling to search the internet for component/mapname if not found can be added at a future date
 		for(int i = 0; i < numcomponents;i++){
 		  Class n = Class.forName(s.next());
-		  MazeItem o = (MazeItem)n.newInstance();
+		  Object ob=n.newInstance();
+		  if(ob instanceof MazeItem)
+			  components.add((MazeItem)ob);
+		  else
+			  KarnaughLog.log("Loading" + n.getSimpleName());
 		  
-		  components.add(o);
+		
 		  
 		  //if ! instanceof test return null and throw exception 
 		}	 
