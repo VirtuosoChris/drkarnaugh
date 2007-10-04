@@ -1,7 +1,6 @@
 package drk.graphics.particle;
 
 import drk.Vector3D;
-import drk.DeltaTimer;
 
 public class VelocityMotion3D extends NewtonMotion3D
 {
@@ -25,9 +24,9 @@ public class VelocityMotion3D extends NewtonMotion3D
 		super(tPosition);
 		Velocity=new Vector3D(tVelocity);
 	}
-	public void update(DeltaTimer dt)
+	public void update()
 	{
-		super.update(dt);
+		super.update();
 		Position.eplus
 		(
 			Velocity.times(dt.ddt)

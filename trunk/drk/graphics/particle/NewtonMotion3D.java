@@ -1,11 +1,11 @@
 package drk.graphics.particle;
 
-import drk.Updatable;
 import drk.Vector3D;
 import drk.DeltaTimer;
 
-public class NewtonMotion3D implements Updatable
+public class NewtonMotion3D implements TimeUpdatable
 {
+	DeltaTimer dt;
 	public Vector3D Position;
 	public NewtonMotion3D()
 	{
@@ -15,9 +15,13 @@ public class NewtonMotion3D implements Updatable
 	{
 		Position=new Vector3D(tPosition);
 	}
-	public void update(DeltaTimer dt)
+	public void update()
 	{
 
+	}
+	public void setDeltaTimer(DeltaTimer deltat)
+	{
+		dt=deltat;
 	}
 
 }

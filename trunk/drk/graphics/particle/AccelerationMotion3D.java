@@ -1,7 +1,6 @@
 package drk.graphics.particle;
 
 import drk.Vector3D;
-import drk.DeltaTimer;
 
 public class AccelerationMotion3D extends VelocityMotion3D
 {
@@ -12,9 +11,9 @@ public class AccelerationMotion3D extends VelocityMotion3D
 		Acceleration=new Vector3D();
 		// TODO Auto-generated constructor stub
 	}
-	public void update(DeltaTimer dt)
+	public void update()
 	{
-		super.update(dt);
+		super.update();
 		Vector3D at=Acceleration.times(0.5*dt.ddt);
 		Position.eplus(at.times(dt.ddt));
 		Velocity.eplus(at);

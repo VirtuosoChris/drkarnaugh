@@ -45,7 +45,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener
 	}
 	
 	
-	public void doMain(int w,int h,GLCapabilities glcaps)
+	public void doMain(int w,int h,GLCapabilities glcaps,boolean runasFast)
 	{
 		JFrame jf=new JFrame("Dr. Karnaugh's Lab");
 		GLCanvas ad = new GLCanvas(glcaps);
@@ -61,6 +61,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener
 		}
 		
 		Animator anim=new Animator(ad);
+		anim.setRunAsFastAsPossible(runasFast);
 		jf.getContentPane().add(ad);
 		jf.setSize(w,h);
 		jf.setVisible(true);
