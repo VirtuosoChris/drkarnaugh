@@ -4,7 +4,7 @@ import javax.media.opengl.*;
 import drk.*;
 import drk.graphics.*;
 
-public class Test2GraphicsListener extends GLRenderedGraphicsListener implements GLRenderable
+public class Test2GraphicsListener extends GLRenderedGraphicsListener implements GLRenderable,Updatable
 {
 	double timePassed;
 	int numframes;
@@ -15,7 +15,6 @@ public class Test2GraphicsListener extends GLRenderedGraphicsListener implements
 		super();
 		timePassed=0.0;
 		numframes=0;
-		
 	}
 	public void init(GLAutoDrawable arg0)
 	{
@@ -54,15 +53,21 @@ public class Test2GraphicsListener extends GLRenderedGraphicsListener implements
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 		gl.glLoadIdentity();
 		
-		ec.xrotation=60.0*frameTimer.ddt;
-		ec.yrotation+=10.0*frameTimer.ddt;
-		
 		ec.render(gl);
 		render(gl);
+		
+		
+		
 		
 		gl.glFlush();
 	// TODO Auto-generated method stub
 
+	}
+	
+	public void update()
+	{
+		ec.xrotation=60.0*frameTimer.ddt;
+		ec.yrotation+=10.0*frameTimer.ddt;
 	}
 	
 	public void render(GL gl)
