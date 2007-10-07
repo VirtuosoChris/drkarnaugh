@@ -6,8 +6,10 @@ import java.io.*;
 public class KarnaughMaze extends Maze
 {
 	
-	private int timelimit;
-	private String nextmap; 
+	private int timelimit = 0;
+	private String nextmap = null; 
+	private ArrayList<MazeItem> components = null;
+	
 
 	//some accessor methods
 	public int timeLimit(){return timelimit;}
@@ -18,6 +20,8 @@ public class KarnaughMaze extends Maze
 	public KarnaughMaze(int w, int h, int t, String n, ArrayList<MazeItem> c){
 		
 		super(w,h);
+		
+		components = c;
 		
 		timelimit = t;
 		nextmap = n;
@@ -30,21 +34,23 @@ public class KarnaughMaze extends Maze
 		
 		//um what about our implicit entrances and exits?  need to add those in too
 		
+		//copies of the room and component lists in order to perform this operation
 		ArrayList<Room> copy = (ArrayList<Room>)RoomList.clone();
+		ArrayList<MazeItem> cCopy = (ArrayList<MazeItem>)c.clone();
 		
 		Random r = new Random();
 		
-		while(!c.isEmpty()){
+		while(!cCopy.isEmpty()){
 			
 			int rnd = r.nextInt()%copy.size();
 			if(rnd <0)rnd*=-1;
 			
 			Room rtmp = copy.remove(rnd);
 			
-			rtmp.setItem(c.remove(0));	
+			rtmp.setItem(cCopy.remove(0));	
 			
-		}	
-		
+		}
+	
 		
 	}
 
@@ -146,16 +152,12 @@ public class KarnaughMaze extends Maze
 	}
 	
 	
-	
 	public static void main(String args[]){
 		
-		
-		KarnaughMaze m = loadMaze("test");
-		
-	
-		
+		System.out.println(KarnaughMaze.loadMaze("test"));
 		
 	}
+	
 	
 	
 }

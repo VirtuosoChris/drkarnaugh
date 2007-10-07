@@ -18,5 +18,8 @@ public abstract class MazeItem{
 	  return room;
 	}
 	
+	abstract public String toString();
+	
+	
 }
 

@@ -10,6 +10,25 @@ public class Room{
 	
 	protected MazeItem localItem = null;
 
+
+	public String toString(){
+		String rs="\nRoom ";
+		rs+= RoomID;
+	
+		rs+=": ";
+
+		if(localItem!=null){
+		  rs+= localItem.toString();
+		}
+		
+		else{rs += "No item in this room!";}
+		
+		rs += '\n';
+		
+		return rs;
+	}
+
+
 	//Constructors
 	public Room(){
 		Up = false; Down = false; Left = false; Right = false;
