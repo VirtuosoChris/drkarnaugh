@@ -105,7 +105,8 @@ public class KarnaughMaze extends Maze
 		 //also exception handling to search the internet for component/mapname if not found can be added at a future date
 		for(int i = 0; i < numcomponents;i++){
 			String classStr = s.next();
-			System.out.println('\"' + classStr + '\"');
+			
+			classStr = "drk.maze."+classStr;
 			
 		  Class n = Class.forName(classStr);
 		 Object ob=n.newInstance();
@@ -137,6 +138,9 @@ public class KarnaughMaze extends Maze
 		KarnaughLog.log("\n");
 		
 		//if we got all the data create a new maze object for use in the game
+		
+		KarnaughLog.log("Successfully loaded map data");
+		
 		return new KarnaughMaze(mazewidth, mazeheight, timelimit, nextmap, components);
 				
 	}
@@ -145,10 +149,11 @@ public class KarnaughMaze extends Maze
 	
 	public static void main(String args[]){
 		
-		Entrance e = new Entrance();
-		Exit ex = new Exit();
 		
 		KarnaughMaze m = loadMaze("test");
+		
+	
+		
 		
 	}
 	
