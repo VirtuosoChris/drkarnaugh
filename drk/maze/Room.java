@@ -7,6 +7,8 @@ public class Room{
 	protected boolean Up, Down, Left, Right;
 	protected int RoomID; //Holds the ID which will initially be in order.
 	protected boolean Visited, Path;
+	
+	protected MazeItem localItem = null;
 
 	//Constructors
 	public Room(){
@@ -19,6 +21,18 @@ public class Room{
 		Visited = false;
 		Path = false;
 	}
+	
+
+	//methods to set and return the item stored in this particular room
+	public void setItem(MazeItem i){
+		localItem = i;
+	}
+	
+	public MazeItem getItem(){
+	     return localItem;
+	}	
+	
+	
 	
 	//Used to open up the boolean walls in the maze.
 	public void MoveUp(){
