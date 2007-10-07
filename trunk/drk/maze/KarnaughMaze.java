@@ -1,10 +1,9 @@
 package drk.maze;
-
 import drk.*;
 import java.util.*;
 import java.io.*;
 
-public class KarnaughMaze //extends Maze
+public class KarnaughMaze extends Maze
 {
 	
 	private int timelimit;
@@ -18,12 +17,34 @@ public class KarnaughMaze //extends Maze
 	//constructor, takes width, height, timelimit, next map, and an arraylist of components to populate the maze with.
 	public KarnaughMaze(int w, int h, int t, String n, ArrayList<MazeItem> c){
 		
-//		super(w,h);
+		super(w,h);
 		
 		timelimit = t;
 		nextmap = n;
 		
-		//needs to associate  each element of c with a node in super
+		//associate each item in c with a room in super's ArrayList<Room> RoomList
+		//so what we do is first copy the list of rooms, and for each component in c generate a random number within the size of the list of rooms.
+		//then add the component to the room, and remove the room from the copied list so we don't hit it again.  If the size of the components list is larger than
+		//the size of the room list  an exception would have been thrown in the map loader, so if the user somehow haxxed the game, and is an idiot, 
+		//SOL
+		
+		//um what about our implicit entrances and exits?  need to add those in too
+		
+		ArrayList<Room> copy = (ArrayList<Room>)RoomList.clone();
+		
+		Random r = new Random();
+		
+		while(!c.isEmpty()){
+			
+			int rnd = r.nextInt()%copy.size();
+			if(rnd <0)rnd*=-1;
+			
+			Room rtmp = copy.remove(rnd);
+			
+			rtmp.setItem(c.remove(0));	
+			
+		}	
+		
 		
 	}
 
@@ -83,8 +104,11 @@ public class KarnaughMaze //extends Maze
 		 //can't be instantiated without further arguments to be loaded from the file
 		 //also exception handling to search the internet for component/mapname if not found can be added at a future date
 		for(int i = 0; i < numcomponents;i++){
-		  Class n = Class.forName(s.next());
-		  Object ob=n.newInstance();
+			String classStr = s.next();
+			System.out.println('\"' + classStr + '\"');
+			
+		  Class n = Class.forName(classStr);
+		 Object ob=n.newInstance();
 		  if(ob instanceof MazeItem)
 			  components.add((MazeItem)ob);
 		  else
@@ -118,10 +142,15 @@ public class KarnaughMaze //extends Maze
 	}
 	
 	
-	public static void main(String args[]){
-		KarnaughLog.log("Please run KarnaughGame.class to play");
-	}
 	
+	public static void main(String args[]){
+		
+		Entrance e = new Entrance();
+		Exit ex = new Exit();
+		
+		KarnaughMaze m = loadMaze("test");
+		
+	}
 	
 	
 }
