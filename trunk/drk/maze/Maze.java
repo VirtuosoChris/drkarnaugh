@@ -10,6 +10,18 @@ public class Maze{ //I had other things I needed to get done so I didnt have tim
 	protected ArrayList<Room> RoomList; //Holds a list of all the rooms in the maze.
 	protected int width, height;
 	
+	
+	public String toString(){
+	  String str = "\n\nMaze Contains Rooms:\n\n";
+	  for(Room r:RoomList){
+	  	str+=r;
+	  }
+	  
+	  return str;
+	  
+	}
+	
+	
 	//Constructor
 	public Maze(int x, int y){
 		
@@ -18,6 +30,7 @@ public class Maze{ //I had other things I needed to get done so I didnt have tim
 		height = y;
 		Create(); //Populates the maze with rooms.
 	}
+
 	
 	public void Create(){
 		
