@@ -14,8 +14,7 @@ public class KarnaughGame{
 	
 	//point of entry
 	public static void main(String args[]){
-		
-		
+	
 	  	KarnaughLog.clearLog(); //we want a fresh log every time we run the program
 		
 		KarnaughLog.log("Starting Dr. Karnaugh's Lab");
