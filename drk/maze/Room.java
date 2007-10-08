@@ -1,7 +1,5 @@
 package drk.maze;
 
-import java.util.*;
-
 public class Room{
 	
 	protected boolean Up, Down, Left, Right;

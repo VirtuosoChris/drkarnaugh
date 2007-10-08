@@ -1,7 +1,8 @@
 package drk.graphics.particle;
 
-import drk.Vector3D;
+
 import drk.DeltaTimer;
+import drk.Vector3D;
 
 public class NewtonMotion3D implements TimeUpdatable
 {
