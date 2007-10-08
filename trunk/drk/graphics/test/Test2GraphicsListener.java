@@ -2,13 +2,16 @@ package drk.graphics.test;
 
 import javax.media.opengl.*;
 import drk.*;
+import java.awt.event.*;
 import drk.graphics.*;
 
-public class Test2GraphicsListener extends GLRenderedGraphicsListener implements GLRenderable,Updatable
+public class Test2GraphicsListener extends GLRenderedGraphicsListener 
+implements GLRenderable,Updatable,KeyListener,MouseMotionListener
 {
 	double timePassed;
 	int numframes;
 	EulerCamera ec;
+	//KarnaughGame
 
 	public Test2GraphicsListener()
 	{
@@ -19,6 +22,9 @@ public class Test2GraphicsListener extends GLRenderedGraphicsListener implements
 	public void init(GLAutoDrawable arg0)
 	{
 	// TODO Auto-generated method stub
+		arg0.addKeyListener(this);
+		//arg0.
+		arg0.addMouseMotionListener(this);
 		GL gl=arg0.getGL();
 		frameTimer.update();
 		ec=(EulerCamera)camera;
@@ -30,7 +36,7 @@ public class Test2GraphicsListener extends GLRenderedGraphicsListener implements
 		camera.fovy=50.0;
 		ec.initialize(gl);	
 	}
-
+	
 	public void display(GLAutoDrawable arg0)
 	{
 		frameTimer.update();
@@ -66,14 +72,70 @@ public class Test2GraphicsListener extends GLRenderedGraphicsListener implements
 	
 	public void update()
 	{
-		//ec.xrotation=60.0*frameTimer.ddt;
-		//ec.yrotation+=10.0*frameTimer.ddt;
+		//KarnaughGame.update();
+		
+		//ec.xrotation=(180.0)*frameTimer.ddt;
+		double vx=180.0;
+		double t=frameTimer.ddt;
+		ec.xrotation+=((up ? vx : 0.0)+(down ? -vx : 0.0))*t;
+		ec.yrotation+=((left ? vx : 0.0)+(right ? -vx : 0.0))*t;
 	}
+	
+	boolean left=false,up=false,right=false,down=false;
+	public void keyPressed(KeyEvent e)
+	{
+		System.err.println("KeyPressed");
+		switch(e.getKeyCode())
+		{
+			case KeyEvent.VK_LEFT:left=true;break;
+			case KeyEvent.VK_RIGHT:right=true;break;
+			case KeyEvent.VK_UP:up=true;break;
+			case KeyEvent.VK_DOWN:down=true;break;			
+		}
+		System.err.println("KeyPressed");
+	}
+     
+	public void 	keyReleased(KeyEvent e)
+	{
+		System.err.println("KeyReleased");
+		switch(e.getKeyCode())
+		{
+			case KeyEvent.VK_LEFT:left=false;break;
+			case KeyEvent.VK_RIGHT:right=false;break;
+			case KeyEvent.VK_UP:up=false;break;
+			case KeyEvent.VK_DOWN:down=false;break;			
+		}
+		System.err.println(e);
+	}
+       
+	public void 	keyTyped(KeyEvent e)
+	{
+		System.err.println("KeyTyped");
+	}
+	public void mouseDragged(MouseEvent e)
+	{
+		
+	}
+	public void mouseMoved(MouseEvent e)
+	{
+		int x=e.getX();
+		int y=e.getY();
+		
+		double xs=(double)x/(double)width;
+		double ys=(double)y/(double)height;
+		
+		ec.yrotation = -xs*(180.0*Math.PI);
+		ec.xrotation = -ys*(180.0*Math.PI);
+		
+		System.err.println("MOved!");
+	}
+	
+	
 	
 	public void render(GL gl)
 	{	
 		
-		gl.glColor3ub((byte)0xFF,(byte)0x00,(byte)0x00);
+		gl.glColor3ub((byte)0x00,(byte)0xCC,(byte)0xFF);
 		gl.glBegin(GL.GL_QUADS);
 		{
 			gl.glVertex3f(1.0f,-1.0f,1.0f);
@@ -90,8 +152,6 @@ public class Test2GraphicsListener extends GLRenderedGraphicsListener implements
 		}
 		gl.glEnd();
 	}
-	
-	
 	
 	public static void main(String[] argv)
 	{

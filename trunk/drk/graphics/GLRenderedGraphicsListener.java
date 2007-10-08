@@ -8,7 +8,7 @@ import com.sun.opengl.util.*;
 
 public abstract class GLRenderedGraphicsListener implements GLEventListener
 {
-	int width,height;
+	protected int width,height;
 	public Camera camera;
 	protected DeltaTimer frameTimer;
 	
@@ -49,7 +49,9 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener
 	{
 		JFrame jf=new JFrame("Dr. Karnaugh's Lab");
 		GLCanvas ad = new GLCanvas(glcaps);
+		//ad.addKeyListener(this);
 		
+
 		try
 		{
 			ad.addGLEventListener(this);
