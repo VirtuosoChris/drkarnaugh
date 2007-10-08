@@ -1,7 +1,7 @@
 package drk.maze;
 
-import java.util.*;
-import java.io.*;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Maze{ //I had other things I needed to get done so I didnt have time to test and fix the shortest path
 					// and other stuff. I will get on it as soon as I can and update it. I just wanted to give the basic
@@ -221,7 +221,7 @@ public class Maze{ //I had other things I needed to get done so I didnt have tim
 	
 	public static void main(String[] args){
 		
-		Maze m = new Maze(4,4);
+		/*Maze m = new Maze(4,4);*/
 			
 		/*LinkedList Shortness = new LinkedList();            
 		Room Start = new Room();
