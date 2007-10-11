@@ -2,6 +2,7 @@ package drk.maze;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.LinkedList;
 
 public class Maze{ //I had other things I needed to get done so I didnt have time to test and fix the shortest path
 					// and other stuff. I will get on it as soon as I can and update it. I just wanted to give the basic
@@ -170,42 +171,44 @@ public class Maze{ //I had other things I needed to get done so I didnt have tim
 		return false;
 	}
 	
-	/*public LinkedList shortestPath(Room Source, Room Dest){
+	//Will find the shortest path using the breadth first search algorithm.
+	public LinkedList shortestPath(Room Source, Room Dest){ //Not yet tested.
 		
-		LinkedList path = new LinkedList();;
-		Source.setPath();
-		path.add(Source);
+		LinkedList OpenPath = new LinkedList();
+		LinkedList ClosedPath = new LinkedList();
 		
-		while(Source.getID() != Dest.getID()){
+		Source.MazePath = null;
+		OpenPath.add(Source);
+		
+		while(!OpenPath.isEmpty()){
 			
-			if((Source.Up() == true) && (RoomList.get(Source.getID()-width).Path() == false))
-				shortestPath(RoomList.get(Source.getID()-width), Dest);
-			if((Source.Right() == true) && (RoomList.get(Source.getID()+1).Path() == false))
-				shortestPath(RoomList.get(Source.getID()+1), Dest);
-			if((Source.Down() == true) && (RoomList.get(Source.getID()+width).Path() == false))
-				shortestPath(RoomList.get(Source.getID()+width), Dest);
-			if((Source.Left() == true) && (RoomList.get(Source.getID()-1).Path() == false))
-				shortestPath(RoomList.get(Source.getID()-1), Dest);
+			Room temp = (Room)OpenPath.removeFirst();
+			if(temp == Dest) //The path is found
+				return createPath(Dest);
 				
-			if((Source.Up() == true) && (path.contains(RoomList.get(Source.getID()-width)))){
-				path.removeLast();
-				shortestPath(RoomList.get(Source.getID()-width), Dest);
-			}
-			if((Source.Right() == true) && (path.contains(RoomList.get(Source.getID()+1)))){
-				path.removeLast();
-				shortestPath(RoomList.get(Source.getID()+1), Dest);
-			}
-			if((Source.Down() == true) && (path.contains(RoomList.get(Source.getID()+width)))){
-				path.removeLast();
-				shortestPath(RoomList.get(Source.getID()+width), Dest);
-			}
-			if((Source.Left() == true) && (path.contains(RoomList.get(Source.getID()-1)))){
-				path.removeLast();
-				shortestPath(RoomList.get(Source.getID()-1), Dest);
-			}
+			else{
+				ClosedPath.add(temp);
+				Iterator i = temp.MazePath.iterator(); //Iterate through all the rooms.
+				while(i.hasNext()){
+					Room NextRoom = (Room)i.next();
+					if((!ClosedPath.contains(NextRoom)) && (!OpenPath.contains(NextRoom))){
+          				NextRoom.MazePath = temp;
+          				OpenPath.add(NextRoom);
+        			}
+				}
+			}	
 		}
-		return path;
-	}*/
+		return null; //Couldnt find a path between the two rooms.
+	}
+	
+	public LinkedList createPath(Room room){ //Creates the path between the Source item and the Destination item.
+		LinkedList NewPath = new LinkedList();
+		while(room.MazePath != null){
+			NewPath.addFirst(room);
+			room = room.MazePath;
+		}
+		return NewPath; //Return that path.
+	}
 	
 	public int getWidth(){
 		return width;
