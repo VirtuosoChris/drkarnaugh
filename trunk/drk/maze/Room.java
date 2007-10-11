@@ -4,7 +4,7 @@ public class Room{
 	
 	protected boolean Up, Down, Left, Right;
 	protected int RoomID; //Holds the ID which will initially be in order.
-	protected boolean Visited, Path;
+	protected boolean Visited;
 	
 	protected MazeItem localItem = null;
 
@@ -30,13 +30,16 @@ public class Room{
 	//Constructors
 	public Room(){
 		Up = false; Down = false; Left = false; Right = false;
+		List AdjRoom;
+		Room MazePath;
 	}
 	
 	public Room(int ID){
 		Up = false; Down = false; Left = false; Right = false;
 		RoomID = ID;
 		Visited = false;
-		Path = false;
+		List AdjRoom;
+		Room MazePath;
 	}
 	
 
@@ -46,7 +49,7 @@ public class Room{
 	}
 	
 	public MazeItem getItem(){
-	     return localItem;
+	    return localItem;
 	}	
 	
 	
@@ -90,11 +93,4 @@ public class Room{
 		return Visited;
 	}
 	
-	public void setPath(){
-		Path = true;
-	}
-	
-	public boolean Path(){
-		return Path;
-	}
 }
