@@ -27,7 +27,7 @@ private static final File LOG = new File("log.txt");
     		if(f == null)throw new Exception("Could Not Open LOG");
     		
     		f.write(e);
-    		f.write("\n\n");
+    		f.write("\n");
     		
     		f.close();
     	}catch(Exception ex){

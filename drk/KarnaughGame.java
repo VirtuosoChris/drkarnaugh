@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class KarnaughGame{
+public class KarnaughGame extends MazeGame{
 
 	//i feel this resolution is the best balance between image quality and
 	//compatibility with older monitors/video drivers.  We can use main's args[] to allow users to set a custom
@@ -46,7 +46,7 @@ public class KarnaughGame{
 		KarnaughLog.log("Fullscreen available = " + gd.isFullScreenSupported());
 		
 	  //The window object	
-      JFrame j = new JFrame();
+      JFrame j = new JFrame("Dr. Karnaugh's Lab");
    		j.setSize(resWidth,resHeight);
 	 	j.setLayout(new FlowLayout());
 	    j.setResizable(false);
