@@ -170,13 +170,23 @@ public class Maze{ //I had other things I needed to get done so I didnt have tim
 			
 		return false;
 	}
+	/*
 	
 	//Will find the shortest path using the breadth first search algorithm.
 	public LinkedList shortestPath(Room Source, Room Dest){ //Not yet tested.
 		
 		LinkedList OpenPath = new LinkedList();
 		LinkedList ClosedPath = new LinkedList();
-		
+		/*heath...you don't need to arrange it like this...run dijkstra's algorithm using the rooms as nodes and their connections as weigths of 1.
+		 * 	All I want is for it to be a linked list of integers that are the room ids.  This shoud actually be very similar to what we did on the 
+		 * 	test but accessing the connection weight for a node isn't an adjacency matrix, its a lookup to see if it connects to the node...
+		 *	
+		 *	However, I didn't actually read your code, so maybe that's actually what you did.
+		 *	all i did was notice you tried to change the definition of Room to have some kind of List object, and this object accessed members that 
+		 *	were undefined.  Not a big deal, but it messed up the build so chris and I couldn't use it from svn, and it caused a temporary panic :)
+		 *	Its ok, because I'm commenting out this function for now, but keep working on it and testing it, man.  Good Job and be careful to comment
+		 *	out un-compilable code before you submit it, ok?
+		 *//*
 		Source.MazePath = null;
 		OpenPath.add(Source);
 		
@@ -208,7 +218,7 @@ public class Maze{ //I had other things I needed to get done so I didnt have tim
 			room = room.MazePath;
 		}
 		return NewPath; //Return that path.
-	}
+	}*/
 	
 	public int getWidth(){
 		return width;
