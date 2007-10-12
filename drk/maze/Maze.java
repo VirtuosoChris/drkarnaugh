@@ -14,8 +14,54 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 	protected int width, height;
 	
 	
-	public void render(GL gl){
-	
+	public void render(GL gl)
+	{
+		double xoff=0.0,zoff=0.0,scale=1.0;
+		double ws=0.02;
+		
+		//Room r=RoomList.get(i);
+		Room r;
+		//fix this for 0-1 with rescaling and translation like chris suggested
+		gl.glBegin(GL.GL_QUADS);
+		{
+			for(int i=0;i<RoomList.size();i++)
+			{
+				r=RoomList.get(i);
+				xoff=(double)(i % width);
+				zoff=(double)(i / width);
+				if(r.Left())
+				{
+					gl.glVertex3d((xoff+ws)*scale,0.0,(zoff+ws)*scale);
+					gl.glVertex3d((xoff+ws)*scale,scale,(zoff+ws)*scale);
+					gl.glVertex3d((xoff+ws)*scale,scale,((zoff-ws)+1.0)*scale);
+					gl.glVertex3d((xoff+ws)*scale,0.0,((zoff-ws)+1.0)*scale);
+				}
+				if(r.Right())
+				{
+					gl.glVertex3d(((xoff-ws)+1.0)*scale,0.0,(zoff+ws)*scale);
+					gl.glVertex3d(((xoff-ws)+1.0)*scale,scale,(zoff+ws)*scale);
+					gl.glVertex3d(((xoff-ws)+1.0)*scale,scale,((zoff-ws)+1.0)*scale);
+					gl.glVertex3d(((xoff-ws)+1.0)*scale,0.0,((zoff-ws)+1.0)*scale);
+				}
+				if(r.Down())
+				{
+
+					gl.glVertex3d((xoff+ws)*scale,0.0,(zoff+ws)*scale);
+					gl.glVertex3d((xoff+ws)*scale,scale,(zoff+ws)*scale);
+					gl.glVertex3d(((xoff-ws)+1.0)*scale,scale,(zoff+ws)*scale);
+					gl.glVertex3d(((xoff-ws)+1.0)*scale,scale,(zoff+ws)*scale);
+				
+				}
+				if(r.Up())
+				{
+					gl.glVertex3d((xoff+ws)*scale,0.0,((zoff-ws)+1.0)*scale);
+					gl.glVertex3d((xoff+ws)*scale,scale,((zoff-ws)+1.0)*scale);
+					gl.glVertex3d(((xoff-ws)+1.0)*scale,scale,((zoff-ws)+1.0)*scale);
+					gl.glVertex3d(((xoff-ws)+1.0)*scale,scale,((zoff-ws)+1.0)*scale);
+				}
+			}	
+		}
+		gl.glEnd();
 	}
 	
 	
@@ -33,7 +79,7 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 	//Constructor
 	public Maze(int x, int y){
 		
-		RoomList = new ArrayList<Room>();;
+		RoomList = new ArrayList<Room>();
 		width = x;
 		height = y;
 		Create(); //Populates the maze with rooms.
