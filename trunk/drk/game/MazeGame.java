@@ -19,13 +19,14 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 	public boolean rightKeyPressed = false; //strafe right
 	
 	public Maze m;
-	public EulerCamera ec;
+	public MazeCamera ec;
 	
 	double timeElapsed = 1.0;
 	
 	public MazeGame(){	   
-		super(new EulerCamera());
-		ec = (EulerCamera)this.camera;
+		super(new MazeCamera());
+		ec = (MazeCamera)this.camera;
+		ec.setMazeGame(this);
 	}
 	
 	public void init(GLAutoDrawable a)
@@ -97,27 +98,9 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 	}
 	
 	public void update(){
-		
+		ec.update();
 		//check for key presses and update camera accordingly
-		Vector3D Zdir=ec.ZNormal.times(new Vector3D(1.0,0.0,1.0)).enormal();
-		Vector3D Xdir=ec.XNormal.times(new Vector3D(1.0,0.0,1.0)).enormal();
-		double walkRate = 1.0;
 		
-		if(upKeyPressed){	
-			ec.Position.eplus((Zdir.times(walkRate*frameTimer.ddt)));
-		}
-		
-		if(downKeyPressed){
-			ec.Position.eplus((Zdir.times(-walkRate*frameTimer.ddt)));
-		}
-		
-		if(leftKeyPressed){
-			ec.Position.eplus((Xdir.times(-walkRate*frameTimer.ddt)));
-		}
-		
-		if(rightKeyPressed){
-			ec.Position.eplus((Xdir.times(walkRate*frameTimer.ddt)));
-		}
 		
 	}
 
@@ -136,10 +119,10 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 		int y=m.getY();
 		
 		double xs=(double)x/(double)width;
-		double ys=(double)y/(double)height;
+		//double ys=(double)y/(double)height;
 		
 		ec.yrotation= -xs*(180.0*Math.PI);
-		ec.xrotation= -ys*(180.0*Math.PI);
+		//ec.xrotation= -ys*(180.0*Math.PI);
 
 	}
 	
