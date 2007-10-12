@@ -1,7 +1,7 @@
 package drk.game;
 import drk.DeltaTimer;
 import drk.Updatable;
-import drk.Vector3D;
+
 import drk.graphics.*;
 import drk.maze.*;
 import java.awt.event.*;
@@ -116,7 +116,7 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 		
 		System.err.println("MouseMove event caught");
 		int x=m.getX();
-		int y=m.getY();
+		//int y=m.getY();
 		
 		double xs=(double)x/(double)width;
 		//double ys=(double)y/(double)height;
