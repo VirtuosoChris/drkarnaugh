@@ -1,6 +1,6 @@
 package drk.maze;
 
-public abstract class MazeItem{
+public abstract class MazeItem implements drk.graphics.GLRenderable{
 	protected Room room = null;
 	
 	//this sets the fields in the room object and this to refer to each other.  
