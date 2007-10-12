@@ -98,23 +98,24 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 	public void update(){
 		
 		//check for key presses and update camera accordingly
-		
+		Vector3D Zdir=ec.ZNormal.times(new Vector3D(1.0,0.0,1.0)).enormal();
+		Vector3D Xdir=ec.XNormal.times(new Vector3D(1.0,0.0,1.0)).enormal();
 		double walkRate = 1.0;
 		
 		if(upKeyPressed){	
-			ec.Position.eplus((ec.ZNormal.times(walkRate*frameTimer.ddt)));
+			ec.Position.eplus((Zdir.times(walkRate*frameTimer.ddt)));
 		}
 		
 		if(downKeyPressed){
-			ec.Position.eplus((ec.ZNormal.times(-walkRate*frameTimer.ddt)));
+			ec.Position.eplus((Zdir.times(-walkRate*frameTimer.ddt)));
 		}
 		
 		if(leftKeyPressed){
-			ec.Position.eplus((ec.XNormal.times(-walkRate*frameTimer.ddt)));
+			ec.Position.eplus((Xdir.times(-walkRate*frameTimer.ddt)));
 		}
 		
 		if(rightKeyPressed){
-			ec.Position.eplus((ec.XNormal.times(walkRate*frameTimer.ddt)));
+			ec.Position.eplus((Xdir.times(walkRate*frameTimer.ddt)));
 		}
 		
 	}

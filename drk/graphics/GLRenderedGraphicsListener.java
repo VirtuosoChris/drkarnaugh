@@ -57,7 +57,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		{
 			ad.addGLEventListener(this);
 			ad.addMouseMotionListener(this);
-			jf.addKeyListener(this);
+			ad.addKeyListener(this);
 			//jf.addMouseListener(this)
 		}
 		catch(Exception e)
@@ -72,6 +72,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		jf.setSize(w,h);
 		jf.setVisible(true);
 		jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		ad.requestFocus();
 		while(!jf.isShowing());
 		anim.start();
 		//jf
