@@ -30,7 +30,7 @@ public class Room{
 	//Constructors
 	public Room(){
 		Up = false; Down = false; Left = false; Right = false;
-		List AdjRoom;
+		//List AdjRoom;
 		Room MazePath;
 	}
 	
@@ -38,7 +38,7 @@ public class Room{
 		Up = false; Down = false; Left = false; Right = false;
 		RoomID = ID;
 		Visited = false;
-		List AdjRoom;
+		//List AdjRoom;
 		Room MazePath;
 	}
 	
