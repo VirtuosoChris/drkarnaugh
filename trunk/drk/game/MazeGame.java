@@ -25,6 +25,7 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 	
 	public MazeGame(){	   
 		super(new MazeCamera());
+		m=new Maze(10,10);  //TEMPORARY CONSTRUCTOR
 		ec = (MazeCamera)this.camera;
 		ec.setMazeGame(this);
 	}
@@ -75,10 +76,12 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 		gl.glLoadIdentity();
-		
+		camera.Position.y=0.5;
 		camera.render(gl);
 		
-		gl.glColor3ub((byte)0x00,(byte)0xCC,(byte)0xFF);
+		m.render(gl);
+		
+	/*	gl.glColor3ub((byte)0x00,(byte)0xCC,(byte)0xFF);
 		gl.glBegin(GL.GL_QUADS);
 		{
 			gl.glVertex3f(1.0f,-1.0f,1.0f);
@@ -93,7 +96,7 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 			
 			//gl.glVertex3f()
 		}
-		gl.glEnd();
+		gl.glEnd();*/
 		
 	}
 	
