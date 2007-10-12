@@ -5,8 +5,9 @@ import javax.swing.*;
 import javax.media.opengl.*;
 //import java.awt.*;
 import com.sun.opengl.util.*;
+import java.awt.event.*;
 
-public abstract class GLRenderedGraphicsListener implements GLEventListener
+public abstract class GLRenderedGraphicsListener implements GLEventListener, KeyListener,MouseMotionListener
 {
 	protected int width,height;
 	public Camera camera;
@@ -55,6 +56,9 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener
 		try
 		{
 			ad.addGLEventListener(this);
+			ad.addMouseMotionListener(this);
+			jf.addKeyListener(this);
+			//jf.addMouseListener(this)
 		}
 		catch(Exception e)
 		{
