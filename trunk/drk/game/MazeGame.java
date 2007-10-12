@@ -21,8 +21,6 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 	public Maze m;
 	public MazeCamera ec;
 	
-	double timeElapsed = 1.0;
-	
 	public MazeGame(){	   
 		super(new MazeCamera());
 		m=new Maze(10,10);  //TEMPORARY CONSTRUCTOR
@@ -69,6 +67,10 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 		gl.glDepthFunc(GL.GL_LEQUAL);							// The Type Of Depth Test To Do
 		camera.fovy=50.0;
 		ec.initialize(gl);	
+		
+		/*ec.Position.eplus(new Vector3D(0.0,30.0,0.0));
+		
+		ec.xrotation = -60.0;*/
 	}
 	
 	public void render(GL gl)
@@ -107,14 +109,6 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 		
 	}
 
-	public void keyTyped(KeyEvent k){
-		return;
-	}
-	
-	public void mouseDragged(MouseEvent m){
-		
-	}
-	
 	public void mouseMoved(MouseEvent m){
 		
 		System.err.println("MouseMove event caught");
@@ -129,83 +123,10 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 
 	}
 	
-	public void mouseExited(MouseEvent m){
-		
-	}
-	
-	public void mouseEntered(MouseEvent m){
-		
-	}
-	
-	public void mouseReleased(MouseEvent m){
-		
-	}
-	
-	public void mousePressed(MouseEvent m){
-		
-	}
-	
-	public void mouseClicked(MouseEvent m){
-		
-	}
-	
-	
-	//handle keyboard input from the user
-	public void keyPressed(KeyEvent k){
-		System.err.println("KeyboardEvent event caught");
-	  
-	  switch(k.getKeyCode()){
-	  	
-	  	case KeyEvent.VK_UP:
-	  	 upKeyPressed = true;
-	  	  break;
-	  	
-	  	case KeyEvent.VK_DOWN:
-	  	  downKeyPressed = true;
-	  	  break;	
-	  	
-	  	case KeyEvent.VK_LEFT:
-	  		leftKeyPressed = true;
-	  	  break;
-	  	
-	  	case KeyEvent.VK_RIGHT:
-	  	    rightKeyPressed = true;
-	  	  break;	
-	  	
-	  	default:return;
-	  	
-	  }
-	  
-	  return;
-	}//end method
 	
 	
 	
-	public void keyReleased(KeyEvent k){
 	
-		switch(k.getKeyCode()){
-	  	
-	  	case KeyEvent.VK_UP:
-	  	 upKeyPressed = false;
-	  	  break;
-	  	
-	  	case KeyEvent.VK_DOWN:
-	  	  downKeyPressed = false;
-	  	  break;	
-	  	
-	  	case KeyEvent.VK_LEFT:
-	  		leftKeyPressed = false;
-	  	  break;
-	  	
-	  	case KeyEvent.VK_RIGHT:
-	  	    rightKeyPressed = false;
-	  	  break;	
-	  	
-	  	default:return;
-	  	
-	  }
-	 
-	}//end method
 	
 	public static void main(String[] argv)
 	{

@@ -6,23 +6,30 @@ import javax.media.opengl.*;
 //import java.awt.*;
 import com.sun.opengl.util.*;
 import java.awt.event.*;
+import java.util.Map;
+import java.util.TreeMap;
 
 public abstract class GLRenderedGraphicsListener implements GLEventListener, KeyListener,MouseMotionListener
 {
 	protected int width,height;
 	public Camera camera;
 	protected DeltaTimer frameTimer;
+	protected Map<Integer,Boolean> keyPressedMap;
 	
 	public GLRenderedGraphicsListener(Camera c)
 	{
 		frameTimer=new DeltaTimer();
 		camera=c;
+
+		keyPressedMap=new TreeMap<Integer,Boolean>();
 	}
 	
 	public GLRenderedGraphicsListener()
 	{
 		frameTimer=new DeltaTimer();
 		camera=new EulerCamera();
+
+		keyPressedMap=new TreeMap<Integer,Boolean>();
 	}
 	public double getFrameDt()
 	{
@@ -49,6 +56,56 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	{
 		
 	}
+	
+	public void keyTyped(KeyEvent k){
+		return;
+	}
+	
+	public void mouseDragged(MouseEvent m){
+		
+	}
+public void mouseExited(MouseEvent m){
+		
+	}
+	
+	public void mouseEntered(MouseEvent m){
+		
+	}
+	
+	public void mouseReleased(MouseEvent m){
+		
+	}
+	
+	public void mousePressed(MouseEvent m){
+		
+	}
+	
+	public void mouseClicked(MouseEvent m){
+		
+	}
+	public boolean isKeyPressed(int k)
+	{
+		Boolean result;
+		result=keyPressedMap.get(k);
+		return (result==null) ? false : result;
+	}
+	
+//	handle keyboard input from the user
+	public void keyPressed(KeyEvent k){
+		System.err.println("KeyboardEvent event caught");
+	  
+	  keyPressedMap.put(k.getKeyCode(),true);
+	  
+	  return;
+	}//end method
+	
+	
+	
+	public void keyReleased(KeyEvent k){
+	
+		keyPressedMap.put(k.getKeyCode(),false);
+	 
+	}//end method
 	
 	
 	public void doMain(int w,int h,GLCapabilities glcaps,boolean runasFast)

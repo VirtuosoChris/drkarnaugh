@@ -29,35 +29,35 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 				r=RoomList.get(i);
 				xoff=(double)(i % width);
 				zoff=(double)(i / width);
-				if(r.Left())
+				if(!r.Left())
 				{
+					//gl
 					gl.glVertex3d((xoff+ws)*scale,0.0,(zoff+ws)*scale);
 					gl.glVertex3d((xoff+ws)*scale,scale,(zoff+ws)*scale);
 					gl.glVertex3d((xoff+ws)*scale,scale,((zoff-ws)+1.0)*scale);
 					gl.glVertex3d((xoff+ws)*scale,0.0,((zoff-ws)+1.0)*scale);
 				}
-				if(r.Right())
+				if(!r.Right())
 				{
 					gl.glVertex3d(((xoff-ws)+1.0)*scale,0.0,(zoff+ws)*scale);
 					gl.glVertex3d(((xoff-ws)+1.0)*scale,scale,(zoff+ws)*scale);
 					gl.glVertex3d(((xoff-ws)+1.0)*scale,scale,((zoff-ws)+1.0)*scale);
 					gl.glVertex3d(((xoff-ws)+1.0)*scale,0.0,((zoff-ws)+1.0)*scale);
 				}
-				if(r.Down())
+				if(!r.Down())
 				{
-
 					gl.glVertex3d((xoff+ws)*scale,0.0,(zoff+ws)*scale);
 					gl.glVertex3d((xoff+ws)*scale,scale,(zoff+ws)*scale);
 					gl.glVertex3d(((xoff-ws)+1.0)*scale,scale,(zoff+ws)*scale);
-					gl.glVertex3d(((xoff-ws)+1.0)*scale,scale,(zoff+ws)*scale);
+					gl.glVertex3d(((xoff-ws)+1.0)*scale,0.0,(zoff+ws)*scale);
 				
 				}
-				if(r.Up())
+				if(!r.Up())
 				{
 					gl.glVertex3d((xoff+ws)*scale,0.0,((zoff-ws)+1.0)*scale);
 					gl.glVertex3d((xoff+ws)*scale,scale,((zoff-ws)+1.0)*scale);
 					gl.glVertex3d(((xoff-ws)+1.0)*scale,scale,((zoff-ws)+1.0)*scale);
-					gl.glVertex3d(((xoff-ws)+1.0)*scale,scale,((zoff-ws)+1.0)*scale);
+					gl.glVertex3d(((xoff-ws)+1.0)*scale,0.0,((zoff-ws)+1.0)*scale);
 				}
 			}	
 		}

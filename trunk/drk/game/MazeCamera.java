@@ -12,6 +12,9 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 	{
 		super();
 		mGame=null;
+		//mGame.ec.Position.eplus(new Vector3D(0.0,30.0,0.0));
+		
+		//mGame.ec.xrotation = -60.0;
 	}
 	public MazeCamera(MazeGame mg)
 	{
@@ -37,6 +40,8 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 		Vector3D Xdir=mGame.ec.XNormal.times(new Vector3D(1.0,0.0,1.0)).enormal();
 		double walkRate = 1.0;
 		double ddt=mGame.getFrameDt();
+		
+		
 		
 		if(mGame.upKeyPressed){	
 			mGame.ec.Position.eplus((Zdir.times(walkRate*ddt)));
