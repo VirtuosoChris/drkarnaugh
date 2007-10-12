@@ -1,8 +1,9 @@
 package drk.maze;
+import javax.media.opengl.*;
 
 public class Exit extends MazeItem {
 	public Exit(){}
-	public void render(javax.media.opengl.GL gl)
+	public void render(GL gl)
 	{
 		
 	}
