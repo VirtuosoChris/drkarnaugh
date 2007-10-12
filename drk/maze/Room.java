@@ -1,6 +1,8 @@
 package drk.maze;
+import drk.graphics.*;
+import javax.media.opengl.*;
 
-public class Room{
+public class Room implements GLRenderable{
 	
 	protected boolean Up, Down, Left, Right;
 	protected int RoomID; //Holds the ID which will initially be in order.
@@ -8,6 +10,10 @@ public class Room{
 	
 	protected MazeItem localItem = null;
 
+
+	public void render(GL gl){
+		
+	}
 
 	public String toString(){
 		String rs="\nRoom ";

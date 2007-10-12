@@ -1,15 +1,22 @@
 package drk.maze;
+import drk.graphics.*;
+import javax.media.opengl.*;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.LinkedList;
 
-public class Maze{ //I had other things I needed to get done so I didnt have time to test and fix the shortest path
+public class Maze implements GLRenderable{ //I had other things I needed to get done so I didnt have time to test and fix the shortest path
 					// and other stuff. I will get on it as soon as I can and update it. I just wanted to give the basic
 					// working room and maze class.
 	
 	protected ArrayList<Room> RoomList; //Holds a list of all the rooms in the maze.
 	protected int width, height;
+	
+	
+	public void render(GL gl){
+	
+	}
 	
 	
 	public String toString(){

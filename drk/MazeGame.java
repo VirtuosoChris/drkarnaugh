@@ -18,7 +18,7 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 	public Maze m;
 	public EulerCamera ec;
 	
-	double timeElapsed = 1.0;
+	double timeElapsed = 0.0;
 	
 	public MazeGame(){	   
 	   ec = new EulerCamera();
@@ -30,7 +30,11 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 	
 	public void initialize(GL gl){}
 	
-	public void render(GL gl){}
+	public void render(GL gl){
+		
+		m.render(gl);
+		
+	}
 	
 	public void update(){
 		
