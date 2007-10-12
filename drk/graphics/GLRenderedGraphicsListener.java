@@ -24,6 +24,11 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		frameTimer=new DeltaTimer();
 		camera=new EulerCamera();
 	}
+	public double getFrameDt()
+	{
+		return frameTimer.ddt;
+	}
+	
 	
 	public void reshape(GLAutoDrawable drawable,int x,int y,int w,int h)	//is xyheight order correct?
 	{
