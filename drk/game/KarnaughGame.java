@@ -1,72 +1,138 @@
 package drk.game;
 import drk.KarnaughLog;
+import drk.*;
 import drk.maze.*;
 import javax.swing.*;
 import java.awt.*;
 
 
-public class KarnaughGame extends MazeGame{
+public class KarnaughGame extends MazeGame implements Updatable{
 
-	//i feel this resolution is the best balance between image quality and
-	//compatibility with older monitors/video drivers.  We can use main's args[] to allow users to set a custom
-	//resolution eventually, but for now thats low on the TODO priority
 	private static int resWidth  = 1024;
 	private static int resHeight = 768;
+
+	private int Score;
+	private long Time; 
+	public boolean paused;
+	
+	private long lastUpdate = 0;
+	
+	public KarnaughGame(){
+		Score = 0;
+		Time = 0;
+		paused = false;
+	}
+	
+	
+	public void gameOver(){
+		//submit score
+		//high score table
+		//return to menu
+	}
+	
+	
+	//you can only die if bunny kills you
+	//if you die, it's game over
+	public void die(){
+		
+		//do stuff -- like knock the camera over and shoot blood everywhere
+		gameOver();
+		
+	}
+	
+	//what happens when the user exits a map
+	public void winMap(){
+		
+		//compute the user's score for this map and add it to score, 
+		//show loading/score tally splash screen
+		
+		if(!((KarnaughMaze)this.m).nextmap.equals("LAST_LEVEL")){
+			loadMap(((KarnaughMaze)this.m).nextmap);
+		}
+		else{
+			gameOver();
+		}
+		
+	}
+	
+	
+	//loads a level.
+	//TODO : will also set the user camera to an appropriate location within the maze and do other stuff
+	public boolean loadMap(String m){
+		this.m = (KarnaughMaze)KarnaughMaze.loadMaze(m);
+		if(this.m == null)return false;
+		
+		Time = ((KarnaughMaze)this.m).timelimit*1000;
+		
+		lastUpdate = System.currentTimeMillis();
+		
+		return true;
+	}
+	
+	
+	
+	public void unPause(){
+		lastUpdate = System.currentTimeMillis();//that way the timer doesn't count off for when the game was paused
+		paused = false;		
+	}
+	
+	
+	//one iteration of the game loop
+	public void update(){
+		
+		super.update();
+		
+		if(paused)return;
+		
+		//test for win/die
+		
+		
+		//if time <= release the bunny or otherwise kill the player
+		
+		long tmp = System.currentTimeMillis() - lastUpdate;
+
+		Time -= tmp;
+		
+		lastUpdate = System.currentTimeMillis();
+		
+		System.out.println(""+minutesLeft()+":"+secondsLeft());
+		
+	}
+	
+	
+	//how much time is left, minutes only
+	public long minutesLeft(){
+		return (Time/1000)/60;
+	}
+	
+	//returns the seconds portion of the time remaining, not counting whole minutes
+	public long secondsLeft(){
+		return (Time/1000)%60;
+	}
+	
 	
 	//point of entry
 	public static void main(String args[]){
 	
-	  	KarnaughLog.clearLog(); //we want a fresh log every time we run the program
-		
+		KarnaughLog.clearLog();
 		KarnaughLog.log("Starting Dr. Karnaugh's Lab");
 		
-		GraphicsEnvironment ge = null;
-		GraphicsDevice gd = null;
+		KarnaughGame m = new KarnaughGame();
+		m.loadMap("test");
+		m.camera.fovy = 30;
+	    m.doMain(resWidth,resHeight,null,true);
 		
-		//attempt to get the graphics device in order to set the application to a fullscreen window
-		//non-windowed runs are not currently supported, but would be easy to add if we're feeling ambitious
-		try{
-		  ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		  
-		  if(ge == null){
-		  	throw new Exception("graphics environment returned null");
-		  }
-		  
-		  gd = ge.getDefaultScreenDevice();
-		  
-		  if(gd == null){
-		  	throw new Exception("graphics device returned null");
-		  }
-		   
-		}catch(Exception e){
-			KarnaughLog.log(e);
-			KarnaughLog.log("Could not get the graphics device.  Program will now close");
-			return;
-		}
-		
-		KarnaughLog.log("Fullscreen available = " + gd.isFullScreenSupported());
-		
-	  //The window object	
-      JFrame j = new JFrame("Dr. Karnaugh's Lab");
-   		j.setSize(resWidth,resHeight);
-	 	j.setLayout(new FlowLayout());
-	    j.setResizable(false);
-	    
-	    //*****
-	    //j.setUndecorated(true); //removes the title bar and borders from the window.  commented out until we have a "quit" button
-	  	//*****
-	  	j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	   //MazeGame mg = new MazeGame();
+	   //mg.m = KarnaughMaze.loadMaze("test");
+	   //mg.camera.fovy = 30;
+	   //mg.doMain(resWidth,resHeight,null,true);
 	  
-	  gd.setFullScreenWindow(j);
-	  
-	  KarnaughMaze k = KarnaughMaze.loadMaze("test");
-	  
-	  if(k == null){
-		KarnaughLog.log("Could not load test level.  Program shutting down");
-		System.exit(0);	  	
-	  }else {
-	  	KarnaughLog.log("Map loaded successfully, game loop may begin");
-	  }
+	  //if(mg.m == null){
+		//KarnaughLog.log("Could not load test level.  Program shutting down");
+		//System.exit(0);	  	
+	  //}else {
+	  	//KarnaughLog.log("Map loaded successfully, game loop may begin");
+	  //}
 	  
 	  
 	  
