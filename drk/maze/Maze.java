@@ -21,6 +21,8 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 		
 		//Room r=RoomList.get(i);
 		Room r;
+		gl.glPushMatrix();
+		gl.glScaled(scale,-scale,scale);
 		//fix this for 0-1 with rescaling and translation like chris suggested
 		gl.glBegin(GL.GL_QUADS);
 		{
@@ -29,39 +31,78 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 				r=RoomList.get(i);
 				xoff=(double)(i % width);
 				zoff=(double)(i / width);
+				
+				switch(i & 0x3)
+				{
+					case 0x0:
+						gl.glColor3f(0.5f,0.5f,0.0f);
+						break;
+					case 0x1:
+						gl.glColor3f(0.0f,0.0f,0.5f);
+						break;
+					case 0x2:
+						gl.glColor3f(0.0f,0.5f,0.0f);
+						break;
+					case 0x3:
+						gl.glColor3f(0.5f,0.0f,0.0f);
+						break;
+				}
+				gl.glVertex3d((xoff+ws),0.0,(zoff+ws));
+				gl.glVertex3d((xoff+ws),0.0,(zoff-ws+1.0));
+				gl.glVertex3d((xoff-ws+1.0),0.0,(zoff-ws+1.0));
+				gl.glVertex3d((xoff-ws+1.0),0.0,(zoff+ws));
+				
+				switch(i & 0x3)
+				{
+					case 0x0:
+						gl.glColor3f(1.0f,1.0f,0.0f);
+						break;
+					case 0x1:
+						gl.glColor3f(0.0f,0.0f,1.0f);
+						break;
+					case 0x2:
+						gl.glColor3f(0.0f,1.0f,0.0f);
+						break;
+					case 0x3:
+						gl.glColor3f(1.0f,0.0f,0.0f);
+						break;
+				}
+			
+				
 				if(!r.Left())
 				{
 					//gl
-					gl.glVertex3d((xoff+ws)*scale,0.0,(zoff+ws)*scale);
-					gl.glVertex3d((xoff+ws)*scale,scale,(zoff+ws)*scale);
-					gl.glVertex3d((xoff+ws)*scale,scale,((zoff-ws)+1.0)*scale);
-					gl.glVertex3d((xoff+ws)*scale,0.0,((zoff-ws)+1.0)*scale);
+					gl.glVertex3d((xoff+ws),0.0,(zoff+ws));
+					gl.glVertex3d((xoff+ws),1.0,(zoff+ws));
+					gl.glVertex3d((xoff+ws),1.0,((zoff-ws)+1.0));
+					gl.glVertex3d((xoff+ws),0.0,((zoff-ws)+1.0));
 				}
 				if(!r.Right())
 				{
-					gl.glVertex3d(((xoff-ws)+1.0)*scale,0.0,(zoff+ws)*scale);
-					gl.glVertex3d(((xoff-ws)+1.0)*scale,scale,(zoff+ws)*scale);
-					gl.glVertex3d(((xoff-ws)+1.0)*scale,scale,((zoff-ws)+1.0)*scale);
-					gl.glVertex3d(((xoff-ws)+1.0)*scale,0.0,((zoff-ws)+1.0)*scale);
+					gl.glVertex3d(((xoff-ws)+1.0),0.0,(zoff+ws));
+					gl.glVertex3d(((xoff-ws)+1.0),1.0,(zoff+ws));
+					gl.glVertex3d(((xoff-ws)+1.0),1.0,((zoff-ws)+1.0));
+					gl.glVertex3d(((xoff-ws)+1.0),0.0,((zoff-ws)+1.0));
 				}
 				if(!r.Down())
 				{
-					gl.glVertex3d((xoff+ws)*scale,0.0,(zoff+ws)*scale);
-					gl.glVertex3d((xoff+ws)*scale,scale,(zoff+ws)*scale);
-					gl.glVertex3d(((xoff-ws)+1.0)*scale,scale,(zoff+ws)*scale);
-					gl.glVertex3d(((xoff-ws)+1.0)*scale,0.0,(zoff+ws)*scale);
+					gl.glVertex3d((xoff+ws),0.0,(zoff+ws));
+					gl.glVertex3d((xoff+ws),1.0,(zoff+ws));
+					gl.glVertex3d(((xoff-ws)+1.0),1.0,(zoff+ws));
+					gl.glVertex3d(((xoff-ws)+1.0),0.0,(zoff+ws));
 				
 				}
 				if(!r.Up())
 				{
-					gl.glVertex3d((xoff+ws)*scale,0.0,((zoff-ws)+1.0)*scale);
-					gl.glVertex3d((xoff+ws)*scale,scale,((zoff-ws)+1.0)*scale);
-					gl.glVertex3d(((xoff-ws)+1.0)*scale,scale,((zoff-ws)+1.0)*scale);
-					gl.glVertex3d(((xoff-ws)+1.0)*scale,0.0,((zoff-ws)+1.0)*scale);
+					gl.glVertex3d((xoff+ws),0.0,((zoff-ws)+1.0));
+					gl.glVertex3d((xoff+ws),1.0,((zoff-ws)+1.0));
+					gl.glVertex3d(((xoff-ws)+1.0),1.0,((zoff-ws)+1.0));
+					gl.glVertex3d(((xoff-ws)+1.0),0.0,((zoff-ws)+1.0));
 				}
 			}	
 		}
 		gl.glEnd();
+		gl.glPopMatrix();
 	}
 	
 	
