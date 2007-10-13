@@ -44,8 +44,9 @@ public class EulerCamera extends Camera
 		//GLU glu=new GLU();
 		double[] crm=new double[16];
 		
-		gl.glRotated(-yrotation,0.0,1.0,0.0);
+
 		gl.glRotated(-xrotation,1.0,0.0,0.0);
+		gl.glRotated(-yrotation,0.0,1.0,0.0);
 		gl.glTranslated(-Position.x,-Position.y,-Position.z);
 		
 		gl.glGetDoublev(GL.GL_MODELVIEW_MATRIX,crm,0);

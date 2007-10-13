@@ -16,12 +16,33 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	protected DeltaTimer frameTimer;
 	protected Map<Integer,Boolean> keyPressedMap;
 	
+	protected double xpercentfovy,ypercentfovy;
+	
 	public GLRenderedGraphicsListener(Camera c)
 	{
 		frameTimer=new DeltaTimer();
 		camera=c;
 
 		keyPressedMap=new TreeMap<Integer,Boolean>();
+	}
+	
+	public double getXMousePercentFovy()
+	{
+		return xpercentfovy;
+	}
+	public double getYMousePercentFovy()
+	{
+		return ypercentfovy;
+	}
+	public void mouseMoved(MouseEvent m){
+		
+		//System.err.println("MouseMove event caught");
+		int x=m.getX();
+		int y=m.getY();
+		
+		xpercentfovy=(double)(x+(width>>1))/(double)height;
+		ypercentfovy=(double)(y+(height>>1))/(double)height;
+		
 	}
 	
 	public GLRenderedGraphicsListener()

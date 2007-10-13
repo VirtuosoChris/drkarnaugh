@@ -12,17 +12,12 @@ import javax.media.opengl.*;
 public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,MouseListener,Updatable, GLInitializable, GLRenderable, MouseMotionListener 
 {
 	
-	//refers generically to whatever key is bound to these actions, not the arrow keys particularly
-	public boolean upKeyPressed = false;    //forward
-	public boolean downKeyPressed = false;  //backpedal
-	public boolean leftKeyPressed = false;  //strafe left
-	public boolean rightKeyPressed = false; //strafe right
-	
+	//refers generically to whatever key is bound to these actions, not the arrow keys particularly	
 	public Maze m;
 	public MazeCamera ec;
 	
 	public MazeGame(){	   
-		super(new MazeCamera());
+		super(new DebugMazeCamera());
 		m=new Maze(10,10);  //TEMPORARY CONSTRUCTOR
 		ec = (MazeCamera)this.camera;
 		ec.setMazeGame(this);
@@ -108,25 +103,6 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 		
 		
 	}
-
-	public void mouseMoved(MouseEvent m){
-		
-		System.err.println("MouseMove event caught");
-		int x=m.getX();
-		//int y=m.getY();
-		
-		double xs=(double)x/(double)width;
-		//double ys=(double)y/(double)height;
-		
-		ec.yrotation= -xs*(180.0*Math.PI);
-		//ec.xrotation= -ys*(180.0*Math.PI);
-
-	}
-	
-	
-	
-	
-	
 	
 	public static void main(String[] argv)
 	{
