@@ -1,9 +1,10 @@
 package drk.graphics;
+import drk.KarnaughLog;
 import drk.graphics.Camera;
 import drk.DeltaTimer;
 import javax.swing.*;
 import javax.media.opengl.*;
-//import java.awt.*;
+import java.awt.*;
 import com.sun.opengl.util.*;
 import java.awt.event.*;
 import java.util.Map;
@@ -135,7 +136,34 @@ public void mouseExited(MouseEvent m){
 		GLCanvas ad = new GLCanvas(glcaps);
 		//ad.addKeyListener(this);
 		
-
+		
+		GraphicsEnvironment ge = null;
+		GraphicsDevice gd = null;
+		boolean fullscreen = false;
+		//attempt to get the graphics device in order to set the application to a fullscreen window
+		
+		try{
+		  ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		  
+		  if(ge == null){
+		  	throw new Exception("graphics environment returned null");
+		  }
+		  
+		  gd = ge.getDefaultScreenDevice();
+		  
+		  if(gd == null){
+		  	throw new Exception("graphics device returned null");
+		  }
+		   
+		  KarnaughLog.log("Fullscreen available = " + (fullscreen = gd.isFullScreenSupported()));
+		  
+		}catch(Exception e){
+			KarnaughLog.log(e);
+			KarnaughLog.log("Could not get the graphics device.  Program will run in windowed mode");
+			//return;
+		}
+		
+		
 		try
 		{
 			ad.addGLEventListener(this);
@@ -153,6 +181,15 @@ public void mouseExited(MouseEvent m){
 		anim.setRunAsFastAsPossible(runasFast);
 		jf.getContentPane().add(ad);
 		jf.setSize(w,h);
+		
+		
+		if(fullscreen){
+	    	jf.setResizable(false);
+	    	jf.setUndecorated(true); //removes the title bar and borders from the window.
+	  		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	  		gd.setFullScreenWindow(jf);
+		}
+	  	
 		jf.setVisible(true);
 		jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		ad.requestFocus();

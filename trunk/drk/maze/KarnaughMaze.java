@@ -6,8 +6,8 @@ import java.io.*;
 public class KarnaughMaze extends Maze
 {
 	
-	private int timelimit = 0;
-	private String nextmap = null; 
+	public int timelimit = 0;
+	public String nextmap = null; 
 	private ArrayList<MazeItem> components = null;
 	
 
