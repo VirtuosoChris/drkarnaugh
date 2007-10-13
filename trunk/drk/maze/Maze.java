@@ -22,7 +22,7 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 		//Room r=RoomList.get(i);
 		Room r;
 		gl.glPushMatrix();
-		gl.glScaled(scale,-scale,scale);
+		gl.glScaled(scale,scale,scale);
 		//fix this for 0-1 with rescaling and translation like chris suggested
 		gl.glBegin(GL.GL_QUADS);
 		{
