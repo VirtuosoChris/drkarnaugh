@@ -5,6 +5,7 @@ import javax.media.opengl.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.LinkedList;
+import java.util.AbstractCollection;
 
 public class Maze implements GLRenderable{ //I had other things I needed to get done so I didnt have time to test and fix the shortest path
 					// and other stuff. I will get on it as soon as I can and update it. I just wanted to give the basic
@@ -145,7 +146,7 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 		Room CellRoom = new Room();
 		Room FronRoom = new Room();
 		
-		while(NumVisit < ((width*height)) - 1){
+		while(NumVisit < (width*height)){
 		
 			if(NumVisit == 0){ //First case.
 				RoomNumber = Generator.nextInt((width*height));
@@ -328,19 +329,28 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 	
 	public static void main(String[] args){
 		
-		/*Maze m = new Maze(4,4);*/
-			
-		/*LinkedList Shortness = new LinkedList();            
-		Room Start = new Room();
-		Room End = new Room();
-		Room Temp = new Room();
-		Start = m.getRoom(5);
-		End = m.getRoom(14);
+		Maze m = new Maze(4,4);
 		
-		Shortness = m.shortestPath(Start, End); //Need to fix this method. 
-		/*for(int i = 0; i < Shortness.size(); i++){
-			Temp = (Room)Shortness.get(i);
-			System.out.println("Room ID" + Temp.getID());
-		}*/ 
+		//Test to show the walls should be right.
+		for(int i = 0; i < 16; i++){
+			System.out.print("Number: "+m.getRoom(i).getID()+" ");
+			if(m.getRoom(i).Up() == true)
+				System.out.print("Up = true  ");
+			if(m.getRoom(i).Up() == false)
+				System.out.print("Up = false  ");
+			if(m.getRoom(i).Right() == true)
+				System.out.print("Right = true  ");
+			if(m.getRoom(i).Right() == false)
+				System.out.print("Right = false  ");
+			if(m.getRoom(i).Down() == true)
+				System.out.print("Down = true  ");
+			if(m.getRoom(i).Down() == false)
+				System.out.print("Down = false  ");
+			if(m.getRoom(i).Left() == true)
+				System.out.print("Left = true  ");
+			if(m.getRoom(i).Left() == false)
+				System.out.print("Left = false  ");
+			System.out.println("");
+		} 
 	}
 }
