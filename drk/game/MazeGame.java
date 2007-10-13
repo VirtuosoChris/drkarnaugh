@@ -73,7 +73,7 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 		gl.glLoadIdentity();
-		camera.Position.y=0.5;
+		//camera.Position.y=0.5;
 		camera.render(gl);
 		
 		m.render(gl);
