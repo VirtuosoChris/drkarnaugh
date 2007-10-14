@@ -11,7 +11,6 @@ import javax.media.opengl.*;
 //class that allows the user to generate 
 public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,MouseListener,Updatable, GLInitializable, GLRenderable, MouseMotionListener 
 {
-	
 	//refers generically to whatever key is bound to these actions, not the arrow keys particularly	
 	public Maze m;
 	public MazeCamera ec;
