@@ -10,7 +10,7 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 {
 	MazeGame mGame;
 	double walkRate = 1.0;//units/s
-	double turnRate = 180.0;//deg/s
+	double turnRate = .1;//deg/s
 	public MazeCamera()
 	{
 		super();
