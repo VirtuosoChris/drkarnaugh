@@ -229,7 +229,11 @@ public void mouseExited(MouseEvent m){
 		
 		Animator anim=new Animator(ad);
 		anim.setRunAsFastAsPossible(runasFast);
-		jf.getContentPane().add(ad);
+		jf.getContentPane().setLayout(new BorderLayout());
+		jf.getContentPane().add(ad,BorderLayout.CENTER);
+		JPanel box=new JPanel();
+		box.add(new JButton("Click This Karnaugh Button!Oh Wai..."));
+		jf.getContentPane().add(box,BorderLayout.SOUTH);
 		jf.setSize(w,h);
 		
 		if(fullscreen){
