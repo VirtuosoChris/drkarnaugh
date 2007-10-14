@@ -9,7 +9,12 @@ import java.lang.Math;
 public class Vector3D
 {
 	public double x,y,z;
-	//protected static Vector3D tmpr;
+	public static Vector3D tmpv;
+	
+	static
+	{
+		tmpv=new Vector3D();
+	}
 	
 	public Vector3D()
 	{
@@ -27,6 +32,23 @@ public class Vector3D
 		y=ty;
 		z=tz;
 	}
+	
+	public final Vector3D equals(double t)
+	{
+		x=t;
+		y=t;
+		z=t;
+		return this;
+	}
+	
+	public final Vector3D equals(Vector3D nv)
+	{
+		x=nv.x;
+		y=nv.y;
+		z=nv.z;
+		return this;
+	}
+	
 	
 	public final Vector3D plus(Vector3D nv)
 	{
