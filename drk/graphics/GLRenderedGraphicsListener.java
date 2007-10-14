@@ -9,6 +9,7 @@ import com.sun.opengl.util.*;
 import java.awt.event.*;
 import java.util.Map;
 import java.util.TreeMap;
+import java.awt.Robot;
 
 public abstract class GLRenderedGraphicsListener implements GLEventListener, KeyListener,MouseMotionListener
 {
@@ -19,13 +20,53 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	
 	protected double xpercentfovy,ypercentfovy;
 	
+	protected Robot r;
+	protected boolean recenteringMouse = false;
+
+	int xPrev, yPrev;
+
+	public void recenterMouse(){
+		r.mouseMove(width/2, height/2);
+		xPrev= width/2;
+		yPrev = height/2;
+		recenteringMouse = true;
+	}
+	
+	public GLRenderedGraphicsListener()
+	{
+		frameTimer=new DeltaTimer();
+		camera=new EulerCamera();
+		
+		createRobot();
+
+		keyPressedMap=new TreeMap<Integer,Boolean>();
+	}
+	
 	public GLRenderedGraphicsListener(Camera c)
 	{
 		frameTimer=new DeltaTimer();
 		camera=c;
-
+		
+		createRobot();
+		
 		keyPressedMap=new TreeMap<Integer,Boolean>();
 	}
+	
+	
+	public void createRobot(){
+		
+		xPrev = width/2;
+		yPrev = height/2;
+		
+		try{r = new Robot();}
+		catch(Exception e){
+			KarnaughLog.log("Could not create the Robot for mouselook.  Please contact tech support");
+			System.exit(0);
+		}	
+			
+		recenterMouse();
+	}
+	
 	
 	public double getXMousePercentFovy()
 	{
@@ -37,22 +78,28 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	}
 	public void mouseMoved(MouseEvent m){
 		
+		if(recenteringMouse){recenteringMouse = false;return;}
+		
 		//System.err.println("MouseMove event caught");
 		int x=m.getX();
 		int y=m.getY();
 		
-		xpercentfovy=(double)(x+(width>>1))/(double)height;
-		ypercentfovy=(double)(y+(height>>1))/(double)height;
 		
+		xpercentfovy -=x - xPrev;
+		ypercentfovy +=y - yPrev;
+		//////////////////
+		
+	
+		xPrev = x;
+		yPrev = y;
+		
+		//xpercentfovy=(double)(x+(width>>1))/(double)height;
+		//ypercentfovy=(double)(y+(height>>1))/(double)height;
+		
+		recenterMouse();
 	}
 	
-	public GLRenderedGraphicsListener()
-	{
-		frameTimer=new DeltaTimer();
-		camera=new EulerCamera();
-
-		keyPressedMap=new TreeMap<Integer,Boolean>();
-	}
+	
 	public double getFrameDt()
 	{
 		return frameTimer.ddt;
@@ -181,7 +228,6 @@ public void mouseExited(MouseEvent m){
 		anim.setRunAsFastAsPossible(runasFast);
 		jf.getContentPane().add(ad);
 		jf.setSize(w,h);
-		
 		
 		if(fullscreen){
 	    	jf.setResizable(false);
