@@ -18,7 +18,7 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 	
 	public MazeGame(){	   
 		super(new DebugMazeCamera());
-		m=new Maze(10,10);  //TEMPORARY CONSTRUCTOR
+		m=new Maze(10,12);  //TEMPORARY CONSTRUCTOR
 		ec = (MazeCamera)this.camera;
 		ec.setMazeGame(this);
 	}
