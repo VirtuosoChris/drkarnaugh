@@ -84,9 +84,12 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		int x=m.getX();
 		int y=m.getY();
 		
+//		angle is in percentage of y field of view, so we just have to divide by height...thats w
+		//why the angle per second didn't work right....
+		xpercentfovy -=((double)(x - xPrev))/((double)(height));
+		ypercentfovy +=((double)(y - yPrev))/((double)(height));
 		
-		xpercentfovy -=x - xPrev;
-		ypercentfovy +=y - yPrev;
+		
 		//////////////////
 		
 	
