@@ -25,6 +25,7 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 		Room r;
 		gl.glPushMatrix();
 		gl.glScaled(scale,scale,scale);
+		gl.glBlendFunc(GL.GL_ONE_MINUS_SRC_ALPHA,GL.GL_SRC_ALPHA)
 		//fix this for 0-1 with rescaling and translation like chris suggested
 		gl.glBegin(GL.GL_QUADS);
 		{
