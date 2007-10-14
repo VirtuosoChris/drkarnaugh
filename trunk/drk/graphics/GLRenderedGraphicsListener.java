@@ -78,6 +78,12 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	}
 	public void mouseMoved(MouseEvent m){
 		
+		/*if(isKeyPressed(KeyEvent.VK_CONTROL))
+		{
+			//if()
+			return;
+		}*/
+		
 		if(recenteringMouse){recenteringMouse = false;return;}
 		
 		//System.err.println("MouseMove event caught");
@@ -164,7 +170,7 @@ public void mouseExited(MouseEvent m){
 	
 //	handle keyboard input from the user
 	public void keyPressed(KeyEvent k){
-		System.err.println("KeyboardEvent event caught");
+		//System.err.println("KeyboardEvent event caught");
 	  
 	  keyPressedMap.put(k.getKeyCode(),true);
 	  
