@@ -50,6 +50,10 @@ public class KarnaughMaze extends Maze
 			rtmp.setItem(cCopy.remove(0));	
 			
 		}
+		
+		//temp-- this was a lazy test to make sure the camera-set-coordinates in karnaughgame were correct and the 
+		//camera would not spawn in the incorrect location
+		//RoomList.get(0).setItem(new Entrance());
 	
 		
 	}

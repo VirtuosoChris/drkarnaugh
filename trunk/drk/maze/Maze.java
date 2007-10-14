@@ -14,12 +14,15 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 	protected ArrayList<Room> RoomList; //Holds a list of all the rooms in the maze.
 	protected int width, height;
 
+	public static final double RENDER_HEIGHT = 1.0;
+	public static final double RENDER_WIDTH = 1.25;
 	
 	
 	public void render(GL gl)
 	{
 		double xoff=0.0,zoff=0.0,scale=1.0;
 		double ws=0.02;
+		
 		float alpha=1.0f;
 		
 		//Room r=RoomList.get(i);
@@ -32,8 +35,8 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 			for(int i=0;i<RoomList.size();i++)
 			{
 				r=RoomList.get(i);
-				xoff=(double)(i % width);
-				zoff=(double)(i / width);
+				xoff=(double)(i % width)*RENDER_WIDTH;
+				zoff=(double)(i / width)*RENDER_WIDTH;
 				
 				switch(i & 0x3)
 				{
@@ -51,9 +54,9 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 						break;
 				}
 				gl.glVertex3d((xoff+ws),0.0,(zoff+ws));
-				gl.glVertex3d((xoff+ws),0.0,(zoff-ws+1.0));
-				gl.glVertex3d((xoff-ws+1.0),0.0,(zoff-ws+1.0));
-				gl.glVertex3d((xoff-ws+1.0),0.0,(zoff+ws));
+				gl.glVertex3d((xoff+ws),0.0,(zoff-ws+RENDER_WIDTH));
+				gl.glVertex3d((xoff-ws+RENDER_WIDTH),0.0,(zoff-ws+RENDER_WIDTH));
+				gl.glVertex3d((xoff-ws+RENDER_WIDTH),0.0,(zoff+ws));
 				
 				switch(i & 0x3)
 				{
@@ -76,31 +79,31 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 				{
 					//gl
 					gl.glVertex3d((xoff+ws),0.0,(zoff+ws));
-					gl.glVertex3d((xoff+ws),1.0,(zoff+ws));
-					gl.glVertex3d((xoff+ws),1.0,((zoff-ws)+1.0));
-					gl.glVertex3d((xoff+ws),0.0,((zoff-ws)+1.0));
+					gl.glVertex3d((xoff+ws),RENDER_HEIGHT,(zoff+ws));
+					gl.glVertex3d((xoff+ws),RENDER_HEIGHT,((zoff-ws)+RENDER_WIDTH));
+					gl.glVertex3d((xoff+ws),0.0,((zoff-ws)+RENDER_WIDTH));
 				}
 				if(!r.Right())
 				{
-					gl.glVertex3d(((xoff-ws)+1.0),0.0,(zoff+ws));
-					gl.glVertex3d(((xoff-ws)+1.0),1.0,(zoff+ws));
-					gl.glVertex3d(((xoff-ws)+1.0),1.0,((zoff-ws)+1.0));
-					gl.glVertex3d(((xoff-ws)+1.0),0.0,((zoff-ws)+1.0));
+					gl.glVertex3d(((xoff-ws)+RENDER_WIDTH),0.0,(zoff+ws));
+					gl.glVertex3d(((xoff-ws)+RENDER_WIDTH),RENDER_HEIGHT,(zoff+ws));
+					gl.glVertex3d(((xoff-ws)+RENDER_WIDTH),RENDER_HEIGHT,((zoff-ws)+RENDER_WIDTH));
+					gl.glVertex3d(((xoff-ws)+RENDER_WIDTH),0.0,((zoff-ws)+RENDER_WIDTH));
 				}
 				if(!r.Down())
 				{
-					gl.glVertex3d((xoff+ws),0.0,((zoff-ws)+1.0));
-					gl.glVertex3d((xoff+ws),1.0,((zoff-ws)+1.0));
-					gl.glVertex3d(((xoff-ws)+1.0),1.0,((zoff-ws)+1.0));
-					gl.glVertex3d(((xoff-ws)+1.0),0.0,((zoff-ws)+1.0));
+					gl.glVertex3d((xoff+ws),0.0,((zoff-ws)+RENDER_WIDTH));
+					gl.glVertex3d((xoff+ws),RENDER_HEIGHT,((zoff-ws)+RENDER_WIDTH));
+					gl.glVertex3d(((xoff-ws)+RENDER_WIDTH),RENDER_HEIGHT,((zoff-ws)+RENDER_WIDTH));
+					gl.glVertex3d(((xoff-ws)+RENDER_WIDTH),0.0,((zoff-ws)+RENDER_WIDTH));
 				
 				}
 				if(!r.Up())
 				{
 					gl.glVertex3d((xoff+ws),0.0,(zoff+ws));
-					gl.glVertex3d((xoff+ws),1.0,(zoff+ws));
-					gl.glVertex3d(((xoff-ws)+1.0),1.0,(zoff+ws));
-					gl.glVertex3d(((xoff-ws)+1.0),0.0,(zoff+ws));
+					gl.glVertex3d((xoff+ws),RENDER_HEIGHT,(zoff+ws));
+					gl.glVertex3d(((xoff-ws)+RENDER_WIDTH),RENDER_HEIGHT,(zoff+ws));
+					gl.glVertex3d(((xoff-ws)+RENDER_WIDTH),0.0,(zoff+ws));
 				}
 			}	
 		}
@@ -358,7 +361,7 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 		System.out.println(m.toString());
 		
 		
-		
+		/*
 		//Test to show the walls should be right.
 		for(int i = 0; i < 16; i++){
 			System.out.print("Number: "+m.getRoom(i).getID()+" ");
@@ -379,7 +382,7 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 			if(m.getRoom(i).Left() == false)
 				System.out.print("Left = false  ");
 			System.out.println("");
-		} 
+		} */
 		
 	}
 }

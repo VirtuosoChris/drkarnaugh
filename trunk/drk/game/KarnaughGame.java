@@ -57,10 +57,24 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	
 	
 	//loads a level.
-	//TODO : will also set the user camera to an appropriate location within the maze and do other stuff
+	//TODO : Spawn the Camera so that it's always looking down a hallway and not at a wall
 	public boolean loadMap(String m){
 		this.m = (KarnaughMaze)KarnaughMaze.loadMaze(m);
 		if(this.m == null)return false;
+		
+	
+		int rm = 0;
+		//finds the first room in the maze with an entrance
+		//sets the camera to be located within this room
+		for(rm = 0; rm < this.m.getWidth()*this.m.getHeight();rm++){
+		  if(this.m.getRoom(rm).getItem() instanceof Entrance)break;	
+		}
+		
+		double xoff=(double)(rm % this.m.getWidth())*Maze.RENDER_WIDTH;
+		double zoff=(double)(rm /this.m.getWidth())*Maze.RENDER_WIDTH;
+		
+		ec.Position = new Vector3D(xoff+Maze.RENDER_WIDTH/2,.7*Maze.RENDER_HEIGHT,zoff+.5*Maze.RENDER_WIDTH);
+		
 		
 		Time = ((KarnaughMaze)this.m).timelimit*1000;
 		

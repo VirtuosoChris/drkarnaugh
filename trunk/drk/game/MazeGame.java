@@ -61,6 +61,7 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 		gl.glClearDepth(1.0f);							// Depth Buffer Setup
 		gl.glEnable(GL.GL_DEPTH_TEST);						// Enables Depth Testing
 		gl.glDepthFunc(GL.GL_LEQUAL);							// The Type Of Depth Test To Do
+		
 		camera.fovy=50.0;
 		ec.initialize(gl);	
 		
