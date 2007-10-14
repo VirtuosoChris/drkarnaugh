@@ -20,12 +20,12 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 	{
 		double xoff=0.0,zoff=0.0,scale=1.0;
 		double ws=0.02;
+		float alpha=1.0f;
 		
 		//Room r=RoomList.get(i);
 		Room r;
 		gl.glPushMatrix();
 		gl.glScaled(scale,scale,scale);
-		gl.glBlendFunc(GL.GL_ONE_MINUS_SRC_ALPHA,GL.GL_SRC_ALPHA);
 		//fix this for 0-1 with rescaling and translation like chris suggested
 		gl.glBegin(GL.GL_QUADS);
 		{
@@ -38,16 +38,16 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 				switch(i & 0x3)
 				{
 					case 0x0:
-						gl.glColor3f(0.5f,0.5f,0.0f);
+						gl.glColor4f(0.5f,0.5f,0.0f,alpha);
 						break;
 					case 0x1:
-						gl.glColor3f(0.0f,0.0f,0.5f);
+						gl.glColor4f(0.0f,0.0f,0.5f,alpha);
 						break;
 					case 0x2:
-						gl.glColor3f(0.0f,0.5f,0.0f);
+						gl.glColor4f(0.0f,0.5f,0.0f,alpha);
 						break;
 					case 0x3:
-						gl.glColor3f(0.5f,0.0f,0.0f);
+						gl.glColor4f(0.5f,0.0f,0.0f,alpha);
 						break;
 				}
 				gl.glVertex3d((xoff+ws),0.0,(zoff+ws));
@@ -58,16 +58,16 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 				switch(i & 0x3)
 				{
 					case 0x0:
-						gl.glColor3f(1.0f,1.0f,0.0f);
+						gl.glColor4f(1.0f,1.0f,0.0f,alpha);
 						break;
 					case 0x1:
-						gl.glColor3f(0.0f,0.0f,1.0f);
+						gl.glColor4f(0.0f,0.0f,1.0f,alpha);
 						break;
 					case 0x2:
-						gl.glColor3f(0.0f,1.0f,0.0f);
+						gl.glColor4f(0.0f,1.0f,0.0f,alpha);
 						break;
 					case 0x3:
-						gl.glColor3f(1.0f,0.0f,0.0f);
+						gl.glColor4f(1.0f,0.0f,0.0f,alpha);
 						break;
 				}
 			

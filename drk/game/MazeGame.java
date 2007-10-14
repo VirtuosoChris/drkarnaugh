@@ -57,12 +57,16 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 	
 	public void initialize(GL gl)
 	{
-		gl.glClearColor(1.0f,0.0f,1.0f,1.0f);
+		gl.glClearColor(0.0f,0.0f,0.0f,1.0f);
 		gl.glClearDepth(1.0f);							// Depth Buffer Setup
 		gl.glEnable(GL.GL_DEPTH_TEST);						// Enables Depth Testing
 		gl.glDepthFunc(GL.GL_LEQUAL);							// The Type Of Depth Test To Do
 		camera.fovy=50.0;
 		ec.initialize(gl);	
+		
+
+		//gl.glBlendFunc(GL.GL_SRC_ALPHA,GL.GL_ONE);
+		//gl.glEnable(GL.GL_BLEND);
 		
 		/*ec.Position.eplus(new Vector3D(0.0,30.0,0.0));
 		
