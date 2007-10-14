@@ -13,6 +13,7 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 	
 	protected ArrayList<Room> RoomList; //Holds a list of all the rooms in the maze.
 	protected int width, height;
+
 	
 	
 	public void render(GL gl)
@@ -111,6 +112,29 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 	  String str = "\n\nMaze Contains Rooms:\n\n";
 	  for(Room r:RoomList){
 	  	str+=r;
+	  }
+	  
+	  str+= '\n';
+	  
+	  for(int i = 0; i < this.height; i++){
+	  	
+	  	for(int k = 0; k < this.width; k++){
+	  		
+	  		str+=(i*width+k);
+	  		Room r = RoomList.get((i*width+k));
+	  		
+	  		str+= r.Up ? "u":" ";
+	  		str+= r.Down ? "d":" ";
+	  		str+= r.Left ? "l":" ";
+	  		str+= r.Right ? "r":" ";
+	  			
+	  		str+="\t";
+	  		
+	  		
+	  	}
+	  	
+	  	str+='\n';
+	  	
 	  }
 	  
 	  return str;
@@ -330,6 +354,9 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 	public static void main(String[] args){
 		
 		Maze m = new Maze(4,4);
+		System.out.println(m.toString());
+		
+		
 		
 		//Test to show the walls should be right.
 		for(int i = 0; i < 16; i++){
@@ -352,5 +379,6 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 				System.out.print("Left = false  ");
 			System.out.println("");
 		} 
+		
 	}
 }
