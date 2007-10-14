@@ -25,7 +25,7 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 		Room r;
 		gl.glPushMatrix();
 		gl.glScaled(scale,scale,scale);
-		gl.glBlendFunc(GL.GL_ONE_MINUS_SRC_ALPHA,GL.GL_SRC_ALPHA)
+		gl.glBlendFunc(GL.GL_ONE_MINUS_SRC_ALPHA,GL.GL_SRC_ALPHA);
 		//fix this for 0-1 with rescaling and translation like chris suggested
 		gl.glBegin(GL.GL_QUADS);
 		{
@@ -89,18 +89,18 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 				}
 				if(!r.Down())
 				{
-					gl.glVertex3d((xoff+ws),0.0,(zoff+ws));
-					gl.glVertex3d((xoff+ws),1.0,(zoff+ws));
-					gl.glVertex3d(((xoff-ws)+1.0),1.0,(zoff+ws));
-					gl.glVertex3d(((xoff-ws)+1.0),0.0,(zoff+ws));
-				
-				}
-				if(!r.Up())
-				{
 					gl.glVertex3d((xoff+ws),0.0,((zoff-ws)+1.0));
 					gl.glVertex3d((xoff+ws),1.0,((zoff-ws)+1.0));
 					gl.glVertex3d(((xoff-ws)+1.0),1.0,((zoff-ws)+1.0));
 					gl.glVertex3d(((xoff-ws)+1.0),0.0,((zoff-ws)+1.0));
+				
+				}
+				if(!r.Up())
+				{
+					gl.glVertex3d((xoff+ws),0.0,(zoff+ws));
+					gl.glVertex3d((xoff+ws),1.0,(zoff+ws));
+					gl.glVertex3d(((xoff-ws)+1.0),1.0,(zoff+ws));
+					gl.glVertex3d(((xoff-ws)+1.0),0.0,(zoff+ws));
 				}
 			}	
 		}
