@@ -48,6 +48,13 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 		xrotation=mGame.getYMousePercentFovy()*(-turnRate);
 		yrotation=mGame.getXMousePercentFovy()*turnRate;
 		
+		
+		//thats all i did
+		if(xrotation <= -90.0)xrotation = -90.0;
+		if(xrotation >= 90.0)xrotation = 90.0;
+		
+		System.out.println(xrotation);
+		
 		if(mGame.isKeyPressed(KeyEvent.VK_UP)){	
 			Position.eplus((Zdir.times(walkRate*ddt)));
 		}
