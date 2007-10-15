@@ -15,7 +15,7 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 	protected int width, height;
 
 	public static final double RENDER_HEIGHT = 1.0;
-	public static final double RENDER_WIDTH = 1.25;
+	public static final double RENDER_WIDTH = .75;
 	
 	
 	public void render(GL gl)
