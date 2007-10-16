@@ -293,54 +293,73 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 			
 		return false;
 	}
-	/*
 	
-	//Will find the shortest path using the breadth first search algorithm.
-	public LinkedList shortestPath(Room Source, Room Dest){ //Not yet tested.
+	//Will find the shortest path using the depth first search algorithm.
+	/*I have tested this and it seems to work pretty well. If you guys want a different implementation just let me know and
+	 *I will take care of it. This takes in rooms and outputs rooms, but then I have a print function to print out
+	 *the rooms in number order including the source and destination room. I did this in case you needed to actually keep
+	 *track of the rooms. Also I needed the Path feature that I used in the Room Class before. Its just a basic Path that is set to
+	 *false. Then I need a Path() function to return path, and a setPath() function to set the path to true. I am trying to upload
+	 *the room class but its telling me there is a conflict.
+	public LinkedList shortestPath(Room Source, Room Dest, LinkedList MazePath){
 		
-		LinkedList OpenPath = new LinkedList();
-		LinkedList ClosedPath = new LinkedList();
-		/*heath...you don't need to arrange it like this...run dijkstra's algorithm using the rooms as nodes and their connections as weigths of 1.
-		 * 	All I want is for it to be a linked list of integers that are the room ids.  This shoud actually be very similar to what we did on the 
-		 * 	test but accessing the connection weight for a node isn't an adjacency matrix, its a lookup to see if it connects to the node...
-		 *	
-		 *	However, I didn't actually read your code, so maybe that's actually what you did.
-		 *	all i did was notice you tried to change the definition of Room to have some kind of List object, and this object accessed members that 
-		 *	were undefined.  Not a big deal, but it messed up the build so chris and I couldn't use it from svn, and it caused a temporary panic :)
-		 *	Its ok, because I'm commenting out this function for now, but keep working on it and testing it, man.  Good Job and be careful to comment
-		 *	out un-compilable code before you submit it, ok?
-		 *//*
-		Source.MazePath = null;
-		OpenPath.add(Source);
-		
-		while(!OpenPath.isEmpty()){
-			
-			Room temp = (Room)OpenPath.removeFirst();
-			if(temp == Dest) //The path is found
-				return createPath(Dest);
-				
-			else{
-				ClosedPath.add(temp);
-				Iterator i = temp.MazePath.iterator(); //Iterate through all the rooms.
-				while(i.hasNext()){
-					Room NextRoom = (Room)i.next();
-					if((!ClosedPath.contains(NextRoom)) && (!OpenPath.contains(NextRoom))){
-          				NextRoom.MazePath = temp;
-          				OpenPath.add(NextRoom);
-        			}
-				}
-			}	
+		//System.out.println("This is Room #: "+Source.getID());
+		if(MazePath.size() < 1){
+			if(Source.Path() == false){ //Adds in the first case and recursively wll not be called again.
+				Source.setPath();
+				MazePath.add(Source);
+			}
+			else
+				return null; //If it gets to the end, and removes all the elements and all Paths are set to true, 
+				//then no Path was found.
 		}
-		return null; //Couldnt find a path between the two rooms.
+			
+		if(Source.getID() == Dest.getID())
+			return MazePath; //Return the LinkedList holding the Rooms that connect the Source and Destination.
+		
+		if((Source.Up() == true) && (RoomList.get(Source.getID()-width).Path() == false)){ //Case for moving up.
+			RoomList.get(Source.getID()-width).setPath();
+			MazePath.add(RoomList.get(Source.getID()-width));
+			return shortestPath(RoomList.get(Source.getID()-width), Dest, MazePath);
+		}
+		
+		if((Source.Right() == true) && (RoomList.get(Source.getID()+1).Path() == false)){ //Case for moving right.
+			RoomList.get(Source.getID()+1).setPath();
+			MazePath.add(RoomList.get(Source.getID()+1));
+			return shortestPath(RoomList.get(Source.getID()+1), Dest, MazePath);
+		}
+		
+		if((Source.Down() == true) && (RoomList.get(Source.getID()+width).Path() == false)){ //Case for moving down.
+			RoomList.get(Source.getID()+width).setPath();
+			MazePath.add(RoomList.get(Source.getID()+width));
+			return shortestPath(RoomList.get(Source.getID()+width), Dest, MazePath);
+		}
+		
+		if((Source.Left() == true) && (RoomList.get(Source.getID()-1).Path() == false)){ //Case for moving left.
+			RoomList.get(Source.getID()-1).setPath();
+			MazePath.add(RoomList.get(Source.getID()-1));
+			return shortestPath(RoomList.get(Source.getID()-1), Dest, MazePath);	
+		}
+		
+		if(((Source.Up() == false) || (RoomList.get(Source.getID()-width).Path() == true)) &&
+		  ((Source.Right() == false) || (RoomList.get(Source.getID()+1).Path() == true)) &&
+		  ((Source.Down() == false) || (RoomList.get(Source.getID()+width).Path() == true)) &&
+		  ((Source.Left() == false) || (RoomList.get(Source.getID()-1).Path() == true))){ //This is the case of moving backwards.
+		  	MazePath.removeLast(); //Remove the last Room.
+		  	return shortestPath((Room)MazePath.getLast(), Dest, MazePath); //Call the method with the last room.
+		}
+		
+		return null; //Default return null.	
 	}
 	
-	public LinkedList createPath(Room room){ //Creates the path between the Source item and the Destination item.
-		LinkedList NewPath = new LinkedList();
-		while(room.MazePath != null){
-			NewPath.addFirst(room);
-			room = room.MazePath;
+	
+	public void printPath(LinkedList MazePath){
+		
+		Room TempRoom = new Room();	
+		while(MazePath.size() > 0){
+			TempRoom = (Room)MazePath.removeFirst();
+			System.out.println("Room: "+TempRoom.getID());
 		}
-		return NewPath; //Return that path.
 	}*/
 	
 	public int getWidth(){
@@ -383,6 +402,12 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 				System.out.print("Left = false  ");
 			System.out.println("");
 		} */
+		
+				
+		/*Test Case for shortestPath method.
+		LinkedList NewPath = new LinkedList();
+		NewPath = m.shortestPath(m.getRoom(4),m.getRoom(9),NewPath);
+		m.printPath(NewPath);*/
 		
 	}
 }
