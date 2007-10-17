@@ -37,6 +37,8 @@ public class Room implements GLRenderable{
 	//Constructors
 	public Room(){
 		Up = false; Down = false; Left = false; Right = false;
+		Visited = false;
+		Path = false;
 		
 	}
 	
