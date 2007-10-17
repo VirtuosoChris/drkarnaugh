@@ -21,12 +21,6 @@ public abstract class Particle implements TimeUpdatable, GLRenderable
 
 	}
 
-	public void update()
-	{
-	// TODO Auto-generated method stub
-
-	}
-
 	public void render(GL gl)
 	{
 	// TODO Auto-generated method stub
