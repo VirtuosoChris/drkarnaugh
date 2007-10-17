@@ -70,10 +70,11 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		  if(this.m.getRoom(rm).getItem() instanceof Entrance)break;	
 		}
 		
-		double xoff=(double)(rm % this.m.getWidth())*Maze.RENDER_WIDTH;
-		double zoff=(double)(rm /this.m.getWidth())*Maze.RENDER_WIDTH;
+		//this is awesome chris...I'm going to modify Maze a bit so it's a nicer call...but this works awesome.
+		double xoff=(double)(rm % this.m.getWidth())*RenderableMaze.RENDER_WIDTH;
+		double zoff=(double)(rm /this.m.getWidth())*RenderableMaze.RENDER_WIDTH;
 		
-		ec.Position = new Vector3D(xoff+Maze.RENDER_WIDTH/2,.7*Maze.RENDER_HEIGHT,zoff+.5*Maze.RENDER_WIDTH);
+		ec.Position = new Vector3D(xoff+RenderableMaze.RENDER_WIDTH/2,.7*RenderableMaze.RENDER_HEIGHT,zoff+.5*RenderableMaze.RENDER_WIDTH);
 		
 		
 		Time = ((KarnaughMaze)this.m).timelimit*1000;

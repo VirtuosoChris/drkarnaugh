@@ -12,12 +12,12 @@ import javax.media.opengl.*;
 public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,MouseListener,Updatable, GLInitializable, GLRenderable, MouseMotionListener 
 {
 	//refers generically to whatever key is bound to these actions, not the arrow keys particularly	
-	public Maze m;
+	public RenderableMaze m;
 	public MazeCamera ec;
 	
 	public MazeGame(){	   
 		super(new DebugMazeCamera());
-		m=new Maze(100,50); //TEMPORARY CONSTRUCTOR
+		m=new RenderableMaze(100,50); //TEMPORARY CONSTRUCTOR
 		
 		ec = (MazeCamera)this.camera;
 		ec.setMazeGame(this);
