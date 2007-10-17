@@ -7,6 +7,7 @@ public class Room implements GLRenderable{
 	protected boolean Up, Down, Left, Right;
 	protected int RoomID; //Holds the ID which will initially be in order.
 	protected boolean Visited;
+	protected boolean Path;
 	
 	protected MazeItem localItem = null;
 
@@ -30,22 +31,20 @@ public class Room implements GLRenderable{
 		rs += '\n';
 		
 		return rs;
-	}
+	} 
 
 
 	//Constructors
 	public Room(){
 		Up = false; Down = false; Left = false; Right = false;
-		//List AdjRoom;
-		Room MazePath;
+		
 	}
 	
 	public Room(int ID){
 		Up = false; Down = false; Left = false; Right = false;
 		RoomID = ID;
 		Visited = false;
-		//List AdjRoom;
-		Room MazePath;
+		Path = false;
 	}
 	
 
@@ -97,6 +96,14 @@ public class Room implements GLRenderable{
 	
 	public boolean Visited(){
 		return Visited;
+	}
+	
+	public void setPath(){
+		Path = true;
+	}
+	
+	public boolean Path(){
+		return Path;
 	}
 	
 }
