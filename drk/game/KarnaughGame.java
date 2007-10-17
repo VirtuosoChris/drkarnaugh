@@ -2,8 +2,6 @@ package drk.game;
 import drk.KarnaughLog;
 import drk.*;
 import drk.maze.*;
-import javax.swing.*;
-import java.awt.*;
 
 
 public class KarnaughGame extends MazeGame implements Updatable{

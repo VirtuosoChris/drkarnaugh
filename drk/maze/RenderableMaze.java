@@ -7,7 +7,7 @@ public class RenderableMaze extends Maze implements GLInitializable
 {
 
 	public static final double RENDER_HEIGHT = 1.0;
-	public static final double RENDER_WIDTH = .75;
+	public static final double RENDER_WIDTH = 1.0;
 	
 	public void render(GL gl)
 	{
