@@ -60,7 +60,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	//TODO : Spawn the Camera so that it's always looking down a hallway and not at a wall
 	public boolean loadMap(String m){
 		this.m = (KarnaughMaze)KarnaughMaze.loadMaze(m);
-		if(this.m == null)return false;
+		if( this.m == null) return false;
 		
 	
 		int rm = 0;

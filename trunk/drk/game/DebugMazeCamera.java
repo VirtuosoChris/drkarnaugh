@@ -1,7 +1,6 @@
 package drk.game;
 
 import drk.graphics.Camera;
-import drk.Vector3D;
 
 public class DebugMazeCamera extends MazeCamera
 {
