@@ -352,7 +352,17 @@ public class Maze implements GLRenderable{ //I had other things I needed to get 
 		return null; //Default return null.	
 	}
 	
+	//Given a LinkedList of rooms, this method prints out the numbers of the path from source to destination inclusive.
+	public void printPath(LinkedList MazePath){
+		
+		Room TempRoom = new Room();	
+		while(MazePath.size() > 0){
+			TempRoom = (Room)MazePath.removeFirst();
+			System.out.println("Room: "+TempRoom.getID());
+		}
+	}
 	
+	//Returns a LinkedList of the shortest path of room numbers.
 	public void printPath(LinkedList MazePath){
 		
 		Room TempRoom = new Room();	
