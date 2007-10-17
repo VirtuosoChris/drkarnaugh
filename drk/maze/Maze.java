@@ -198,12 +198,6 @@ public class Maze { //I had other things I needed to get done so I didnt have ti
 	}
 	
 	//Will find the shortest path using the depth first search algorithm.
-	/*I have tested this and it seems to work pretty well. If you guys want a different implementation just let me know and
-	 *I will take care of it. This takes in rooms and outputs rooms, but then I have a print function to print out
-	 *the rooms in number order including the source and destination room. I did this in case you needed to actually keep
-	 *track of the rooms. Also I needed the Path feature that I used in the Room Class before. Its just a basic Path that is set to
-	 *false. Then I need a Path() function to return path, and a setPath() function to set the path to true. I am trying to upload
-	 *the room class but its telling me there is a conflict.
 	public LinkedList shortestPath(Room Source, Room Dest, LinkedList MazePath){
 		
 		//System.out.println("This is Room #: "+Source.getID());
@@ -273,7 +267,7 @@ public class Maze { //I had other things I needed to get done so I didnt have ti
 			TempRoom = (Room)MazePath.removeFirst();
 			System.out.println("Room: "+TempRoom.getID());
 		}
-	}*/
+	}
 	
 	public int getWidth(){
 		return width;
