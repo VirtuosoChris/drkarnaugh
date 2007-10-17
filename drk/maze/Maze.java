@@ -1,11 +1,7 @@
 package drk.maze;
-import drk.graphics.*;
-import javax.media.opengl.*;
-
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.LinkedList;
-import java.util.AbstractCollection;
 
 public class Maze { //I had other things I needed to get done so I didnt have time to test and fix the shortest path
 					// and other stuff. I will get on it as soon as I can and update it. I just wanted to give the basic
@@ -198,7 +194,7 @@ public class Maze { //I had other things I needed to get done so I didnt have ti
 	}
 	
 	//Will find the shortest path using the depth first search algorithm.
-	public LinkedList shortestPath(Room Source, Room Dest, LinkedList MazePath){
+	public LinkedList<Room> shortestPath(Room Source, Room Dest, LinkedList<Room> MazePath){
 		
 		//System.out.println("This is Room #: "+Source.getID());
 		if(MazePath.size() < 1){
@@ -249,7 +245,7 @@ public class Maze { //I had other things I needed to get done so I didnt have ti
 		return null; //Default return null.	
 	}
 	
-	//Given a LinkedList of rooms, this method prints out the numbers of the path from source to destination inclusive.
+/*	//Given a LinkedList of rooms, this method prints out the numbers of the path from source to destination inclusive.
 	public void printPath(LinkedList MazePath){
 		
 		Room TempRoom = new Room();	
@@ -267,7 +263,7 @@ public class Maze { //I had other things I needed to get done so I didnt have ti
 			TempRoom = (Room)MazePath.removeFirst();
 			System.out.println("Room: "+TempRoom.getID());
 		}
-	}
+	}*/
 	
 	public int getWidth(){
 		return width;

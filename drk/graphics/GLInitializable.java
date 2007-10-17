@@ -1,7 +1,7 @@
 package drk.graphics;
 import javax.media.opengl.GL;
 
-public interface GLInitializable
+public interface GLInitializable extends GLRenderable
 {
 	public class GLInitializeException extends Exception
 	{

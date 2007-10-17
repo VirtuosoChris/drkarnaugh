@@ -3,10 +3,7 @@ package drk.maze;
 import javax.media.opengl.GL;
 
 import drk.graphics.GLInitializable;
-import drk.graphics.GLRenderable;
-
-public class RenderableMaze extends Maze implements GLRenderable,
-		GLInitializable
+public class RenderableMaze extends Maze implements GLInitializable
 {
 
 	public static final double RENDER_HEIGHT = 1.0;
