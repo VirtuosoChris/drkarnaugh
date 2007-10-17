@@ -7,7 +7,7 @@ import drk.graphics.GLInitializable;
 public abstract class MazeRenderer implements GLInitializable
 {
 	Maze m;
-	public MazeRenderer(Maze tm)
+	public MazeRenderer(Maze tm,Camera c)
 	{
 		//super();
 		m=tm;
