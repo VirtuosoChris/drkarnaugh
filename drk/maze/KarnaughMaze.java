@@ -3,7 +3,7 @@ import drk.*;
 import java.util.*;
 import java.io.*;
 
-public class KarnaughMaze extends Maze
+public class KarnaughMaze extends RenderableMaze
 {
 	
 	public int timelimit = 0;
