@@ -13,6 +13,8 @@ public class ParticleSystem implements GLInitializable, TimeUpdatable
 	NewtonMotion3D emittermotion;
 	public ParticleSystem(int n)
 	{
+		
+		/*
 		super();
 		particles=new Particle[n];
 		poffsets=new float[n*3];
@@ -29,7 +31,7 @@ public class ParticleSystem implements GLInitializable, TimeUpdatable
 				}
 			}
 		}
-		
+		*/
 		// TODO Auto-generated constructor stub
 	}
 
@@ -48,7 +50,7 @@ public class ParticleSystem implements GLInitializable, TimeUpdatable
 			gl.glColor3f(1.0f,0.0f,1.0f);
 			for(Particle p:particles)
 			{
-				gl.glVertex3d(p.)
+				//gl.glVertex3d(p.)
 			}
 		}
 		gl.glEnd();
