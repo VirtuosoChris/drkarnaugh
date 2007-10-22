@@ -27,7 +27,7 @@ if(( isSet($_REQUEST['name'])  && isSet($_REQUEST['score']) )) {
 
     if($result == false){die("request invalid");}
 
-    echo "Request completed!<br>";
+    echo "Score submitted! ";
 
     $result3 = @mysql_query("select * from userscores where score > $s");
     $result2 = @mysql_query("select * from userscores");
@@ -37,7 +37,7 @@ if(( isSet($_REQUEST['name'])  && isSet($_REQUEST['score']) )) {
 
     $k = $j - $i - 1;
      
-   echo "out of $j users, $i scored higher and $k scored equal or lower"; 
+   echo "Out of $j users, $i scored higher and $k scored equal or lower."; 
 
    mysql_close();
    

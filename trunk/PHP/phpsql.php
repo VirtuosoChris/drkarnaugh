@@ -1,20 +1,12 @@
-<html>
-<head>
-<title>Top Ten!</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-</head>
-
-<body>
-
 <?php
 
-$dbc = mysql_connect('localhost', 'root', 'asdfzxcv') or die("There was a problem accessing the database, please try again later"); 
+$dbc = mysql_connect('localhost', 'root', 'asdfzxcv') or die("ERROR: There was a problem accessing the database, please try again later"); 
 
-mysql_select_db('userscores')  or die("There was a problem accessing the database, please try again later"); 
+mysql_select_db('userscores')  or die("ERROR: There was a problem accessing the database, please try again later"); 
 
 $request = "select * from userscores order by score desc limit 10";
 
-$result = mysql_query($request) or die("There was a problem accessing the database, please try again later"); 
+$result = mysql_query($request) or die("ERROR: There was a problem accessing the database, please try again later"); 
 
 $result2 = mysql_query("select * from userscores");
 
@@ -31,7 +23,8 @@ echo "<br>";
 
 echo '<table border = "1">';
 echo '<tr>';
-}
+}else echo "SUCCESS: ";
+
 if($result && mysql_num_rows($result) > 0){
 
  while($row = mysql_fetch_assoc($result)){
@@ -48,18 +41,20 @@ if($result && mysql_num_rows($result) > 0){
    }
    else
    {
-    echo $row['name']." ".$row['score'].'\n';
+    echo ($row['name'])." "."abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"." ".$row['score']." ";
    }
 
  }
 }
 
+if($_GET['html']!="no")
 echo "</table>";
 
 mysql_close();
 
 
+#</body>
+#</html>
+
 ?>
 
-</body>
-</html>
