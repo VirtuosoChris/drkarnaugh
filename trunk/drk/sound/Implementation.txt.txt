@@ -1,0 +1,4 @@
+I found an open source plugin that will allow for mp3 playback in java. You must include 
+jl1.0, mp3spi1.9.4, and tritonus_share (I believe all three) in order for the mp3's to play.
+I have tested this with a random mp3 I have downloaded and it works. Just call the method
+with the name of the Music files and it will play them in the background.
