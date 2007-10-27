@@ -3,31 +3,66 @@ package drk.maze;
 import javax.media.opengl.GL;
 
 import drk.graphics.GLInitializable;
-public class RenderableMaze extends Maze implements GLInitializable
+import drk.graphics.particle.ParticleSystem;
+import drk.graphics.particle.TimeUpdatable;
+public class RenderableMaze extends Maze implements GLInitializable,TimeUpdatable
 {
-
+	//public MazeGame mg;
+	
+	//setMaze
+	
 	public static final double RENDER_HEIGHT = 1.0;
 	public static final double RENDER_WIDTH = 1.0;
+	
+	ParticleSystem ps;
+	drk.DeltaTimer dt;
+	
+	public RenderableMaze(int w,int h)
+	{
+		super(w,h);
+		ps=new ParticleSystem(3000);
+	}
+	
+	public void setDeltaTimer(drk.DeltaTimer det)
+	{
+		dt=det;
+		ps.setDeltaTimer(det);
+	}
+	
+	public void update()
+	{
+		ps.update();
+	}
 	
 	public void render(GL gl)
 	{
 		double xoff=0.0,zoff=0.0,scale=1.0;
 		double ws=0.02;
-		
+		//ps.update();
 		float alpha=1.0f;
 		
 		//Room r=RoomList.get(i);
 		Room r;
 		gl.glPushMatrix();
 		gl.glScaled(scale,scale,scale);
+		
+		
 		//fix this for 0-1 with rescaling and translation like chris suggested
-		gl.glBegin(GL.GL_QUADS);
-		{
+		
 			for(int i=0;i<RoomList.size();i++)
 			{
+				
 				r=RoomList.get(i);
 				xoff=(double)(i % width)*RENDER_WIDTH;
 				zoff=(double)(i / width)*RENDER_WIDTH;
+				
+				gl.glPushMatrix();
+				gl.glTranslated(xoff+RENDER_WIDTH*0.5,0.0,zoff+RENDER_WIDTH*0.5);
+				ps.render(gl);
+				gl.glPopMatrix();
+				
+				gl.glBegin(GL.GL_QUADS);
+				{
 				
 				switch(i & 0x3)
 				{
@@ -96,19 +131,14 @@ public class RenderableMaze extends Maze implements GLInitializable
 					gl.glVertex3d(((xoff-ws)+RENDER_WIDTH),RENDER_HEIGHT,(zoff+ws));
 					gl.glVertex3d(((xoff-ws)+RENDER_WIDTH),0.0,(zoff+ws));
 				}
-			}	
+				gl.glEnd();
+			}
+			
 		}
-		gl.glEnd();
+		
 		gl.glPopMatrix();
 	}
 	
-
-	public RenderableMaze(int x, int y)
-	{
-		super(x, y);
-		// TODO Auto-generated constructor stub
-	}
-
 	public void initialize(GL gl)
 	{
 	// TODO Auto-generated method stub

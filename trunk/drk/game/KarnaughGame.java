@@ -78,7 +78,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		Time = ((KarnaughMaze)this.m).timelimit*1000;
 		
 		lastUpdate = System.currentTimeMillis();
-		
+		this.m.setDeltaTimer(this.frameTimer);
 		return true;
 	}
 	
