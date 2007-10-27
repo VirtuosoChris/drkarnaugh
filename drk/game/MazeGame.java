@@ -17,10 +17,11 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 	
 	public MazeGame(){	   
 		super(new DebugMazeCamera());
-		m=new RenderableMaze(100,50); //TEMPORARY CONSTRUCTOR
+		//m=new RenderableMaze(100,50); //TEMPORARY CONSTRUCTOR
 		
 		ec = (MazeCamera)this.camera;
 		ec.setMazeGame(this);
+		//m.setDeltaTimer(this.frameTimer);
 	}
 	
 	public void init(GLAutoDrawable a)
@@ -28,6 +29,7 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 		GL gl=a.getGL();
 		frameTimer.update();
 		initialize(gl);
+		m.setDeltaTimer(frameTimer);
 		
 	}
 
