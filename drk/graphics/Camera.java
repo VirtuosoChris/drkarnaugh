@@ -48,7 +48,20 @@ public abstract class Camera implements GLRenderable,GLInitializable
 	{
 	
 	}
-	
+	/*
+	public boolean isCollidedWith(Vector2D sphere,double radius)
+	{
+		Vector2D dist=sphere.minus(Position);
+		return dist.mag2() < radius*radius;
+	}
+	public boolean isPointingAt(Vector2D sphere,double radius)
+	{
+		Vector2D v = sphere.minus(Position);
+		double a = v.dot(zNormal);
+		double d2 = v.mag2()-a*a;
+		return d2 < radius*radius;
+	}
+	*/
 	
 	public static double getFovyFromScreenInfo(double VerticalScreenHeight,double WindowPercentage,double eye_dist)
 	{

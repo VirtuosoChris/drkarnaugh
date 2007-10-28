@@ -8,7 +8,7 @@ import drk.KarnaughLog;
 import java.net.*;
 import java.io.*;
 import java.util.*;
-import java.lang.Character;
+//import java.lang.Character;
  
 public final class HighScores {
 
@@ -20,38 +20,29 @@ public static final String ERROR = "ERROR:";
 public static final String SUCCESS = "SUCCESS:";
 
 
-/*
-//prototype 1 : generates a string combined out of an int that is f(input), a char that is f(input), and perhaps other ints and char combos
-//downside : can simply see the "components" and create a program to have a given set of input data and try to submit it with all possible hash values
-//complexity here varies
-private static String hash1(int i, String s){
-	int hash = 0;
-	int x = 555;
-	
-	
-	String t = (""+s)+i;
-	hash += (((s.length() * 101) * ((i-11) * (i-11))))%1000000 / (t.charAt(0)%128 + t.charAt(t.length()-1)%128  + t.charAt(x%t.length())%128);
-	
-	hash*=hash;
-	
-	String shash = ""+hash+(char)(hash*(101*hash/x)%128);
-	
-	return shash;
-}
-*/
-
-//this one has a complexity of 128^50 or approx 2.28 * 10^105
 //returns a fixed length string of size 50.  each character has a different function associated with it.
-//if the user has enough power and time to try every possible combo, they have no life and deserve first place anyways
-//actually scratch that
-//I want to use only characters taht are actual visible typable keys -- that is alphanumerics and punctuation
-//no weird shit
-//but thats still a really high number to a really high power
+//Hash key is returned in only alphanumeric characters, that is A-Z, a-z, and 0-9 characters
 private static String hash(int score, String name, int rand){
 	
 	char[] hash = new char[50]; 
 		
-	hash[0] =  (char)((((name.charAt(0) + name.charAt(name.length()-1) + name.charAt(score%name.length())))%94)+33);
+	int valTmp =  ((((name.charAt(0) + name.charAt(name.length()-1) + name.charAt(score%name.length())))));
+	
+	switch(valTmp%3){
+			
+		case 0:
+			hash[0] = (char)((valTmp%10)+48);
+			break;
+		case 1:
+			hash[0] = (char)((valTmp%26) + 65);
+			break;
+		case 2:	
+			hash[0] = (char)((valTmp%26) + 97);
+			break;
+		default: hash[0] = 0;break;
+			
+		}
+	
 	
 	//System.out.print(hash[0]);
 	
@@ -82,7 +73,25 @@ private static String hash(int score, String name, int rand){
 		
 		
 		//System.out.println(val);
-		hash[i] = (char)((val%94)+33);
+		
+		//make sure that our final character is only in alphanumerics
+		
+		switch(val%3){
+			
+		case 0:
+			hash[i] = (char)((val%10)+48);
+			break;
+		case 1:
+			hash[i] = (char)((val%26) + 65);
+			break;
+		case 2:	
+			hash[i] = (char)((val%26) + 97);
+			break;
+		default: hash[i] = 0;break;
+			
+		}
+		
+		//hash[i] = (char)((val%94)+33);
 		
 	}	
 		
@@ -203,7 +212,7 @@ public static void main(String args[]){
 	
 	//System.out.println("\n\n"+postHighScore(123, "cmp"));
 
-	for(int i = 0; i < 1; i++){
+	for(int i = 0; i < 100; i++){
 		System.out.println(hash(i, "ChrisPugh", 200));
 	}
 

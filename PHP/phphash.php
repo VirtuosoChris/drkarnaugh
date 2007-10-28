@@ -1,5 +1,43 @@
 <?php
 
+#given a hash integer returns a char that is either a-z, A-Z, or 0-9
+function hashChar($val1){
+
+ switch($val1 % 3){
+
+   #numeric character
+   case 0:
+	
+	$val1 = ($val1%10) + 48;
+
+	break;
+   
+
+   #caps letter
+   case 1: 
+
+	$val1 = ($val1 % 26) + 65;
+
+	break;
+
+   #lower letter
+   case 2:
+	
+	$val1 = ($val1 % 26) + 97;	
+			
+	break;
+
+   default: return chr(0);break; #should never ever happen.  ever. never ever.  
+
+ }
+
+return chr($val1);
+}
+
+
+
+
+
 
 $name = "ChrisPugh";
 $score = 0;
@@ -9,10 +47,13 @@ $ascii  = ord( $name{0} );
 $ascii2 = ord( $name{strlen($name)-1} );
 $ascii3 = ord( $name{ $score%strlen($name) } );
 $ascii4 = $ascii + $ascii2 + $ascii3;
-$ascii4 = $ascii4 %94;
-$ascii4 +=33;
 
-$hash[0] = chr($ascii4);
+$hash[0] = hashChar($ascii4);
+
+//$ascii4 = $ascii4 %94;
+//$ascii4 +=33;
+
+//$hash[0] = chr($ascii4);
 
 echo "".$hash[0];
 
@@ -65,10 +106,10 @@ echo "".$hash[0];
 		
 
      //echo "".$val."<br>";
-     $val = (($val%94)+33);
-     $hash[$i] =  chr($val);
+     //$val = (($val%94)+33);
+     $hash[$i] =  hashChar($val);//chr($val);
       
-     echo "".chr($val);
+     echo "".$hash[$i];
 		
   }	
 

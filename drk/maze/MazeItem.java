@@ -14,6 +14,10 @@ public abstract class MazeItem implements drk.graphics.GLRenderable{
 		}
 	}
 	
+	public void render()
+	{
+	}
+	
 	public Room getRoom(){
 	  return room;
 	}
