@@ -1,16 +1,24 @@
 <?php
 
+require("phpHash.php");
+
 if(( isSet($_REQUEST['name'])  && isSet($_REQUEST['score']) )) {
 
  $n = $_REQUEST['name'];
  $s = $_REQUEST['score'];
+ $h = $_REQUEST['hash'];
+ $r = $_REQUEST['r'];
  
+ $h = trim($h);
  $s = trim($s);
  $n = trim($n);  
- 
- if(ctype_digit($s)){
+ $r = trim($r); 
+
+ if(ctype_digit($s) && ctype_digit($r)){
 
   if(strlen($n) <= 25){
+
+    if(strlen($h) == 50 && hashData($n, $s, $r) == $h){
    
    $dbc = mysql_connect('localhost', 'root', 'asdfzxcv') or die("could not connect to database"); 
 
@@ -41,7 +49,7 @@ if(( isSet($_REQUEST['name'])  && isSet($_REQUEST['score']) )) {
 
    mysql_close();
    
-
+    }else echo "Invalid Hash key!";
    }else echo "Name is an invalid string!";
   }else echo "Score is not numeric!";
 
