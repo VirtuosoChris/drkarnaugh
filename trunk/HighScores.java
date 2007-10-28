@@ -1,8 +1,8 @@
 //todo:
-//stop "refresh" bug
-//saving high score data when unable to connect
-//manage local high score table
-//making this particular class secure
+//stop "refresh" bug -- save random to the database.  
+//saving high score data to a file when unable to connect
+//manage a local high score table
+//make hash function a private method of KarnaughGame. 
 
 import drk.KarnaughLog;
 import java.net.*;
@@ -107,7 +107,7 @@ public static String[][] getHighScores(){
 	InputStream is = null;
 	
 	try{
-		is = new URL(""+site+"/phpsql.php?html=no").openStream();
+		is = new URL(""+site+"/highScores.php?html=no").openStream();
 	}catch(Exception e){KarnaughLog.log("Could not connect to the high scores table.  Please try again later");
 						return null;
 	}
@@ -171,7 +171,7 @@ public static String[][] getHighScores(){
 
 
 //posts the user's score to the table, and retrieves the string telling the user how they placed
-public static String postHighScore(int score, String name){
+public static String postHighScore(int score, String name,int r, String hash){
 	
 	if(name.length() > MAXINPUTLENGTH)return "Could not post high score : input name string is invalid";
 	
@@ -179,11 +179,11 @@ public static String postHighScore(int score, String name){
 	
 	InputStream is = null;
 	
-	int r = new Random().nextInt()%256;
-	if(r < 0)r*=-1;
+	//int r = new Random().nextInt()%256;
+	//if(r < 0)r*=-1;
 	
 	try{
-	  is = new URL(site + "/submitscore.php?name="+name+"&score="+score+ "&r="+r+"&code="+hash(score, name,r)).openStream();
+	  is = new URL(site + "/submitScore.php?name="+name+"&score="+score+ "&r="+r+"&hash="+hash).openStream();
 	}catch(Exception e){
 		String rs = "Could not connect to the database.  Please try again later";
 		KarnaughLog.log(rs);

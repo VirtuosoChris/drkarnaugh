@@ -36,12 +36,7 @@ return chr($val1);
 
 
 
-
-
-
-$name = "ChrisPugh";
-$score = 0;
-$rand = 200;
+function hashData($name, $score, $rand){
 
 $ascii  = ord( $name{0} ); 
 $ascii2 = ord( $name{strlen($name)-1} );
@@ -55,7 +50,7 @@ $hash[0] = hashChar($ascii4);
 
 //$hash[0] = chr($ascii4);
 
-echo "".$hash[0];
+//echo "".$hash[0];
 
   for($i = 1; $i < 50; $i++){
 		
@@ -109,12 +104,15 @@ echo "".$hash[0];
      //$val = (($val%94)+33);
      $hash[$i] =  hashChar($val);//chr($val);
       
-     echo "".$hash[$i];
+     //echo "".$hash[$i];
 		
-  }	
+  }
 
 
+  return implode("",$hash);	
 
+
+}
 
 
 
