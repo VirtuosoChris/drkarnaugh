@@ -1,4 +1,6 @@
 package drk.circuit;
+import javax.media.opengl.*;
+
 public class MultiOr extends MultiGate
 {
 	public MultiOr(int a)

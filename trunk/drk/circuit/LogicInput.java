@@ -1,4 +1,6 @@
 package drk.circuit;
+import javax.media.opengl.*;
+
 public class LogicInput extends OutputSystem
 {
 	boolean output;

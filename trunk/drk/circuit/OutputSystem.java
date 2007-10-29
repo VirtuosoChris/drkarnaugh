@@ -1,18 +1,22 @@
 package drk.circuit;
 import java.io.*;
+import javax.media.opengl.*;
 
-public abstract class OutputSystem
+public abstract class OutputSystem extends MazeItem
 {
 	public abstract boolean evaluate();
 	public abstract int getNumInputs();
 	public abstract OutputSystem getInput(int i);
 	public abstract OutputSystem setInput(OutputSystem os,int i);
+	
+	
 	public String toString()
 	{
 		boolean e=evaluate();
 		if(e)	return "1";
 		else	return "0";
 	}
+	
 	public static void printTruthTable(PrintStream out,LogicInput[] lin,OutputSystem root)
 	{
 		int i,j;

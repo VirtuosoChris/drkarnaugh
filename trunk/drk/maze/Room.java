@@ -1,4 +1,5 @@
 package drk.maze;
+import drk.circuit.*;
 import drk.graphics.*;
 import javax.media.opengl.*;
 
@@ -23,7 +24,7 @@ public class Room implements GLRenderable{
 		rs+=": ";
 
 		if(localItem!=null){
-		  rs+= localItem.toString();
+		  rs+= localItem.getClass().getName();//localItem.toString();
 		}
 		
 		else{rs += "No item in this room!";}

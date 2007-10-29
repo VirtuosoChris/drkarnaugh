@@ -1,4 +1,6 @@
 package drk.circuit;
+import javax.media.opengl.*;
+
 public class MultiNor extends MultiGate
 {
 	public MultiNor(int a)

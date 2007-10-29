@@ -1,4 +1,6 @@
 package drk.circuit;
+import javax.media.opengl.*;
+
 public class Multiplexor extends MultiGate
 {
 	int width;
