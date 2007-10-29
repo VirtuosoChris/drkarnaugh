@@ -1,15 +1,14 @@
 5
-20
+10
 180
 LAST_LEVEL
-5
-Exit
-Exit
-Exit
-Exit
-Entrance
+3
+BinaryNor
+BinaryNor
+BinaryNor
 2
 false
 false
 false
 true
+//a and b

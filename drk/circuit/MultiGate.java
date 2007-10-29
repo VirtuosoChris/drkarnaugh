@@ -1,4 +1,5 @@
 package drk.circuit;
+import javax.media.opengl.*;
 
 public abstract class MultiGate extends OutputSystem
 {

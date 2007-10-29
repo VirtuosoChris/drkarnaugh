@@ -1,4 +1,6 @@
 package drk.circuit;
+import javax.media.opengl.*;
+
 public class MultiAnd extends MultiGate
 {
 	public MultiAnd(int a)

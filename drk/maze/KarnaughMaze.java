@@ -1,4 +1,5 @@
 package drk.maze;
+import drk.circuit.*;
 import drk.*;
 import java.util.*;
 import java.io.*;
@@ -63,6 +64,8 @@ public class KarnaughMaze extends RenderableMaze
 		
 		KarnaughLog.log("\nLoading map "+f+".kar");
 		
+		boolean solution[] = null;
+		int numinputs = 0;
 		int mazewidth = 0;
 		int mazeheight = 0;
 		int timelimit = 0;
@@ -101,13 +104,6 @@ public class KarnaughMaze extends RenderableMaze
 		 	KarnaughLog.log("Next map is "+nextmap);
 		 }
 		 
-		 //minus 2 because the entrance and exit will be hard coded into the maze generation.  only guarantee that there will
-		 //be at least one of each
-		 //the map designer can put multiples of each in to help the player escape the bunny and or confuse the fuck out of them  
-		 if(numcomponents > (mazewidth*mazeheight)-2 || numcomponents < 0){
-		 	throw new Exception("Invalid number of components for maze");
-		 }
-		 
 		 KarnaughLog.log("There are "+numcomponents+" components in this maze");
 		 
 		 //generates the classes from the string given.  need some kind of extra processing for things like notes which 
@@ -116,7 +112,7 @@ public class KarnaughMaze extends RenderableMaze
 		for(int i = 0; i < numcomponents;i++){
 			String classStr = s.next();
 			
-			classStr = "drk.maze."+classStr;
+			classStr = "drk.circuit."+classStr;
 			
 		  Class n = Class.forName(classStr);
 		 Object ob=n.newInstance();
@@ -128,7 +124,38 @@ public class KarnaughMaze extends RenderableMaze
 		
 		  
 		  //if ! instanceof test return null and throw exception 
-		}	 
+		}
+		
+		
+		
+		numinputs = s.nextInt();
+		
+		
+		//read in 2^numinputs boolean values
+		
+		solution = new boolean[(1<<numinputs)];
+		
+		KarnaughLog.log("Maze has "+numinputs+"inputs, therefore "+(1<<numinputs)+" truth table size");
+		
+		for(int i = 0; i < (1<<numinputs); i++){
+			
+			solution[i] = s.nextBoolean();	
+			
+		}
+		
+		KarnaughLog.log("\nMap Truth Table Solution:");
+		
+		for(int i = 0; i < solution.length;i++){
+			KarnaughLog.log(""+Integer.toBinaryString(i)+":"+solution[i]);
+		}
+		
+		
+		 //minus 2 because the entrance and exit will be hard coded into the maze generation.  only guarantee that there will
+		 //be at least one of each
+		 //the map designer can put multiples of each in to help the player escape the bunny and or confuse the fuck out of them  
+		 if(numcomponents + numinputs > (mazewidth*mazeheight)-2 || numcomponents < 0 || numinputs <= 0){
+		 	throw new Exception("Invalid number of components for maze");
+		 }	 
 		
 		
 		}catch(FileNotFoundException e){
@@ -158,7 +185,7 @@ public class KarnaughMaze extends RenderableMaze
 	
 	public static void main(String args[]){
 		
-		System.out.println(KarnaughMaze.loadMaze("test"));
+		System.out.println(KarnaughMaze.loadMaze("map05"));
 		
 	}
 	

@@ -2,6 +2,7 @@ package drk.game;
 import drk.KarnaughLog;
 import drk.*;
 import drk.maze.*;
+import drk.circuit.*;
 
 
 public class KarnaughGame extends MazeGame implements Updatable{
