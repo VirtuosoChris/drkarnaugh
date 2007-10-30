@@ -146,7 +146,7 @@ public class KarnaughMaze extends RenderableMaze
 		KarnaughLog.log("\nMap Truth Table Solution:");
 		
 		for(int i = 0; i < solution.length;i++){
-			KarnaughLog.log(""+Integer.toBinaryString(i)+":"+solution[i]);
+			KarnaughLog.log(""+Integer.toString(i,2)+":"+solution[i]);
 		}
 		
 		
@@ -184,6 +184,7 @@ public class KarnaughMaze extends RenderableMaze
 	
 	
 	public static void main(String args[]){
+		KarnaughLog.clearLog();
 		
 		System.out.println(KarnaughMaze.loadMaze("map05"));
 		

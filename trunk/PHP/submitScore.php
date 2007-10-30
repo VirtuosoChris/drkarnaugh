@@ -1,5 +1,11 @@
 <?php
 
+//php page to which data is submitted from the KarnaughGame
+//data is verified, and the hash key is compared to the serverside hash
+//of the same data.
+//If all the checks are passed, username, score, and rand are saved into the database.
+//the output then contains a string describing the user's placement
+
 require("phpHash.php");
 
 if(( isSet($_REQUEST['name'])  && isSet($_REQUEST['score']) )) {

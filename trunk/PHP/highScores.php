@@ -1,5 +1,8 @@
 <?php
 
+//php script that retrieves the top ten scores from the mysql database
+//if html = no, generates in plain text, for use from within the KarnaughGame application
+
 $dbc = mysql_connect('localhost', 'root', 'asdfzxcv') or die("ERROR: There was a problem accessing the database, please try again later"); 
 
 mysql_select_db('userscores')  or die("ERROR: There was a problem accessing the database, please try again later"); 
@@ -51,10 +54,6 @@ if($_GET['html']!="no")
 echo "</table>";
 
 mysql_close();
-
-
-#</body>
-#</html>
 
 ?>
 
