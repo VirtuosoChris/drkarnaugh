@@ -8,7 +8,6 @@ import drk.KarnaughLog;
 import java.net.*;
 import java.io.*;
 import java.util.*;
-//import java.lang.Character;
  
 public final class HighScores {
 
@@ -197,26 +196,6 @@ public static String postHighScore(int score, String name,int r, String hash){
 	
 	
 	return stx;
-}
-
-
-public static void main(String args[]){
-	
-	/*
-	String[][] abc = getHighScores();
-
-	for(int i = 0; i < abc.length;i++){
-		System.out.print(abc[i][0] + " " + abc[i][1]+"\n");
-		
-	}*/
-	
-	//System.out.println("\n\n"+postHighScore(123, "cmp"));
-
-	for(int i = 0; i < 100; i++){
-		System.out.println(hash(i, "ChrisPugh", 200));
-	}
-
-
 }
 
 

@@ -1,11 +1,11 @@
 <?php
 
-#given a hash integer returns a char that is either a-z, A-Z, or 0-9
+//given a hash integer returns a char that is either a-z, A-Z, or 0-9
 function hashChar($val1){
 
  switch($val1 % 3){
 
-   #numeric character
+   //numeric character
    case 0:
 	
 	$val1 = ($val1%10) + 48;
@@ -13,21 +13,21 @@ function hashChar($val1){
 	break;
    
 
-   #caps letter
+   //caps letter
    case 1: 
 
 	$val1 = ($val1 % 26) + 65;
 
 	break;
 
-   #lower letter
+   //lower letter
    case 2:
 	
 	$val1 = ($val1 % 26) + 97;	
 			
 	break;
 
-   default: return chr(0);break; #should never ever happen.  ever. never ever.  
+   default: return chr(0);break; //should never ever happen.  ever. never ever.  
 
  }
 
@@ -35,7 +35,8 @@ return chr($val1);
 }
 
 
-
+//given input data, generate a fifty character long string
+//for use as a hash key
 function hashData($name, $score, $rand){
 
 $ascii  = ord( $name{0} ); 
@@ -45,14 +46,7 @@ $ascii4 = $ascii + $ascii2 + $ascii3;
 
 $hash[0] = hashChar($ascii4);
 
-//$ascii4 = $ascii4 %94;
-//$ascii4 +=33;
-
-//$hash[0] = chr($ascii4);
-
-//echo "".$hash[0];
-
-  for($i = 1; $i < 50; $i++){
+ for($i = 1; $i < 50; $i++){
 		
      $val = 0;
 		
@@ -61,56 +55,36 @@ $hash[0] = hashChar($ascii4);
 
 	$val1 = ($score*$score);
 	
-	//echo "val1 ".$val1."<br>";
 
 	$val2 = ord($hash[$i-1]);
-
-
-	//echo "val2 ".$val2."<br>";	
 
 	$val3 = $val2 * $i;
 	$val3 = $val3/11;
 	
-
-	//echo "val3 ".$val3."<br>";
-
 	$val = $val3 + $val1;
-	
-	//echo "i = ".$i." ".$val1." ".$val2."<br>";
 	
 	$val = $val3; 
 	
-	//$val = (($score*$score) + ord($hash[($i-1)]) * $i / 11 );
-	
-     }
+	}
 		
     else{
         
-        $valA = ord($hash[($rand % $i)]); 
+    $valA = ord($hash[($rand % $i)]); 
 	$valB = ord($hash[$i-1]);
 	$valC = strlen($name);
 	$val = $valA*$valB*7;
-//	$val = $val*7;
 	$val= $val+$valC;
+	
+	}
+	
+   //given the integer, $val, perform a funtion to
+   //convert it to an alphanumeric character
+   $hash[$i] =  hashChar($val);
 
-	//echo "".$valA." ".$valB." ".$valC." ANS ".$val."<br>";
-
-	//* ord($hash[$i-1])*7 + strlen($name);
-    
-    }
-		
-
-     //echo "".$val."<br>";
-     //$val = (($val%94)+33);
-     $hash[$i] =  hashChar($val);//chr($val);
-      
-     //echo "".$hash[$i];
-		
+      	
   }
 
-
   return implode("",$hash);	
-
 
 }
 
