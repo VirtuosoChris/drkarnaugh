@@ -1,4 +1,4 @@
-package drk.circuit;
+package drk.maze;
 import drk.maze.*;
 import javax.media.opengl.*;
 
@@ -16,15 +16,10 @@ public abstract class MazeItem implements drk.graphics.GLRenderable{
 		}
 	}
 	
-	public void render(GL gl)
-	{
-	}
-	
 	public Room getRoom(){
 	  return room;
 	}
-	
-	abstract public String toString();
+	public abstract String toString();
 	
 	
 }
