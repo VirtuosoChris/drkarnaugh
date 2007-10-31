@@ -1,5 +1,7 @@
 package drk.circuit;
 import javax.media.opengl.*;
+
+import drk.maze.MazeItem;
 public class Entrance extends MazeItem {
 	
 	public Entrance(){}
