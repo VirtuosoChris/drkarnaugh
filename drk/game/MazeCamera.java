@@ -9,15 +9,17 @@ import java.awt.event.*;
 public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 {
 	MazeGame mGame;
-	double walkRate = 1.0;//units/s
+	double walkRate = 6.702;//m/s...average human running speed
 	double turnRate = 180.0;//deg/s
+	double height;
 	public MazeCamera()
 	{
 		super();
 		mGame=null;
-		//mGame.ec.Position.eplus(new Vector3D(0.0,30.0,0.0));
-		
-		//mGame.ec.xrotation = -60.0;
+	}
+	public void setHeight(double h)
+	{
+		height=h;
 	}
 	public MazeCamera(MazeGame mg)
 	{
@@ -42,7 +44,7 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 		Vector3D Zdir=mGame.ec.ZNormal.times(new Vector3D(1.0,0.0,1.0)).enormal();
 		Vector3D Xdir=mGame.ec.XNormal.times(new Vector3D(1.0,0.0,1.0)).enormal();
 		double ddt=mGame.getFrameDt();
-		
+		Position.y=height;
 		//System.err.println("Output Keypress");
 		
 		xrotation=mGame.getYMousePercentFovy()*(-turnRate);
