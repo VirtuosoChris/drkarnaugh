@@ -4,7 +4,7 @@ import drk.*;
 import java.util.*;
 import java.io.*;
 
-public class KarnaughMaze extends RenderableMaze
+public class KarnaughMaze extends drk.graphics.game.LegoMaze
 {
 	
 	public int timelimit = 0;
