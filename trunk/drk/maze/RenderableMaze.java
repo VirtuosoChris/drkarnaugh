@@ -20,18 +20,18 @@ public class RenderableMaze extends Maze implements GLInitializable,TimeUpdatabl
 	public RenderableMaze(int w,int h)
 	{
 		super(w,h);
-		ps=new ParticleSystem(3000);
+		//ps=new ParticleSystem(3000);
 	}
 	
 	public void setDeltaTimer(drk.DeltaTimer det)
 	{
 		dt=det;
-		ps.setDeltaTimer(det);
+		//ps.setDeltaTimer(det);
 	}
 	
 	public void update()
 	{
-		ps.update();
+		//ps.update();
 	}
 	
 	public void render(GL gl)
@@ -58,7 +58,7 @@ public class RenderableMaze extends Maze implements GLInitializable,TimeUpdatabl
 				
 				gl.glPushMatrix();
 				gl.glTranslated(xoff+RENDER_WIDTH*0.5,0.0,zoff+RENDER_WIDTH*0.5);
-				ps.render(gl);
+				//ps.render(gl);
 				gl.glPopMatrix();
 				
 				gl.glBegin(GL.GL_QUADS);
