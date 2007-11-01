@@ -20,6 +20,7 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 	public void setHeight(double h)
 	{
 		height=h;
+		Position.y=height;
 	}
 	public MazeCamera(MazeGame mg)
 	{
@@ -38,13 +39,15 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 	{
 		mGame=mg;
 	}
+	//float lastheight;
 	public void update()
 	{
 		//super.update();
 		Vector3D Zdir=mGame.ec.ZNormal.times(new Vector3D(1.0,0.0,1.0)).enormal();
 		Vector3D Xdir=mGame.ec.XNormal.times(new Vector3D(1.0,0.0,1.0)).enormal();
 		double ddt=mGame.getFrameDt();
-		Position.y=height;
+		
+		//Position.y=height;
 		//System.err.println("Output Keypress");
 		
 		xrotation=mGame.getYMousePercentFovy()*(-turnRate);
@@ -71,10 +74,6 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 		
 		if(mGame.isKeyPressed(KeyEvent.VK_RIGHT)){
 			Position.eplus((Xdir.times(walkRate*ddt)));
-		}
-		
-		if(mGame.isKeyPressed(KeyEvent.VK_ESCAPE)){
-			System.exit(0);
 		}
 		
 	}

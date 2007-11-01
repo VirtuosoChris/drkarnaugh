@@ -1,10 +1,12 @@
-package graphics;
+package drk.graphics;
 import javax.media.opengl.*;
-import graphics.*;
 
-import com.sun.opengl.util.texture.*;
+
+
 
 import javax.media.opengl.glu.GLU;
+
+import drk.KarnaughLog;
 public class FrameBufferObject
 {
 	int fbo_handle;
@@ -149,12 +151,16 @@ public class FrameBufferObject
 	public void bind()
 	{
 		GL gl=GLU.getCurrentGL();
-		pushbf=this.getCurrentBoundFBO();
+		pushbf=FrameBufferObject.getCurrentBoundFBO();
 		gl.glBindFramebufferEXT(GL.GL_FRAMEBUFFER_EXT, fbo_handle);
 		gl.glDrawBuffer(GL.GL_COLOR_ATTACHMENT0_EXT);
 		
 		//glPolygonMode(GL_FRONT,GL_FILL);
 		int status = gl.glCheckFramebufferStatusEXT(GL.GL_FRAMEBUFFER_EXT);
+		if(status != GL.GL_FRAMEBUFFER_COMPLETE_EXT)
+		{
+			KarnaughLog.log(fbo_error(status));
+		}
 		//System.err.println(fbo_error(status));
 	//	gl.glPushAttrib(GL.GL_VIEWPORT_BIT);
 	//	gl.glViewport(0,0,tex.getWidth(),tex.getHeight());

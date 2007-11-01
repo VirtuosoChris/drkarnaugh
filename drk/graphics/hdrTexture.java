@@ -1,4 +1,4 @@
-package graphics;
+package drk.graphics;
 
 import javax.media.opengl.*;
 import javax.media.opengl.glu.*;

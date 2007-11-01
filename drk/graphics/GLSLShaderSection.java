@@ -1,6 +1,6 @@
-package graphics;
+package drk.graphics;
 
-import graphics.ShaderException;
+import drk.graphics.GLSLShader;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
@@ -37,7 +37,7 @@ public class GLSLShaderSection
 		is_compiled=false;
 		shader_source="#version 120\n"+s;
 	}
-	public void compileSection() throws ShaderException
+	public void compileSection() throws GLSLShader.ShaderException
 	{
 		GL gl=GLU.getCurrentGL();
 		my_fragment_shader_object=gl.glCreateShaderObjectARB
@@ -56,7 +56,7 @@ public class GLSLShaderSection
 		
 		gl.glCompileShaderARB(my_fragment_shader_object);
 		gl.glGetObjectParameterivARB(my_fragment_shader_object,GL.GL_OBJECT_COMPILE_STATUS_ARB,inta,0);
-		boolean fragerror=false;
+		//boolean fragerror=false;
 		is_compiled=true;
 
 		if((inta[0]) == 0)
@@ -64,7 +64,7 @@ public class GLSLShaderSection
 			byte[] bb=new byte[4096];
 			gl.glGetInfoLogARB(my_fragment_shader_object,4096,null, 0, bb, 0);
 			is_compiled=false;
-			throw new ShaderException("Shader compile error:"+new String(bb));
+			throw new GLSLShader.ShaderException("Shader compile error:"+new String(bb));
 		}
 		
 	}

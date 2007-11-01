@@ -1,4 +1,4 @@
-package graphics;
+package drk.graphics;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
@@ -14,7 +14,8 @@ public class GLSLShader
 	int program_object_push;
 	
 	
-	public class ShaderException extends Exception
+	@SuppressWarnings("serial")
+	public static class ShaderException extends Exception
 	{
 		public ShaderException(String s)
 		{

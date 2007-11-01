@@ -1,5 +1,5 @@
 package drk.circuit;
-import javax.media.opengl.*;
+
 
 public class BinaryXor extends BinaryGate
 {

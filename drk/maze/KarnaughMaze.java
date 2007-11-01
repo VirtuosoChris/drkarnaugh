@@ -1,5 +1,5 @@
 package drk.maze;
-import drk.circuit.*;
+
 import drk.*;
 import java.util.*;
 import java.io.*;
