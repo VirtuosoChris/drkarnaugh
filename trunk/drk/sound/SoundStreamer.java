@@ -4,43 +4,44 @@ import java.io.IOException;
  
 import javax.sound.sampled.*;
 import java.util.*;
-import java.lang.*;
 
-public class SoundStreamer{
+public class SoundStreamer extends Thread{
 
-	static Vector<Thread>	StreamingFiles;
-
+	File song;
+	boolean isStopped;
+	
+	protected SoundStreamer(File f)
+	{
+		f=song;
+		isStopped=false;
+	}
+	public synchronized void stopNow()
+	{
+		isStopped=true;
+	}
+	public void run()
+	{
+		playSoundFile(song);
+	}
+	static Vector<SoundStreamer> Streams;
 	static 
 	{
-		StreamingFiles=new Vector<Thread>();
+		Streams=new Vector<SoundStreamer>();
 	}
-
+	
 	public static int playThreadedStreamedLooped(final File song)
 	{
-		Thread th=new Thread()
-		{
-			File f;
-			{
-				f=song;
-			}
-			public void run()
-			{
-				while(true)
-				{
-					SoundStreamer.SoundFile(f);
-				}
-			}
-		};
+		SoundStreamer th=new SoundStreamer(song);
 		th.start();
-		int i=StreamingFiles.size();
-		StreamingFiles.add(th);
+		int i=Streams.size();
+		Streams.add(th);
 		return i;
 	}
-	public static boolean stopPlayImmediately(int id) //unsafe..but w/e
+	public static boolean stopPlayImmediately(int id) 
 	{
 		try
 		{
-			StreamingFiles.elementAt(id).stop();
+			Streams.elementAt(id).stopNow();
 		}catch(Exception e)
 		{
 			return false;
@@ -52,8 +53,12 @@ public class SoundStreamer{
 	/*dude...this is totally sweet..it works awesome..not only that, but we can add new sound formats by downloading 
 	other stuff from the site for mp3spi...I just used the jorbis spi files and got ogg-vorbis playing too...
 	kick ass!  good job heath!  I got bored so I went through and added all this thread stuff so we can use it in the game --steve */
-	public static void SoundFile(File song) {
+	public void playSoundFile(File song) {
 		AudioInputStream din = null;
+		@SuppressWarnings("serial") class SoundFinishedException extends Exception
+		{
+			
+		}
 		try {
 			File file=song;
 			AudioInputStream in = AudioSystem.getAudioInputStream(file);
@@ -74,6 +79,8 @@ public class SoundStreamer{
 				
 				int nBytesRead;
 				while ((nBytesRead = din.read(data, 0, data.length)) != -1) {	
+					if(isStopped)
+						throw new SoundFinishedException();
 					line.write(data, 0, nBytesRead);
 				}
 				// Stop
@@ -84,9 +91,14 @@ public class SoundStreamer{
 			}
 			
 		}
+		catch(SoundFinishedException sfe)
+		{
+			
+		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+		
 		finally {
 			if(din != null) {
 				try { din.close(); } catch(IOException e) { }

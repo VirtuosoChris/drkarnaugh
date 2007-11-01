@@ -1,4 +1,6 @@
 package drk.game;
+import java.awt.event.KeyEvent;
+
 import drk.KarnaughLog;
 import drk.*;
 import drk.maze.*;
@@ -98,6 +100,10 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		super.update();
 		
 		if(paused)return;
+		
+		if(isKeyPressed(KeyEvent.VK_ESCAPE)){
+			System.exit(0);
+		}
 		
 		//test for win/die
 		

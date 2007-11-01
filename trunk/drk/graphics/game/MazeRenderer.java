@@ -2,7 +2,7 @@ package drk.graphics.game;
 
 import javax.media.opengl.GL;
 import drk.maze.Maze;
-import drk.graphics.Camera;
+
 import drk.graphics.GLInitializable;
 
 public abstract class MazeRenderer implements GLInitializable

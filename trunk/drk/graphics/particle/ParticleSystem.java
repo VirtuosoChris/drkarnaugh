@@ -48,10 +48,10 @@ public class ParticleSystem implements GLInitializable, TimeUpdatable
 		gl.glBegin(GL.GL_POINTS);
 		{
 			gl.glColor3f(1.0f,0.0f,1.0f);
-			for(Particle p:particles)
+		/*	for(Particle p:particles)
 			{
 				//gl.glVertex3d(p.)
-			}
+			}*/
 		}
 		gl.glEnd();
 	// TODO Auto-generated method stub

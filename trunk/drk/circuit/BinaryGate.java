@@ -1,5 +1,4 @@
 package drk.circuit;
-import javax.media.opengl.*;
 
 public abstract class BinaryGate extends OutputSystem
 {
