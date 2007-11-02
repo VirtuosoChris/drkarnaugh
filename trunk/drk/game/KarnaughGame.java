@@ -78,9 +78,11 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	//TODO : Spawn the Camera so that it's always looking down a hallway and not at a wall
 	public boolean loadMap(String m){
 		this.m = (KarnaughMaze)KarnaughMaze.loadMaze(m);
+	
 		if( this.m == null) return false;
 		
 		int rm = 0;
+		KarnaughMaze km=(KarnaughMaze)this.m;
 		//finds the first room in the maze with an entrance
 		//sets the camera to be located within this room
 		for(rm = 0; rm < this.m.getWidth()*this.m.getHeight();rm++){
@@ -95,13 +97,13 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		ec.Position=this.m.getRoomMiddle(this.m.getRoom(rm));
 		ec.setHeight(1.5);//59 inches in meters (avg human height)
 		
-		Time = ((KarnaughMaze)this.m).timelimit*1000;
+		Time = km.timelimit*1000;
 		
 		lastUpdate = System.currentTimeMillis();
 		this.m.setDeltaTimer(this.frameTimer);
 		
 		///jgshdkjshdfkjdshg
-		final File f = new File("drk/sound/BG Music/"+(((KarnaughMaze)this.m).songfile)+".mp3");
+		final File f = new File("drk/sound/music/"+km.songfile+".mp3");
 		
 		//File f = new File(""+(((KarnaughMaze)this.m).songfile)+".mp3");
 		
@@ -148,7 +150,8 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		
 		lastUpdate = System.currentTimeMillis();
 		
-		System.out.println(""+minutesLeft()+":"+secondsLeft());
+		if(Time % 1000 == 0)
+			System.out.println(""+minutesLeft()+":"+secondsLeft());
 		
 	}
 	
