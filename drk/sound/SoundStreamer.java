@@ -40,6 +40,7 @@ public class SoundStreamer extends Thread{
 	}
 	public static boolean stopPlayImmediately(int id) 
 	{
+		if(id >= Streams.size()) return false;
 		try
 		{
 			Streams.elementAt(id).stopNow();
