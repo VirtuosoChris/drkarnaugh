@@ -159,26 +159,30 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	}
 	
 	public void mouseDragged(MouseEvent m){
+		recenterMouse();
 		
 	}
-public void mouseExited(MouseEvent m){
-		
+
+	public void mouseExited(MouseEvent m){
+
+		recenterMouse();
+
 	}
 	
 	public void mouseEntered(MouseEvent m){
-		
+	recenterMouse();	
 	}
 	
 	public void mouseReleased(MouseEvent m){
-		
+		recenterMouse();
 	}
 	
 	public void mousePressed(MouseEvent m){
-		
+		recenterMouse();
 	}
 	
 	public void mouseClicked(MouseEvent m){
-		
+		recenterMouse();
 	}
 	public boolean isKeyPressed(int k)
 	{
