@@ -5,11 +5,13 @@ import drk.DeltaTimer;
 import javax.swing.*;
 import javax.media.opengl.*;
 import java.awt.*;
+import java.awt.image.*;
 import com.sun.opengl.util.*;
 import java.awt.event.*;
 import java.util.Map;
 import java.util.TreeMap;
 import java.awt.Robot;
+
 
 public abstract class GLRenderedGraphicsListener implements GLEventListener, KeyListener,MouseMotionListener
 {
@@ -265,6 +267,17 @@ public void mouseExited(MouseEvent m){
 	  		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	  		gd.setFullScreenWindow(jf);
 		}
+		
+		
+		//you know, simply letting me do jf.showCursor(false) woulda been AWESOME
+		ImageIcon fake = new ImageIcon("lols this file does not exist");
+		Cursor cr = Toolkit.getDefaultToolkit().createCustomCursor(fake.getImage(), new Point(16, 16), "Blank");
+		jf.setCursor(cr);
+		//adapted from message board post 
+		//http://forum.java.sun.com/thread.jspa?threadID=359516&messageID=3935453
+		//i didnt have a blank png on hand but apparently from my tests ImageIcon returns a blank image if the file isnt found.
+		//just giving it bullshit data is easy.... and seems to work
+		//which is interesting.  But I wanna make sure it doesnt ONLY work on mine...   
 	  	
 		jf.setVisible(true);
 		jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
