@@ -1,12 +1,12 @@
 package drk.maze;
 
-import drk.graphics.GLInitializable;
+import drk.graphics.GLRenderable;
 import drk.graphics.particle.TimeUpdatable;
 import drk.game.MazeCamera;
 import drk.Vector3D;
 import drk.DeltaTimer;
 
-public abstract class RenderableMaze extends Maze implements GLInitializable,TimeUpdatable
+public abstract class RenderableMaze extends Maze implements GLRenderable,TimeUpdatable
 {
 	protected MazeCamera cam;
 	public MazeCamera getCamera()

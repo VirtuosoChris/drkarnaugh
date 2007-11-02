@@ -3,9 +3,9 @@ package drk.graphics.particle;
 import javax.media.opengl.GL;
 
 import drk.DeltaTimer;
-import drk.graphics.GLInitializable;
+import drk.graphics.*;
 
-public class ParticleSystem implements GLInitializable, TimeUpdatable
+public class ParticleSystem implements GLRenderable, TimeUpdatable
 {
 	DeltaTimer deltat;
 	Particle [] particles;
