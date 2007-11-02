@@ -3,6 +3,7 @@ package drk.maze;
 import drk.*;
 import java.util.*;
 import java.io.*;
+import drk.circuit.*;
 
 public class KarnaughMaze extends drk.graphics.game.LegoMaze
 {
@@ -10,6 +11,7 @@ public class KarnaughMaze extends drk.graphics.game.LegoMaze
 	public int timelimit = 0;
 	public String nextmap = null; 
 	private ArrayList<MazeItem> components = null;
+	public String songfile = null;
 	
 
 	//some accessor methods
@@ -18,9 +20,11 @@ public class KarnaughMaze extends drk.graphics.game.LegoMaze
 
 	String filename;
 	//constructor, takes width, height, timelimit, next map, and an arraylist of components to populate the maze with.
-	public KarnaughMaze(int w, int h, int t, String n, ArrayList<MazeItem> c){
+	public KarnaughMaze(int w, int h, int t, String n, ArrayList<MazeItem> c, String sf){
 		
 		super(w,h);
+		
+		songfile = sf;
 		
 		components = c;
 		
@@ -38,6 +42,9 @@ public class KarnaughMaze extends drk.graphics.game.LegoMaze
 		//copies of the room and component lists in order to perform this operation
 		ArrayList<Room> copy = (ArrayList<Room>)RoomList.clone();
 		ArrayList<MazeItem> cCopy = (ArrayList<MazeItem>)c.clone();
+		
+		cCopy.add(new Entrance());
+		cCopy.add(new Exit());
 		
 		Random r = new Random();
 		
@@ -64,6 +71,7 @@ public class KarnaughMaze extends drk.graphics.game.LegoMaze
 		
 		KarnaughLog.log("\nLoading map "+f+".kar");
 		
+		String sf;
 		boolean solution[] = null;
 		int numinputs = 0;
 		int mazewidth = 0;
@@ -121,12 +129,7 @@ public class KarnaughMaze extends drk.graphics.game.LegoMaze
 		  else
 			  KarnaughLog.log("Loading" + n.getSimpleName());
 		  
-		
-		  
-		  //if ! instanceof test return null and throw exception 
 		}
-		
-		
 		
 		numinputs = s.nextInt();
 		
@@ -155,7 +158,12 @@ public class KarnaughMaze extends drk.graphics.game.LegoMaze
 		 //the map designer can put multiples of each in to help the player escape the bunny and or confuse the fuck out of them  
 		 if(numcomponents + numinputs > (mazewidth*mazeheight)-2 || numcomponents < 0 || numinputs <= 0){
 		 	throw new Exception("Invalid number of components for maze");
-		 }	 
+		 }	
+		 	
+		 	
+		 //sound file
+		 sf = s.next(); 
+			KarnaughLog.log("Song is "+ sf);
 		
 		
 		}catch(FileNotFoundException e){
@@ -178,7 +186,7 @@ public class KarnaughMaze extends drk.graphics.game.LegoMaze
 		
 		KarnaughLog.log("Successfully loaded map data");
 		
-		return new KarnaughMaze(mazewidth, mazeheight, timelimit, nextmap, components);
+		return new KarnaughMaze(mazewidth, mazeheight, timelimit, nextmap, components,sf);
 				
 	}
 	

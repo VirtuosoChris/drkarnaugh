@@ -261,7 +261,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		jf.getContentPane().setLayout(new BorderLayout());
 		jf.getContentPane().add(ad,BorderLayout.CENTER);
 		JPanel box=new JPanel();
-		box.add(new JButton("Click This Karnaugh Button!Oh Wai..."));
+		box.add(new JButton("Coming Soon to a game near you: Status Bar"));
 		jf.getContentPane().add(box,BorderLayout.SOUTH);
 		jf.setSize(w,h);
 		

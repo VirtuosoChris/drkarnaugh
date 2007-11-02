@@ -1,10 +1,11 @@
 package drk.game;
 import java.awt.event.KeyEvent;
-
+import java.io.*;
 import drk.KarnaughLog;
 import drk.*;
 import drk.maze.*;
 import drk.circuit.*;
+import drk.sound.*;
 
 
 public class KarnaughGame extends MazeGame implements Updatable{
@@ -18,11 +19,27 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	
 	private long lastUpdate = 0;
 	
+	private int songID = 0;
+	
 	public KarnaughGame(){
 		Score = 0;
 		Time = 0;
 		paused = false;
 	}
+	
+	
+	
+	public void keyReleased(KeyEvent k){
+	
+	super.keyReleased(k);
+	if(k.getKeyCode() == KeyEvent.VK_SHIFT){
+						
+			if(!((KarnaughMaze)m).nextmap.equals("LAST_LEVEL"))
+			this.loadMap(((KarnaughMaze)m).nextmap);
+			
+	}
+	}
+	
 	
 	
 	public void gameOver(){
@@ -63,7 +80,6 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		this.m = (KarnaughMaze)KarnaughMaze.loadMaze(m);
 		if( this.m == null) return false;
 		
-	
 		int rm = 0;
 		//finds the first room in the maze with an entrance
 		//sets the camera to be located within this room
@@ -83,6 +99,18 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		
 		lastUpdate = System.currentTimeMillis();
 		this.m.setDeltaTimer(this.frameTimer);
+		
+		///jgshdkjshdfkjdshg
+		final File f = new File("/drk/sound/BG Music/"+(((KarnaughMaze)this.m).songfile)+".mp3");
+		
+		SoundStreamer.stopPlayImmediately(songID);
+		
+		if(f!=null){
+		songID = SoundStreamer.playThreadedStreamedLooped(f);
+		}else{
+			KarnaughLog.log("Could not open song file");
+		}
+		
 		return true;
 	}
 	
@@ -104,6 +132,8 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		if(isKeyPressed(KeyEvent.VK_ESCAPE)){
 			System.exit(0);
 		}
+		
+	
 		
 		//test for win/die
 		
@@ -139,7 +169,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		KarnaughLog.log("Starting Dr. Karnaugh's Lab");
 		
 		KarnaughGame m = new KarnaughGame();
-		m.loadMap("test");
+		m.loadMap("map01");
 		m.camera.fovy = 30;
 	    m.doMain(resWidth,resHeight,null,true);
 		
