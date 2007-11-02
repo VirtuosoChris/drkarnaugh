@@ -43,6 +43,18 @@ public class LegoMaze extends RenderableMaze implements GLInitializable,TimeUpda
 		//ps.update();
 	}
 	
+	public Room getCurrentRoom()
+	{
+		int id;
+		drk.game.MazeCamera mc=this.getCamera();
+		
+		int xp=(int)(mc.Position.x /RENDER_WIDTH);
+		int zp=(int)(mc.Position.z / RENDER_WIDTH);
+		id=zp*getWidth()+xp;
+		
+		return RoomList.get(id);
+	}
+	
 	public void render(GL gl)
 	{
 		double xoff=0.0,zoff=0.0,scale=1.0;

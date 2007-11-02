@@ -21,6 +21,7 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 		
 		ec = (MazeCamera)this.camera;
 		ec.setMazeGame(this);
+		
 		//m.setDeltaTimer(this.frameTimer);
 	}
 	
@@ -82,7 +83,7 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 		gl.glLoadIdentity();
 		//camera.Position.y=0.5;
 		camera.render(gl);
-		
+		m.setCamera(ec);
 		m.render(gl);
 		
 	/*	gl.glColor3ub((byte)0x00,(byte)0xCC,(byte)0xFF);

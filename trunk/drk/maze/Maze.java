@@ -265,6 +265,14 @@ public class Maze {
 			System.out.println("Room: "+TempRoom.getID());
 		}
 	}*/
+	public int getRoomX(Room r)
+	{
+		return r.getID() % getWidth();
+	}
+	public int getRoomZ(Room r)
+	{
+		return r.getID() / getWidth();
+	}
 	
 	public int getWidth(){
 		return width;
