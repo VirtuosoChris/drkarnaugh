@@ -2,11 +2,11 @@ package drk.graphics.game;
 
 import javax.media.opengl.GL;
 
-import drk.graphics.GLInitializable;
+import drk.graphics.GLRenderable;
 import drk.graphics.particle.TimeUpdatable;
 import drk.Vector3D;
 import drk.maze.*;
-public class LegoMaze extends RenderableMaze implements GLInitializable,TimeUpdatable
+public class LegoMaze extends RenderableMaze implements GLRenderable,TimeUpdatable
 {
 	//public MazeGame mg;
 	
