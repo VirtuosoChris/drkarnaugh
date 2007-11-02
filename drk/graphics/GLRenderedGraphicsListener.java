@@ -76,6 +76,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	{
 		return ypercentfovy;
 	}
+	
 	public void mouseMoved(MouseEvent m){
 		
 		/*if(isKeyPressed(KeyEvent.VK_CONTROL))
@@ -84,7 +85,11 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 			return;
 		}*/
 		
-		if(recenteringMouse){recenteringMouse = false;return;}
+		if(recenteringMouse){recenteringMouse = false;
+		
+		xpercentfovy = 0;
+		ypercentfovy = 0;
+		return;}
 		
 		//System.err.println("MouseMove event caught");
 		int x=m.getX();
@@ -92,8 +97,20 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		
 //		angle is in percentage of y field of view, so we just have to divide by height...thats w
 		//why the angle per second didn't work right....
-		xpercentfovy -=((double)(x - xPrev))/((double)(height));
-		ypercentfovy +=((double)(y - yPrev))/((double)(height));
+		
+		if((int)x != (int)xPrev){
+			xpercentfovy = ((double)(x - xPrev))/((double)(height))* 12000 * frameTimer.getSecondsSinceLastUpdate();
+		}else{xpercentfovy = 0;}
+		
+		if((int)y != (int)yPrev){
+			ypercentfovy = ((double)(y - yPrev))/((double)(height))* 12000 * frameTimer.getSecondsSinceLastUpdate();
+		}else{ypercentfovy = 0;}
+		
+		
+		
+		
+		
+		
 		
 		
 		//////////////////
