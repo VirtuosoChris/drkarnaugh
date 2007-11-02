@@ -15,6 +15,12 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 	public RenderableMaze m;
 	public MazeCamera ec;
 	
+	
+	
+	public boolean isInitialized()
+	{
+		return true;
+	}
 	public MazeGame(){	   
 		super(new DebugMazeCamera());
 		//m=new RenderableMaze(100,50); //TEMPORARY CONSTRUCTOR

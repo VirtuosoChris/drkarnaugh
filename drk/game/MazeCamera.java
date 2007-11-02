@@ -40,6 +40,13 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 		mGame=mg;
 	}
 	//float lastheight;
+	
+	float bobrate;
+	float bobheight;
+	float dbobratedt;
+	
+	
+	
 	public void update()
 	{
 		//super.update();
@@ -71,7 +78,7 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 		//if(xrotation >= 90.0)xrotation = 90.0;
 		
 		//System.out.println(xrotation);
-		
+		final double sideStepPercent=.3f;
 		if(mGame.isKeyPressed(KeyEvent.VK_UP)){	
 			Position.eplus((Zdir.times(walkRate*ddt)));
 		}
@@ -81,11 +88,11 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 		}
 		
 		if(mGame.isKeyPressed(KeyEvent.VK_LEFT)){
-			Position.eplus((Xdir.times(-walkRate*ddt)));
+			Position.eplus((Xdir.times(-sideStepPercent*walkRate*ddt)));
 		}
 		
 		if(mGame.isKeyPressed(KeyEvent.VK_RIGHT)){
-			Position.eplus((Xdir.times(walkRate*ddt)));
+			Position.eplus((Xdir.times(sideStepPercent*walkRate*ddt)));
 		}
 		
 	}

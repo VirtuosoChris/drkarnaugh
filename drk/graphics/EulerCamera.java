@@ -39,8 +39,16 @@ public class EulerCamera extends Camera
 		
 	}
 	
+	boolean isinit=false;
+	public boolean isInitialized()
+	{
+		return isinit;
+	}
+	
 	public void render(GL gl)
 	{
+		if(!isInitialized())
+			initialize(gl);
 		//GLU glu=new GLU();
 		double[] crm=new double[16];
 		

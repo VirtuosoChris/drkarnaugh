@@ -37,7 +37,8 @@ public interface GLInitializable extends GLRenderable
 
 	}
 
-	public boolean isInitialized=false;
+	//public boolean setInitialized(boolean si);
+	public boolean isInitialized();
 	public void initialize(GL gl);
 	
 }
