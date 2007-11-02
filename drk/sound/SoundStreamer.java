@@ -12,7 +12,7 @@ public class SoundStreamer extends Thread{
 	
 	protected SoundStreamer(File f)
 	{
-		f=song;
+		song = f;
 		isStopped=false;
 	}
 	public synchronized void stopNow()
@@ -29,7 +29,8 @@ public class SoundStreamer extends Thread{
 		Streams=new Vector<SoundStreamer>();
 	}
 	
-	public static int playThreadedStreamedLooped(final File song)
+	//removed "final" from file name
+	public static int playThreadedStreamedLooped(File song)
 	{
 		SoundStreamer th=new SoundStreamer(song);
 		th.start();

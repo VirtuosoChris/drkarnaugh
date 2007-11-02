@@ -101,7 +101,9 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		this.m.setDeltaTimer(this.frameTimer);
 		
 		///jgshdkjshdfkjdshg
-		final File f = new File("/drk/sound/BG Music/"+(((KarnaughMaze)this.m).songfile)+".mp3");
+		final File f = new File("drk/sound/BG Music/"+(((KarnaughMaze)this.m).songfile)+".mp3");
+		
+		//File f = new File(""+(((KarnaughMaze)this.m).songfile)+".mp3");
 		
 		SoundStreamer.stopPlayImmediately(songID);
 		
