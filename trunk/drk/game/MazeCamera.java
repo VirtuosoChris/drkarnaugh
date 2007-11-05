@@ -84,7 +84,7 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 		}
 		
 		if(mGame.isKeyPressed(KeyEvent.VK_DOWN)){
-			Position.eplus((Zdir.times(-walkRate*ddt)));
+			Position.eplus((Zdir.times(-sideStepPercent*walkRate*ddt)));
 		}
 		
 		if(mGame.isKeyPressed(KeyEvent.VK_LEFT)){

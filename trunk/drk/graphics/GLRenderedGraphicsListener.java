@@ -101,7 +101,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		//why the angle per second didn't work right....
 		
 		if((int)x != (int)xPrev){
-			xpercentfovy = ((double)(x - xPrev))/((double)(height))* 12000 * frameTimer.getSecondsSinceLastUpdate();
+			xpercentfovy = ((double)(x - xPrev))/((double)(height))* 12000* frameTimer.getSecondsSinceLastUpdate();
 		}else{xpercentfovy = 0;}
 		
 		if((int)y != (int)yPrev){
