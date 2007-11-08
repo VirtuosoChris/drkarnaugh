@@ -15,6 +15,7 @@ public class HorrorWallMaze extends RenderableMaze
 	final static float ROOM_WIDTH=10.0f;	//bricks are .5 meters texture
 	final static float WALL_WIDTH=.5f;
 	final static float DOOR_WIDTH=1.0f;
+	final static float DOOR_HEIGHT=3.0f*.75f;
 	Texture bricks;
 	final static float BRICK_SCALE=.5f;
 	final static float PLANK_SCALE=.9f;
@@ -24,6 +25,8 @@ public class HorrorWallMaze extends RenderableMaze
 	{
 		super(w, h);
 		isinit=false;
+		//temporary
+		initializedatabuffers();
 		// TODO Auto-generated constructor stub
 	}
 	boolean isinit;
@@ -44,6 +47,260 @@ public class HorrorWallMaze extends RenderableMaze
 		x*=ROOM_WIDTH;
 		// TODO Auto-generated method stub
 		return new Vector3D(x,0.0,z);
+	}
+	//temporary stuff
+	
+	int numv;
+	/*final float[] TexCoordFloats;
+	final float []VertexFloats;
+	final float[] NormalFloats;*/
+	public void initializedatabuffers()
+	{
+		float w=ROOM_WIDTH*0.5f;
+		float l=ROOM_LENGTH*0.5f;
+		l-=WALL_WIDTH*0.5f;
+		w-=WALL_WIDTH*0.5f;
+		float dheight=DOOR_HEIGHT;
+		float dw=DOOR_WIDTH*0.5f;
+		float bs=1.0f/BRICK_SCALE;
+		
+		//72 vertices...72 TC...,x2
+		
+		numv=72;
+		final float[] TFloats=
+		{
+		dw*bs,0.0f,
+		w*bs,0.0f,
+		w*bs,ROOM_HEIGHT*bs,
+		dw*bs,ROOM_HEIGHT*bs,
+		ROOM_HEIGHT*bs,-dw*bs,
+		ROOM_HEIGHT*bs,-l*bs,
+		0.0f,-l*bs,
+		0.0f,-dw*bs,
+		ROOM_HEIGHT*bs,dw*bs,
+		ROOM_HEIGHT*bs,-dw*bs,
+		dheight*bs,-dw*bs,
+		dheight*bs,dw*bs,
+		(w+WALL_WIDTH)*bs,0.0f,
+		w*bs,0.0f,
+		w*bs,dheight*bs,
+		(w+WALL_WIDTH)*bs,dheight*bs,
+		(w+WALL_WIDTH)*bs,dw*bs,
+		w*bs,dw*bs,
+		w*bs,-dw*bs,
+		(w+WALL_WIDTH)*bs,-dw*bs,
+		(w+WALL_WIDTH)*bs,dheight*bs,
+		w*bs,dheight*bs,
+		w*bs,0.0f,
+		(w+WALL_WIDTH)*bs,0.0f,
+		0.0f,dw*bs,
+		0.0f,l*bs,
+		ROOM_HEIGHT*bs,l*bs,
+		ROOM_HEIGHT*bs,dw*bs,
+		w*bs,0.0f,
+		dw*bs,0.0f,
+		dw*bs,ROOM_HEIGHT*bs,
+		w*bs,ROOM_HEIGHT*bs,
+		dw*bs,dheight*bs,
+		-dw*bs,dheight*bs,
+		-dw*bs,ROOM_HEIGHT*bs,
+		dw*bs,ROOM_HEIGHT*bs,
+		dheight*bs,l*bs,
+		dheight*bs,(l+WALL_WIDTH)*bs,
+		0.0f,(l+WALL_WIDTH)*bs,
+		0.0f,l*bs,
+		dw*bs,l*bs,
+		dw*bs,(l+WALL_WIDTH)*bs,
+		-dw*bs,(l+WALL_WIDTH)*bs,
+		-dw*bs,l*bs,
+		0.0f,l*bs,
+		0.0f,(l+WALL_WIDTH)*bs,
+		dheight*bs,(l+WALL_WIDTH)*bs,
+		dheight*bs,(l)*bs,
+		-w*bs,ROOM_HEIGHT*bs,
+		-dw*bs,ROOM_HEIGHT*bs,
+		-dw*bs,0.0f,
+		-w*bs,0.0f,
+		ROOM_HEIGHT*bs,dw*bs,
+		ROOM_HEIGHT*bs,l*bs,
+		0.0f,l*bs,
+		0.0f,dw*bs,
+		dheight*bs,dw*bs,
+		dheight*bs,-dw*bs,
+		ROOM_HEIGHT*bs,-dw*bs,
+		ROOM_HEIGHT*bs,dw*bs,
+		0.0f,-dw*bs,
+		0.0f,-l*bs,
+		ROOM_HEIGHT*bs,-l*bs,
+		ROOM_HEIGHT*bs,-dw*bs,
+		-w*bs,0.0f,
+		-dw*bs,0.0f,
+		-dw*bs,ROOM_HEIGHT*bs,
+		-w*bs,ROOM_HEIGHT*bs,
+		-dw*bs,dheight*bs,
+		dw*bs,dheight*bs,
+		dw*bs,ROOM_HEIGHT*bs,
+		-dw*bs,ROOM_HEIGHT*bs,
+		
+		};
+	//	TexCoordFloats=TFloats;
+		
+		final float []NFloats=
+		{
+		0.0f,0.0f,1.0f,
+		0.0f,0.0f,1.0f,
+		0.0f,0.0f,1.0f,
+		0.0f,0.0f,1.0f,
+		-1.0f,0.0f,0.0f,
+		-1.0f,0.0f,0.0f,
+		-1.0f,0.0f,0.0f,
+		-1.0f,0.0f,0.0f,
+		-1.0f,0.0f,0.0f,
+		-1.0f,0.0f,0.0f,
+		-1.0f,0.0f,0.0f,
+		-1.0f,0.0f,0.0f,
+		0.0f,0.0f,-1.0f,
+		0.0f,0.0f,-1.0f,
+		0.0f,0.0f,-1.0f,
+		0.0f,0.0f,-1.0f,
+		0.0f,-1.0f,0.0f,
+		0.0f,-1.0f,0.0f,
+		0.0f,-1.0f,0.0f,
+		0.0f,-1.0f,0.0f,
+		0.0f,0.0f,1.0f,
+		0.0f,0.0f,1.0f,
+		0.0f,0.0f,1.0f,
+		0.0f,0.0f,1.0f,
+		-1.0f,0.0f,0.0f,
+		-1.0f,0.0f,0.0f,
+		-1.0f,0.0f,0.0f,
+		-1.0f,0.0f,0.0f,
+		0.0f,0.0f,-1.0f,
+		0.0f,0.0f,-1.0f,
+		0.0f,0.0f,-1.0f,
+		0.0f,0.0f,-1.0f,
+		0.0f,0.0f,-1.0f,
+		0.0f,0.0f,-1.0f,
+		0.0f,0.0f,-1.0f,
+		0.0f,0.0f,-1.0f,
+		1.0f,0.0f,0.0f,
+		1.0f,0.0f,0.0f,
+		1.0f,0.0f,0.0f,
+		1.0f,0.0f,0.0f,
+		0.0f,-1.0f,0.0f,
+		0.0f,-1.0f,0.0f,
+		0.0f,-1.0f,0.0f,
+		0.0f,-1.0f,0.0f,
+		-1.0f,0.0f,0.0f,
+		-1.0f,0.0f,0.0f,
+		-1.0f,0.0f,0.0f,
+		-1.0f,0.0f,0.0f,
+		0.0f,0.0f,-1.0f,
+		0.0f,0.0f,-1.0f,
+		0.0f,0.0f,-1.0f,
+		0.0f,0.0f,-1.0f,
+		1.0f,0.0f,0.0f,
+		1.0f,0.0f,0.0f,
+		1.0f,0.0f,0.0f,
+		1.0f,0.0f,0.0f,
+		1.0f,0.0f,0.0f,
+		1.0f,0.0f,0.0f,
+		1.0f,0.0f,0.0f,
+		1.0f,0.0f,0.0f,
+		1.0f,0.0f,0.0f,
+		1.0f,0.0f,0.0f,
+		1.0f,0.0f,0.0f,
+		1.0f,0.0f,0.0f,
+		0.0f,0.0f,1.0f,
+		0.0f,0.0f,1.0f,
+		0.0f,0.0f,1.0f,
+		0.0f,0.0f,1.0f,
+		0.0f,0.0f,1.0f,
+		0.0f,0.0f,1.0f,
+		0.0f,0.0f,1.0f,
+		0.0f,0.0f,1.0f
+		};
+		
+	//	NormalFloats=NFloats;
+		
+		final float[] VFloats=
+		{
+		dw,0.0f,-l,
+		w,0.0f,-l,
+		w,ROOM_HEIGHT,-l,
+		dw,ROOM_HEIGHT,-l,
+		w,ROOM_HEIGHT,-dw,
+		w,ROOM_HEIGHT,-l,
+		w,0.0f,-l,
+		w,0.0f,-dw,
+		w,ROOM_HEIGHT,dw,
+		w,ROOM_HEIGHT,-dw,
+		w,dheight,-dw,
+		w,dheight,dw,
+		w+WALL_WIDTH,0.0f,dw,
+		w,0.0f,dw,
+		w,dheight,dw,
+		w+WALL_WIDTH,dheight,dw,
+		w+WALL_WIDTH,dheight,dw,
+		w,dheight,dw,
+		w,dheight,-dw,
+		w+WALL_WIDTH,dheight,-dw,
+		w+WALL_WIDTH,dheight,-dw,
+		w,dheight,-dw,
+		w,0.0f,-dw,
+		w+WALL_WIDTH,0.0f,-dw,
+		w,0.0f,dw,
+		w,0.0f,l,
+		w,ROOM_HEIGHT,l,
+		w,ROOM_HEIGHT,dw,
+		w,0.0f,l,
+		dw,0.0f,l,
+		dw,ROOM_HEIGHT,l,
+		w,ROOM_HEIGHT,l,
+		dw,dheight,l,
+		-dw,dheight,l,
+		-dw,ROOM_HEIGHT,l,
+		dw,ROOM_HEIGHT,l,
+		-dw,dheight,l,
+		-dw,dheight,l+WALL_WIDTH,
+		-dw,0.0f,l+WALL_WIDTH,
+		-dw,0.0f,l,
+		dw,dheight,l,
+		dw,dheight,l+WALL_WIDTH,	
+		-dw,dheight,l+WALL_WIDTH,
+		-dw,dheight,l,
+		dw,0.0f,l,
+		dw,0.0f,l+WALL_WIDTH,
+		dw,dheight,l+WALL_WIDTH,	
+		dw,dheight,l,
+		-w,ROOM_HEIGHT,l,
+		-dw,ROOM_HEIGHT,l,
+		-dw,0.0f,l,
+		-w,0.0f,l,
+		-w,ROOM_HEIGHT,dw,
+		-w,ROOM_HEIGHT,l,
+		-w,0.0f,l,
+		-w,0.0f,dw,
+		-w,dheight,dw,
+		-w,dheight,-dw,
+		-w,ROOM_HEIGHT,-dw,
+		-w,ROOM_HEIGHT,dw,
+		-w,0.0f,-dw,
+		-w,0.0f,-l,
+		-w,ROOM_HEIGHT,-l,
+		-w,ROOM_HEIGHT,-dw,
+		-w,0.0f,-l,
+		-dw,0.0f,-l,
+		-dw,ROOM_HEIGHT,-l,
+		-w,ROOM_HEIGHT,-l,
+		-dw,dheight,-l,
+		dw,dheight,-l,
+		dw,ROOM_HEIGHT,-l,
+		-dw,ROOM_HEIGHT,-l,
+		};		
+		
+		
+		
 	}
 
 	public void initialize(GL gl)
@@ -108,20 +365,37 @@ public class HorrorWallMaze extends RenderableMaze
 			//gl.glColor3f(0.0f,0.0f,1.0f);
 			gl.glVertex3f(w,0.0f,-l);
 			
+			
+			
+			gl.glTexCoord2f(0.0f,l*2.0f/PLANK_SCALE);
+			//gl.glColor3f(0.0f,1.0f,0.0f);
+			gl.glVertex3f(-w,ROOM_HEIGHT,l);
+			
+			gl.glTexCoord2f(0.0f,0.0f);
+			gl.glVertex3f(-w,ROOM_HEIGHT,-l);
+			
+			gl.glTexCoord2f(w*2.0f/PLANK_SCALE,0.0f);
+			//gl.glColor3f(0.0f,0.0f,1.0f);
+			gl.glVertex3f(w,ROOM_HEIGHT,-l);
+			
+			gl.glTexCoord2f(w*2.0f/PLANK_SCALE,l*2.0f/PLANK_SCALE);
+			//gl.glColor3f(0.0f,1.0f,1.0f);
+			gl.glVertex3f(w,ROOM_HEIGHT,l);
+			
 			//gl.glEnd();
 		}
 		gl.glEnd();
 		
 		l-=WALL_WIDTH*0.5f;
 		w-=WALL_WIDTH*0.5f;
-		float dheight=3.0f*.75f;
+		float dheight=DOOR_HEIGHT;
 		float dw=DOOR_WIDTH*0.5f;
 		bricks.bind();
 		float bs=1.0f/BRICK_SCALE;
 		gl.glBegin(GL.GL_QUADS);
 		{
-			//this really should be a vertex buffer, prolly even a vbo...it should be easy from here
-
+			//this really should be a vertex buffer array, prolly even a vbo...it should be easy from here
+			
 			//gl.glColor3f(1.0f,0.0f,0.0f);
 			gl.glTexCoord2f(dw*bs,0.0f);
 			gl.glVertex3f(dw,0.0f,-l);
@@ -141,102 +415,200 @@ public class HorrorWallMaze extends RenderableMaze
 			gl.glTexCoord2f(0.0f,-dw*bs);
 			gl.glVertex3f(w,0.0f,-dw);
 				
+			gl.glTexCoord2f(ROOM_HEIGHT*bs,dw*bs);
 			gl.glVertex3f(w,ROOM_HEIGHT,dw);
+			gl.glTexCoord2f(ROOM_HEIGHT*bs,-dw*bs);
 			gl.glVertex3f(w,ROOM_HEIGHT,-dw);
+			gl.glTexCoord2f(dheight*bs,-dw*bs);
 			gl.glVertex3f(w,dheight,-dw);
+			gl.glTexCoord2f(dheight*bs,dw*bs);
 			gl.glVertex3f(w,dheight,dw);
 			
-			if(!r.Right())
-			{
-				gl.glVertex3f(w,0.0f,-dw);
-				gl.glVertex3f(w,0.0f,dw);
-				gl.glVertex3f(w,dheight,dw);
-				gl.glVertex3f(w,dheight,-dw);
-			}
-			
-			
+			gl.glTexCoord2f((w+WALL_WIDTH)*bs,0.0f);
+			gl.glVertex3f(w+WALL_WIDTH,0.0f,dw);
+			gl.glTexCoord2f(w*bs,0.0f);
 			gl.glVertex3f(w,0.0f,dw);
+			gl.glTexCoord2f(w*bs,dheight*bs);
+			gl.glVertex3f(w,dheight,dw);
+			gl.glTexCoord2f((w+WALL_WIDTH)*bs,dheight*bs);
+			gl.glVertex3f(w+WALL_WIDTH,dheight,dw);
+			
+			gl.glTexCoord2f((w+WALL_WIDTH)*bs,dw*bs);
+			gl.glVertex3f(w+WALL_WIDTH,dheight,dw);
+			gl.glTexCoord2f(w*bs,dw*bs);
+			gl.glVertex3f(w,dheight,dw);
+			gl.glTexCoord2f(w*bs,-dw*bs);
+			gl.glVertex3f(w,dheight,-dw);
+			gl.glTexCoord2f((w+WALL_WIDTH)*bs,-dw*bs);
+			gl.glVertex3f(w+WALL_WIDTH,dheight,-dw);
+			
+			gl.glTexCoord2f((w+WALL_WIDTH)*bs,dheight*bs);
+			gl.glVertex3f(w+WALL_WIDTH,dheight,-dw);
+			gl.glTexCoord2f(w*bs,dheight*bs);
+			gl.glVertex3f(w,dheight,-dw);
+			gl.glTexCoord2f(w*bs,0.0f);
+			gl.glVertex3f(w,0.0f,-dw);
+			gl.glTexCoord2f((w+WALL_WIDTH)*bs,0.0f);
+			gl.glVertex3f(w+WALL_WIDTH,0.0f,-dw);
+			
+			gl.glTexCoord2f(0.0f,dw*bs);
+			gl.glVertex3f(w,0.0f,dw);
+			gl.glTexCoord2f(0.0f,l*bs);
 			gl.glVertex3f(w,0.0f,l);
-			gl.glVertex3f(w,ROOM_HEIGHT,l);	
+			gl.glTexCoord2f(ROOM_HEIGHT*bs,l*bs);
+			gl.glVertex3f(w,ROOM_HEIGHT,l);
+			gl.glTexCoord2f(ROOM_HEIGHT*bs,dw*bs);
 			gl.glVertex3f(w,ROOM_HEIGHT,dw);
 			
-			
+			gl.glTexCoord2f(w*bs,0.0f);
 			gl.glVertex3f(w,0.0f,l);
-			gl.glVertex3f(dw,0.0f,l);	
+			gl.glTexCoord2f(dw*bs,0.0f);
+			gl.glVertex3f(dw,0.0f,l);
+			gl.glTexCoord2f(dw*bs,ROOM_HEIGHT*bs);
 			gl.glVertex3f(dw,ROOM_HEIGHT,l);
+			gl.glTexCoord2f(w*bs,ROOM_HEIGHT*bs);
 			gl.glVertex3f(w,ROOM_HEIGHT,l);
 			
 			//gl.glColor3f(1.0f,0.0f,1.0f);
+
+			gl.glTexCoord2f(dw*bs,dheight*bs);
 			gl.glVertex3f(dw,dheight,l);
+			gl.glTexCoord2f(-dw*bs,dheight*bs);
 			gl.glVertex3f(-dw,dheight,l);
+			gl.glTexCoord2f(-dw*bs,ROOM_HEIGHT*bs);
 			gl.glVertex3f(-dw,ROOM_HEIGHT,l);
+			gl.glTexCoord2f(dw*bs,ROOM_HEIGHT*bs);
 			gl.glVertex3f(dw,ROOM_HEIGHT,l);
 			
-			if(!r.Down())
-			{
-				gl.glVertex3f(-dw,dheight,l);
-				gl.glVertex3f(dw,dheight,l);
-				gl.glVertex3f(dw,0.0f,l);
-				gl.glVertex3f(-dw,0.0f,l);
-			}
-			
-			
-			gl.glVertex3f(-w,ROOM_HEIGHT,l);
-			gl.glVertex3f(-dw,ROOM_HEIGHT,l);
+			//gl.glVertex3f()
+			gl.glTexCoord2f(dheight*bs,l*bs);
+			gl.glVertex3f(-dw,dheight,l);
+			gl.glTexCoord2f(dheight*bs,(l+WALL_WIDTH)*bs);
+			gl.glVertex3f(-dw,dheight,l+WALL_WIDTH);
+			gl.glTexCoord2f(0.0f,(l+WALL_WIDTH)*bs);
+			gl.glVertex3f(-dw,0.0f,l+WALL_WIDTH);
+			gl.glTexCoord2f(0.0f,l*bs);
 			gl.glVertex3f(-dw,0.0f,l);
-			gl.glVertex3f(-w,0.0f,l);
 			
+			gl.glTexCoord2f(dw*bs,l*bs);
+			gl.glVertex3f(dw,dheight,l);
+			gl.glTexCoord2f(dw*bs,(l+WALL_WIDTH)*bs);
+			gl.glVertex3f(dw,dheight,l+WALL_WIDTH);	
+			gl.glTexCoord2f(-dw*bs,(l+WALL_WIDTH)*bs);
+			gl.glVertex3f(-dw,dheight,l+WALL_WIDTH);
+			gl.glTexCoord2f(-dw*bs,l*bs);
+			gl.glVertex3f(-dw,dheight,l);
 			
-			gl.glVertex3f(-w,ROOM_HEIGHT,dw);
+			gl.glTexCoord2f(0.0f,l*bs);
+			gl.glVertex3f(dw,0.0f,l);
+			gl.glTexCoord2f(0.0f,(l+WALL_WIDTH)*bs);
+			gl.glVertex3f(dw,0.0f,l+WALL_WIDTH);
+			gl.glTexCoord2f(dheight*bs,(l+WALL_WIDTH)*bs);
+			gl.glVertex3f(dw,dheight,l+WALL_WIDTH);	
+			gl.glTexCoord2f(dheight*bs,(l)*bs);
+			gl.glVertex3f(dw,dheight,l);
+
+			
+			gl.glTexCoord2f(-w*bs,ROOM_HEIGHT*bs);
 			gl.glVertex3f(-w,ROOM_HEIGHT,l);
+			gl.glTexCoord2f(-dw*bs,ROOM_HEIGHT*bs);
+			gl.glVertex3f(-dw,ROOM_HEIGHT,l);
+			gl.glTexCoord2f(-dw*bs,0.0f);
+			gl.glVertex3f(-dw,0.0f,l);
+			gl.glTexCoord2f(-w*bs,0.0f);
 			gl.glVertex3f(-w,0.0f,l);
+			
+			gl.glTexCoord2f(ROOM_HEIGHT*bs,dw*bs);
+			gl.glVertex3f(-w,ROOM_HEIGHT,dw);
+			gl.glTexCoord2f(ROOM_HEIGHT*bs,l*bs);
+			gl.glVertex3f(-w,ROOM_HEIGHT,l);
+			gl.glTexCoord2f(0.0f,l*bs);
+			gl.glVertex3f(-w,0.0f,l);
+			gl.glTexCoord2f(0.0f,dw*bs);
 			gl.glVertex3f(-w,0.0f,dw);
 			
-			
+			gl.glTexCoord2f(dheight*bs,dw*bs);
 			gl.glVertex3f(-w,dheight,dw);
+			gl.glTexCoord2f(dheight*bs,-dw*bs);
 			gl.glVertex3f(-w,dheight,-dw);
+			gl.glTexCoord2f(ROOM_HEIGHT*bs,-dw*bs);
 			gl.glVertex3f(-w,ROOM_HEIGHT,-dw);
+			gl.glTexCoord2f(ROOM_HEIGHT*bs,dw*bs);
 			gl.glVertex3f(-w,ROOM_HEIGHT,dw);
 			
-			if(!r.Left())
-			{
-				
-				gl.glVertex3f(-w,dheight,-dw);
-				gl.glVertex3f(-w,dheight,dw);
-				gl.glVertex3f(-w,0.0f,dw);
-				gl.glVertex3f(-w,0.0f,-dw);
-			}
-			
-			
-
-
+			gl.glTexCoord2f(0.0f,-dw*bs);
 			gl.glVertex3f(-w,0.0f,-dw);
+			gl.glTexCoord2f(0.0f,-l*bs);
 			gl.glVertex3f(-w,0.0f,-l);
+			gl.glTexCoord2f(ROOM_HEIGHT*bs,-l*bs);
 			gl.glVertex3f(-w,ROOM_HEIGHT,-l);
+			gl.glTexCoord2f(ROOM_HEIGHT*bs,-dw*bs);
 			gl.glVertex3f(-w,ROOM_HEIGHT,-dw);
 			
+			gl.glTexCoord2f(-w*bs,0.0f);
 			gl.glVertex3f(-w,0.0f,-l);
+			gl.glTexCoord2f(-dw*bs,0.0f);
 			gl.glVertex3f(-dw,0.0f,-l);
+			gl.glTexCoord2f(-dw*bs,ROOM_HEIGHT*bs);
 			gl.glVertex3f(-dw,ROOM_HEIGHT,-l);
+			gl.glTexCoord2f(-w*bs,ROOM_HEIGHT*bs);
 			gl.glVertex3f(-w,ROOM_HEIGHT,-l);
 			
 			//gl.glColor3f(1.0f,0.0f,1.0f);
 			
+			gl.glTexCoord2f(-dw*bs,dheight*bs);
 			gl.glVertex3f(-dw,dheight,-l);
+			gl.glTexCoord2f(dw*bs,dheight*bs);
 			gl.glVertex3f(dw,dheight,-l);
+			gl.glTexCoord2f(dw*bs,ROOM_HEIGHT*bs);
 			gl.glVertex3f(dw,ROOM_HEIGHT,-l);
+			gl.glTexCoord2f(-dw*bs,ROOM_HEIGHT*bs);
 			gl.glVertex3f(-dw,ROOM_HEIGHT,-l);
 			
 			if(!r.Up())
 			{
+				gl.glTexCoord2f(dw*bs,dheight*bs);
 				gl.glVertex3f(dw,dheight,-l);
+				gl.glTexCoord2f(-dw*bs,dheight*bs);
 				gl.glVertex3f(-dw,dheight,-l);
+				gl.glTexCoord2f(-dw*bs,0.0f);
 				gl.glVertex3f(-dw,0.0f,-l);
+				gl.glTexCoord2f(dw*bs,0.0f);
 				gl.glVertex3f(dw,0.0f,-l);
 			}
-			
-			
-			
+			if(!r.Left())
+			{
+				gl.glTexCoord2f(dheight*bs,-dw*bs);
+				gl.glVertex3f(-w,dheight,-dw);
+				gl.glTexCoord2f(dheight*bs,dw*bs);
+				gl.glVertex3f(-w,dheight,dw);
+				gl.glTexCoord2f(0.0f,dw*bs);
+				gl.glVertex3f(-w,0.0f,dw);
+				gl.glTexCoord2f(0.0f,-dw*bs);
+				gl.glVertex3f(-w,0.0f,-dw);
+			}
+			if(!r.Down())
+			{
+				gl.glTexCoord2f(-dw*bs,dheight*bs);
+				gl.glVertex3f(-dw,dheight,l);
+				gl.glTexCoord2f(dw*bs,dheight*bs);
+				gl.glVertex3f(dw,dheight,l);
+				gl.glTexCoord2f(dw*bs,0.0f);
+				gl.glVertex3f(dw,0.0f,l);
+				gl.glTexCoord2f(-dw*bs,0.0f);
+				gl.glVertex3f(-dw,0.0f,l);
+			}
+			if(!r.Right())
+			{
+				gl.glTexCoord2f(0.0f,-dw*bs);
+				gl.glVertex3f(w,0.0f,-dw);
+				gl.glTexCoord2f(0.0f,dw*bs);
+				gl.glVertex3f(w,0.0f,dw);
+				gl.glTexCoord2f(dheight*bs,dw*bs);
+				gl.glVertex3f(w,dheight,dw);
+				gl.glTexCoord2f(dheight*bs,-dw*bs);
+				gl.glVertex3f(w,dheight,-dw);
+			}
 			/*switch()*/
 		}
 		gl.glEnd();
