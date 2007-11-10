@@ -3,10 +3,12 @@ package drk.graphics.game;
 import javax.imageio.*;
 import javax.media.opengl.GL;
 import com.sun.opengl.util.texture.*;
+import com.sun.opengl.util.*;
 import java.awt.image.BufferedImage;
 import drk.Vector3D;
 import drk.maze.RenderableMaze;
 import drk.maze.Room;
+import java.nio.*;
 
 public class HorrorWallMaze extends RenderableMaze
 {
@@ -26,7 +28,6 @@ public class HorrorWallMaze extends RenderableMaze
 		super(w, h);
 		isinit=false;
 		//temporary
-		initializedatabuffers();
 		// TODO Auto-generated constructor stub
 	}
 	boolean isinit;
@@ -51,10 +52,8 @@ public class HorrorWallMaze extends RenderableMaze
 	//temporary stuff
 	
 	int numv;
-	/*final float[] TexCoordFloats;
-	final float []VertexFloats;
-	final float[] NormalFloats;*/
-	public void initializedatabuffers()
+	int WallsVBO;
+	public void initializedatabuffers(GL gl)
 	{
 		float w=ROOM_WIDTH*0.5f;
 		float l=ROOM_LENGTH*0.5f;
@@ -67,6 +66,7 @@ public class HorrorWallMaze extends RenderableMaze
 		//72 vertices...72 TC...,x2
 		
 		numv=72;
+		FloatBuffer databuf=BufferUtil.newFloatBuffer(numv*(2+3+3)); //per pixel data size
 		final float[] TFloats=
 		{
 		dw*bs,0.0f,
@@ -143,7 +143,6 @@ public class HorrorWallMaze extends RenderableMaze
 		-dw*bs,ROOM_HEIGHT*bs,
 		
 		};
-	//	TexCoordFloats=TFloats;
 		
 		final float []NFloats=
 		{
@@ -221,8 +220,6 @@ public class HorrorWallMaze extends RenderableMaze
 		0.0f,0.0f,1.0f
 		};
 		
-	//	NormalFloats=NFloats;
-		
 		final float[] VFloats=
 		{
 		dw,0.0f,-l,
@@ -299,8 +296,20 @@ public class HorrorWallMaze extends RenderableMaze
 		-dw,ROOM_HEIGHT,-l,
 		};		
 		
+		databuf.put(VFloats);
+		databuf.put(NFloats);
+		databuf.put(TFloats);//put the data into the client side array to be uploaded into the vbo
+		databuf.rewind();
+		int [] tmp=new int[1];
 		
 		
+		gl.glGenBuffers(1,tmp,0);
+		WallsVBO=tmp[0];
+		gl.glBindBufferARB( GL.GL_ARRAY_BUFFER_ARB, WallsVBO);
+		 // Copy data to the server into the VBO.
+		 gl.glBufferDataARB( GL.GL_ARRAY_BUFFER_ARB,
+		                     numv*4*8,databuf,
+		                     GL.GL_STATIC_DRAW_ARB );
 	}
 
 	public void initialize(GL gl)
@@ -325,6 +334,17 @@ public class HorrorWallMaze extends RenderableMaze
 		}
 		
 		isinit=true;
+
+		initializedatabuffers(gl);
+		/*gl.glEnableClientState(GL.GL_VERTEX_ARRAY);
+		gl.glEnableClientState(GL.GL_NORMAL_ARRAY);
+		gl.glEnableClientState(GL.GL_TEXTURE_COORD_ARRAY);
+		gl.glTexCoordPointer(2,GL.GL_FLOAT,0,TextureFloats);
+		gl.glNormalPointer(GL.GL_FLOAT,0,NormalFloats);
+		gl.glVertexPointer(3,GL.GL_FLOAT,0,VertexFloats);
+		gl.glDisableClientState(GL.GL_TEXTURE_COORD_ARRAY);
+		gl.glDisableClientState(GL.GL_NORMAL_ARRAY);
+		gl.glDisableClientState(GL.GL_VERTEX_ARRAY);*/
 		
 	// TODO Auto-generated method stub
 
@@ -392,178 +412,21 @@ public class HorrorWallMaze extends RenderableMaze
 		float dw=DOOR_WIDTH*0.5f;
 		bricks.bind();
 		float bs=1.0f/BRICK_SCALE;
+		
+		gl.glEnableClientState(GL.GL_VERTEX_ARRAY);
+		gl.glEnableClientState(GL.GL_NORMAL_ARRAY);
+		gl.glEnableClientState(GL.GL_TEXTURE_COORD_ARRAY);
+		gl.glBindBuffer( GL.GL_ARRAY_BUFFER_ARB, WallsVBO);
+		gl.glVertexPointer( 3, GL.GL_FLOAT, 0, 0);
+		gl.glNormalPointer(GL.GL_FLOAT,0,numv*3*4);
+		gl.glTexCoordPointer(2,GL.GL_FLOAT,0,numv*6*4);
+		gl.glDrawArrays(GL.GL_QUADS,0,numv);
+		gl.glDisableClientState(GL.GL_TEXTURE_COORD_ARRAY);
+		gl.glDisableClientState(GL.GL_NORMAL_ARRAY);
+		gl.glDisableClientState(GL.GL_VERTEX_ARRAY);
+		
 		gl.glBegin(GL.GL_QUADS);
 		{
-			//this really should be a vertex buffer array, prolly even a vbo...it should be easy from here
-			
-			//gl.glColor3f(1.0f,0.0f,0.0f);
-			gl.glTexCoord2f(dw*bs,0.0f);
-			gl.glVertex3f(dw,0.0f,-l);
-			gl.glTexCoord2f(w*bs,0.0f);
-			gl.glVertex3f(w,0.0f,-l);
-			gl.glTexCoord2f(w*bs,ROOM_HEIGHT*bs);
-			gl.glVertex3f(w,ROOM_HEIGHT,-l);
-			gl.glTexCoord2f(dw*bs,ROOM_HEIGHT*bs);
-			gl.glVertex3f(dw,ROOM_HEIGHT,-l);
-			
-			gl.glTexCoord2f(ROOM_HEIGHT*bs,-dw*bs);
-			gl.glVertex3f(w,ROOM_HEIGHT,-dw);
-			gl.glTexCoord2f(ROOM_HEIGHT*bs,-l*bs);
-			gl.glVertex3f(w,ROOM_HEIGHT,-l);
-			gl.glTexCoord2f(0.0f,-l*bs);
-			gl.glVertex3f(w,0.0f,-l);
-			gl.glTexCoord2f(0.0f,-dw*bs);
-			gl.glVertex3f(w,0.0f,-dw);
-				
-			gl.glTexCoord2f(ROOM_HEIGHT*bs,dw*bs);
-			gl.glVertex3f(w,ROOM_HEIGHT,dw);
-			gl.glTexCoord2f(ROOM_HEIGHT*bs,-dw*bs);
-			gl.glVertex3f(w,ROOM_HEIGHT,-dw);
-			gl.glTexCoord2f(dheight*bs,-dw*bs);
-			gl.glVertex3f(w,dheight,-dw);
-			gl.glTexCoord2f(dheight*bs,dw*bs);
-			gl.glVertex3f(w,dheight,dw);
-			
-			gl.glTexCoord2f((w+WALL_WIDTH)*bs,0.0f);
-			gl.glVertex3f(w+WALL_WIDTH,0.0f,dw);
-			gl.glTexCoord2f(w*bs,0.0f);
-			gl.glVertex3f(w,0.0f,dw);
-			gl.glTexCoord2f(w*bs,dheight*bs);
-			gl.glVertex3f(w,dheight,dw);
-			gl.glTexCoord2f((w+WALL_WIDTH)*bs,dheight*bs);
-			gl.glVertex3f(w+WALL_WIDTH,dheight,dw);
-			
-			gl.glTexCoord2f((w+WALL_WIDTH)*bs,dw*bs);
-			gl.glVertex3f(w+WALL_WIDTH,dheight,dw);
-			gl.glTexCoord2f(w*bs,dw*bs);
-			gl.glVertex3f(w,dheight,dw);
-			gl.glTexCoord2f(w*bs,-dw*bs);
-			gl.glVertex3f(w,dheight,-dw);
-			gl.glTexCoord2f((w+WALL_WIDTH)*bs,-dw*bs);
-			gl.glVertex3f(w+WALL_WIDTH,dheight,-dw);
-			
-			gl.glTexCoord2f((w+WALL_WIDTH)*bs,dheight*bs);
-			gl.glVertex3f(w+WALL_WIDTH,dheight,-dw);
-			gl.glTexCoord2f(w*bs,dheight*bs);
-			gl.glVertex3f(w,dheight,-dw);
-			gl.glTexCoord2f(w*bs,0.0f);
-			gl.glVertex3f(w,0.0f,-dw);
-			gl.glTexCoord2f((w+WALL_WIDTH)*bs,0.0f);
-			gl.glVertex3f(w+WALL_WIDTH,0.0f,-dw);
-			
-			gl.glTexCoord2f(0.0f,dw*bs);
-			gl.glVertex3f(w,0.0f,dw);
-			gl.glTexCoord2f(0.0f,l*bs);
-			gl.glVertex3f(w,0.0f,l);
-			gl.glTexCoord2f(ROOM_HEIGHT*bs,l*bs);
-			gl.glVertex3f(w,ROOM_HEIGHT,l);
-			gl.glTexCoord2f(ROOM_HEIGHT*bs,dw*bs);
-			gl.glVertex3f(w,ROOM_HEIGHT,dw);
-			
-			gl.glTexCoord2f(w*bs,0.0f);
-			gl.glVertex3f(w,0.0f,l);
-			gl.glTexCoord2f(dw*bs,0.0f);
-			gl.glVertex3f(dw,0.0f,l);
-			gl.glTexCoord2f(dw*bs,ROOM_HEIGHT*bs);
-			gl.glVertex3f(dw,ROOM_HEIGHT,l);
-			gl.glTexCoord2f(w*bs,ROOM_HEIGHT*bs);
-			gl.glVertex3f(w,ROOM_HEIGHT,l);
-			
-			//gl.glColor3f(1.0f,0.0f,1.0f);
-
-			gl.glTexCoord2f(dw*bs,dheight*bs);
-			gl.glVertex3f(dw,dheight,l);
-			gl.glTexCoord2f(-dw*bs,dheight*bs);
-			gl.glVertex3f(-dw,dheight,l);
-			gl.glTexCoord2f(-dw*bs,ROOM_HEIGHT*bs);
-			gl.glVertex3f(-dw,ROOM_HEIGHT,l);
-			gl.glTexCoord2f(dw*bs,ROOM_HEIGHT*bs);
-			gl.glVertex3f(dw,ROOM_HEIGHT,l);
-			
-			//gl.glVertex3f()
-			gl.glTexCoord2f(dheight*bs,l*bs);
-			gl.glVertex3f(-dw,dheight,l);
-			gl.glTexCoord2f(dheight*bs,(l+WALL_WIDTH)*bs);
-			gl.glVertex3f(-dw,dheight,l+WALL_WIDTH);
-			gl.glTexCoord2f(0.0f,(l+WALL_WIDTH)*bs);
-			gl.glVertex3f(-dw,0.0f,l+WALL_WIDTH);
-			gl.glTexCoord2f(0.0f,l*bs);
-			gl.glVertex3f(-dw,0.0f,l);
-			
-			gl.glTexCoord2f(dw*bs,l*bs);
-			gl.glVertex3f(dw,dheight,l);
-			gl.glTexCoord2f(dw*bs,(l+WALL_WIDTH)*bs);
-			gl.glVertex3f(dw,dheight,l+WALL_WIDTH);	
-			gl.glTexCoord2f(-dw*bs,(l+WALL_WIDTH)*bs);
-			gl.glVertex3f(-dw,dheight,l+WALL_WIDTH);
-			gl.glTexCoord2f(-dw*bs,l*bs);
-			gl.glVertex3f(-dw,dheight,l);
-			
-			gl.glTexCoord2f(0.0f,l*bs);
-			gl.glVertex3f(dw,0.0f,l);
-			gl.glTexCoord2f(0.0f,(l+WALL_WIDTH)*bs);
-			gl.glVertex3f(dw,0.0f,l+WALL_WIDTH);
-			gl.glTexCoord2f(dheight*bs,(l+WALL_WIDTH)*bs);
-			gl.glVertex3f(dw,dheight,l+WALL_WIDTH);	
-			gl.glTexCoord2f(dheight*bs,(l)*bs);
-			gl.glVertex3f(dw,dheight,l);
-
-			
-			gl.glTexCoord2f(-w*bs,ROOM_HEIGHT*bs);
-			gl.glVertex3f(-w,ROOM_HEIGHT,l);
-			gl.glTexCoord2f(-dw*bs,ROOM_HEIGHT*bs);
-			gl.glVertex3f(-dw,ROOM_HEIGHT,l);
-			gl.glTexCoord2f(-dw*bs,0.0f);
-			gl.glVertex3f(-dw,0.0f,l);
-			gl.glTexCoord2f(-w*bs,0.0f);
-			gl.glVertex3f(-w,0.0f,l);
-			
-			gl.glTexCoord2f(ROOM_HEIGHT*bs,dw*bs);
-			gl.glVertex3f(-w,ROOM_HEIGHT,dw);
-			gl.glTexCoord2f(ROOM_HEIGHT*bs,l*bs);
-			gl.glVertex3f(-w,ROOM_HEIGHT,l);
-			gl.glTexCoord2f(0.0f,l*bs);
-			gl.glVertex3f(-w,0.0f,l);
-			gl.glTexCoord2f(0.0f,dw*bs);
-			gl.glVertex3f(-w,0.0f,dw);
-			
-			gl.glTexCoord2f(dheight*bs,dw*bs);
-			gl.glVertex3f(-w,dheight,dw);
-			gl.glTexCoord2f(dheight*bs,-dw*bs);
-			gl.glVertex3f(-w,dheight,-dw);
-			gl.glTexCoord2f(ROOM_HEIGHT*bs,-dw*bs);
-			gl.glVertex3f(-w,ROOM_HEIGHT,-dw);
-			gl.glTexCoord2f(ROOM_HEIGHT*bs,dw*bs);
-			gl.glVertex3f(-w,ROOM_HEIGHT,dw);
-			
-			gl.glTexCoord2f(0.0f,-dw*bs);
-			gl.glVertex3f(-w,0.0f,-dw);
-			gl.glTexCoord2f(0.0f,-l*bs);
-			gl.glVertex3f(-w,0.0f,-l);
-			gl.glTexCoord2f(ROOM_HEIGHT*bs,-l*bs);
-			gl.glVertex3f(-w,ROOM_HEIGHT,-l);
-			gl.glTexCoord2f(ROOM_HEIGHT*bs,-dw*bs);
-			gl.glVertex3f(-w,ROOM_HEIGHT,-dw);
-			
-			gl.glTexCoord2f(-w*bs,0.0f);
-			gl.glVertex3f(-w,0.0f,-l);
-			gl.glTexCoord2f(-dw*bs,0.0f);
-			gl.glVertex3f(-dw,0.0f,-l);
-			gl.glTexCoord2f(-dw*bs,ROOM_HEIGHT*bs);
-			gl.glVertex3f(-dw,ROOM_HEIGHT,-l);
-			gl.glTexCoord2f(-w*bs,ROOM_HEIGHT*bs);
-			gl.glVertex3f(-w,ROOM_HEIGHT,-l);
-			
-			//gl.glColor3f(1.0f,0.0f,1.0f);
-			
-			gl.glTexCoord2f(-dw*bs,dheight*bs);
-			gl.glVertex3f(-dw,dheight,-l);
-			gl.glTexCoord2f(dw*bs,dheight*bs);
-			gl.glVertex3f(dw,dheight,-l);
-			gl.glTexCoord2f(dw*bs,ROOM_HEIGHT*bs);
-			gl.glVertex3f(dw,ROOM_HEIGHT,-l);
-			gl.glTexCoord2f(-dw*bs,ROOM_HEIGHT*bs);
-			gl.glVertex3f(-dw,ROOM_HEIGHT,-l);
 			
 			if(!r.Up())
 			{

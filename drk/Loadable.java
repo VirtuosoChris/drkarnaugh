@@ -1,4 +1,5 @@
 package drk;
+//Steve:Represents an object that can be loaded from a file or from something else
 
 public interface Loadable
 {
@@ -38,6 +39,6 @@ public interface Loadable
 	}
 
 	public boolean isLoaded=false;
-	
+	//attempt data load;
 	public void load() throws LoadException;
 }
