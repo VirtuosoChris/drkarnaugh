@@ -39,6 +39,7 @@ public class Menu extends drk.game.KarnaughGame{
 			new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					System.out.println("Starting a new ranked game");
+					mainGame();
 				}
 			}
 		);
@@ -136,6 +137,7 @@ public class Menu extends drk.game.KarnaughGame{
 			new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					System.out.println("Starting a new ranked game");
+					mainGame();
 				}
 			}
 		);
