@@ -1,6 +1,6 @@
 package drk.circuit;
 
-
+//implements a multiplexor 
 public class Multiplexor extends MultiGate
 {
 	int width;

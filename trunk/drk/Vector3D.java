@@ -5,10 +5,12 @@ package drk;
  */
 import java.lang.Math;
 
-
+//Steve: This is my 3D vector class.
 public class Vector3D
 {
+	//these are the components
 	public double x,y,z;
+	//a temporary allocated vector...to prevent constant allocation for speed-intensive code
 	public static Vector3D tmpv;
 	
 	static
@@ -22,6 +24,7 @@ public class Vector3D
 	}
 	public Vector3D(Vector3D nv)
 	{
+		//copy constructor
 		x=nv.x;
 		y=nv.y;
 		z=nv.z;
@@ -32,7 +35,7 @@ public class Vector3D
 		y=ty;
 		z=tz;
 	}
-	
+	//set equal to
 	public final Vector3D equals(double t)
 	{
 		x=t;
@@ -40,7 +43,7 @@ public class Vector3D
 		z=t;
 		return this;
 	}
-	
+	//set equal to
 	public final Vector3D equals(Vector3D nv)
 	{
 		x=nv.x;
@@ -49,7 +52,7 @@ public class Vector3D
 		return this;
 	}
 	
-	
+	//add and return new (A+B)
 	public final Vector3D plus(Vector3D nv)
 	{
 		return new Vector3D(x+nv.x,y+nv.y,z+nv.z);
@@ -58,6 +61,7 @@ public class Vector3D
 	{
 		return new Vector3D(x+t,y+t,z+t);
 	}
+	//add and return old (A+=B)
 	public final Vector3D eplus(Vector3D nv)
 	{
 		x+=nv.x;
@@ -72,7 +76,7 @@ public class Vector3D
 		z+=t;
 		return this;
 	}
-	
+	//multiply and return new (A*B)
 	public final Vector3D times(Vector3D nv)
 	{
 		return new Vector3D(x*nv.x,y*nv.y,z*nv.z);
@@ -81,6 +85,7 @@ public class Vector3D
 	{
 		return new Vector3D(x*t,y*t,z*t);
 	}
+	//multiply and return old (A*=B)
 	public final Vector3D etimes(Vector3D nv)
 	{
 		x*=nv.x;
@@ -95,7 +100,7 @@ public class Vector3D
 		z*=t;
 		return this;
 	}
-	
+	//subtract and return new(A-B)
 	public final Vector3D minus(Vector3D nv)
 	{
 		return new Vector3D(x-nv.x,y-nv.y,z-nv.z);
@@ -104,6 +109,7 @@ public class Vector3D
 	{
 		return new Vector3D(x-t,y-t,z-t);
 	}
+	//subtract and return old(A-=B)
 	public final Vector3D eminus(Vector3D nv)
 	{
 		x-=nv.x;
@@ -118,7 +124,7 @@ public class Vector3D
 		z-=t;
 		return this;
 	}
-	
+	//divide and return new(A/B)
 	public final Vector3D dividedby(Vector3D nv)
 	{
 		return new Vector3D(x/nv.x,y/nv.y,z/nv.z);
@@ -128,6 +134,7 @@ public class Vector3D
 		t=1.0/t;
 		return new Vector3D(x*t,y*t,z*t);
 	}
+	//divide and return old(A/=B)
 	public final Vector3D edividedby(Vector3D nv)
 	{
 		x/=nv.x;
@@ -144,12 +151,13 @@ public class Vector3D
 		return this;
 	}
 	
+	//calculate 3D dot product
 	public final double dot3(Vector3D nv)
 	{
 		Vector3D tv=this.times(nv);
 		return tv.x+tv.y+tv.z;
 	}
-	
+	//calculate 3D cross product and return new (AxB)
 	public final Vector3D cross3(Vector3D nv)
 	{
 		return new Vector3D(y*nv.z - z*nv.y,
@@ -157,6 +165,7 @@ public class Vector3D
 				    x*nv.y - y*nv.x);
 	}	
 	
+	//calculate 3D cross product and return old(A=AxB)
 	public final Vector3D ecross3(Vector3D nv)
 	{
 		double tx,ty,tz;
@@ -168,19 +177,22 @@ public class Vector3D
 		z=tz;
 		return this;
 	}
-	
+	//calculate magnitude squared
 	public final double mag2()
 	{
 		return this.dot3(this);
 	}
+	//calculate magnitude
 	public final double mag()
 	{
 		return Math.sqrt(this.mag2());
 	}
+	//calculate normalized version anad return new
 	public final Vector3D normal()
 	{
 		return this.dividedby(this.mag());
 	}
+	//normalize this vector
 	public final Vector3D enormal()
 	{
 		return this.edividedby(this.mag());
