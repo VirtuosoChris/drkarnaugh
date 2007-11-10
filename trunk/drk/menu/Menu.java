@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.awt.*;
 import java.util.*;
 import java.io.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Menu extends drk.game.KarnaughGame{
 	
@@ -53,10 +54,16 @@ public class Menu extends drk.game.KarnaughGame{
 					System.out.println("Starting a new custom game");
 					System.out.println("Finding the map file");
 					
+					FileNameExtensionFilter ext = new FileNameExtensionFilter("KAR MAP FILES ONLY", "kar");
+    				gameFile.setAcceptAllFileFilterUsed(false);
+    				gameFile.setFileFilter(ext);
+    				
 					int returnVal = gameFile.showOpenDialog(frame);
             		if(returnVal == JFileChooser.APPROVE_OPTION){
                 		File file = gameFile.getSelectedFile();
                 		log.append("Opening: " + file.getName() + "." + newline);
+                		int index = file.getName().lastIndexOf('.'); //Gets just the filename without ext.
+                		String fileName = file.getName().substring(0, index);
             		} 
             		else
                 		log.append("Open command cancelled by user." + newline);
@@ -148,10 +155,17 @@ public class Menu extends drk.game.KarnaughGame{
 					System.out.println("Starting a new custom game");
 					System.out.println("Finding the map file");
 					
+					FileNameExtensionFilter ext = new FileNameExtensionFilter("KAR MAP FILES ONLY", "kar");
+    				gameFile.setAcceptAllFileFilterUsed(false);
+    				gameFile.setFileFilter(ext);
+					
 					int returnVal = gameFile.showOpenDialog(frame);
             		if(returnVal == JFileChooser.APPROVE_OPTION){
                 		File file = gameFile.getSelectedFile();
                 		log.append("Opening: " + file.getName() + "." + newline);
+                		int index = file.getName().lastIndexOf('.'); //Gets just the filename without ext.
+                		String fileName = file.getName().substring(0, index);	
+                			
             		} 
             		else
                 		log.append("Open command cancelled by user." + newline);
