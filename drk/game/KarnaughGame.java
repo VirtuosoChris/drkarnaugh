@@ -34,8 +34,8 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	super.keyReleased(k);
 	if(k.getKeyCode() == KeyEvent.VK_SHIFT){
 						
-			if(!((KarnaughMaze)m).nextmap.equals("LAST_LEVEL"))
-			this.loadMap(((KarnaughMaze)m).nextmap);
+	//		if(!((KarnaughMaze)m).nextmap.equals("LAST_LEVEL"))
+	//		this.loadMap(((KarnaughMaze)m).nextmap);
 			
 	}
 	}
@@ -94,7 +94,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		//double zoff=(double)(rm /this.m.getWidth())*RenderableMaze.RENDER_WIDTH;
 		
 		//ec.Position = new Vector3D(xoff+RenderableMaze.RENDER_WIDTH/2,.7*RenderableMaze.RENDER_HEIGHT,zoff+.5*RenderableMaze.RENDER_WIDTH);
-		ec.Position=this.m.getRoomMiddle(this.m.getRoom(rm));
+		ec.Position	=this.m.getRoomMiddle(this.m.getRoom(rm));
 		ec.setHeight(1.5);//59 inches in meters (avg human height)
 		
 		Time = km.timelimit*1000;
@@ -150,8 +150,8 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		
 		lastUpdate = System.currentTimeMillis();
 		
-		if(Time % 1000 == 0)
-			System.out.println(""+minutesLeft()+":"+secondsLeft());
+	//	if(Time % 1000 == 0)
+	//		System.out.println(""+minutesLeft()+":"+secondsLeft());
 		
 	}
 	
