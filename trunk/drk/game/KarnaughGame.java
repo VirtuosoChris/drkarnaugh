@@ -6,7 +6,9 @@ import drk.*;
 import drk.maze.*;
 import drk.circuit.*;
 import drk.sound.*;
-
+import javax.media.opengl.*;
+import javax.media.opengl.glu.GLU;
+import java.util.*;
 
 public class KarnaughGame extends MazeGame implements Updatable{
 
@@ -29,15 +31,98 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	
 	
 	
+	public void setSingleMapCampaign(){
+		((KarnaughMaze)this.m).nextmap = "LAST_LEVEL";
+	}
+	
+	
+	
+	public void render(GL gl){
+		
+		
+		
+		
+		
+		//gl.glDisable(GL.GL_CULL_FACE);
+		
+		super.render(gl);
+			
+			
+			
+			
+			
+		String bauerClock = "";
+			
+			if(minutesLeft() < 10)bauerClock+="0";
+			 bauerClock += minutesLeft()+":";
+		if(secondsLeft()< 10)bauerClock+="0";
+		bauerClock+= secondsLeft();
+		
+		
+			
+	//this was just a test to see that i could remember vaguely how to draw in "2d" mode
+		gl.glMatrixMode(GL.GL_MODELVIEW);
+		
+		gl.glLoadIdentity();
+		
+		gl.glMatrixMode(GL.GL_PROJECTION);
+		gl.glPushMatrix();
+		
+		gl.glLoadIdentity();
+		
+		    gl.glOrtho(0, resWidth, 0, resHeight, -1.0, 1.0);
+		
+		
+			
+		
+		
+		gl.glBegin(GL.GL_QUADS);
+		  
+		
+		int digitWidth = (int)(.03*resWidth);
+		int upperLeftY = (int)(.99*resHeight);
+		int upperLeftX = (int)(.01*resWidth);
+		 
+		 
+		 
+		 //"cursor" -- can be either hand cursor or hand holding wire
+		 	gl.glVertex2i(resWidth/2 - digitWidth/2, resHeight/2 - digitWidth/2);
+			gl.glVertex2i(resWidth/2 + digitWidth/2, resHeight/2 - digitWidth/2);
+			gl.glVertex2i(resWidth/2 + digitWidth/2, resHeight/2 + digitWidth/2);
+			gl.glVertex2i(resWidth/2 - digitWidth/2, resHeight/2 + digitWidth/2);
+			
+		 
+		for(int i = 0; i < bauerClock.length();i++){
+			
+		  gl.glColor3f(0,1,0.0f);
+		    gl.glVertex2i(upperLeftX +  ((digitWidth+2)*i),upperLeftY);
+			gl.glVertex2i(upperLeftX +  ((digitWidth+2)*i) + digitWidth,upperLeftY);
+			gl.glVertex2i(upperLeftX +  ((digitWidth+2)*i) + digitWidth,upperLeftY - digitWidth);
+			gl.glVertex2i(upperLeftX +  ((digitWidth+2)*i),upperLeftY-digitWidth);
+			
+			
+		}
+	 
+	 
+	 	
+		gl.glColor3f(1,1,1);
+		
+		gl.glEnd();
+		
+		gl.glPopMatrix();
+		
+	}
+	
+	
 	public void keyReleased(KeyEvent k){
 	
 	super.keyReleased(k);
-	if(k.getKeyCode() == KeyEvent.VK_SHIFT){
+	//if(k.getKeyCode() == KeyEvent.VK_SHIFT){
 						
 	//		if(!((KarnaughMaze)m).nextmap.equals("LAST_LEVEL"))
 	//		this.loadMap(((KarnaughMaze)m).nextmap);
 			
-	}
+	//}
 	}
 	
 	
@@ -144,11 +229,17 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		
 		//if time <= release the bunny or otherwise kill the player
 		
+		
+		if(Time > 0){
 		long tmp = System.currentTimeMillis() - lastUpdate;
 
 		Time -= tmp;
 		
 		lastUpdate = System.currentTimeMillis();
+		
+		if(Time < 0)Time = 0;
+		}
+		
 		
 	//	if(Time % 1000 == 0)
 	//		System.out.println(""+minutesLeft()+":"+secondsLeft());
