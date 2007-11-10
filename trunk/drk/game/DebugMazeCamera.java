@@ -29,7 +29,7 @@ public class DebugMazeCamera extends MazeCamera
 		//System.err.println("DebugOutput");
 		if(mGame.isKeyPressed(java.awt.event.KeyEvent.VK_Q))
 		{
-			System.err.println("Q Pressed");
+			//System.err.println("Q Pressed");
 			Position.y+=walkRate*mGame.getFrameDt();
 		}
 		if(mGame.isKeyPressed(java.awt.event.KeyEvent.VK_A))
