@@ -166,6 +166,15 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		return (Time/1000)%60;
 	}
 	
+	public static void mainGame(){
+		KarnaughLog.clearLog();
+		KarnaughLog.log("Starting Dr. Karnaugh's Lab");
+		
+		KarnaughGame m = new KarnaughGame();
+		m.loadMap("map01");
+		m.camera.fovy = 30;
+	    m.doMain(resWidth,resHeight,null,true);
+	}
 	
 	//point of entry
 	public static void main(String args[]){
