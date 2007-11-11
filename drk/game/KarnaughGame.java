@@ -295,6 +295,18 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		lastUpdate = System.currentTimeMillis();
 		
 		if(Time < 0)Time = 0;
+		
+		if(Time <=0){
+			final File f = new File("drk/sound/music/mission.mp3");
+	
+			SoundStreamer.stopPlayImmediately(songID);
+		
+			if(f!=null){
+			songID = SoundStreamer.playThreadedStreamedLooped(f);
+			}else{
+			KarnaughLog.log("Could not open song file");
+			}
+		}
 		}
 		
 		
