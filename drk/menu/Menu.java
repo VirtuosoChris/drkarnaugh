@@ -22,6 +22,9 @@ public class Menu extends drk.game.KarnaughGame{
 		icon = new ImageIcon("bg.jpg");
 		newline = "\n";
 		
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //Set jframe to middle of screen.
+        frame.setBounds((screenSize.width-800)/2, (screenSize.height-600)/2, 800, 600);
+		
 		JLabel background = new JLabel(icon);
 		background.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
 		frame.getLayeredPane().add(background, new Integer(Integer.MIN_VALUE));
