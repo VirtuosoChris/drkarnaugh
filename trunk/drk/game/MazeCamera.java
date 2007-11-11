@@ -60,6 +60,8 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 		xrotation+=mGame.getYMousePercentFovy()*(-turnRate*fovy*ddt);
 		yrotation+=mGame.getXMousePercentFovy()*turnRate*fovy*ddt;
 		
+		if(xrotation < -90.0) xrotation = -90.0;
+		if(xrotation > 90.0) xrotation = 90.0;
 		
 		final double sideStepPercent=.3f;
 		if(mGame.isKeyPressed(KeyEvent.VK_UP)){	
