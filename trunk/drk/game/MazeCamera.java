@@ -10,7 +10,7 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 {
 	MazeGame mGame;
 	double walkRate = 6.702;//m/s...average human running speed
-	double turnRate = 90.0;//deg/s
+	double turnRate = 180.0;//deg/s
 	double height;
 	public MazeCamera()
 	{
@@ -50,8 +50,15 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 	public void update()
 	{
 		//super.update();
-		Vector3D Zdir=mGame.ec.ZNormal.times(new Vector3D(1.0,0.0,1.0)).enormal();
-		Vector3D Xdir=mGame.ec.XNormal.times(new Vector3D(1.0,0.0,1.0)).enormal();
+		//Vector3D FactorMatrix=new Vector3D(1.0,0.0,1.0);//boolean matrix for motion
+		
+	//	if(direction)
+		
+		Vector3D Zdir=mGame.ec.ZNormal.times(new Vector3D(1.0,0.0,1.0));
+		Vector3D Xdir=mGame.ec.XNormal.times(new Vector3D(1.0,0.0,1.0));
+		
+		
+		
 		double ddt=mGame.getFrameDt();
 		
 		//Position.y=height;
@@ -62,6 +69,39 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 		
 		if(xrotation < -90.0) xrotation = -90.0;
 		if(xrotation > 90.0) xrotation = 90.0;
+	/*	float[]  direction_dist=mGame.m.distanceToWalls();
+		final double cwidth=0.125;
+		if(direction_dist[0] < cwidth)
+		{
+			if(Zdir.z < 0.0)
+				Zdir.z = 0.0;
+			if(Xdir.z < 0.0)
+				Xdir.z = 0.0;
+		}
+		if(direction_dist[2] < cwidth)
+		{
+			if(Zdir.z > 0.0)
+				Zdir.z = 0.0;
+			if(Xdir.z > 0.0)
+				Xdir.z = 0.0;
+		}
+		if(direction_dist[1] < cwidth)
+		{
+			if(Zdir.x > 0.0)
+				Zdir.x = 0.0;
+			if(Xdir.x > 0.0)
+				Xdir.x = 0.0;
+		}
+		if(direction_dist[3] < cwidth)
+		{
+			if(Zdir.x < 0.0)
+				Zdir.x = 0.0;
+			if(Xdir.x < 0.0)
+				Xdir.x = 0.0;
+		}*/
+		
+		Xdir.enormal();
+		Zdir.enormal();
 		
 		final double sideStepPercent=.3f;
 		if(mGame.isKeyPressed(KeyEvent.VK_UP)){	

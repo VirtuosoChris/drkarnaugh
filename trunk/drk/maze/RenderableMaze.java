@@ -32,5 +32,7 @@ public abstract class RenderableMaze extends Maze implements GLRenderable,TimeUp
 	{
 		dt=det;
 	}
+	
+	public abstract float[] distanceToWalls();
 	//public public MazeCamera getNewMazeCameraInstance();
 }

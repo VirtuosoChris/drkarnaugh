@@ -12,6 +12,7 @@ import drk.graphics.GLSLShader;
 
 public class HorrorWallMaze extends RenderableMaze
 {
+	
 	final static float ROOM_LENGTH=10.0f;	//all units are in meters
 	final static float ROOM_HEIGHT=3.0f;
 	final static float ROOM_WIDTH=10.0f;	//bricks are .5 meters texture
@@ -94,6 +95,21 @@ public class HorrorWallMaze extends RenderableMaze
 		{
 			drk.KarnaughLog.log(e);
 		}
+	}
+	
+	public float[] distanceToWalls()
+	{
+		drk.graphics.Camera mc=this.getCamera();
+		Room r=getCurrentRoom();
+		Vector3D crp=mc.Position.minus(this.getRoomMiddle(r));
+		float [] f=new float[4];
+	/*	f[0]=(float)crp.y-(float)(RENDER_WIDTH*0.5);
+		f[1]=(float)(RENDER_WIDTH*0.5)-(float)crp.x;
+		f[2]=(float)(RENDER_WIDTH*0.5)-(float)crp.y;
+		f[3]=(float)crp.x-(float)(RENDER_WIDTH*0.5);*/
+		
+		
+		return f;
 	}
 
 	
