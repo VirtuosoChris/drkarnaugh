@@ -57,27 +57,10 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 		//Position.y=height;
 		//System.err.println("Output Keypress");
 		
-		
-		double tX = mGame.getYMousePercentFovy();
-		double tY = mGame.getXMousePercentFovy();
-		double t3 = 0;
-		
-		if((t3 = xrotation - tX) < -90.0){
-			tX += (t3+90);
-		}
-		else if((t3 = xrotation -tX) > 90.0){
-			tX += (t3 - 90);
-		}
+		xrotation+=mGame.getYMousePercentFovy()*(-turnRate*fovy*ddt);
+		yrotation+=mGame.getXMousePercentFovy()*turnRate*fovy*ddt;
 		
 		
-		xrotation-= tX;
-		yrotation-= tY;
-			
-		//thats all i did
-		//if(xrotation <= -90.0)xrotation = -90.0;
-		//if(xrotation >= 90.0)xrotation = 90.0;
-		
-		//System.out.println(xrotation);
 		final double sideStepPercent=.3f;
 		if(mGame.isKeyPressed(KeyEvent.VK_UP)){	
 			Position.eplus((Zdir.times(walkRate*ddt)));
