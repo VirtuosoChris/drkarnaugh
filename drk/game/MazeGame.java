@@ -50,10 +50,10 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 		numFrames++;
 		if(timePassed > 1.0)
 		{
-			//System.err.println("AverageFramerate: " + 
-			//		DeltaTimer.getMicrosecondsPerFrame(timePassed,(double)numFrames)
-			//		+" uspf, "+
-			//		DeltaTimer.getFramesPerSecond(timePassed,(double)numFrames)+ "fps");
+			System.err.println("AverageFramerate: " + 
+					DeltaTimer.getMicrosecondsPerFrame(timePassed,(double)numFrames)
+					+" uspf, "+
+					DeltaTimer.getFramesPerSecond(timePassed,(double)numFrames)+ "fps");
 			timePassed=0.0;
 			numFrames=0;
 		}
