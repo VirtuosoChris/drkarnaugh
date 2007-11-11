@@ -7,13 +7,7 @@ import drk.maze.*;
 import drk.circuit.*;
 import drk.sound.*;
 import javax.media.opengl.*;
-import javax.media.opengl.glu.GLU;
-import java.util.*;
-import java.awt.image.BufferedImage;
-import javax.imageio.*;
 import drk.graphics.guiOverlayItem;
-import com.sun.opengl.util.texture.*;
-
 public class KarnaughGame extends MazeGame implements Updatable{
 
 	private static int resWidth  = 1024;
@@ -106,7 +100,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		bauerClock+= secondsLeft();
 		
 		
-		System.out.println(bauerClock);
+		//System.out.println(bauerClock);
 		
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 		

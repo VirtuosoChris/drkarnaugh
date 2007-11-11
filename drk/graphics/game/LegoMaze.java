@@ -55,6 +55,22 @@ public class LegoMaze extends RenderableMaze implements GLRenderable,TimeUpdatab
 		return RoomList.get(id);
 	}
 	
+	public float[] distanceToWalls()
+	{
+		drk.graphics.Camera mc=this.getCamera();
+		Room r=getCurrentRoom();
+		Vector3D crp=mc.Position.minus(this.getRoomMiddle(r));
+		float [] f=new float[4];
+		f[0]=(float)crp.y-(float)(RENDER_WIDTH*0.5);
+		f[1]=(float)(RENDER_WIDTH*0.5)-(float)crp.x;
+		f[2]=(float)(RENDER_WIDTH*0.5)-(float)crp.y;
+		f[3]=(float)crp.x-(float)(RENDER_WIDTH*0.5);
+		
+		
+		return f;
+	}
+	
+	
 	public void render(GL gl)
 	{
 		double xoff=0.0,zoff=0.0,scale=1.0;
