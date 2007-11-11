@@ -5,7 +5,6 @@ import drk.DeltaTimer;
 import javax.swing.*;
 import javax.media.opengl.*;
 import java.awt.*;
-import java.awt.image.*;
 import com.sun.opengl.util.*;
 import java.awt.event.*;
 import java.util.Map;

@@ -20,7 +20,7 @@ public abstract class RenderableMaze extends Maze implements GLRenderable,TimeUp
 		cam=c;
 	}
 	public abstract Vector3D getRoomMiddle(Room r);
-	DeltaTimer dt;
+	protected DeltaTimer dt;
 	public RenderableMaze(int w,int h)
 	{
 		super(w,h);
