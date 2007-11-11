@@ -9,6 +9,10 @@ import drk.sound.*;
 import javax.media.opengl.*;
 import javax.media.opengl.glu.GLU;
 import java.util.*;
+import java.awt.image.BufferedImage;
+import javax.imageio.*;
+import drk.graphics.guiOverlayItem;
+import com.sun.opengl.util.texture.*;
 
 public class KarnaughGame extends MazeGame implements Updatable{
 
@@ -19,9 +23,60 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	private long Time; 
 	public boolean paused;
 	
+	guiOverlayItem cursor;
+	guiOverlayItem colon;
+	guiOverlayItem digits[];
+	
 	private long lastUpdate = 0;
 	
 	private int songID = 0;
+	
+	public void initialize(GL gl){
+		super.initialize(gl);
+		
+		
+		cursor = new guiOverlayItem();
+		colon = new guiOverlayItem();
+		
+		int digitWidth = (int)(.03*resWidth);
+		int upperLeftY = (int)(.99*resHeight);
+		int upperLeftX = (int)(.01*resWidth);
+		
+		cursor.setWidth(digitWidth);
+		cursor.setHeight(digitWidth);
+		cursor.setTexture("hand.jpg");
+		 
+		cursor.setPosition(resWidth/2 - digitWidth/2, resHeight/2 - digitWidth/2);
+		
+		
+		
+		colon.setWidth(digitWidth);
+		colon.setHeight(digitWidth);
+		colon.setTexture("colon.jpg");
+		
+		colon.setPosition(0,0);
+		
+		
+		digits = new guiOverlayItem[10];
+		for(int i = 0; i < digits.length; i++){
+			
+		digits[i] = new guiOverlayItem();
+		
+		digits[i].setWidth(digitWidth);
+		digits[i].setHeight(digitWidth);
+		digits[i].setTexture(""+i+".jpg");
+		digits[i].setPosition(0,0);
+			
+		}
+		
+		
+	
+	
+	}
+
+	
+	
+	
 	
 	public KarnaughGame(){
 		Score = 0;
@@ -39,75 +94,60 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	
 	public void render(GL gl){
 		
-		
-		
-		
-		
-		//gl.glDisable(GL.GL_CULL_FACE);
-		
 		super.render(gl);
-			
-			
-			
-			
+				
 			
 		String bauerClock = "";
 			
-			if(minutesLeft() < 10)bauerClock+="0";
-			 bauerClock += minutesLeft()+":";
+	
+	    if(minutesLeft() < 10)bauerClock+="0";
+		 bauerClock += minutesLeft()+":";
 		if(secondsLeft()< 10)bauerClock+="0";
 		bauerClock+= secondsLeft();
 		
 		
-			
-	//this was just a test to see that i could remember vaguely how to draw in "2d" mode
+		System.out.println(bauerClock);
+		
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 		
+		gl.glPushMatrix();
 		gl.glLoadIdentity();
 		
 		gl.glMatrixMode(GL.GL_PROJECTION);
 		gl.glPushMatrix();
 		
 		gl.glLoadIdentity();
-		
-		    gl.glOrtho(0, resWidth, 0, resHeight, -1.0, 1.0);
-		
-		
-			
+		gl.glEnable (GL.GL_BLEND); gl.glBlendFunc (GL.GL_ONE, GL.GL_ONE);
+		gl.glOrtho(0, resWidth, 0, resHeight, -1.0, 1.0);
 		
 		
-		gl.glBegin(GL.GL_QUADS);
-		  
-		
-		int digitWidth = (int)(.03*resWidth);
-		int upperLeftY = (int)(.99*resHeight);
-		int upperLeftX = (int)(.01*resWidth);
+		//You should like, totally draw your gui elements here
 		 
-		 
-		 
-		 //"cursor" -- can be either hand cursor or hand holding wire
-		 	gl.glVertex2i(resWidth/2 - digitWidth/2, resHeight/2 - digitWidth/2);
-			gl.glVertex2i(resWidth/2 + digitWidth/2, resHeight/2 - digitWidth/2);
-			gl.glVertex2i(resWidth/2 + digitWidth/2, resHeight/2 + digitWidth/2);
-			gl.glVertex2i(resWidth/2 - digitWidth/2, resHeight/2 + digitWidth/2);
-			
-		 
-		for(int i = 0; i < bauerClock.length();i++){
-			
-		  gl.glColor3f(0,1,0.0f);
-		    gl.glVertex2i(upperLeftX +  ((digitWidth+2)*i),upperLeftY);
-			gl.glVertex2i(upperLeftX +  ((digitWidth+2)*i) + digitWidth,upperLeftY);
-			gl.glVertex2i(upperLeftX +  ((digitWidth+2)*i) + digitWidth,upperLeftY - digitWidth);
-			gl.glVertex2i(upperLeftX +  ((digitWidth+2)*i),upperLeftY-digitWidth);
-			
-			
-		}
-	 
-	 
-	 	
-		gl.glColor3f(1,1,1);
+	    cursor.draw(gl);
+	    
+	    
+	    for(int i = 0; i < bauerClock.length(); i++){
+	    	
+	    	char a = bauerClock.charAt(i);
+	    	int b = 0;
+	    	
+	    	if(a == ':')
+	    		colon.drawAt(0+i*colon.width,resHeight-colon.height,gl);
+	    	else{
+	    	
+	    	b = Integer.valueOf(""+a);
+	    	digits[b].drawAt(0+i*digits[b].width,resHeight-digits[b].height,gl);
+	    	}
+	    	
+	    }
+	    
+	    
+	    //you should like, totally STOP drawing them here
+	
+		gl.glDisable (GL.GL_BLEND);
+		gl.glPopMatrix();
 		
-		gl.glEnd();
+		gl.glMatrixMode(GL.GL_MODELVIEW);
 		
 		gl.glPopMatrix();
 		
