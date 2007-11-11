@@ -80,8 +80,19 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	
 	
 	
-	public void setSingleMapCampaign(){
-		((KarnaughMaze)this.m).nextmap = "LAST_LEVEL";
+	public void setSingleMapCampaign(KarnaughGame m, String map){
+		KarnaughLog.clearLog();
+		KarnaughLog.log("Starting Dr. Karnaugh's Lab");
+		
+		m.loadMap(map);
+		m.camera.fovy = 30;
+	    m.doMain(resWidth,resHeight,null,true);
+		if(!((KarnaughMaze)this.m).nextmap.equals("LAST_LEVEL")){
+			loadMap(((KarnaughMaze)this.m).nextmap);
+		}
+		else{
+			gameOver();
+		}
 	}
 	
 	
