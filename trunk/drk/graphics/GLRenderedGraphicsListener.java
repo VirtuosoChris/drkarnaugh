@@ -93,19 +93,27 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		return;}
 		
 		//System.err.println("MouseMove event caught");
+		
+		//System.err.println("MouseMove event caught");
 		int x=m.getX();
 		int y=m.getY();
 		
 //		angle is in percentage of y field of view, so we just have to divide by height...thats w
 		//why the angle per second didn't work right....
+		xpercentfovy -=((double)(x - xPrev))/((double)(height));
+		ypercentfovy +=((double)(y - yPrev))/((double)(height));
 		
-		if((int)x != (int)xPrev){
-			xpercentfovy = ((double)(x - xPrev))/((double)(height))* 12000* frameTimer.getSecondsSinceLastUpdate();
-		}else{xpercentfovy = 0;}
 		
-		if((int)y != (int)yPrev){
-			ypercentfovy = ((double)(y - yPrev))/((double)(height))* 12000 * frameTimer.getSecondsSinceLastUpdate();
-		}else{ypercentfovy = 0;}
+		//////////////////
+		
+		
+//		angle is in percentage of y field of view, so we just have to divide by height...thats w
+		//why the angle per second didn't work right....
+		xpercentfovy -=((double)(x - xPrev))/((double)(height));
+		ypercentfovy +=((double)(y - yPrev))/((double)(height));
+		
+		
+		//////////////////
 		
 		
 		
