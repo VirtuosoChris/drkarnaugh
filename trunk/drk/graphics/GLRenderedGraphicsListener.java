@@ -158,7 +158,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	}
 	
 	public void mouseDragged(MouseEvent m){
-		recenterMouse();
+		mouseMoved(m);
 		
 	}
 
