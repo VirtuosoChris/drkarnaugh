@@ -1,4 +1,5 @@
 package drk.menu;
+import drk.game.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -64,6 +65,8 @@ public class Menu extends drk.game.KarnaughGame{
                 		log.append("Opening: " + file.getName() + "." + newline);
                 		int index = file.getName().lastIndexOf('.'); //Gets just the filename without ext.
                 		String fileName = file.getName().substring(0, index);
+                		KarnaughGame single = new KarnaughGame();
+                		single.setSingleMapCampaign(single, fileName);	
             		} 
             		else
                 		log.append("Open command cancelled by user." + newline);
@@ -165,6 +168,8 @@ public class Menu extends drk.game.KarnaughGame{
                 		log.append("Opening: " + file.getName() + "." + newline);
                 		int index = file.getName().lastIndexOf('.'); //Gets just the filename without ext.
                 		String fileName = file.getName().substring(0, index);	
+                		KarnaughGame single = new KarnaughGame();
+                		single.setSingleMapCampaign(single, fileName);	
                 			
             		} 
             		else
