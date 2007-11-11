@@ -20,6 +20,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	guiOverlayItem cursor;
 	guiOverlayItem colon;
 	guiOverlayItem digits[];
+	guiOverlayItem bunny;
 	
 	private long lastUpdate = 0;
 	
@@ -28,7 +29,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	public void initialize(GL gl){
 		super.initialize(gl);
 		
-		
+		bunny = new guiOverlayItem();
 		cursor = new guiOverlayItem();
 		colon = new guiOverlayItem();
 		
@@ -49,6 +50,14 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		colon.setTexture("colon.jpg");
 		
 		colon.setPosition(0,0);
+		
+		
+		
+		bunny.setWidth(digitWidth);
+		bunny.setHeight(digitWidth);
+		bunny.setTexture("bunny.jpg");
+		
+		bunny.setPosition(0,0);
 		
 		
 		digits = new guiOverlayItem[10];
@@ -138,10 +147,13 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	    	
 	    	if(a == ':')
 	    		colon.drawAt(0+i*colon.width,resHeight-colon.height,gl);
-	    	else{
+	    	else if (secondsLeft() > 0 || minutesLeft() > 0){
 	    	
 	    	b = Integer.valueOf(""+a);
 	    	digits[b].drawAt(0+i*digits[b].width,resHeight-digits[b].height,gl);
+	    	}else{
+	    		bunny.drawAt(0+i*bunny.width,resHeight-bunny.height,gl);
+	    		
 	    	}
 	    	
 	    }
