@@ -14,8 +14,8 @@ public class KarnaughShaders
 	/*tmp1 = input_image(x,y) - input_image(x+1,y+1)
 	tmp2 = input_image(x+1,y) - input_image(x,y+1)
 	output_image(x,y) = absolute_value(tmp1) + absolute_value(tmp2)*/
-	
-	/*static final String FinalRenderFragment=
+	/*
+	static final String FinalRenderFragment=
 		"uniform sampler2D texture;\n" +
 		"uniform float t;\n" +
 		"void main()\n" +
