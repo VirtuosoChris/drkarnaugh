@@ -3,12 +3,12 @@ package drk.graphics.game;
 import javax.imageio.*;
 import javax.media.opengl.GL;
 import com.sun.opengl.util.texture.*;
-import com.sun.opengl.util.*;
 import java.awt.image.BufferedImage;
 import drk.Vector3D;
 import drk.maze.RenderableMaze;
 import drk.maze.Room;
-import java.nio.*;
+import drk.graphics.GLSLShader;
+
 
 public class HorrorWallMaze extends RenderableMaze
 {
@@ -23,6 +23,7 @@ public class HorrorWallMaze extends RenderableMaze
 	final static float PLANK_SCALE=.9f;
 	Texture planks;
 	final static boolean ALWAYSROOM=false;
+	GLSLShader FinalOutputShader;
 	public HorrorWallMaze(int w, int h)
 	{
 		super(w, h);
@@ -39,7 +40,7 @@ public class HorrorWallMaze extends RenderableMaze
 	@Override
 	public Vector3D getRoomMiddle(Room r)
 	{
-		float x,y,z;
+		float x,z;
 		x=r.getID() % getWidth();
 		z=r.getID() / getWidth();
 		x+=0.5f;
@@ -53,263 +54,12 @@ public class HorrorWallMaze extends RenderableMaze
 	
 	int numv;
 	int WallsVBO;
+	int thandle;
+	float time=0.0f;
 	public void initializedatabuffers(GL gl)
 	{
-		float w=ROOM_WIDTH*0.5f;
-		float l=ROOM_LENGTH*0.5f;
-		l-=WALL_WIDTH*0.5f;
-		w-=WALL_WIDTH*0.5f;
-		float dheight=DOOR_HEIGHT;
-		float dw=DOOR_WIDTH*0.5f;
-		float bs=1.0f/BRICK_SCALE;
-		
-		//72 vertices...72 TC...,x2
-		
-		numv=72;
-		FloatBuffer databuf=BufferUtil.newFloatBuffer(numv*(2+3+3)); //per pixel data size
-		final float[] TFloats=
-		{
-		dw*bs,0.0f,
-		w*bs,0.0f,
-		w*bs,ROOM_HEIGHT*bs,
-		dw*bs,ROOM_HEIGHT*bs,
-		ROOM_HEIGHT*bs,-dw*bs,
-		ROOM_HEIGHT*bs,-l*bs,
-		0.0f,-l*bs,
-		0.0f,-dw*bs,
-		ROOM_HEIGHT*bs,dw*bs,
-		ROOM_HEIGHT*bs,-dw*bs,
-		dheight*bs,-dw*bs,
-		dheight*bs,dw*bs,
-		(w+WALL_WIDTH)*bs,0.0f,
-		w*bs,0.0f,
-		w*bs,dheight*bs,
-		(w+WALL_WIDTH)*bs,dheight*bs,
-		(w+WALL_WIDTH)*bs,dw*bs,
-		w*bs,dw*bs,
-		w*bs,-dw*bs,
-		(w+WALL_WIDTH)*bs,-dw*bs,
-		(w+WALL_WIDTH)*bs,dheight*bs,
-		w*bs,dheight*bs,
-		w*bs,0.0f,
-		(w+WALL_WIDTH)*bs,0.0f,
-		0.0f,dw*bs,
-		0.0f,l*bs,
-		ROOM_HEIGHT*bs,l*bs,
-		ROOM_HEIGHT*bs,dw*bs,
-		w*bs,0.0f,
-		dw*bs,0.0f,
-		dw*bs,ROOM_HEIGHT*bs,
-		w*bs,ROOM_HEIGHT*bs,
-		dw*bs,dheight*bs,
-		-dw*bs,dheight*bs,
-		-dw*bs,ROOM_HEIGHT*bs,
-		dw*bs,ROOM_HEIGHT*bs,
-		dheight*bs,l*bs,
-		dheight*bs,(l+WALL_WIDTH)*bs,
-		0.0f,(l+WALL_WIDTH)*bs,
-		0.0f,l*bs,
-		dw*bs,l*bs,
-		dw*bs,(l+WALL_WIDTH)*bs,
-		-dw*bs,(l+WALL_WIDTH)*bs,
-		-dw*bs,l*bs,
-		0.0f,l*bs,
-		0.0f,(l+WALL_WIDTH)*bs,
-		dheight*bs,(l+WALL_WIDTH)*bs,
-		dheight*bs,(l)*bs,
-		-w*bs,ROOM_HEIGHT*bs,
-		-dw*bs,ROOM_HEIGHT*bs,
-		-dw*bs,0.0f,
-		-w*bs,0.0f,
-		ROOM_HEIGHT*bs,dw*bs,
-		ROOM_HEIGHT*bs,l*bs,
-		0.0f,l*bs,
-		0.0f,dw*bs,
-		dheight*bs,dw*bs,
-		dheight*bs,-dw*bs,
-		ROOM_HEIGHT*bs,-dw*bs,
-		ROOM_HEIGHT*bs,dw*bs,
-		0.0f,-dw*bs,
-		0.0f,-l*bs,
-		ROOM_HEIGHT*bs,-l*bs,
-		ROOM_HEIGHT*bs,-dw*bs,
-		-w*bs,0.0f,
-		-dw*bs,0.0f,
-		-dw*bs,ROOM_HEIGHT*bs,
-		-w*bs,ROOM_HEIGHT*bs,
-		-dw*bs,dheight*bs,
-		dw*bs,dheight*bs,
-		dw*bs,ROOM_HEIGHT*bs,
-		-dw*bs,ROOM_HEIGHT*bs,
-		
-		};
-		
-		final float []NFloats=
-		{
-		0.0f,0.0f,1.0f,
-		0.0f,0.0f,1.0f,
-		0.0f,0.0f,1.0f,
-		0.0f,0.0f,1.0f,
-		-1.0f,0.0f,0.0f,
-		-1.0f,0.0f,0.0f,
-		-1.0f,0.0f,0.0f,
-		-1.0f,0.0f,0.0f,
-		-1.0f,0.0f,0.0f,
-		-1.0f,0.0f,0.0f,
-		-1.0f,0.0f,0.0f,
-		-1.0f,0.0f,0.0f,
-		0.0f,0.0f,-1.0f,
-		0.0f,0.0f,-1.0f,
-		0.0f,0.0f,-1.0f,
-		0.0f,0.0f,-1.0f,
-		0.0f,-1.0f,0.0f,
-		0.0f,-1.0f,0.0f,
-		0.0f,-1.0f,0.0f,
-		0.0f,-1.0f,0.0f,
-		0.0f,0.0f,1.0f,
-		0.0f,0.0f,1.0f,
-		0.0f,0.0f,1.0f,
-		0.0f,0.0f,1.0f,
-		-1.0f,0.0f,0.0f,
-		-1.0f,0.0f,0.0f,
-		-1.0f,0.0f,0.0f,
-		-1.0f,0.0f,0.0f,
-		0.0f,0.0f,-1.0f,
-		0.0f,0.0f,-1.0f,
-		0.0f,0.0f,-1.0f,
-		0.0f,0.0f,-1.0f,
-		0.0f,0.0f,-1.0f,
-		0.0f,0.0f,-1.0f,
-		0.0f,0.0f,-1.0f,
-		0.0f,0.0f,-1.0f,
-		1.0f,0.0f,0.0f,
-		1.0f,0.0f,0.0f,
-		1.0f,0.0f,0.0f,
-		1.0f,0.0f,0.0f,
-		0.0f,-1.0f,0.0f,
-		0.0f,-1.0f,0.0f,
-		0.0f,-1.0f,0.0f,
-		0.0f,-1.0f,0.0f,
-		-1.0f,0.0f,0.0f,
-		-1.0f,0.0f,0.0f,
-		-1.0f,0.0f,0.0f,
-		-1.0f,0.0f,0.0f,
-		0.0f,0.0f,-1.0f,
-		0.0f,0.0f,-1.0f,
-		0.0f,0.0f,-1.0f,
-		0.0f,0.0f,-1.0f,
-		1.0f,0.0f,0.0f,
-		1.0f,0.0f,0.0f,
-		1.0f,0.0f,0.0f,
-		1.0f,0.0f,0.0f,
-		1.0f,0.0f,0.0f,
-		1.0f,0.0f,0.0f,
-		1.0f,0.0f,0.0f,
-		1.0f,0.0f,0.0f,
-		1.0f,0.0f,0.0f,
-		1.0f,0.0f,0.0f,
-		1.0f,0.0f,0.0f,
-		1.0f,0.0f,0.0f,
-		0.0f,0.0f,1.0f,
-		0.0f,0.0f,1.0f,
-		0.0f,0.0f,1.0f,
-		0.0f,0.0f,1.0f,
-		0.0f,0.0f,1.0f,
-		0.0f,0.0f,1.0f,
-		0.0f,0.0f,1.0f,
-		0.0f,0.0f,1.0f
-		};
-		
-		final float[] VFloats=
-		{
-		dw,0.0f,-l,
-		w,0.0f,-l,
-		w,ROOM_HEIGHT,-l,
-		dw,ROOM_HEIGHT,-l,
-		w,ROOM_HEIGHT,-dw,
-		w,ROOM_HEIGHT,-l,
-		w,0.0f,-l,
-		w,0.0f,-dw,
-		w,ROOM_HEIGHT,dw,
-		w,ROOM_HEIGHT,-dw,
-		w,dheight,-dw,
-		w,dheight,dw,
-		w+WALL_WIDTH,0.0f,dw,
-		w,0.0f,dw,
-		w,dheight,dw,
-		w+WALL_WIDTH,dheight,dw,
-		w+WALL_WIDTH,dheight,dw,
-		w,dheight,dw,
-		w,dheight,-dw,
-		w+WALL_WIDTH,dheight,-dw,
-		w+WALL_WIDTH,dheight,-dw,
-		w,dheight,-dw,
-		w,0.0f,-dw,
-		w+WALL_WIDTH,0.0f,-dw,
-		w,0.0f,dw,
-		w,0.0f,l,
-		w,ROOM_HEIGHT,l,
-		w,ROOM_HEIGHT,dw,
-		w,0.0f,l,
-		dw,0.0f,l,
-		dw,ROOM_HEIGHT,l,
-		w,ROOM_HEIGHT,l,
-		dw,dheight,l,
-		-dw,dheight,l,
-		-dw,ROOM_HEIGHT,l,
-		dw,ROOM_HEIGHT,l,
-		-dw,dheight,l,
-		-dw,dheight,l+WALL_WIDTH,
-		-dw,0.0f,l+WALL_WIDTH,
-		-dw,0.0f,l,
-		dw,dheight,l,
-		dw,dheight,l+WALL_WIDTH,	
-		-dw,dheight,l+WALL_WIDTH,
-		-dw,dheight,l,
-		dw,0.0f,l,
-		dw,0.0f,l+WALL_WIDTH,
-		dw,dheight,l+WALL_WIDTH,	
-		dw,dheight,l,
-		-w,ROOM_HEIGHT,l,
-		-dw,ROOM_HEIGHT,l,
-		-dw,0.0f,l,
-		-w,0.0f,l,
-		-w,ROOM_HEIGHT,dw,
-		-w,ROOM_HEIGHT,l,
-		-w,0.0f,l,
-		-w,0.0f,dw,
-		-w,dheight,dw,
-		-w,dheight,-dw,
-		-w,ROOM_HEIGHT,-dw,
-		-w,ROOM_HEIGHT,dw,
-		-w,0.0f,-dw,
-		-w,0.0f,-l,
-		-w,ROOM_HEIGHT,-l,
-		-w,ROOM_HEIGHT,-dw,
-		-w,0.0f,-l,
-		-dw,0.0f,-l,
-		-dw,ROOM_HEIGHT,-l,
-		-w,ROOM_HEIGHT,-l,
-		-dw,dheight,-l,
-		dw,dheight,-l,
-		dw,ROOM_HEIGHT,-l,
-		-dw,ROOM_HEIGHT,-l,
-		};		
-		
-		databuf.put(VFloats);
-		databuf.put(NFloats);
-		databuf.put(TFloats);//put the data into the client side array to be uploaded into the vbo
-		databuf.rewind();
-		int [] tmp=new int[1];
-		
-		
-		gl.glGenBuffers(1,tmp,0);
-		WallsVBO=tmp[0];
-		gl.glBindBufferARB( GL.GL_ARRAY_BUFFER_ARB, WallsVBO);
-		 // Copy data to the server into the VBO.
-		 gl.glBufferDataARB( GL.GL_ARRAY_BUFFER_ARB,
-		                     numv*4*8,databuf,
-		                     GL.GL_STATIC_DRAW_ARB );
+		WallsVBO=HorrorWallMazeGeometry.buildWallsVBO(gl);
+		numv=HorrorWallMazeGeometry.WallsVertices;
 	}
 
 	public void initialize(GL gl)
@@ -330,24 +80,20 @@ public class HorrorWallMaze extends RenderableMaze
 			bricks.setTexParameterf(GL.GL_TEXTURE_WRAP_T,GL.GL_REPEAT);
 		}catch(Exception e)
 		{
-			drk.KarnaughLog.log("Failure loading texture map: roughbricks.png:"+e);
+			drk.KarnaughLog.log("Failure loading texture map: roughbricks.jpg:"+e);
 		}
 		
 		isinit=true;
-
-		initializedatabuffers(gl);
-		/*gl.glEnableClientState(GL.GL_VERTEX_ARRAY);
-		gl.glEnableClientState(GL.GL_NORMAL_ARRAY);
-		gl.glEnableClientState(GL.GL_TEXTURE_COORD_ARRAY);
-		gl.glTexCoordPointer(2,GL.GL_FLOAT,0,TextureFloats);
-		gl.glNormalPointer(GL.GL_FLOAT,0,NormalFloats);
-		gl.glVertexPointer(3,GL.GL_FLOAT,0,VertexFloats);
-		gl.glDisableClientState(GL.GL_TEXTURE_COORD_ARRAY);
-		gl.glDisableClientState(GL.GL_NORMAL_ARRAY);
-		gl.glDisableClientState(GL.GL_VERTEX_ARRAY);*/
 		
-	// TODO Auto-generated method stub
-
+		initializedatabuffers(gl);
+		FinalOutputShader=KarnaughShaders.getOutputShader();
+		try
+		{
+			thandle=FinalOutputShader.getUniformObject("t");
+		}catch(Exception e)
+		{
+			drk.KarnaughLog.log(e);
+		}
 	}
 
 	
@@ -361,10 +107,6 @@ public class HorrorWallMaze extends RenderableMaze
 		float w=ROOM_WIDTH*0.5f;
 		float l=ROOM_LENGTH*0.5f;
 		
-		Room croom=this.getCurrentRoom();
-		
-		//if(croom.getID() == r.getID())
-		//{
 		planks.enable();
 		planks.bind();
 		gl.glBegin(GL.GL_QUADS);
@@ -491,12 +233,16 @@ public class HorrorWallMaze extends RenderableMaze
 		if(id < 0 || id >= RoomList.size()) return null;
 		return RoomList.get(id);
 	}
+	
 	public void render(GL gl)
 	{
 		if(!isInitialized())
 			initialize(gl);
 		gl.glEnable(GL.GL_CULL_FACE);
 		//gl.glFrontFace(GL.GL_CCW);
+		FinalOutputShader.applyShader();
+		time+=900.0f*this.dt.ddt;
+		FinalOutputShader.setUniformFloat(thandle,time);
 		drk.game.MazeCamera mc=this.getCamera();
 		Room croom=this.getCurrentRoom();
 		int cx=getRoomX(croom);
@@ -522,6 +268,7 @@ public class HorrorWallMaze extends RenderableMaze
 		}
 		
 		gl.glDisable(GL.GL_CULL_FACE);
+		GLSLShader.applyShader(0);
 	// TODO Auto-generated method stub
 
 	}
