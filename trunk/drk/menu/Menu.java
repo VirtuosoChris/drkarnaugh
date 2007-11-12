@@ -9,7 +9,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Menu extends drk.game.KarnaughGame implements KeyListener{
 	
-	JFrame frame;
+	JFrame frame, story;
 	JScrollPane scrollPane;
 	ImageIcon icon;
 	JFileChooser gameFile;
@@ -44,7 +44,7 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 			new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					System.out.println("Starting a new ranked game");
-						JFrame story = new JFrame();
+						story = new JFrame();
 						story.setUndecorated(true);
 						story.setSize(800, 600);                
 						Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -77,11 +77,10 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 						
 						frame.setVisible(false);
 						story.setVisible(true);
-						//KeyEvent ke = null; //This needs to be fixed so the user presses Space to continue.
-						//while(ke.getKeyCode() != KeyEvent.VK_SPACE){
-						//}
-						story.dispose(); story = null;
-						mainGame();
+						
+						story.addKeyListener(new Menu());
+						story.requestFocus();
+						
 				}
 			}
 		);
@@ -161,6 +160,12 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 		GameGUI();
 	}
 	
+	public void keyPressed(KeyEvent ke){
+		if(ke.getKeyCode() == KeyEvent.VK_SPACE){
+			mainGame();
+		}
+	}
+	
 	public JMenuBar createMenuBar(){
 		
 		JMenu file = new JMenu("File");
@@ -216,15 +221,11 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 							storyT.printStackTrace();
 						}
 						
-						JTextField typingArea = new JTextField(10);
-						typingArea.addKeyListener(this);
 						frame.setVisible(false);
 						story.setVisible(true);
-						//KeyEvent ke = null; //This needs to be fixed so the user presses Space to continue.
-						//while(ke.getKeyCode() != KeyEvent.VK_SPACE){
-						//}
-						story.dispose(); story = null;
-						mainGame();
+						
+						story.addKeyListener(new Menu());
+						story.requestFocus();
 				}
 			}
 		);
