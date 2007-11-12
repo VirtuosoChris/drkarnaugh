@@ -14,6 +14,9 @@ Cursor/Status Icons:
 Holding Wire/Can Interact/Raccon has something to say
 }
 
+**I will do most of the help file for the menu, Chris I will let you add in how they can do the modding and stuff.**
+**I also have basically already created a scrolling credits to use at the end of the game, and I am wanted to make another screen**
+**of story to show what happens when you beat the game. Let me know what you think about this, otherwise I will show you Wed.**
 Help File: 
 	Editing/modding instructions, game instructions, story 	synopsis, credits, sources for our art/sound/etc
 
