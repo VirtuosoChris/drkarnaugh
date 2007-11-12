@@ -177,8 +177,6 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 		log = new JTextArea(5,20);
         log.setMargin(new Insets(5,5,5,5));
         log.setEditable(false);
-		
-		GameGUI();
 	}
 	
 	public void keyPressed(KeyEvent ke){
@@ -361,5 +359,6 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 	public static void main(String[] args)
 	{
 		Menu Test = new Menu();
+		Test.GameGUI();
 	}
 }
