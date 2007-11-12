@@ -13,7 +13,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	private static int resWidth  = 1024;
 	private static int resHeight = 768;
 
-	private int Score;
+	private int Score = 0;
 	private long Time; 
 	public boolean paused;
 	
@@ -21,6 +21,9 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	guiOverlayItem colon;
 	guiOverlayItem digits[];
 	guiOverlayItem bunny;
+	guiOverlayItem cChar;
+	guiOverlayItem eChar;
+	guiOverlayItem rChar;
 	
 	private long lastUpdate = 0;
 	
@@ -37,38 +40,79 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		int upperLeftY = (int)(.99*resHeight);
 		int upperLeftX = (int)(.01*resWidth);
 		
+		
+		
+		
 		cursor.setWidth(digitWidth);
 		cursor.setHeight(digitWidth);
-		cursor.setTexture("hand.jpg");
-		 
+		cursor.setTexture("hand.jpg"); 
 		cursor.setPosition(resWidth/2 - digitWidth/2, resHeight/2 - digitWidth/2);
-		
-		
 		
 		colon.setWidth(digitWidth);
 		colon.setHeight(digitWidth);
-		colon.setTexture("colon.jpg");
+		colon.setTexture("digital.jpg");
+		
+		colon.texStartU = .5f;
+		colon.texStartV = .5f;
+		colon.texSizeU =  .25f;
+		colon.texSizeV = .25f;
 		
 		colon.setPosition(0,0);
+	
+	
+		cChar = new guiOverlayItem();
+		cChar.setWidth(digitWidth);
+		cChar.setHeight(digitWidth);
+		cChar.setTexture(colon);
+		cChar.texStartU = 0f;
+		cChar.texStartV = .75f;
+		cChar.texSizeU =  .25f;
+		cChar.texSizeV = .25f;	
 		
+	
 		
+		eChar = new guiOverlayItem();
+		eChar.setWidth(digitWidth);
+		eChar.setHeight(digitWidth);
+		eChar.setTexture(colon);
+		eChar.texStartU = .5f;
+		eChar.texStartV = .75f;
+		eChar.texSizeU =  .25f;
+		eChar.texSizeV = .25f;
+
+		rChar = new guiOverlayItem();
+		rChar.setWidth(digitWidth);
+		rChar.setHeight(digitWidth);
+		rChar.setTexture(colon);
+		rChar.texStartU = .25f;
+		rChar.texStartV = .75f;
+		rChar.texSizeU =  .25f;
+		rChar.texSizeV = .25f;
+	
+		//3,3 and 3,4
 		
 		bunny.setWidth(digitWidth);
 		bunny.setHeight(digitWidth);
-		bunny.setTexture("bunny.jpg");
-		
+		bunny.setTexture(colon);
+		bunny.texSizeU = .25f;
+		bunny.texSizeV = .25f;
+		bunny.texStartU = 11f*.25f;
+		bunny.texStartV = .5f;
 		bunny.setPosition(0,0);
 		
 		
 		digits = new guiOverlayItem[10];
 		for(int i = 0; i < digits.length; i++){
 			
-		digits[i] = new guiOverlayItem();
-		
-		digits[i].setWidth(digitWidth);
-		digits[i].setHeight(digitWidth);
-		digits[i].setTexture(""+i+".jpg");
-		digits[i].setPosition(0,0);
+	    	digits[i] = new guiOverlayItem();	
+			digits[i].texSizeU = .25f;
+			digits[i].texSizeV = .25f;
+			digits[i].texStartU = (float)(i*.25);
+			digits[i].texStartV = (float)(((i)/4)*.25);
+		    digits[i].setWidth(digitWidth);
+		    digits[i].setHeight(digitWidth);
+		    digits[i].setTexture(colon);
+		    digits[i].setPosition(0,0);
 			
 		}
 		
@@ -159,6 +203,36 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	    }
 	    
 	    
+	    String scoreString = "5c0re:"+Score;
+	    
+	    for(int i = 0; i < scoreString.length(); i++){
+	    	
+	    	char a =scoreString.charAt(i);
+	    	int b = 0;
+	    	
+	    	if(a == ':')
+	    		colon.drawAt(0+i*colon.width,0,gl);
+	    		
+	    	else if(a == 'c')
+	    		cChar.drawAt(0+i*cChar.width,0,gl);
+	    	
+	    	
+	    	else if(a == 'r')
+	    		rChar.drawAt(0+i*rChar.width,0,gl);
+	    		
+	    	
+	    	else if(a == 'e')
+	    		eChar.drawAt(0+i*eChar.width,0,gl);
+	    	
+	    	else {
+	    	b = Integer.valueOf(""+a);
+	    	digits[b].drawAt(0+i*digits[b].width,0,gl);
+	    	}
+	    	
+	    }
+	    
+	    
+	    
 	    //you should like, totally STOP drawing them here
 	
 		gl.glDisable (GL.GL_BLEND);
@@ -207,7 +281,19 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		//show loading/score tally splash screen
 		
 		if(!((KarnaughMaze)this.m).nextmap.equals("LAST_LEVEL")){
+			
+			
+			/*
+			x points for every second left
+			MBRAM32 (11:01:50 PM): constant*x for every minute
+			MBRAM32 (11:02:02 PM): constant2 for each photo/journal/whatever
+			MBRAM32 (11:02:22 PM): and a bonus for using as small a number of wires as possible
+			MBRAM32 (11:02:54 PM): large bonus for finishing the map after time runs out
+			*/
+			
 			loadMap(((KarnaughMaze)this.m).nextmap);
+			
+			
 		}
 		else{
 			gameOver();

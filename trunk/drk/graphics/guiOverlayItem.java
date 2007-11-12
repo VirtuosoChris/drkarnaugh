@@ -11,8 +11,12 @@ public class guiOverlayItem {
 public int width; //in pixels
 public int height; //in pixels
 public int x; public int y; //lower left coordinates
+public Texture t;
 
-Texture t;
+public float texStartU = 0;
+public float texStartV = 0;
+public float texSizeU = 1;
+public float texSizeV = 1;
 
 
 public guiOverlayItem(){	
@@ -37,6 +41,9 @@ public void setTexture(String s){
 	
 }
 
+public void setTexture(guiOverlayItem x){
+	this.t = x.t;
+}
 
 public void setPosition(int X, int Y){
 	x = X; y = Y;
@@ -66,19 +73,19 @@ public void draw(GL gl){
 	gl.glColor3f(1,1,1);
 		
 		
-		    gl.glTexCoord2f(0,1);
+		   gl.glTexCoord2f(texStartU,texStartV + texSizeV);
 		 	gl.glVertex2i(x, y);
 			
 			
-		    gl.glTexCoord2f(1,1);
+		     gl.glTexCoord2f(texStartU + texSizeU,texStartV + texSizeV);
 			gl.glVertex2i(x + width, y);
 			
 			
-		    gl.glTexCoord2f(1,0);
+		    gl.glTexCoord2f(texStartU + texSizeU,texStartV);
 			gl.glVertex2i(x+width,y+height);
 			
 			
-		    gl.glTexCoord2f(0,0);
+		    gl.glTexCoord2f(texStartU,texStartV);
 			gl.glVertex2i(x, y+ height);
 	
 	gl.glEnd();
@@ -98,19 +105,19 @@ public void drawAt(int X, int Y, GL gl){
 	gl.glColor3f(1,1,1);
 		
 		
-		    gl.glTexCoord2f(0,1);
+		    gl.glTexCoord2f(texStartU,texStartV + texSizeV);
 		 	gl.glVertex2i(X+x, Y+y);
 			
 			
-		    gl.glTexCoord2f(1,1);
+		    gl.glTexCoord2f(texStartU + texSizeU,texStartV + texSizeV);
 			gl.glVertex2i(X+x + width, Y+y);
 			
 			
-		    gl.glTexCoord2f(1,0);
+		    gl.glTexCoord2f(texStartU + texSizeU,texStartV);
 			gl.glVertex2i(X+x+width,Y+y+height);
 			
 			
-		    gl.glTexCoord2f(0,0);
+		    gl.glTexCoord2f(texStartU,texStartV);
 			gl.glVertex2i(X+x, Y+y+ height);
 	
 	gl.glEnd();
