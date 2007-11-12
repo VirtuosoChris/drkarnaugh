@@ -58,6 +58,10 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 								lineRead = br.readLine() + "\n";
 								storymode.append(lineRead);
 							}
+							JPanel storyPanel = new JPanel();
+							storyPanel.setLayout(new GridBagLayout());
+							GridBagConstraints sconstraint = new GridBagConstraints();
+							JLabel imgLabel = new JLabel(new ImageIcon("Mad.jpg"));
 							
 							storymode.setLineWrap(true);
 							storymode.setMargin(new Insets(30,30,30,30));
@@ -66,8 +70,25 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 							Font font = new Font("Serif", Font.ITALIC, 20);
         					storymode.setFont(font);
         					storymode.setEditable(false);
-							story.add(storymode);
+        					
+        					sconstraint.fill = GridBagConstraints.HORIZONTAL;
+							sconstraint.weighty = 3.0;   //request any extra vertical space
+							sconstraint.anchor = GridBagConstraints.PAGE_END; //bottom of space
+							sconstraint.gridx = 1;       //aligned with button 2
+							sconstraint.gridwidth = 4;   //2 columns wide
+							sconstraint.gridy = 1;
+			
+							storyPanel.add(imgLabel, sconstraint);
+			
+							sconstraint.weighty = 7.0;   //request any extra vertical space
+							sconstraint.gridx = 1;       //aligned with button 2
+							sconstraint.gridwidth = 4;   //2 columns wide
+							sconstraint.gridy = 2;
+		
+							storyPanel.add(storymode, sconstraint);
+							story.add(storyPanel);
 						}
+						
 						catch(FileNotFoundException storyF){
 							storyF.printStackTrace();
 						}
