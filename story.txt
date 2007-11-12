@@ -1,0 +1,11 @@
+While working in the lab one day, Dr. Karnaugh experienced a breakthrough in 
+technology. Being the electrical scienctist he is, Dr. Karnaugh built a machine that 
+that would cure the world of all its diseases through pulses of electricity. What 
+Dr. Karnaugh did not expect was that the machine was so powerful that it blew 
+a hole underneath him all the way to the basement of his mansion. The machine 
+Dr. Karnaugh built had electrically changed the locks on all the doors and cut the 
+power to all the rooms but one. With the machine going out of control, 
+Dr. Karnaugh must solve his way back up to the top floor to cut the machines power.
+
+
+		Press spacebar to continue...
