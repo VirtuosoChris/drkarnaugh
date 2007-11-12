@@ -7,7 +7,7 @@ import java.util.*;
 import java.io.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class Menu extends drk.game.KarnaughGame{
+public class Menu extends drk.game.KarnaughGame implements KeyListener{
 	
 	JFrame frame;
 	JScrollPane scrollPane;
@@ -22,7 +22,7 @@ public class Menu extends drk.game.KarnaughGame{
 		icon = new ImageIcon("bg.jpg");
 		newline = "\n";
 		
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); //Set jframe to middle of screen.
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setBounds((screenSize.width-800)/2, (screenSize.height-600)/2, 800, 600);
 		
 		JLabel background = new JLabel(icon);
@@ -44,7 +44,44 @@ public class Menu extends drk.game.KarnaughGame{
 			new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					System.out.println("Starting a new ranked game");
-					mainGame();
+						JFrame story = new JFrame();
+						story.setUndecorated(true);
+						story.setSize(800, 600);                
+						Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        				story.setBounds((screenSize.width-800)/2, (screenSize.height-600)/2, 800, 600);
+						story.setVisible(true);
+						try{
+							String lineRead = new String();
+							BufferedReader br = new BufferedReader(new FileReader(new File("story.txt")));
+							JTextArea storymode = new JTextArea();
+							for(int i = 0; i < 11; i++){
+								lineRead = br.readLine() + "\n";
+								storymode.append(lineRead);
+							}
+							
+							storymode.setLineWrap(true);
+							storymode.setMargin(new Insets(30,30,30,30));
+							storymode.setForeground(Color.white);
+							storymode.setBackground(Color.black);
+							Font font = new Font("Serif", Font.ITALIC, 20);
+        					storymode.setFont(font);
+        					storymode.setEditable(false);
+							story.add(storymode);
+						}
+						catch(FileNotFoundException storyF){
+							storyF.printStackTrace();
+						}
+						catch(IOException storyT){
+							storyT.printStackTrace();
+						}
+						
+						frame.setVisible(false);
+						story.setVisible(true);
+						//KeyEvent ke = null; //This needs to be fixed so the user presses Space to continue.
+						//while(ke.getKeyCode() != KeyEvent.VK_SPACE){
+						//}
+						story.dispose(); story = null;
+						mainGame();
 				}
 			}
 		);
@@ -150,7 +187,44 @@ public class Menu extends drk.game.KarnaughGame{
 			new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					System.out.println("Starting a new ranked game");
-					mainGame();
+						JFrame story = new JFrame();
+						story.setUndecorated(true);
+						story.setSize(800, 600);                
+						Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        				story.setBounds((screenSize.width-800)/2, (screenSize.height-600)/2, 800, 600);
+						story.setVisible(true);
+						try{
+							String lineRead = new String();
+							BufferedReader br = new BufferedReader(new FileReader(new File("story.txt")));
+							JTextArea storymode = new JTextArea();
+							for(int i = 0; i < 11; i++){
+								lineRead = br.readLine() + "\n";
+								storymode.append(lineRead);
+							}
+							
+							storymode.setLineWrap(true);
+							storymode.setMargin(new Insets(30,30,30,30));
+							Font font = new Font("Serif", Font.ITALIC, 20);
+        					storymode.setFont(font);
+        					storymode.setEditable(false);
+							story.add(storymode);
+						}
+						catch(FileNotFoundException storyF){
+							storyF.printStackTrace();
+						}
+						catch(IOException storyT){
+							storyT.printStackTrace();
+						}
+						
+						JTextField typingArea = new JTextField(10);
+						typingArea.addKeyListener(this);
+						frame.setVisible(false);
+						story.setVisible(true);
+						//KeyEvent ke = null; //This needs to be fixed so the user presses Space to continue.
+						//while(ke.getKeyCode() != KeyEvent.VK_SPACE){
+						//}
+						story.dispose(); story = null;
+						mainGame();
 				}
 			}
 		);
