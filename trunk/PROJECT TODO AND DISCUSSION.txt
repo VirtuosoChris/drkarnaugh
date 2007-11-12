@@ -1,0 +1,44 @@
+In no particular order.  You can add comments on any of these, check them off, add your own, etc.  I just thought we might need the extra organization of each specific step we'll be doing since we're running short on time.  
+
+
+MazeItem render methods, integration with KarnaughGame render method (see the shit you're looking at)-- **I'm going to make a basic sphere rendering one for this as soon as I can, so i can work on the below -- CP**
+
+
+**this entire block is top priority for me--cp**
+{
+Click Interactions with MazeItems
+
+Get Custom Campaign/Single Map Menu Options working
+
+Cursor/Status Icons: 
+Holding Wire/Can Interact/Raccon has something to say
+}
+
+Help File: 
+	Editing/modding instructions, game instructions, story 	synopsis, credits, sources for our art/sound/etc
+
+Bunny: Rendering, Animation, Pathfinding, "interaction" with player
+
+Puzzle Evaluation/Win detection/Campaign management and scoring
+
+Wall Collision
+
+Fix fullscreen exclusive mode issues
+
+"black voids" in maze rendering
+
+integrating main menu with the game proper
+
+Between Map Scoring/Splash/Look at Shit screen
+
+Status Bar--Raccoon dude, stuff you've found, etc
+
+Local High Score Table
+
+Save/Load Game
+
+"Karnaugh Maps" -- Some way of communicating what the puzzle solution needs to be, and its current status
+
+Maybe redo the map format to be better if there's time
+
+When the campaign is done, put the map files for that in the gamecode itself instead of in files, that way ppl can't just go ONE INPUT ONE COMPONENT LAWL.  Also make the 
