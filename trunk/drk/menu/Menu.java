@@ -72,17 +72,17 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
         					storymode.setEditable(false);
         					
         					sconstraint.fill = GridBagConstraints.HORIZONTAL;
-							sconstraint.weighty = 3.0;   //request any extra vertical space
-							sconstraint.anchor = GridBagConstraints.PAGE_END; //bottom of space
-							sconstraint.gridx = 1;       //aligned with button 2
-							sconstraint.gridwidth = 4;   //2 columns wide
+							sconstraint.weighty = 3.0;   
+							sconstraint.anchor = GridBagConstraints.PAGE_END; 
+							sconstraint.gridx = 1;     
+							sconstraint.gridwidth = 4;  
 							sconstraint.gridy = 1;
 			
 							storyPanel.add(imgLabel, sconstraint);
 			
-							sconstraint.weighty = 7.0;   //request any extra vertical space
-							sconstraint.gridx = 1;       //aligned with button 2
-							sconstraint.gridwidth = 4;   //2 columns wide
+							sconstraint.weighty = 7.0;  
+							sconstraint.gridx = 1;    
+							sconstraint.gridwidth = 4;
 							sconstraint.gridy = 2;
 		
 							storyPanel.add(storymode, sconstraint);
@@ -148,27 +148,27 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 		);
 		
 		constraint.fill = GridBagConstraints.HORIZONTAL;
-		constraint.weighty = 1.0;   //request any extra vertical space
-		constraint.anchor = GridBagConstraints.PAGE_END; //bottom of space
-		constraint.gridx = 1;       //aligned with button 2
-		constraint.gridwidth = 4;   //2 columns wide
+		constraint.weighty = 1.0;   
+		constraint.anchor = GridBagConstraints.PAGE_END;
+		constraint.gridx = 1;       
+		constraint.gridwidth = 4;
 		constraint.gridy = 1;
 		constraint.ipady = 20;
 		constraint.ipadx = 600; 
 			
 		panelG.add(rankB, constraint);
 			
-		constraint.weighty = 0.0;   //request any extra vertical space
-		constraint.gridx = 1;       //aligned with button 2
-		constraint.gridwidth = 4;   //2 columns wide
+		constraint.weighty = 0.0;
+		constraint.gridx = 1;       
+		constraint.gridwidth = 4;   
 		constraint.gridy = 2;
 		
 		panelG.add(customB, constraint);
 		
-		constraint.weighty = 0.0;   //request any extra vertical space
-		constraint.gridx = 1;       //aligned with button 2
-		constraint.gridwidth = 4;   //2 columns wide
-		constraint.gridy = 3;       //third row
+		constraint.weighty = 0.0; 
+		constraint.gridx = 1;       
+		constraint.gridwidth = 4;   
+		constraint.gridy = 3;       
 		
  		panelG.add(exitB, constraint);
  		
@@ -239,17 +239,17 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
         					storymode.setEditable(false);
         					
         					sconstraint.fill = GridBagConstraints.HORIZONTAL;
-							sconstraint.weighty = 3.0;   //request any extra vertical space
-							sconstraint.anchor = GridBagConstraints.PAGE_END; //bottom of space
-							sconstraint.gridx = 1;       //aligned with button 2
-							sconstraint.gridwidth = 4;   //2 columns wide
+							sconstraint.weighty = 3.0;   
+							sconstraint.anchor = GridBagConstraints.PAGE_END;
+							sconstraint.gridx = 1;   
+							sconstraint.gridwidth = 4; 
 							sconstraint.gridy = 1;
 			
 							storyPanel.add(imgLabel, sconstraint);
 			
-							sconstraint.weighty = 7.0;   //request any extra vertical space
-							sconstraint.gridx = 1;       //aligned with button 2
-							sconstraint.gridwidth = 4;   //2 columns wide
+							sconstraint.weighty = 7.0; 
+							sconstraint.gridx = 1;  
+							sconstraint.gridwidth = 4; 
 							sconstraint.gridy = 2;
 		
 							storyPanel.add(storymode, sconstraint);
