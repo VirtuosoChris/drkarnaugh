@@ -12,7 +12,7 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 	public String nextmap = null; 
 	private ArrayList<MazeItem> components = null;
 	public String songfile = null;
-	
+	public String mapDirectory = null;
 
 	//some accessor methods
 	public int timeLimit(){return timelimit;}
@@ -20,7 +20,7 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 
 	String filename;
 	//constructor, takes width, height, timelimit, next map, and an arraylist of components to populate the maze with.
-	public KarnaughMaze(int w, int h, int t, String n, ArrayList<MazeItem> c, String sf){
+	public KarnaughMaze(int w, int h, int t, String n, ArrayList<MazeItem> c, String sf, String d){
 		
 		super(w,h);
 		
@@ -59,17 +59,18 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 			
 		}
 		
+		
+		mapDirectory = d;
+		
 		//temp-- this was a lazy test to make sure the camera-set-coordinates in karnaughgame were correct and the 
 		//camera would not spawn in the incorrect location
 		//RoomList.get(0).setItem(new Entrance());
-	
-		
 	}
 
 	//loads a map.  adds extension to f
 	public static KarnaughMaze loadMaze(String f){
 		
-		KarnaughLog.log("\nLoading map "+f+".kar");
+		KarnaughLog.log("\nLoading map "+f+"");
 		
 		String sf;
 		boolean solution[] = null;
@@ -80,11 +81,15 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		String nextmap = null; //"LAST_LEVEL" means that this is the last map of the campaign
 		int numcomponents = 0;
 		ArrayList<MazeItem> components = new ArrayList<MazeItem>();
+		String d;//the path of the current mapFile.
+		File mapFile=null;
 		
 		//TODO : we will add the win conditions to the map format when we've finalized the gameplay
 		
 		try{ //scan the data.  throw exceptions where appropriate.  if successful create a new KarnaughMaze with the data
-		 Scanner s = new Scanner(new File(f+".kar"));
+		 Scanner s = new Scanner(mapFile = new File(f));
+		
+		 d = mapFile.getPath().substring(0,mapFile.getPath().length() - mapFile.getName().length());
 		
 		 mazewidth = s.nextInt();	   //dimensions of the maze, in number of rooms
 		 mazeheight = s.nextInt();	   //
@@ -109,7 +114,7 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		 if(nextmap.equals("LAST_LEVEL")){
 		 	KarnaughLog.log("This is the last level of this campaign");
 		 }else{
-		 	KarnaughLog.log("Next map is "+nextmap);
+		 	KarnaughLog.log("Next map is "+d+nextmap);
 		 }
 		 
 		 KarnaughLog.log("There are "+numcomponents+" components in this maze");
@@ -186,15 +191,17 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		
 		KarnaughLog.log("Successfully loaded map data");
 		
-		return new KarnaughMaze(mazewidth, mazeheight, timelimit, nextmap, components,sf);
+		return new KarnaughMaze(mazewidth, mazeheight, timelimit, nextmap, components,sf,d);
 				
 	}
 	
 	
 	public static void main(String args[]){
 		KarnaughLog.clearLog();
+		KarnaughMaze x;
+		System.out.println(x=KarnaughMaze.loadMaze("map05.kar"));
 		
-		System.out.println(KarnaughMaze.loadMaze("map05"));
+		System.out.println("XXXX:"+x.mapDirectory);
 		
 	}
 	

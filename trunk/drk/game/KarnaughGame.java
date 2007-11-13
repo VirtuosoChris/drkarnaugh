@@ -134,8 +134,15 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	
 	
 	public void setSingleMapCampaign(KarnaughGame m, String map){
+		
+		
+		
 		KarnaughLog.clearLog();
+		
+		
 		KarnaughLog.log("Starting Dr. Karnaugh's Lab");
+		
+		KarnaughLog.log(""+map);
 		
 		m.loadMap(map);
 		m.camera.fovy = 30;
@@ -291,7 +298,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 			MBRAM32 (11:02:54 PM): large bonus for finishing the map after time runs out
 			*/
 			
-			loadMap(((KarnaughMaze)this.m).nextmap);
+			loadMap( ((KarnaughMaze)this.m).mapDirectory+((KarnaughMaze)this.m).nextmap);
 			
 			
 		}
@@ -417,7 +424,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		KarnaughLog.log("Starting Dr. Karnaugh's Lab");
 		
 		KarnaughGame m = new KarnaughGame();
-		m.loadMap("map01");
+		m.loadMap("map01.kar");
 		m.camera.fovy = 30;
 	    m.doMain(resWidth,resHeight,null,true);
 	}
@@ -429,7 +436,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		KarnaughLog.log("Starting Dr. Karnaugh's Lab");
 		
 		KarnaughGame m = new KarnaughGame();
-		m.loadMap("map01");
+		m.loadMap("map01.kar");
 		m.camera.fovy = 30;
 	    m.doMain(resWidth,resHeight,null,true);
 		
