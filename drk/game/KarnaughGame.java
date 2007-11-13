@@ -47,28 +47,28 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		
 		cursor.setWidth(digitWidth);
 		cursor.setHeight(digitWidth);
-		cursor.setTexture("hand.jpg"); 
+		cursor.setTexture("hand.png"); 
 		cursor.setPosition(resWidth/2 - digitWidth/2, resHeight/2 - digitWidth/2);
 		
 		
 		
 		interactHand.setWidth(digitWidth);
 		interactHand.setHeight(digitWidth);
-		interactHand.setTexture("interact.jpg"); 
+		interactHand.setTexture("interact.png"); 
 		interactHand.setPosition(resWidth/2 - digitWidth/2, resHeight/2 - digitWidth/2);
 		
 		
 		
 		wireHand.setWidth(digitWidth);
 		wireHand.setHeight(digitWidth);
-		wireHand.setTexture("wire.jpg"); 
+		wireHand.setTexture("wire.png"); 
 		wireHand.setPosition(resWidth/2 - digitWidth/2, resHeight/2 - digitWidth/2);
 		
 		
 		
 		colon.setWidth(digitWidth);
 		colon.setHeight(digitWidth);
-		colon.setTexture("digital.jpg");
+		colon.setTexture("digital.png");
 		
 		colon.texStartU = .5f;
 		colon.texStartV = .5f;
@@ -198,7 +198,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		gl.glPushMatrix();
 		
 		gl.glLoadIdentity();
-		gl.glEnable (GL.GL_BLEND); gl.glBlendFunc (GL.GL_SRC_COLOR, GL.GL_ONE_MINUS_SRC_COLOR);
+		gl.glEnable (GL.GL_BLEND); gl.glBlendFunc (GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 		gl.glOrtho(0, resWidth, 0, resHeight, -1.0, 1.0);
 		
 		
@@ -207,7 +207,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	    guiOverlayItem.setGUIColor(1f,1f,1f);
 	    
 	    
-	 	cursor.draw(gl);
+	 	wireHand.draw(gl);
 	 	
 	 	guiOverlayItem.setGUIColor(0,1f,0);
 	 	
@@ -241,7 +241,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	 	
 	 	
 	    if(minutesLeft()==0 && secondsLeft() <=30){
-	    	guiOverlayItem.setGUIColor(1f,0,0);}
+	    	guiOverlayItem.setGUIColor(1f,0f,0f);}
 	    
 	    for(int i = 0; i < bauerClock.length(); i++){
 	    	
