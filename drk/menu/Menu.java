@@ -289,8 +289,8 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
             		if(returnVal == JFileChooser.APPROVE_OPTION){
                 		File file = gameFile.getSelectedFile();
                 		log.append("Opening: " + file.getName() + "." + newline);
-                		int index = file.getName().lastIndexOf('.'); //Gets just the filename without ext.
-                		String fileName = file.getName().substring(0, index);	
+                		//int index = file.getName().lastIndexOf('.'); //Gets just the filename without ext.
+                		String fileName = file.getPath();	
                 		KarnaughGame single = new KarnaughGame();
                 		single.setSingleMapCampaign(single, fileName);	
                 			
