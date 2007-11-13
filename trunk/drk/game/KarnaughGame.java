@@ -40,9 +40,6 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		int upperLeftY = (int)(.99*resHeight);
 		int upperLeftX = (int)(.01*resWidth);
 		
-		
-		
-		
 		cursor.setWidth(digitWidth);
 		cursor.setHeight(digitWidth);
 		cursor.setTexture("hand.jpg"); 
@@ -56,10 +53,8 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		colon.texStartV = .5f;
 		colon.texSizeU =  .25f;
 		colon.texSizeV = .25f;
-		
 		colon.setPosition(0,0);
-	
-	
+		
 		cChar = new guiOverlayItem();
 		cChar.setWidth(digitWidth);
 		cChar.setHeight(digitWidth);
@@ -188,28 +183,13 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		
 		//You should like, totally draw your gui elements here
 		 
-	    cursor.draw(gl);
+	    guiOverlayItem.setGUIColor(1f,1f,1f);
 	    
 	    
-	    for(int i = 0; i < bauerClock.length(); i++){
-	    	
-	    	char a = bauerClock.charAt(i);
-	    	int b = 0;
-	    	
-	    	if(a == ':')
-	    		colon.drawAt(0+i*colon.width,resHeight-colon.height,gl);
-	    	else if (secondsLeft() > 0 || minutesLeft() > 0){
-	    	
-	    	b = Integer.valueOf(""+a);
-	    	digits[b].drawAt(0+i*digits[b].width,resHeight-digits[b].height,gl);
-	    	}else{
-	    		bunny.drawAt(0+i*bunny.width,resHeight-bunny.height,gl);
-	    		
-	    	}
-	    	
-	    }
-	    
-	    
+	 	cursor.draw(gl);
+	 	
+	 	guiOverlayItem.setGUIColor(0,1f,0);
+	 	
 	    String scoreString = "5c0re:"+Score;
 	    
 	    for(int i = 0; i < scoreString.length(); i++){
@@ -237,8 +217,34 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	    	}
 	    	
 	    }
+	 	
+	 	
+	    if(minutesLeft()==0 && secondsLeft() <=30){
+	    	guiOverlayItem.setGUIColor(1f,0,0);}
+	    
+	    for(int i = 0; i < bauerClock.length(); i++){
+	    	
+	    	char a = bauerClock.charAt(i);
+	    	int b = 0;
+	    	
+	    	if(a == ':')
+	    		colon.drawAt(0+i*colon.width,resHeight-colon.height,gl);
+	    	else if (secondsLeft() > 0 || minutesLeft() > 0){
+	    	
+	    	b = Integer.valueOf(""+a);
+	    	digits[b].drawAt(0+i*digits[b].width,resHeight-digits[b].height,gl);
+	    	}else{
+	    		bunny.drawAt(0+i*bunny.width,resHeight-bunny.height,gl);
+	    		
+	    	}
+	    	
+	    }
 	    
 	    
+	    guiOverlayItem.setGUIColor(1f,1f,1f);
+	    
+	    
+	  
 	    
 	    //you should like, totally STOP drawing them here
 	
