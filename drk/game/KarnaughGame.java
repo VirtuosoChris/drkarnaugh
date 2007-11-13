@@ -18,6 +18,8 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	public boolean paused;
 	
 	guiOverlayItem cursor;
+	guiOverlayItem interactHand;
+	guiOverlayItem wireHand;
 	guiOverlayItem colon;
 	guiOverlayItem digits[];
 	guiOverlayItem bunny;
@@ -35,6 +37,9 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		bunny = new guiOverlayItem();
 		cursor = new guiOverlayItem();
 		colon = new guiOverlayItem();
+		interactHand = new guiOverlayItem();
+		wireHand = new guiOverlayItem();
+		
 		
 		int digitWidth = (int)(.03*resWidth);
 		int upperLeftY = (int)(.99*resHeight);
@@ -44,6 +49,22 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		cursor.setHeight(digitWidth);
 		cursor.setTexture("hand.jpg"); 
 		cursor.setPosition(resWidth/2 - digitWidth/2, resHeight/2 - digitWidth/2);
+		
+		
+		
+		interactHand.setWidth(digitWidth);
+		interactHand.setHeight(digitWidth);
+		interactHand.setTexture("interact.jpg"); 
+		interactHand.setPosition(resWidth/2 - digitWidth/2, resHeight/2 - digitWidth/2);
+		
+		
+		
+		wireHand.setWidth(digitWidth);
+		wireHand.setHeight(digitWidth);
+		wireHand.setTexture("wire.jpg"); 
+		wireHand.setPosition(resWidth/2 - digitWidth/2, resHeight/2 - digitWidth/2);
+		
+		
 		
 		colon.setWidth(digitWidth);
 		colon.setHeight(digitWidth);
