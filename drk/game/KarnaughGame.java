@@ -177,7 +177,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		gl.glPushMatrix();
 		
 		gl.glLoadIdentity();
-		gl.glEnable (GL.GL_BLEND); gl.glBlendFunc (GL.GL_ONE, GL.GL_ONE);
+		gl.glEnable (GL.GL_BLEND); gl.glBlendFunc (GL.GL_SRC_COLOR, GL.GL_ONE_MINUS_SRC_COLOR);
 		gl.glOrtho(0, resWidth, 0, resHeight, -1.0, 1.0);
 		
 		
