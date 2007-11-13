@@ -18,6 +18,17 @@ public float texStartV = 0;
 public float texSizeU = 1;
 public float texSizeV = 1;
 
+public static float r = 1.0f;
+public static float g = 1.0f;
+public static float b = 1.0f;
+
+
+public static void setGUIColor(float a, float x, float c){
+	r = a;
+	g = x;
+	b = c;
+}
+
 
 public guiOverlayItem(){	
 }
@@ -64,31 +75,7 @@ public void setSize(int w, int h){
 //assumes that drawing mode is already set to 2d
 public void draw(GL gl){
 	
-	t.enable();
-	
-	t.bind();
-	
-	gl.glBegin(GL.GL_QUADS);
-	
-	gl.glColor3f(1,1,1);
-		
-		
-		   gl.glTexCoord2f(texStartU,texStartV + texSizeV);
-		 	gl.glVertex2i(x, y);
-			
-			
-		     gl.glTexCoord2f(texStartU + texSizeU,texStartV + texSizeV);
-			gl.glVertex2i(x + width, y);
-			
-			
-		    gl.glTexCoord2f(texStartU + texSizeU,texStartV);
-			gl.glVertex2i(x+width,y+height);
-			
-			
-		    gl.glTexCoord2f(texStartU,texStartV);
-			gl.glVertex2i(x, y+ height);
-	
-	gl.glEnd();
+	drawAt(x,y,gl);
 	
 	
 }
@@ -102,23 +89,23 @@ public void drawAt(int X, int Y, GL gl){
 	
 	gl.glBegin(GL.GL_QUADS);
 	
-	gl.glColor3f(1,1,1);
+	gl.glColor3f(r,g,b);
 		
 		
 		    gl.glTexCoord2f(texStartU,texStartV + texSizeV);
-		 	gl.glVertex2i(X+x, Y+y);
+		 	gl.glVertex2i(X, Y);
 			
 			
 		    gl.glTexCoord2f(texStartU + texSizeU,texStartV + texSizeV);
-			gl.glVertex2i(X+x + width, Y+y);
+			gl.glVertex2i(X + width, Y);
 			
 			
 		    gl.glTexCoord2f(texStartU + texSizeU,texStartV);
-			gl.glVertex2i(X+x+width,Y+y+height);
+			gl.glVertex2i(X+width,Y+height);
 			
 			
 		    gl.glTexCoord2f(texStartU,texStartV);
-			gl.glVertex2i(X+x, Y+y+ height);
+			gl.glVertex2i(X, Y+ height);
 	
 	gl.glEnd();
 	

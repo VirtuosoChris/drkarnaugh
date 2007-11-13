@@ -8,8 +8,6 @@ MazeItem render methods, integration with KarnaughGame render method (see the sh
 {
 Click Interactions with MazeItems
 
-Get Custom Campaign/Single Map Menu Options working
-
 Cursor/Status Icons: 
 Holding Wire/Can Interact/Raccon has something to say
 }
@@ -30,8 +28,6 @@ Fix fullscreen exclusive mode issues
 
 "black voids" in maze rendering
 
-integrating main menu with the game proper
-
 Between Map Scoring/Splash/Look at Shit screen
 
 Status Bar--Raccoon dude, stuff you've found, etc
@@ -45,3 +41,6 @@ Save/Load Game
 Maybe redo the map format to be better if there's time
 
 When the campaign is done, put the map files for that in the gamecode itself instead of in files, that way ppl can't just go ONE INPUT ONE COMPONENT LAWL.  Also make the 
+
+Music looping
+
