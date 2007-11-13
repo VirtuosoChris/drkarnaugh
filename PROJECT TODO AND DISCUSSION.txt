@@ -44,3 +44,29 @@ When the campaign is done, put the map files for that in the gamecode itself ins
 
 Music looping
 
+change song loading code
+
+options
+	display mode:dropdown menu
+	advanced special effects on/off
+	
+	guiOverlay options
+
+		Cursors:enable/disable
+
+			crosshair/hand/none/custom
+			wirehand cursor/none/custom
+			interact cursor/none/custom
+
+		update icons:
+			 new bonus items
+			 new raccoon messages
+			 have wire
+		
+	bind controls
+
+save preferences to config file, load up with game
+
+we like totally have blackscreen bug where the world doesnt render when the game loads. Maybe its my drivers or maybe its serious.  
+
+handle map not found or invalid mapfile exceptions better
