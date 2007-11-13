@@ -50,22 +50,16 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		cursor.setTexture("hand.png"); 
 		cursor.setPosition(resWidth/2 - digitWidth/2, resHeight/2 - digitWidth/2);
 		
-		
-		
 		interactHand.setWidth(digitWidth);
 		interactHand.setHeight(digitWidth);
 		interactHand.setTexture("interact.png"); 
 		interactHand.setPosition(resWidth/2 - digitWidth/2, resHeight/2 - digitWidth/2);
-		
-		
-		
+
 		wireHand.setWidth(digitWidth);
 		wireHand.setHeight(digitWidth);
 		wireHand.setTexture("wire.png"); 
 		wireHand.setPosition(resWidth/2 - digitWidth/2, resHeight/2 - digitWidth/2);
-		
-		
-		
+	
 		colon.setWidth(digitWidth);
 		colon.setHeight(digitWidth);
 		colon.setTexture("digital.png");
@@ -207,7 +201,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	    guiOverlayItem.setGUIColor(1f,1f,1f);
 	    
 	    
-	 	wireHand.draw(gl);
+	 	cursor.draw(gl);
 	 	
 	 	guiOverlayItem.setGUIColor(0,1f,0);
 	 	
@@ -218,9 +212,12 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	    	char a =scoreString.charAt(i);
 	    	int b = 0;
 	    	
-	    	if(a == ':')
-	    		colon.drawAt(0+i*colon.width,0,gl);
+	    	if(a == ':'){
 	    		
+	    	
+	    		
+	    		colon.drawAt(0+i*colon.width,0,gl);
+	    	}
 	    	else if(a == 'c')
 	    		cChar.drawAt(0+i*cChar.width,0,gl);
 	    	
@@ -248,13 +245,18 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	    	char a = bauerClock.charAt(i);
 	    	int b = 0;
 	    	
-	    	if(a == ':')
-	    		colon.drawAt(0+i*colon.width,resHeight-colon.height,gl);
+	    	if(a == ':'){
+	    		
+	    		if(secondsLeft() == 0 && minutesLeft() == 0){
+	    			guiOverlayItem.setGUIColor(1f,0f,0f);
+	    		}
+	    		colon.drawAt(0+i*colon.width,resHeight-colon.height,gl);}
 	    	else if (secondsLeft() > 0 || minutesLeft() > 0){
 	    	
 	    	b = Integer.valueOf(""+a);
 	    	digits[b].drawAt(0+i*digits[b].width,resHeight-digits[b].height,gl);
 	    	}else{
+	    		guiOverlayItem.setGUIColor(1f,1f,1f);
 	    		bunny.drawAt(0+i*bunny.width,resHeight-bunny.height,gl);
 	    		
 	    	}
@@ -282,12 +284,9 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	public void keyReleased(KeyEvent k){
 	
 	super.keyReleased(k);
-	//if(k.getKeyCode() == KeyEvent.VK_SHIFT){
-						
-	//		if(!((KarnaughMaze)m).nextmap.equals("LAST_LEVEL"))
-	//		this.loadMap(((KarnaughMaze)m).nextmap);
-			
-	//}
+	if(k.getKeyCode() == KeyEvent.VK_SHIFT){
+		winMap();		
+	 }
 	}
 	
 	
