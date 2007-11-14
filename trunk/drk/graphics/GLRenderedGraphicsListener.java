@@ -211,7 +211,8 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	 
 	}//end method
 	
-	
+//	public DisplayMode[]
+	public static boolean linuxhack=false;
 	public void doMain(int w,int h,GLCapabilities glcaps,boolean runasFast)
 	{
 		JFrame jf=new JFrame("Dr. Karnaugh's Lab");
@@ -222,6 +223,10 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		GraphicsEnvironment ge = null;
 		GraphicsDevice gd = null;
 		boolean fullscreen = false;
+		
+		DisplayMode[] validmodes={new DisplayMode(640, 480, 32, 0),
+        new DisplayMode(640, 480, 16, 0),
+        new DisplayMode(640, 480, 8, 0)};
 		//attempt to get the graphics device in order to set the application to a fullscreen window
 		
 		try{
@@ -239,6 +244,39 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		   
 		  KarnaughLog.log("Fullscreen available = " + (fullscreen = gd.isFullScreenSupported()));
 		  
+		  if(fullscreen && gd.isDisplayChangeSupported())
+		  {
+			  DisplayMode dm=gd.getDisplayMode();
+			  
+			  DisplayMode[] modes=gd.getDisplayModes();
+			  for (int x = 0; x < validmodes.length; x++) {
+		          modes = gd.getDisplayModes();
+				 System.err.println("getting");
+		            for (int i = 0; i < modes.length; i++) {
+				System.err.println("Display mode "+i);
+		                if (modes[i].getWidth() == validmodes[x].getWidth()
+		                   && modes[i].getHeight() == validmodes[x].getHeight()
+		                   && modes[i].getBitDepth() == validmodes[x].getBitDepth()
+		                   ) {
+		                   dm=validmodes[x];
+		                   x=validmodes.length;
+		                   break;
+		                }
+		            }
+		        }
+			  	gd.setDisplayMode(dm);
+		  }
+		  else if(linuxhack)
+		  {
+			  gd.setDisplayMode(validmodes[0]);
+			  fullscreen=true;
+		  }
+			if(fullscreen||linuxhack){
+		    	jf.setResizable(false);
+		    	jf.setUndecorated(true); //removes the title bar and borders from the window.
+		  		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		  		gd.setFullScreenWindow(jf);
+			}
 		}catch(Exception e){
 			KarnaughLog.log(e);
 			KarnaughLog.log("Could not get the graphics device.  Program will run in windowed mode");
@@ -268,12 +306,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		jf.getContentPane().add(box,BorderLayout.SOUTH);
 		jf.setSize(w,h);
 		
-		if(fullscreen){
-	    	jf.setResizable(false);
-	    	jf.setUndecorated(true); //removes the title bar and borders from the window.
-	  		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	  		gd.setFullScreenWindow(jf);
-		}
+	
 		
 		
 		//you know, simply letting me do jf.showCursor(false) woulda been AWESOME
