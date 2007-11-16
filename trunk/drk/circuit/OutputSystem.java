@@ -34,10 +34,10 @@ public abstract class OutputSystem extends MazeItem
 		}
 	}
 	
-	public void render(GL gl)
+/*	public void render(GL gl)
 	{
-		
-	}
+		super.render(gl);
+	}*/
 	
 	public static boolean checkTruthTable(int[] table,LogicInput[] lin,OutputSystem root)
 	{
