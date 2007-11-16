@@ -10,8 +10,11 @@ import javax.media.opengl.*;
 import drk.graphics.guiOverlayItem;
 public class KarnaughGame extends MazeGame implements Updatable{
 
-	private static int resWidth  = 1024;
-	private static int resHeight = 768;
+	//private static int resWidth  = 10=;
+	//private static int resHeight = 768;
+
+
+	public int currentOutput = 0;
 
 	private int Score = 0;
 	private long Time; 
@@ -20,6 +23,8 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	guiOverlayItem cursor;
 	guiOverlayItem interactHand;
 	guiOverlayItem wireHand;
+	guiOverlayItem cancel;
+	
 	guiOverlayItem colon;
 	guiOverlayItem digits[];
 	guiOverlayItem bunny;
@@ -39,6 +44,14 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		colon = new guiOverlayItem();
 		interactHand = new guiOverlayItem();
 		wireHand = new guiOverlayItem();
+		cancel = new guiOverlayItem();
+		
+		int resWidth = this.width;
+		int resHeight = this.height;
+		
+		
+		System.out.println("Shit should be drawn in relation to :");
+		System.out.println(""+resWidth + "x" + resHeight);
 		
 		
 		int digitWidth = (int)(.03*resWidth);
@@ -49,6 +62,12 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		cursor.setHeight(digitWidth);
 		cursor.setTexture("hand.png"); 
 		cursor.setPosition(resWidth/2 - digitWidth/2, resHeight/2 - digitWidth/2);
+		
+		cancel.setWidth(digitWidth);
+		cancel.setHeight(digitWidth);
+		cancel.setTexture("cancel.png"); 
+		cancel.setPosition(resWidth/2 - digitWidth/2, resHeight/2 - digitWidth/2);
+		
 		
 		interactHand.setWidth(digitWidth);
 		interactHand.setHeight(digitWidth);
@@ -156,7 +175,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		
 		m.loadMap(map);
 		m.camera.fovy = 30;
-	    m.doMain(resWidth,resHeight,null,true);
+	    m.doMain(320,240,null,true);
 		/*if(!((KarnaughMaze)this.m).nextmap.equals("LAST_LEVEL")){
 			loadMap(((KarnaughMaze)this.m).nextmap);
 		}
@@ -193,7 +212,8 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		
 		gl.glLoadIdentity();
 		gl.glEnable (GL.GL_BLEND); gl.glBlendFunc (GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
-		gl.glOrtho(0, resWidth, 0, resHeight, -1.0, 1.0);
+		gl.glOrtho(0, this.width, 0, this.height, -1.0, 1.0);
+		
 		
 		
 		//You should like, totally draw your gui elements here
@@ -250,14 +270,14 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	    		if(secondsLeft() == 0 && minutesLeft() == 0){
 	    			guiOverlayItem.setGUIColor(1f,0f,0f);
 	    		}
-	    		colon.drawAt(0+i*colon.width,resHeight-colon.height,gl);}
+	    		colon.drawAt(0+i*colon.width,this.height-colon.height,gl);}
 	    	else if (secondsLeft() > 0 || minutesLeft() > 0){
 	    	
 	    	b = Integer.valueOf(""+a);
-	    	digits[b].drawAt(0+i*digits[b].width,resHeight-digits[b].height,gl);
+	    	digits[b].drawAt(0+i*digits[b].width,this.height-digits[b].height,gl);
 	    	}else{
 	    		guiOverlayItem.setGUIColor(1f,1f,1f);
-	    		bunny.drawAt(0+i*bunny.width,resHeight-bunny.height,gl);
+	    		bunny.drawAt(0+i*bunny.width,this.height-bunny.height,gl);
 	    		
 	    	}
 	    	
@@ -289,6 +309,18 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	 }
 	}
 	
+	
+//	public void keyPressed(KeyEvent k){
+	//	if(k.getKeyChar() == 'p' || k.getKeyChar() == 'P'){
+	//	
+	//	  if(!paused)paused = true;
+	//	  else unPause();
+	//	
+	//	}
+	//	
+	//	if(!paused)
+	//	super.keyPressed(k);
+//	}
 	
 	
 	public void gameOver(){
@@ -452,8 +484,20 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		KarnaughGame m = new KarnaughGame();
 		m.loadMap("map01.kar");
 		m.camera.fovy = 30;
-	    m.doMain(resWidth,resHeight,null,true);
+	    m.doMain(320,240,null,true);
 	}
+	
+	
+	
+	public boolean getCurrentSolution(){
+		return (KarnaughMaze)m.m).solution[currentOutput];	
+	}
+	
+	public int truthTableSize(){
+		return (KarnaughMaze)m.m).solution.length;
+	}
+	
+	
 	
 	//point of entry
 	public static void main(String args[]){
@@ -464,7 +508,14 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		KarnaughGame m = new KarnaughGame();
 		m.loadMap("map01.kar");
 		m.camera.fovy = 30;
-	    m.doMain(resWidth,resHeight,null,true);
+	    m.doMain(320,240,null,true);
+		
+		
+		for(boolean b:((KarnaughMaze)m.m).solution){
+			
+			System.out.println(b);
+			
+	}
 		
 	   //MazeGame mg = new MazeGame();
 	   //mg.m = KarnaughMaze.loadMaze("test");

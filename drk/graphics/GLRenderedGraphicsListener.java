@@ -220,9 +220,14 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		//ad.addKeyListener(this);
 		
 		
+		width = w;
+		height = h;
+		
 		GraphicsEnvironment ge = null;
 		GraphicsDevice gd = null;
 		boolean fullscreen = false;
+		
+		DisplayMode dm=null;
 		
 		DisplayMode[] validmodes={new DisplayMode(640, 480, 32, 0),
         new DisplayMode(640, 480, 16, 0),
@@ -246,7 +251,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		  
 		  if(fullscreen && gd.isDisplayChangeSupported())
 		  {
-			  DisplayMode dm=gd.getDisplayMode();
+			  dm=gd.getDisplayMode();
 			  
 			  DisplayMode[] modes=gd.getDisplayModes();
 			  for (int x = 0; x < validmodes.length; x++) {
@@ -276,6 +281,14 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		    	jf.setUndecorated(true); //removes the title bar and borders from the window.
 		  		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		  		gd.setFullScreenWindow(jf);
+		  		
+		  		drk.KarnaughLog.log(""+new DisplayMode(1440,900,32,0));
+		  		
+		  		
+		  		
+		  		//gd.setDisplayMode(dm);
+		  		
+		  		gd.setDisplayMode(new DisplayMode(width,height,32,0));
 			}
 		}catch(Exception e){
 			KarnaughLog.log(e);

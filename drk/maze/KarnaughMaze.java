@@ -17,12 +17,16 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 	//some accessor methods
 	public int timeLimit(){return timelimit;}
 	public String nextLevel(){return nextmap;}
+	
+	public boolean solution[];
 
 	String filename;
 	//constructor, takes width, height, timelimit, next map, and an arraylist of components to populate the maze with.
-	public KarnaughMaze(int w, int h, int t, String n, ArrayList<MazeItem> c, String sf, String d){
+	public KarnaughMaze(int w, int h, int t, String n, ArrayList<MazeItem> c, String sf, String d, boolean s[]){
 		
 		super(w,h);
+		
+		solution = s;
 		
 		songfile = sf;
 		
@@ -55,7 +59,8 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 			
 			Room rtmp = copy.remove(rnd);
 			
-			rtmp.setItem(cCopy.remove(0));	
+			rtmp.setItem(cCopy.remove(0));
+			rtmp.getItem().setMaze(this);	
 			
 		}
 		
@@ -191,7 +196,7 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		
 		KarnaughLog.log("Successfully loaded map data");
 		
-		return new KarnaughMaze(mazewidth, mazeheight, timelimit, nextmap, components,sf,d);
+		return new KarnaughMaze(mazewidth, mazeheight, timelimit, nextmap, components,sf,d,solution);
 				
 	}
 	
