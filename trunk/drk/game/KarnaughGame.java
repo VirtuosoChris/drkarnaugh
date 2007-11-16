@@ -32,6 +32,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	guiOverlayItem eChar;
 	guiOverlayItem rChar;
 	
+	long cycleTime = 0;
 	private long lastUpdate = 0;
 	
 	private int songID = 0;
@@ -175,7 +176,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		
 		m.loadMap(map);
 		m.camera.fovy = 30;
-	    m.doMain(320,240,null,true);
+	    m.doMain(800,600,null,true);
 		/*if(!((KarnaughMaze)this.m).nextmap.equals("LAST_LEVEL")){
 			loadMap(((KarnaughMaze)this.m).nextmap);
 		}
@@ -437,6 +438,13 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		
 		//if time <= release the bunny or otherwise kill the player
 		
+		if(System.currentTimeMillis() - cycleTime >= 2000){
+			cycleTime = System.currentTimeMillis();
+			currentOutput = (currentOutput+1)%truthTableSize();
+			Score = getCurrentSolution() == true?1:0;
+			 
+		}
+		
 		
 		if(Time > 0){
 		long tmp = System.currentTimeMillis() - lastUpdate;
@@ -484,17 +492,17 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		KarnaughGame m = new KarnaughGame();
 		m.loadMap("map01.kar");
 		m.camera.fovy = 30;
-	    m.doMain(320,240,null,true);
+	    m.doMain(800,600,null,true);
 	}
 	
 	
 	
 	public boolean getCurrentSolution(){
-		return (KarnaughMaze)m.m).solution[currentOutput];	
+		return ((KarnaughMaze)m).solution[currentOutput];	
 	}
 	
 	public int truthTableSize(){
-		return (KarnaughMaze)m.m).solution.length;
+		return ((KarnaughMaze)m).solution.length;
 	}
 	
 	
@@ -508,7 +516,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		KarnaughGame m = new KarnaughGame();
 		m.loadMap("map01.kar");
 		m.camera.fovy = 30;
-	    m.doMain(320,240,null,true);
+	    m.doMain(800,600,null,true);
 		
 		
 		for(boolean b:((KarnaughMaze)m.m).solution){
