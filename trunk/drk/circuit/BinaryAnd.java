@@ -1,6 +1,4 @@
 package drk.circuit;
-import javax.media.opengl.*;
-
 public class BinaryAnd extends BinaryGate
 {
 	

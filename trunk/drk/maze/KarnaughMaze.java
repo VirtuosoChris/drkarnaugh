@@ -52,8 +52,9 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		//um what about our implicit entrances and exits?  need to add those in too
 		
 		//copies of the room and component lists in order to perform this operation
-		ArrayList<Room> copy = (ArrayList<Room>)RoomList.clone();
-		ArrayList<MazeItem> cCopy = (ArrayList<MazeItem>)c.clone();
+		
+		ArrayList<Room> copy = new ArrayList<Room>(RoomList);
+		ArrayList<MazeItem> cCopy = new ArrayList<MazeItem>(c);
 		
 		
 	
