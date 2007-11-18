@@ -206,24 +206,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		//}
 		
 		
-		
-			
 	
-		gl.glMatrixMode(GL.GL_MODELVIEW);
-		
-		gl.glPushMatrix();
-			
-			GLU glu=new GLU();
-			
-			GLUquadric s= glu.gluNewQuadric();
-		//	glu.gluQuadricTexture(s, true);
-			
-			gl.glColor3f(0f,0f,0f);
-			
-			glu.gluSphere(s, 1.5, 10,10);
-		
-		gl.glPopMatrix();
-		
 		
 				
 		String bauerClock = "";
