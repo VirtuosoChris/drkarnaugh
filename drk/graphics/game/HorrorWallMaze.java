@@ -235,6 +235,10 @@ public class HorrorWallMaze extends RenderableMaze
 		gl.glEnd();
 		//}
 		
+		if(r.getItem()!=null){
+			r.getItem().render(gl);
+		}
+		
 		gl.glPopMatrix();
 		
 	}

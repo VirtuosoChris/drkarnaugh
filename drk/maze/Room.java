@@ -54,6 +54,9 @@ public class Room implements GLRenderable{
 	//methods to set and return the item stored in this particular room
 	public void setItem(MazeItem i){
 		localItem = i;
+		
+		if(i.getRoom() != this){
+		i.setRoom(this);}
 	}
 	
 	public MazeItem getItem(){

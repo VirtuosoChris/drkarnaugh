@@ -177,7 +177,7 @@ public static String[][] getHighScores(){
 
 
 //posts the user's score to the table, and retrieves the string telling the user how they placed
-public static String postHighScore(int score, String name,int r, String hash){
+private static String postHighScore(int score, String name,int r, String hash){
 	
 	if(name.length() > MAXINPUTLENGTH)return "Could not post high score : input name string is invalid";
 	

@@ -286,6 +286,13 @@ public class Maze {
 		return RoomList.get(ID);
 	}
 	
+	
+	public int getSize(){
+		return this.width * this.height;
+	}
+	
+	
+	
 	public static void main(String[] args){
 		
 		Maze m = new Maze(4,4);
