@@ -1,7 +1,6 @@
 
 package drk.maze;
 import javax.media.opengl.*;
-import javax.media.opengl.glu.*;
 import drk.Vector3D;
 
 public abstract class MazeItem implements drk.graphics.GLRenderable{

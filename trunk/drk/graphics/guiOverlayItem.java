@@ -5,8 +5,6 @@
 
 package drk.graphics;
 import javax.media.opengl.*;
-import javax.media.opengl.glu.GLU;
-import java.util.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.*;
 import com.sun.opengl.util.texture.*;

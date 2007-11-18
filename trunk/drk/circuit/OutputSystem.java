@@ -1,7 +1,5 @@
 package drk.circuit;
 import java.io.*;
-import javax.media.opengl.*;
-
 import drk.maze.MazeItem;
 
 public abstract class OutputSystem extends MazeItem

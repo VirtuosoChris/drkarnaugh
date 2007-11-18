@@ -3,7 +3,6 @@ import drk.game.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.util.*;
 import java.io.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -36,7 +35,7 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 		GridBagConstraints constraint = new GridBagConstraints();
 		
 		//Buttons
-		JButton rankB, customB, exitB, blank; 
+		JButton rankB, customB, exitB; 
 		rankB = new JButton("Start New Ranked Game");
 		rankB.setVerticalTextPosition(AbstractButton.CENTER);
 		rankB.setHorizontalTextPosition(AbstractButton.LEADING);
@@ -349,7 +348,8 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 	
 	public void GameGUI() {
         
-        JPanel foregroundPanel = new JPanel(new BorderLayout(100, 100));
+		//this is never used, so it threw a warning
+  //      JPanel foregroundPanel = new JPanel(new BorderLayout(100, 100));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setJMenuBar(createMenuBar());
 		

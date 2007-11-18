@@ -61,8 +61,8 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		
 		
 		int digitWidth = (int)(.03*resWidth);
-		int upperLeftY = (int)(.99*resHeight);
-		int upperLeftX = (int)(.01*resWidth);
+	//	int upperLeftY = (int)(.99*resHeight);
+	//	int upperLeftX = (int)(.01*resWidth);
 		
 		cursor.setWidth(digitWidth);
 		cursor.setHeight(digitWidth);

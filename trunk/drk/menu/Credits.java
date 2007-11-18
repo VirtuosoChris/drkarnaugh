@@ -10,16 +10,17 @@ import javax.swing.*;
  *credits to the authors of the resources in the help file. Tommarrow I will work
  *on creating like a final story menu, sort of like I did with the intro menu.*/
 
+@SuppressWarnings("serial")
 public class Credits extends JPanel implements ActionListener{
 	
-	protected ArrayList buffer;
+	protected ArrayList<String> buffer;
 	protected int lines;
 	protected int i;
  
 	public Credits(String[] text, int lines, int interval){
 		
 		i = 0;
-		buffer = new ArrayList(lines);
+		buffer = new ArrayList<String>(lines);
 		for (int i = 0; i < 10; i++){
 			buffer.add(" ");
 		}
@@ -43,7 +44,7 @@ public class Credits extends JPanel implements ActionListener{
 		else{
 		super.paintComponent(g);
 		
-		Object first = buffer.remove(0);
+		String first = buffer.remove(0);
 		buffer.add(first);
  
 		FontMetrics fm = getFontMetrics(getFont());

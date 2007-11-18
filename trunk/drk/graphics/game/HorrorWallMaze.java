@@ -103,6 +103,8 @@ public class HorrorWallMaze extends RenderableMaze
 		Room r=getCurrentRoom();
 		Vector3D crp=mc.Position.minus(this.getRoomMiddle(r));
 		float [] f=new float[4];
+	
+		f[0]=(float)crp.y;
 	/*	f[0]=(float)crp.y-(float)(RENDER_WIDTH*0.5);
 		f[1]=(float)(RENDER_WIDTH*0.5)-(float)crp.x;
 		f[2]=(float)(RENDER_WIDTH*0.5)-(float)crp.y;
