@@ -8,6 +8,11 @@ import drk.circuit.*;
 import drk.sound.*;
 import javax.media.opengl.*;
 import drk.graphics.guiOverlayItem;
+import drk.Vector3D;
+import drk.graphics.game.HorrorWallMaze;
+
+import javax.media.opengl.glu.*;
+
 public class KarnaughGame extends MazeGame implements Updatable{
 
 	//private static int resWidth  = 10=;
@@ -191,15 +196,43 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		
 		super.render(gl);
 				
+		//for(int i = 0; i < ((KarnaughMaze)m).getSize();i++){
 			
-		String bauerClock = "";
+		//Room x = ((KarnaughMaze)m).getRoom(i);
+		
+		//x.render(gl);
+				
+		//		if(x!=null)x.render(gl);
+			
+		//}
+		
+		
+		
 			
 	
+		gl.glMatrixMode(GL.GL_MODELVIEW);
+		
+		gl.glPushMatrix();
+			
+			GLU glu=new GLU();
+			
+			GLUquadric s= glu.gluNewQuadric();
+		//	glu.gluQuadricTexture(s, true);
+			
+			gl.glColor3f(0f,0f,0f);
+			
+			glu.gluSphere(s, 1.5, 10,10);
+		
+		gl.glPopMatrix();
+		
+		
+				
+		String bauerClock = "";
+			
 	    if(minutesLeft() < 10)bauerClock+="0";
 		 bauerClock += minutesLeft()+":";
 		if(secondsLeft()< 10)bauerClock+="0";
 		bauerClock+= secondsLeft();
-		
 		
 		//System.out.println(bauerClock);
 		
@@ -387,8 +420,9 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		//double xoff=(double)(rm % this.m.getWidth())*RenderableMaze.RENDER_WIDTH;
 		//double zoff=(double)(rm /this.m.getWidth())*RenderableMaze.RENDER_WIDTH;
 		
+		
 		//ec.Position = new Vector3D(xoff+RenderableMaze.RENDER_WIDTH/2,.7*RenderableMaze.RENDER_HEIGHT,zoff+.5*RenderableMaze.RENDER_WIDTH);
-		ec.Position	=this.m.getRoomMiddle(this.m.getRoom(rm));
+		ec.Position	= this.m.getRoomMiddle(this.m.getRoom(rm));
 		ec.setHeight(1.5);//59 inches in meters (avg human height)
 		
 		Time = km.timelimit*1000;
@@ -432,6 +466,23 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		}
 		
 	
+	
+		//testcode!
+		for(MazeItem x : ((KarnaughMaze)m).components){
+			
+			if(x.getRoom()!=null){
+			
+			if(ec.isPointingAt(((HorrorWallMaze)m).getRoomMiddle(x.getRoom()), MazeItem.boundingRadius) && ec.isCollidedWith(((HorrorWallMaze)m).getRoomMiddle(x.getRoom()), 1.5f)){
+				Score+=100;
+			}
+			
+			}
+			
+		}
+		
+		
+		
+		
 		
 		//test for win/die
 		
@@ -441,7 +492,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		if(System.currentTimeMillis() - cycleTime >= 2000){
 			cycleTime = System.currentTimeMillis();
 			currentOutput = (currentOutput+1)%truthTableSize();
-			Score = getCurrentSolution() == true?1:0;
+		//	Score = getCurrentSolution() == true?1:0;
 			 
 		}
 		
@@ -514,16 +565,13 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		KarnaughLog.log("Starting Dr. Karnaugh's Lab");
 		
 		KarnaughGame m = new KarnaughGame();
-		m.loadMap("map01.kar");
+		m.loadMap("map07.kar");
 		m.camera.fovy = 30;
 	    m.doMain(800,600,null,true);
 		
-		
-		for(boolean b:((KarnaughMaze)m.m).solution){
-			
-			System.out.println(b);
-			
-	}
+		for(boolean b:((KarnaughMaze)m.m).solution){	
+			System.out.println(b);	
+		}
 		
 	   //MazeGame mg = new MazeGame();
 	   //mg.m = KarnaughMaze.loadMaze("test");
@@ -536,8 +584,6 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	  //}else {
 	  	//KarnaughLog.log("Map loaded successfully, game loop may begin");
 	  //}
-	  
-	  
 	  
    }//end main	
 	

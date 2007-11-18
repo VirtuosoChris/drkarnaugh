@@ -10,7 +10,7 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 	
 	public int timelimit = 0;
 	public String nextmap = null; 
-	private ArrayList<MazeItem> components = null;
+	public ArrayList<MazeItem> components = null;
 	public String songfile = null;
 	public String mapDirectory = null;
 
@@ -30,7 +30,15 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		
 		songfile = sf;
 		
+		c.add(new Entrance());
+		c.add(new Exit());
+		
+		
+		
 		components = c;
+		
+		
+		
 		
 		timelimit = t;
 		nextmap = n;
@@ -47,8 +55,8 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		ArrayList<Room> copy = (ArrayList<Room>)RoomList.clone();
 		ArrayList<MazeItem> cCopy = (ArrayList<MazeItem>)c.clone();
 		
-		cCopy.add(new Entrance());
-		cCopy.add(new Exit());
+		
+	
 		
 		Random r = new Random();
 		

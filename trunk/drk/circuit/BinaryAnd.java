@@ -17,9 +17,5 @@ public class BinaryAnd extends BinaryGate
 		return Ain.evaluate() && Bin.evaluate();
 	}
 	
-	public void render(GL gl)
-	{
-		
-	}
 	
 }
