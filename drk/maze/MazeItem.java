@@ -1,7 +1,7 @@
 
 package drk.maze;
 import javax.media.opengl.*;
-import drk.Vector3D;
+import javax.media.opengl.glu.*;
 
 public abstract class MazeItem implements drk.graphics.GLRenderable{
 	protected Room room = null;

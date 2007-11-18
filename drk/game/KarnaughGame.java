@@ -8,7 +8,6 @@ import drk.circuit.*;
 import drk.sound.*;
 import javax.media.opengl.*;
 import drk.graphics.guiOverlayItem;
-import drk.Vector3D;
 import drk.graphics.game.HorrorWallMaze;
 
 import javax.media.opengl.glu.*;

@@ -1,6 +1,4 @@
 package drk.circuit;
-import javax.media.opengl.*;
-import javax.media.opengl.glu.*;
 
 import drk.maze.MazeItem;
 
