@@ -1,5 +1,4 @@
 package drk.maze;
-import drk.circuit.*;
 import drk.graphics.*;
 import javax.media.opengl.*;
 
