@@ -212,6 +212,16 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	}//end method
 	
 //	public DisplayMode[]
+	
+	public int getWidth()
+	{
+		return width;
+	}
+	public int getHeight()
+	{
+		return height;
+	}
+	
 	public static boolean linuxhack=false;
 	public void doMain(int w,int h,GLCapabilities glcaps,boolean runasFast)
 	{

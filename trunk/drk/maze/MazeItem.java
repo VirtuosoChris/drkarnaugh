@@ -34,25 +34,25 @@ public abstract class MazeItem implements drk.graphics.GLRenderable{
 		//PLEASE DO NOTE: This is creating a new GLU and a new Vector3d and a new quadric...
 		//etc... every time it's called.   Bad.  I'd rather have the clutter up top...
 			
-			gl.glMatrixMode(GL.GL_MODELVIEW);
-			gl.glPushMatrix();
+			//gl.glMatrixMode(GL.GL_MODELVIEW);
+			//gl.glPushMatrix();
 			//Vector3D centermiddle=rm.getRoomMiddle(room);
 			//gl.glTranslated(centermiddle.x,centermiddle.y,centermiddle.z);
 			
-			GLU glu=new GLU();
+			//GLU glu=new GLU();
 			
-			GLUquadric s= glu.gluNewQuadric();
+			//GLUquadric s= glu.gluNewQuadric();
 		//	glu.gluQuadricTexture(s, true);
 		
 		//gl.glLineWidth(5);
 		//this would be useful for debugging but doesn't work
 		//glu.gluQuadricDrawStyle(s, GL.GL_LINE);
 			
-			gl.glColor3f(0f,0f,0f);
+			//gl.glColor3f(0f,0f,0f);
 			
-			glu.gluSphere(s, 1, 10,10);
+			//glu.gluSphere(s, 1, 10,10);
 			
-			gl.glPopMatrix();	
+			//gl.glPopMatrix();	
 	}
 	
 	
