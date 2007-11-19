@@ -8,9 +8,10 @@ import drk.circuit.*;
 import drk.sound.*;
 import javax.media.opengl.*;
 import drk.graphics.game.HorrorWallMaze;
+import java.awt.event.*;
 
 
-public class KarnaughGame extends MazeGame implements Updatable{
+public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 
 	//private static int resWidth  = 10=;
 	//private static int resHeight = 768;
@@ -28,22 +29,32 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	private KarnaughOverlays overlays;
 	
 	private int songID = 0;
+
 	
+	//event handler for when the mouse is clicked
+	//sets a flag for the game event loop
+//	public void mouseReleased(MouseEvent m){
+		
+//		super.mouseReleased(m);
+	
+//		mouseClicked = true;
+//	}
+	
+	
+	//does super's initialization
+	//sets up the game GUI
 	public void initialize(GL gl){
 		super.initialize(gl);
 		
 		overlays=new KarnaughOverlays(this);
 		overlays.initialize(gl);
 		
-		
-	
-	
 	}
 
 	
 	
 	
-	
+	//constructor-- initialize the variables
 	public KarnaughGame(){
 		Score = 0;
 		Time = 0;
@@ -52,12 +63,12 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	
 	
 	
+	
+	//loads a game from a particular file
 	public void setSingleMapCampaign(KarnaughGame m, String map){
 		
 		
-		
 		KarnaughLog.clearLog();
-		
 		
 		KarnaughLog.log("Starting Dr. Karnaugh's Lab");
 		
@@ -76,24 +87,11 @@ public class KarnaughGame extends MazeGame implements Updatable{
 	
 	
 	
+	//renders the maze, then renders the guiOverlays on top of the screen
 	public void render(GL gl){
 		
 		super.render(gl);
-				
-		//for(int i = 0; i < ((KarnaughMaze)m).getSize();i++){
-			
-		//Room x = ((KarnaughMaze)m).getRoom(i);
-		
-		//x.render(gl);
-				
-		//		if(x!=null)x.render(gl);
-			
-		//}
-		
-		
-	
-		
-		//System.out.println(bauerClock);
+					
 		overlays.render(gl);
 		
 	}
@@ -121,6 +119,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 //	}
 	
 	
+	//when the game is over by death or winning manage endgame situation
 	public void gameOver(){
 		//submit score
 		//high score table
@@ -231,6 +230,9 @@ public class KarnaughGame extends MazeGame implements Updatable{
 		
 	
 	
+//		if(mouseClicked){
+		
+//		mouseClicked = false;
 		//testcode!
 		for(MazeItem x : ((KarnaughMaze)m).components){
 			
@@ -243,7 +245,7 @@ public class KarnaughGame extends MazeGame implements Updatable{
 			}
 			
 		}
-		
+//		}
 		
 		
 		
