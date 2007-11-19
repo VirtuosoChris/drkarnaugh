@@ -8,6 +8,8 @@ public class KarnaughShaders
 		"void main()\n" +
 		"{\n" +
 		"    vec4 outcolor = texture2D(texture,gl_TexCoord[0].st);\n" +
+//		"    if(dot(gl_FragCoord.rgb,gl_FragCoord.rgb) > .5*.5)\n"+
+//		"        outcolor*=2.0;\n"+
 		"    gl_FragColor = outcolor;\n" +
 		"}" +
 		"";
