@@ -11,10 +11,10 @@ public class KarnaughOverlays implements Updatable, GLInitializable {
 
 	KarnaughGame kg;
 
-	guiOverlayItem cursor;
-	guiOverlayItem interactHand;
-	guiOverlayItem wireHand;
-	guiOverlayItem cancel;
+	public guiOverlayItem cursor;
+	public guiOverlayItem interactHand;
+	public guiOverlayItem wireHand;
+	public guiOverlayItem cancel;
 	
 	guiOverlayItem colon;
 	guiOverlayItem digits[];
@@ -22,6 +22,8 @@ public class KarnaughOverlays implements Updatable, GLInitializable {
 	guiOverlayItem cChar;
 	guiOverlayItem eChar;
 	guiOverlayItem rChar;
+	
+	public guiOverlayItem currentCursor;
 	
 	public KarnaughOverlays(KarnaughGame tkg)
 	{
@@ -144,6 +146,9 @@ public class KarnaughOverlays implements Updatable, GLInitializable {
 			
 		}
 		
+		
+		currentCursor = cursor;
+		
 	}
 	public void update() {
 		// TODO Auto-generated method stub
@@ -172,7 +177,7 @@ public class KarnaughOverlays implements Updatable, GLInitializable {
 	    guiOverlayItem.setGUIColor(1f,1f,1f);
 	    
 	    
-	 	cursor.draw(gl);
+	 	currentCursor.draw(gl);
 	 	
 	 	guiOverlayItem.setGUIColor(0,1f,0);
 	 	

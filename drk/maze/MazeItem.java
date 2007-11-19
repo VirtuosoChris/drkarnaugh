@@ -2,12 +2,39 @@
 package drk.maze;
 import javax.media.opengl.*;
 import javax.media.opengl.glu.*;
+import drk.game.KarnaughGame;
+import drk.Vector3D;
+import drk.graphics.game.HorrorWallMaze;
 
-public abstract class MazeItem implements drk.graphics.GLRenderable{
+
+public abstract class MazeItem implements drk.graphics.GLRenderable, MazeItemListener{
 	protected Room room = null;
-	protected RenderableMaze rm = null;
+	protected KarnaughMaze rm = null;
 
 	public static final double boundingRadius = 1.5;
+	public Vector3D boundingSphere;
+
+	public boolean isMazeItemHighlighted(KarnaughGame k){
+
+	
+	return (
+		k.ec.isPointingAt( ((HorrorWallMaze)k.m).getRoomMiddle(this.getRoom()), boundingRadius) 
+	&& k.ec.isCollidedWith(((HorrorWallMaze)k.m).getRoomMiddle(this.getRoom()), boundingRadius)
+	
+		);
+		
+		
+
+
+	}
+	
+	public void onMazeItemHighlighted(KarnaughGame k){
+	}
+	
+	public void onMazeItemEntered(MazeItem m){}
+
+
+
 
 	//this sets the fields in the room object and this to refer to each other.  
 	//I feel that the objects referring to each other is cause enough to make the fields in each not public and instead go through accessors and mutators
@@ -24,35 +51,30 @@ public abstract class MazeItem implements drk.graphics.GLRenderable{
 		}
 	}
 	
-	public void setMaze(RenderableMaze m){
+	public void setMaze(KarnaughMaze m){
 		rm = m;
 	}
 	
 	public void render(GL gl)
 	{
+			gl.glMatrixMode(GL.GL_MODELVIEW);
+			gl.glPushMatrix();
+			Vector3D centermiddle=rm.getRoomMiddle(room);
+		//	gl.glTranslated(centermiddle.x,centermiddle.y,centermiddle.z);
+			
+			GLU glu=new GLU();
+			
+			GLUquadric s= glu.gluNewQuadric();
+		glu.gluQuadricTexture(s, true);
 		
-		//PLEASE DO NOTE: This is creating a new GLU and a new Vector3d and a new quadric...
-		//etc... every time it's called.   Bad.  I'd rather have the clutter up top...
-			
-			//gl.glMatrixMode(GL.GL_MODELVIEW);
-			//gl.glPushMatrix();
-			//Vector3D centermiddle=rm.getRoomMiddle(room);
-			//gl.glTranslated(centermiddle.x,centermiddle.y,centermiddle.z);
-			
-			//GLU glu=new GLU();
-			
-			//GLUquadric s= glu.gluNewQuadric();
-		//	glu.gluQuadricTexture(s, true);
-		
-		//gl.glLineWidth(5);
+		gl.glLineWidth(5);
 		//this would be useful for debugging but doesn't work
-		//glu.gluQuadricDrawStyle(s, GL.GL_LINE);
 			
-			//gl.glColor3f(0f,0f,0f);
+			gl.glColor3f(0f,0f,0f);
 			
-			//glu.gluSphere(s, 1, 10,10);
+			glu.gluSphere(s, 1, 10,10);
 			
-			//gl.glPopMatrix();	
+			gl.glPopMatrix();	
 	}
 	
 	
