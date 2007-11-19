@@ -2,6 +2,7 @@ package drk.graphics;
 import drk.KarnaughLog;
 import drk.graphics.Camera;
 import drk.DeltaTimer;
+import drk.maze.KarnaughMaze;
 import javax.swing.*;
 import javax.media.opengl.*;
 import java.awt.*;
@@ -27,6 +28,9 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	
 	protected boolean leftClick = false;
 	protected boolean rightClick = false;
+	
+	public static JPanel truthTable;
+	public static JTextArea jtc = new JTextArea();
 
 	int xPrev, yPrev;
 
@@ -338,8 +342,43 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		anim.setRunAsFastAsPossible(runasFast);
 		jf.getContentPane().setLayout(new BorderLayout());
 		jf.getContentPane().add(ad,BorderLayout.CENTER);
-		JPanel box=new JPanel();
-		box.add(new JButton("Coming Soon to a game near you: Status Bar"));
+		JPanel box = new JPanel();
+		box.setBackground(Color.black);
+		JPanel solPanel = new JPanel();
+		solPanel.setBackground(Color.black);
+		solPanel.setLayout(new BorderLayout());
+		
+		JTextArea solText = new JTextArea("Solution:");
+		solText.setForeground(Color.green);
+		solText.setBackground(Color.black);
+		solText.setMargin(new Insets(5,0,0,15));
+		
+		solPanel.setFont(new Font("Serif", Font.BOLD, 20));
+		solPanel.add(solText, BorderLayout.EAST);
+		
+		truthTable = new JPanel();
+		box.setLayout(new BorderLayout());
+		truthTable.setLayout(new BorderLayout());
+		truthTable.setBackground(Color.black);
+		
+		//JTextArea jtc = new JTextArea();
+		jtc.setForeground(Color.red);
+		jtc.setBackground(Color.black);
+		jtc.setFont(new Font("Serif", Font.BOLD, 18));
+		
+		box.add(new JButton("Coming Soon to a game near you: Status Bar"), BorderLayout.WEST);
+		
+		for(int i = 0; i < KarnaughMaze.numinputs; i++){
+			jtc.append(Integer.toString(0));//(KarnaughMaze.solution[i])?1:0));
+			if(i+1 == KarnaughMaze.numinputs){
+				jtc.append("|");
+				jtc.append(Integer.toString(1));//(KarnaughMaze.solution[i+1])?1:0));
+				truthTable.add(jtc, BorderLayout.EAST);
+			}
+		}
+		
+		box.add(solPanel, BorderLayout.CENTER);
+		box.add(truthTable, BorderLayout.EAST);
 		jf.getContentPane().add(box,BorderLayout.SOUTH);
 		jf.setSize(w,h);
 		
@@ -362,6 +401,22 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		while(!jf.isShowing());
 		anim.start();
 		//jf
+	}
+	
+	public static void updateTT(int x, boolean y){
+		truthTable.removeAll();
+		int i = (y)?1:0;
+		//JTextArea jtc = JTextArea();
+		jtc.setForeground(Color.red);
+		jtc.setBackground(Color.black);
+		jtc.setFont(new Font("Serif", Font.BOLD, 18));
+		
+		jtc.append(Integer.toString(x));
+		jtc.append("|");
+		jtc.append(Integer.toString(i));
+		truthTable.add(jtc, BorderLayout.EAST);
+		truthTable.validate();
+		truthTable.repaint();
 	}
 	
 }
