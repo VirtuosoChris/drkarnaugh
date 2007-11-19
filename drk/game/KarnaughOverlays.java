@@ -3,7 +3,6 @@ package drk.game;
 import javax.media.opengl.GL;
 
 import drk.Updatable;
-import drk.graphics.GLRenderable;
 import drk.graphics.GLInitializable;
 import drk.graphics.guiOverlayItem;
 

@@ -59,7 +59,7 @@ public abstract class MazeItem implements drk.graphics.GLRenderable, MazeItemLis
 	{
 			gl.glMatrixMode(GL.GL_MODELVIEW);
 			gl.glPushMatrix();
-			Vector3D centermiddle=rm.getRoomMiddle(room);
+		//	Vector3D centermiddle=rm.getRoomMiddle(room);
 		//	gl.glTranslated(centermiddle.x,centermiddle.y,centermiddle.z);
 			
 			GLU glu=new GLU();

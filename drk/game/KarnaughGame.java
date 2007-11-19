@@ -7,7 +7,6 @@ import drk.maze.*;
 import drk.circuit.*;
 import drk.sound.*;
 import javax.media.opengl.*;
-import drk.graphics.game.HorrorWallMaze;
 import java.awt.event.*;
 
 

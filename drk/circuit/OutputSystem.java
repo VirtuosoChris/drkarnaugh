@@ -2,8 +2,6 @@ package drk.circuit;
 import java.io.*;
 import drk.maze.MazeItem;
 import drk.game.KarnaughGame;
-import drk.game.KarnaughOverlays;
-
 public abstract class OutputSystem extends MazeItem
 {
 	public abstract boolean evaluate();
