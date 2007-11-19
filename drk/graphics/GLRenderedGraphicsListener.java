@@ -12,7 +12,7 @@ import java.util.TreeMap;
 import java.awt.Robot;
 
 
-public abstract class GLRenderedGraphicsListener implements GLEventListener, KeyListener,MouseMotionListener
+public abstract class GLRenderedGraphicsListener implements GLEventListener, KeyListener,MouseMotionListener, MouseListener
 {
 	protected int width,height;
 	public Camera camera;
@@ -23,6 +23,10 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	
 	protected Robot r;
 	protected boolean recenteringMouse = false;
+	
+	
+	protected boolean leftClick = false;
+	protected boolean rightClick = false;
 
 	int xPrev, yPrev;
 
@@ -162,6 +166,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	}
 	
 	public void mouseDragged(MouseEvent m){
+		//recenterMouse();
 		mouseMoved(m);
 		
 	}
@@ -177,14 +182,22 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	}
 	
 	public void mouseReleased(MouseEvent m){
+		
+		System.out.println("Release");
 		recenterMouse();
+		
 	}
 	
 	public void mousePressed(MouseEvent m){
-		recenterMouse();
+		
+		System.out.println("Press");
+		mouseMoved(m);
 	}
 	
 	public void mouseClicked(MouseEvent m){
+		
+		System.out.println("Click");
+		
 		recenterMouse();
 	}
 	public boolean isKeyPressed(int k)
@@ -311,8 +324,9 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		{
 			ad.addGLEventListener(this);
 			ad.addMouseMotionListener(this);
+			//ad.addMouseListener(this);
 			ad.addKeyListener(this);
-			//jf.addMouseListener(this)
+			ad.addMouseListener(this);
 		}
 		catch(Exception e)
 		{
