@@ -2,6 +2,7 @@ package drk.graphics;
 import drk.KarnaughLog;
 import drk.graphics.Camera;
 import drk.DeltaTimer;
+import drk.maze.KarnaughMaze;
 import javax.swing.*;
 import javax.media.opengl.*;
 import java.awt.*;
@@ -379,14 +380,14 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		
 		//box.add(new JButton("Coming Soon to a game near you: Status Bar"), BorderLayout.WEST);
 		
-		//for(int i = 0; i < numinputs; i++){
-		//	jtc.append(Integer.toString(0));//(KarnaughMaze.solution[i])?1:0));
-		//	if(i+1 == numinputs){
-		//		jtc.append("|");
-		//		jtc.append(Integer.toString(1));//(KarnaughMaze.solution[i+1])?1:0));
-		//		truthTable.add(jtc, BorderLayout.EAST);
-		//	}
-		//}
+		for(int i = 0; i < KarnaughMaze.numinputs; i++){
+			jtc.append(Integer.toString(0));
+			if(i+1 == KarnaughMaze.numinputs){
+				jtc.append("|");
+				jtc.append(Integer.toString(1));
+				truthTable.add(jtc, BorderLayout.EAST);
+			}
+		}
 		
 		box.add(solPanel, BorderLayout.CENTER);
 		box.add(truthTable, BorderLayout.EAST);
@@ -417,12 +418,16 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	public static void updateTT(int x, boolean y){
 		truthTable.removeAll();
 		int i = (y)?1:0;
+		String j = Integer.toBinaryString(x);
+		for(int k = j.length(); k <= KarnaughMaze.numinputs; k++){ //Add on 0's depending on number of inputs.
+			j = "0".concat(j);
+		}
 		//JTextArea jtc = JTextArea();
 		jtc.setForeground(Color.red);
 		jtc.setBackground(Color.black);
 		jtc.setFont(new Font("Serif", Font.BOLD, 18));
 		
-		jtc.append(Integer.toString(x));
+		jtc.append(j);
 		jtc.append("|");
 		jtc.append(Integer.toString(i));
 		truthTable.add(jtc, BorderLayout.EAST);
