@@ -6,6 +6,7 @@ import drk.maze.KarnaughMaze;
 import javax.swing.*;
 import javax.media.opengl.*;
 import java.awt.*;
+import java.io.*;
 import com.sun.opengl.util.*;
 import java.awt.event.*;
 import java.util.Map;
@@ -30,7 +31,10 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	public boolean rightClick = false;
 	
 	public static JPanel truthTable;
+	public static JPanel infoTable;
+	public static JTextArea infoText = new JTextArea();
 	public static JTextArea jtc = new JTextArea();
+	public static String lineRead[] = new String[4];
 
 	int xPrev, yPrev;
 
@@ -360,6 +364,16 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		solPanel.setBackground(Color.black);
 		solPanel.setLayout(new BorderLayout());
 		
+		infoTable = new JPanel();
+		infoTable.setLayout(new BorderLayout());
+		infoTable.setBackground(Color.black);
+		infoTable.setFont(new Font("Serif", Font.BOLD, 12));
+		infoText.append("Welcome to Dr.Karnaugh's Laboratory");
+		infoText.setForeground(Color.white);
+		infoText.setBackground(Color.black);
+		infoText.setMargin(new Insets(5,0,0,15));
+		infoTable.add(infoText, BorderLayout.WEST);
+		
 		JTextArea solText = new JTextArea("Solution:");
 		solText.setForeground(Color.green);
 		solText.setBackground(Color.black);
@@ -389,8 +403,23 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 			}
 		}
 		
+		box.add(infoTable, BorderLayout.WEST);
 		box.add(solPanel, BorderLayout.CENTER);
 		box.add(truthTable, BorderLayout.EAST);
+		
+		try{
+			BufferedReader br = new BufferedReader(new FileReader(new File("gameinfo.txt")));
+      		int m = 0;
+      		String temp;
+       		while((temp = br.readLine()) != null){
+            	lineRead[m] = temp;
+            	m++;
+      		}
+		}
+		catch(IOException info){
+			info.printStackTrace();
+		}
+		
 		jf.getContentPane().add(box,BorderLayout.SOUTH);
 		jf.setSize(w,h);
 		
@@ -417,9 +446,10 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	
 	public static void updateTT(int x, boolean y){
 		truthTable.removeAll();
+		jtc.setText(null);
 		int i = (y)?1:0;
 		String j = Integer.toBinaryString(x);
-		for(int k = j.length(); k <= KarnaughMaze.numinputs; k++){ //Add on 0's depending on number of inputs.
+		for(int k = j.length(); k < KarnaughMaze.numinputs; k++){ //Add on 0's depending on number of inputs.
 			j = "0".concat(j);
 		}
 		//JTextArea jtc = JTextArea();
@@ -433,6 +463,18 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		truthTable.add(jtc, BorderLayout.EAST);
 		truthTable.validate();
 		truthTable.repaint();
+	}
+	
+	public static void updateInfo(int i){
+		infoTable.removeAll();
+		//infoText.setText(null);
+		infoText.setText(lineRead[i]);
+		infoText.setForeground(Color.white);
+		infoText.setBackground(Color.black);
+		infoText.setFont(new Font("Serif", Font.BOLD, 12));
+		infoTable.add(infoText, BorderLayout.WEST);
+		infoTable.validate();
+		infoTable.repaint();
 	}
 	
 }
