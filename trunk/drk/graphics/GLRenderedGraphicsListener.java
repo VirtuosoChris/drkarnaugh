@@ -26,8 +26,8 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	protected boolean recenteringMouse = false;
 	
 	
-	protected boolean leftClick = false;
-	protected boolean rightClick = false;
+	public boolean leftClick = false;
+	public boolean rightClick = false;
 	
 	public static JPanel truthTable;
 	public static JTextArea jtc = new JTextArea();
@@ -194,7 +194,19 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	
 	public void mousePressed(MouseEvent m){
 		
-		System.out.println("Press");
+		//System.out.println("Press");
+		
+		if(m.getButton() == MouseEvent.BUTTON1){
+			leftClick = true;
+			System.out.println("LEFT");
+		}
+		
+		
+		if(m.getButton() == MouseEvent.BUTTON3 || m.getButton() == MouseEvent.BUTTON2){
+			rightClick = true;
+			System.out.println("RIGHT");
+		}
+		
 		mouseMoved(m);
 	}
 	
@@ -366,16 +378,16 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		jtc.setBackground(Color.black);
 		jtc.setFont(new Font("Serif", Font.BOLD, 18));
 		
-		box.add(new JButton("Coming Soon to a game near you: Status Bar"), BorderLayout.WEST);
+		//box.add(new JButton("Coming Soon to a game near you: Status Bar"), BorderLayout.WEST);
 		
-		for(int i = 0; i < KarnaughMaze.numinputs; i++){
-			jtc.append(Integer.toString(0));//(KarnaughMaze.solution[i])?1:0));
-			if(i+1 == KarnaughMaze.numinputs){
-				jtc.append("|");
-				jtc.append(Integer.toString(1));//(KarnaughMaze.solution[i+1])?1:0));
-				truthTable.add(jtc, BorderLayout.EAST);
-			}
-		}
+		//for(int i = 0; i < numinputs; i++){
+		//	jtc.append(Integer.toString(0));//(KarnaughMaze.solution[i])?1:0));
+		//	if(i+1 == numinputs){
+		//		jtc.append("|");
+		//		jtc.append(Integer.toString(1));//(KarnaughMaze.solution[i+1])?1:0));
+		//		truthTable.add(jtc, BorderLayout.EAST);
+		//	}
+		//}
 		
 		box.add(solPanel, BorderLayout.CENTER);
 		box.add(truthTable, BorderLayout.EAST);

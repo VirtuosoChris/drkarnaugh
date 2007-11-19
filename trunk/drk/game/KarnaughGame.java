@@ -26,10 +26,12 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	private long lastUpdate = 0;
 	
 	
-	private KarnaughOverlays overlays;
+	public KarnaughOverlays overlays;
 	
-	private int songID = 0;
+	protected int songID = 0;
 
+
+	public boolean hasWire = false;
 	
 	//event handler for when the mouse is clicked
 	//sets a flag for the game event loop
@@ -228,27 +230,31 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			System.exit(0);
 		}
 		
-	
-	
-//		if(mouseClicked){
 		
-//		mouseClicked = false;
-		//testcode!
-		for(MazeItem x : ((KarnaughMaze)m).components){
+		
+		
+		MazeItem x = ((KarnaughMaze)m).getCurrentRoom().getItem();
+		
+		if(x!=null){
+		
+		
+		//handles clicking or highlighting items
+			if(x.isMazeItemHighlighted(this)){
 			
-			if(x.getRoom()!=null){
-			
-			if(ec.isPointingAt(((HorrorWallMaze)m).getRoomMiddle(x.getRoom()), MazeItem.boundingRadius) && ec.isCollidedWith(((HorrorWallMaze)m).getRoomMiddle(x.getRoom()), 1.5f)){
-				Score+=100;
+				x.onMazeItemHighlighted(this);		
+			}else{//handle click if no interaction
+				if(!hasWire)
+				overlays.currentCursor = overlays.cursor;
 			}
+		
 			
-			}
 			
-		}
-//		}
-		
-		
-		
+			
+		}	
+			
+			
+		leftClick = false;
+		rightClick = false;
 		
 		//test for win/die
 		

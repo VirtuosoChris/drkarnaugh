@@ -1,6 +1,8 @@
 package drk.circuit;
 import java.io.*;
 import drk.maze.MazeItem;
+import drk.game.KarnaughGame;
+import drk.game.KarnaughOverlays;
 
 public abstract class OutputSystem extends MazeItem
 {
@@ -36,6 +38,31 @@ public abstract class OutputSystem extends MazeItem
 	{
 		super.render(gl);
 	}*/
+	
+	
+	public void onMazeItemHighlighted(KarnaughGame k){
+		super.onMazeItemHighlighted(k);
+		
+		if(k.leftClick || k.rightClick){
+		if(!k.hasWire){
+			k.hasWire = true;
+			k.overlays.currentCursor = k.overlays.wireHand;
+		}
+		else{
+			k.overlays.currentCursor = k.overlays.cursor;
+			k.hasWire = false;
+		}
+		}
+		
+		else{
+			if(!k.hasWire){
+		  k.overlays.currentCursor = k.overlays.interactHand;}
+		}
+		
+		}
+	
+
+	
 	
 	public static boolean checkTruthTable(int[] table,LogicInput[] lin,OutputSystem root)
 	{
