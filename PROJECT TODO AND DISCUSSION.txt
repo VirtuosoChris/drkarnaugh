@@ -1,72 +1,115 @@
-In no particular order.  You can add comments on any of these, check them off, add your own, etc.  I just thought we might need the extra organization of each specific step we'll be doing since we're running short on time.  
+Current Project todo list:]
+
+CRITICAL FEATURES:
+-----------------------------------------------------------------------
+
+Gameplay code/RankedGame
+
+MazeItem render methods -- So the mazeItems aren't spheres lodged in the floor and we can tell what we're looking at
+
+Wall Collision
+
+I think We'll need Some way of communicating to the player which inputs are which... like maybe a spray painted number on each of them or something?  eg 00, 01, 32 etc Because, say, A+ (B*A) is not the same as B + (A*B) when, say, a = 1 and b = 0.  the first evaluates to 1 and the second to 0.  
+
+the Goggles
 
 
-MazeItem render methods, integration with KarnaughGame render method (see the shit you're looking at)-- **I'm going to make a basic sphere rendering one for this as soon as I can, so i can work on the below -- CP**
+Local High Score Table/User Account files:
+-----------------------------------------------------------------------
+Local high score table Displays users in a list in order, with total score, since, "best game" for custom is pretty worthless, followed by best ranked game score eg 
+
+User   Total Points     Best Ranked Game
+Chris  100000           100
+
+Can click on a particular user name for a popup with more information, extracted from the file:
+total points, best game score, best map score, best ranked game score, total time played, etc.  
+
+Modify online code to store users, so we can display top users in addition to top scores
+
+Must select or create an account before playing
+-----------------------------------------------------------------------
+
+Save/Load Game ability
+
+Music looping
+
+change song loading code--note to self(chris)
 
 
-**this entire block is top priority for me--cp**
-{
-Click Interactions with MazeItems
 
-Cursor/Status Icons: 
-Holding Wire/Can Interact/Raccon has something to say
-}
+Configuration
+----------------------------------------------------------------------
+options menu
+	
+	display mode:dropdown menu 
 
-**I will do most of the help file for the menu, Chris I will let you add in how they can do the modding and stuff.**
-**I also have basically already created a scrolling credits to use at the end of the game, and I am wanted to make another screen**
-**of story to show what happens when you beat the game. Let me know what you think about this, otherwise I will show you Wed.**
+	advanced special effects on/off
+	
+	guiOverlay options
+		update icons:
+			new bonus items
+		      new raccoon messages
+			have wire
+
+	configure controls -- mouse sensitivity slider, bind movement 	keys, etc
+
+If config not found, dropdown to select video mode
+
+save preferences to config file, load up with game
+
+
+
+
+Other (eg whatever and whenever we get around to, or misc bugfixes)
+----------------------------------------------------------------------
+
+Cursor fade effect when user starts to move (realMyst)
+
+handle map not found/other exceptions better.
+
+Tutorial Campaign
+
+Plenty of maps
+
+loading/score/inventory screen
+
+Status Icons
+
 Help File: 
 	Editing/modding instructions, game instructions, story 	synopsis, credits, sources for our art/sound/etc
 
 Bunny: Rendering, Animation, Pathfinding, "interaction" with player
 
-Puzzle Evaluation/Win detection/Campaign management and scoring
+Raccoon Dude
 
-Wall Collision
-
-Fix fullscreen exclusive mode issues
+Integrate Tip of the Day file thing. 
 
 "black voids" in maze rendering
 
-Between Map Scoring/Splash/Look at Shit screen
+Map/Logic Editor
 
-Status Bar--Raccoon dude, stuff you've found, etc
+Randomized Room decorations/styles
 
-Local High Score Table
+Test in Windowed mode
 
-Save/Load Game
+Make sure our god damn game always has keyboard and mouse focus
 
-"Karnaugh Maps" -- Some way of communicating what the puzzle solution needs to be, and its current status
+Notes/Story/Cutscenes
 
-Maybe redo the map format to be better if there's time
+puzzle management -- will we have unsolvable puzzles you have to "trick"?
 
-When the campaign is done, put the map files for that in the gamecode itself instead of in files, that way ppl can't just go ONE INPUT ONE COMPONENT LAWL.  Also make the 
+stop gameplay and timers until the user can actually see the first frame...
 
-Music looping
+Component browser?
 
-change song loading code
+Checksum on class files
 
-options
-	display mode:dropdown menu
-	advanced special effects on/off
-	
-	guiOverlay options
+Sit down and analyze every aspect of the game from start to end, and figure out what we can improve. Hire focus testers if at all possible
 
-		Cursors:enable/disable
+Prettify and polish EVERYTHING
 
-			crosshair/hand/none/custom
-			wirehand cursor/none/custom
-			interact cursor/none/custom
 
-		update icons:
-			 new bonus items
-			 new raccoon messages
-			 have wire
-		
-	bind controls
 
-save preferences to config file, load up with game
 
-we like totally have blackscreen bug where the world doesnt render when the game loads. Maybe its my drivers or maybe its serious.  
 
-handle map not found or invalid mapfile exceptions better
+
