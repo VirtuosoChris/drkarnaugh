@@ -343,7 +343,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		
 		m.camera.fovy = 30;
 	    m.doMain(800,600,null,true);
-		m.loadMap("map07.kar");
+		m.loadMap("map01.kar");
 		for(boolean b:((KarnaughMaze)m.m).solution){	
 			System.out.println(b);	
 		}

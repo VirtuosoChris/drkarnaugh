@@ -37,8 +37,14 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		
 		c.add(new Entrance());
 		c.add(new Exit());
+	
 		
 		numInputs = inputs;
+		
+		
+		for(int i = 0; i < numInputs; i++){
+			c.add(new LogicInput(false));
+		}
 		
 		components = c;
 		
