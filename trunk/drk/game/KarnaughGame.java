@@ -261,12 +261,13 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		if(System.currentTimeMillis() - cycleTime >= 2000){
 			cycleTime = System.currentTimeMillis();
 			currentOutput = (currentOutput+1)%truthTableSize();
+			updateTT(currentOutput,((KarnaughMaze)m).numInputs,((KarnaughMaze)m).solution[currentOutput]);
 		//	Score = getCurrentSolution() == true?1:0;
 			 
 		}
 		
 		//if(Time%2 == 0)
-			updateTT(currentOutput,((KarnaughMaze)m).numInputs,((KarnaughMaze)m).solution[currentOutput]);
+		
 		//else
 		//	updateTT(currentOutput,2,((KarnaughMaze)m).solution[currentOutput]);
 			
