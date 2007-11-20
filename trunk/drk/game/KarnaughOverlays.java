@@ -22,8 +22,9 @@ public class KarnaughOverlays implements Updatable, GLInitializable {
 	guiOverlayItem eChar;
 	guiOverlayItem rChar;
 	
-	public guiOverlayItem currentCursor;
+	public guiOverlayItem currentCursor; //refers to the current cursor to be displayed
 	
+	//constructor, takes in a KarnaughGame
 	public KarnaughOverlays(KarnaughGame tkg)
 	{
 		kg=tkg;
@@ -36,6 +37,7 @@ public class KarnaughOverlays implements Updatable, GLInitializable {
 	}
 
 	
+	//loads textures of, sets positions/size, etc for hud items needed for the game
 	public void initialize(GL gl)
 	{
 		init=true;
@@ -149,11 +151,13 @@ public class KarnaughOverlays implements Updatable, GLInitializable {
 		currentCursor = cursor;
 		
 	}
+	
+	
 	public void update() {
 		// TODO Auto-generated method stub
-
 	}
 
+	//draws the HUD for the game in the current color and opacity of the GUIOverlay clas
 	public void render(GL gl) {
 		// TODO Auto-generated method stub
 		gl.glMatrixMode(GL.GL_MODELVIEW);

@@ -16,6 +16,7 @@ import java.awt.Robot;
 
 public abstract class GLRenderedGraphicsListener implements GLEventListener, KeyListener,MouseMotionListener, MouseListener
 {
+	
 	protected int width,height;
 	public Camera camera;
 	protected DeltaTimer frameTimer;
@@ -261,8 +262,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		JFrame jf=new JFrame("Dr. Karnaugh's Lab");
 		GLCanvas ad = new GLCanvas(glcaps);
 		//ad.addKeyListener(this);
-		
-		
+	
 		width = w;
 		height = h;
 		
@@ -382,6 +382,8 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		solPanel.setFont(new Font("Serif", Font.BOLD, 20));
 		solPanel.add(solText, BorderLayout.EAST);
 		
+		
+		
 		truthTable = new JPanel();
 		box.setLayout(new BorderLayout());
 		truthTable.setLayout(new BorderLayout());
@@ -394,18 +396,26 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		
 		//box.add(new JButton("Coming Soon to a game near you: Status Bar"), BorderLayout.WEST);
 		
-		for(int i = 0; i < KarnaughMaze.numinputs; i++){
-			jtc.append(Integer.toString(0));
-			if(i+1 == KarnaughMaze.numinputs){
-				jtc.append("|");
-				jtc.append(Integer.toString(1));
-				truthTable.add(jtc, BorderLayout.EAST);
-			}
+//		jtc.setWidth(this.width);
+		
+		for(int i = 0; i < drk.maze.KarnaughMaze.MAX_INPUTS; i++){
+			jtc.append("x");
+			//if(i+1 == 10){
+			//	jtc.append("|");
+			//	jtc.append(Integer.toString(1));
+			//	
+			//}
+			
+			
 		}
+		truthTable.add(jtc, BorderLayout.EAST);
+		jtc.setVisible(true);
 		
 		box.add(infoTable, BorderLayout.WEST);
 		box.add(solPanel, BorderLayout.CENTER);
 		box.add(truthTable, BorderLayout.EAST);
+		
+		
 		
 		try{
 			BufferedReader br = new BufferedReader(new FileReader(new File("gameinfo.txt")));
@@ -444,26 +454,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		//jf
 	}
 	
-	public static void updateTT(int x, boolean y){
-		truthTable.removeAll();
-		jtc.setText(null);
-		int i = (y)?1:0;
-		String j = Integer.toBinaryString(x);
-		for(int k = j.length(); k < KarnaughMaze.numinputs; k++){ //Add on 0's depending on number of inputs.
-			j = "0".concat(j);
-		}
-		//JTextArea jtc = JTextArea();
-		jtc.setForeground(Color.red);
-		jtc.setBackground(Color.black);
-		jtc.setFont(new Font("Serif", Font.BOLD, 18));
-		
-		jtc.append(j);
-		jtc.append("|");
-		jtc.append(Integer.toString(i));
-		truthTable.add(jtc, BorderLayout.EAST);
-		truthTable.validate();
-		truthTable.repaint();
-	}
+
 	
 	public static void updateInfo(int i){
 		infoTable.removeAll();
@@ -476,5 +467,34 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		infoTable.validate();
 		infoTable.repaint();
 	}
+	
+public static void updateTT(int x,int numinputs, boolean y){
+  		truthTable.removeAll();
+  		jtc.setText("");
+  		int i = (y)?1:0;
+  		String j = Integer.toBinaryString(x);
+  		
+  		for(int k = j.length(); k < numinputs; k++){ //Add on 0's depending on number of inputs.
+   			j = "0".concat(j);
+ 		}
+ 		
+ 		//System.out.println(""+j+"|"+i);
+ 		
+  		//JTextArea jtc = JTextArea();
+  		jtc.setForeground(Color.red);
+  		jtc.setBackground(Color.black);
+  		jtc.setFont(new Font("Serif", Font.BOLD, 18));
+  
+ 	    jtc.append(j);
+  	    jtc.append("|");
+  	    jtc.append(Integer.toString(i));
+  	    
+  	    truthTable.add(jtc, BorderLayout.EAST);
+        truthTable.validate();
+  	    truthTable.repaint();
+
+}
+	
+	
 	
 }

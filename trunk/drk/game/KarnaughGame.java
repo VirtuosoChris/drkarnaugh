@@ -8,13 +8,11 @@ import drk.circuit.*;
 import drk.sound.*;
 import javax.media.opengl.*;
 import java.awt.event.*;
+import java.awt.*;
+import javax.swing.*;
 
 
 public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
-
-	//private static int resWidth  = 10=;
-	//private static int resHeight = 768;
-
 
 	public int currentOutput = 0;
 
@@ -267,10 +265,10 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			 
 		}
 		
-		if(Time%2 == 0)
-			updateTT(currentOutput,((KarnaughMaze)m).solution[currentOutput]);
-		else
-			updateTT(currentOutput,((KarnaughMaze)m).solution[currentOutput]);
+		//if(Time%2 == 0)
+			updateTT(currentOutput,((KarnaughMaze)m).numInputs,((KarnaughMaze)m).solution[currentOutput]);
+		//else
+		//	updateTT(currentOutput,2,((KarnaughMaze)m).solution[currentOutput]);
 			
 		if(Time > 0){
 		long tmp = System.currentTimeMillis() - lastUpdate;
@@ -331,6 +329,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		return ((KarnaughMaze)m).solution.length;
 	}
 	
+
+	
 	
 	
 	//point of entry
@@ -340,10 +340,10 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		KarnaughLog.log("Starting Dr. Karnaugh's Lab");
 		
 		KarnaughGame m = new KarnaughGame();
-		m.loadMap("map01.kar");
+		
 		m.camera.fovy = 30;
 	    m.doMain(800,600,null,true);
-		
+		m.loadMap("map07.kar");
 		for(boolean b:((KarnaughMaze)m.m).solution){	
 			System.out.println(b);	
 		}
