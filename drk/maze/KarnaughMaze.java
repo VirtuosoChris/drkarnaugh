@@ -19,10 +19,15 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 	public String nextLevel(){return nextmap;}
 	
 	public boolean solution[];
+	
+	public int numInputs;
+	
+	public static final int MAX_INPUTS = 32;//a map may have no more than 32 inputs.  Because an int can only
+	//store 2^32 for the truth table index.  And over like 4 is starting to get motherfucking ridiculous
 
 	String filename;
 	//constructor, takes width, height, timelimit, next map, and an arraylist of components to populate the maze with.
-	public KarnaughMaze(int w, int h, int t, String n, ArrayList<MazeItem> c, String sf, String d, boolean s[]){
+	public KarnaughMaze(int w, int h, int t, String n, ArrayList<MazeItem> c, String sf, String d, boolean s[], int inputs){
 		
 		super(w,h);
 		
@@ -33,12 +38,9 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		c.add(new Entrance());
 		c.add(new Exit());
 		
-		
+		numInputs = inputs;
 		
 		components = c;
-		
-		
-		
 		
 		timelimit = t;
 		nextmap = n;
@@ -109,7 +111,8 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		 mazeheight = s.nextInt();	   //
 		 
 		 if(mazewidth <= 0 || mazeheight <=0){
-		 	throw new Exception("Invalid Maze Dimensions");
+		 	KarnaughLog.log("Invalid Maze Dimensions");
+		 	return null;
 		 }
 		 
 		 KarnaughLog.log("Maze is "+mazewidth+" by "+mazeheight);
@@ -117,7 +120,8 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		 timelimit = s.nextInt();      //how many seconds the maze allows the player before they face gruesome death
 		 
 		 if(timelimit <= 0){
-		 	throw new Exception("Invalid Time Limit");
+		 	KarnaughLog.log("Invalid Time Limit");
+		 	return null;
 		 }
 		 
 		 KarnaughLog.log("TimeLimit is "+timelimit+" seconds");
@@ -152,6 +156,11 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		
 		numinputs = s.nextInt();
 		
+		if(numinputs > MAX_INPUTS){
+			KarnaughLog.log("Map contains way too many inputs.  Please discard your map and start over.  Bastard");
+			return null;
+		}
+		
 		
 		//read in 2^numinputs boolean values
 		
@@ -176,7 +185,8 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		 //be at least one of each
 		 //the map designer can put multiples of each in to help the player escape the bunny and or confuse the fuck out of them  
 		 if(numcomponents + numinputs > (mazewidth*mazeheight)-2 || numcomponents < 0 || numinputs <= 0){
-		 	throw new Exception("Invalid number of components for maze");
+		 	KarnaughLog.log("Invalid number of components for maze");
+		 	return null;
 		 }	
 		 	
 		 	
@@ -189,13 +199,13 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		  KarnaughLog.log("Map file "+f+" not found");
 		  return null;
 		}catch(ClassNotFoundException e){
-		  KarnaughLog.log(e);
+		  KarnaughLog.log("Could not find component:\n"+e);
 		  	//do other stuff here if we add the component browser
 		  	return null;
 		}
 		catch(Exception e){
-		  KarnaughLog.log(e);
-		  KarnaughLog.log("File contains invalid data");
+		  KarnaughLog.log("unhandled exception:"+e);
+		  KarnaughLog.log("File possibly contains invalid data");
 		  return null;
 		}
 		
@@ -205,7 +215,7 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		
 		KarnaughLog.log("Successfully loaded map data");
 		
-		return new KarnaughMaze(mazewidth, mazeheight, timelimit, nextmap, components,sf,d,solution);
+		return new KarnaughMaze(mazewidth, mazeheight, timelimit, nextmap, components,sf,d,solution,numinputs);
 				
 	}
 	
