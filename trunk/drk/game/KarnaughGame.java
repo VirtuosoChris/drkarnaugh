@@ -8,10 +8,6 @@ import drk.circuit.*;
 import drk.sound.*;
 import javax.media.opengl.*;
 import java.awt.event.*;
-import java.awt.*;
-import javax.swing.*;
-
-
 public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 
 	public int currentOutput = 0;

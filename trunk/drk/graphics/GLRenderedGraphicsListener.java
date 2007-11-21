@@ -2,7 +2,6 @@ package drk.graphics;
 import drk.KarnaughLog;
 import drk.graphics.Camera;
 import drk.DeltaTimer;
-import drk.maze.KarnaughMaze;
 import javax.swing.*;
 import javax.media.opengl.*;
 import java.awt.*;
