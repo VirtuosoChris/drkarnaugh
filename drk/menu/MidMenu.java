@@ -1,13 +1,16 @@
+package drk.menu;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+@SuppressWarnings("serial")
 public class MidMenu extends JFrame{
 	
 	public static JFrame middle;
 	public static ImageIcon electric;
 	
+	@SuppressWarnings("serial")
 	public static void middleMenu(){
 		middle = new JFrame();
 		middle.setUndecorated(true);
