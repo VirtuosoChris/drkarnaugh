@@ -51,6 +51,14 @@ public class Vector3D
 		z=nv.z;
 		return this;
 	}
+	//set equal to
+	public final Vector3D equals(float nvx,float nvy,float nvz)
+	{
+		x=nvx;
+		y=nvy;
+		z=nvz;
+		return this;
+	}
 	
 	//add and return new (A+B)
 	public final Vector3D plus(Vector3D nv)

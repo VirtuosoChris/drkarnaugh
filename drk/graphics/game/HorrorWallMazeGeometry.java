@@ -2,19 +2,28 @@ package drk.graphics.game;
 import java.nio.FloatBuffer;
 
 import com.sun.opengl.util.*;
-
+import java.util.*;
 import javax.media.opengl.*;
+
+
+
 public class HorrorWallMazeGeometry
 {
 	static int WallsVertices;
+	static float lerp(float a,float b,float t)
+	{
+		return a*(1.0f-t)+b*(t);
+	}
 	static int buildWallsVBO(GL gl)
 	{
 		final float w=HorrorWallMaze.ROOM_WIDTH*0.5f-HorrorWallMaze.WALL_WIDTH*0.5f;
 		final float l=HorrorWallMaze.ROOM_LENGTH*0.5f-HorrorWallMaze.WALL_WIDTH*0.5f;;
+		//final float BRICKS_WIDTH;
 		
 		final float dheight=HorrorWallMaze.DOOR_HEIGHT;
 		final float dw=HorrorWallMaze.DOOR_WIDTH*0.5f;
 		final float bs=1.0f/HorrorWallMaze.BRICK_SCALE;
+		final float brick_scale=HorrorWallMaze.BRICK_SCALE;
 		final float ROOM_HEIGHT=HorrorWallMaze.ROOM_HEIGHT;
 		final float WALL_WIDTH=HorrorWallMaze.WALL_WIDTH;
 		
@@ -251,6 +260,46 @@ public class HorrorWallMazeGeometry
 		dw,ROOM_HEIGHT,-l,
 		-dw,ROOM_HEIGHT,-l,
 		};		
+		
+		
+		//Tesselator.  Tesselates the base blocks below into subquads arranged by brick scale.  This is so there may be as little repetition
+		//as possible
+		
+		Vector<Float> NewVertices=new Vector<Float>();
+		Vector<Float> NewTexCoords=new Vector<Float>();
+		Vector<Float> NewNormals=new Vector<Float>();
+		
+		//for each surface
+		drk.Vector3D dims=new drk.Vector3D();
+		for(int s=0;s<(VFloats.length/12);s++)
+		{
+			drk.Vector3D.tmpv.equals(VFloats[s],VFloats[s+1],VFloats[s+2]);
+			dims.equals(VFloats[s+3*2],VFloats[s+3*2+1],VFloats[s+3*2+2]);
+			dims.eminus(drk.Vector3D.tmpv);
+			
+			
+			
+			
+			
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		databuf.put(VFloats);
 		databuf.put(NFloats);
