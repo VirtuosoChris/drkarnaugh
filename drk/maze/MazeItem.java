@@ -12,6 +12,8 @@ public abstract class MazeItem implements drk.graphics.GLRenderable, MazeItemLis
 	protected KarnaughMaze rm = null;
 
 	public static final double boundingRadius = 1.5;
+	public static final double distanceRadius = 3.0;
+	
 	public Vector3D boundingSphere;
 
 	public boolean isMazeItemHighlighted(KarnaughGame k){
@@ -19,7 +21,7 @@ public abstract class MazeItem implements drk.graphics.GLRenderable, MazeItemLis
 	
 	return (
 		k.ec.isPointingAt( ((HorrorWallMaze)k.m).getRoomMiddle(this.getRoom()), boundingRadius) 
-	&& k.ec.isCollidedWith(((HorrorWallMaze)k.m).getRoomMiddle(this.getRoom()), boundingRadius)
+	&& k.ec.isCollidedWith(((HorrorWallMaze)k.m).getRoomMiddle(this.getRoom()), distanceRadius)
 	
 		);
 		
