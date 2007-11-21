@@ -62,6 +62,7 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 							GridBagConstraints sconstraint = new GridBagConstraints();
 							JLabel imgLabel = new JLabel(new ImageIcon("Mad.jpg"));
 							
+							storymode.setEnabled(false);
 							storymode.setLineWrap(true);
 							storymode.setMargin(new Insets(30,30,30,30));
 							storymode.setForeground(Color.white);
@@ -232,6 +233,7 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 							GridBagConstraints sconstraint = new GridBagConstraints();
 							JLabel imgLabel = new JLabel(new ImageIcon("Mad.jpg"));
 							
+							storymode.setEnabled(false);
 							storymode.setLineWrap(true);
 							storymode.setMargin(new Insets(30,30,30,30));
 							storymode.setForeground(Color.white);

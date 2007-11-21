@@ -29,7 +29,7 @@ public class MidMenu extends JFrame{
 		};
 		middlePanel.setOpaque(false);
 		//middle.getContentPane().setLayout(new BorderLayout());
-			
+		middleStory.setEnabled(false);
 		middleStory.setLineWrap(false);
 		middleStory.setMargin(new Insets(130,0,0,0));
 		middleStory.setForeground(Color.white);
