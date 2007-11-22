@@ -205,4 +205,23 @@ public class Vector3D
 	{
 		return this.edividedby(this.mag());
 	}
+	
+	//linearly interpolate a float
+	public double lerp(double a,double b,double t)
+	{
+		return a*(1.0-t)+b*(t);
+	}
+	
+	public final Vector3D lerp(Vector3D b,float t)
+	{
+		return new Vector3D(lerp(x,b.x,t),lerp(y,b.y,t),lerp(z,b.z,t));
+	}
+	public final Vector3D elerp(Vector3D b,float t)
+	{
+		x=lerp(x,b.x,t);
+		y=lerp(y,b.y,t);
+		z=lerp(z,b.z,t);
+		return this;
+	}
+	
 }

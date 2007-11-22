@@ -69,14 +69,22 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 		
 		if(xrotation < -90.0) xrotation = -90.0;
 		if(xrotation > 90.0) xrotation = 90.0;
-	/*	float[]  direction_dist=mGame.m.distanceToWalls();
+		float[]  direction_dist=mGame.m.distanceToWalls();
+		((KarnaughGame)mGame).Score = (int)(direction_dist[3]*1000.0f);
 		final double cwidth=0.125;
+	
+		Xdir.enormal();
+		Zdir.enormal();
 		if(direction_dist[0] < cwidth)
 		{
 			if(Zdir.z < 0.0)
 				Zdir.z = 0.0;
 			if(Xdir.z < 0.0)
 				Xdir.z = 0.0;
+			
+			Position.z+=direction_dist[0];
+			
+		//	this.Position.z+=cwidth;
 		}
 		if(direction_dist[2] < cwidth)
 		{
@@ -84,13 +92,16 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 				Zdir.z = 0.0;
 			if(Xdir.z > 0.0)
 				Xdir.z = 0.0;
+			
+			Position.z-=direction_dist[2];
 		}
 		if(direction_dist[1] < cwidth)
 		{
 			if(Zdir.x > 0.0)
 				Zdir.x = 0.0;
 			if(Xdir.x > 0.0)
-				Xdir.x = 0.0;
+				Xdir.x = 0.0;	
+			Position.x-=direction_dist[1];
 		}
 		if(direction_dist[3] < cwidth)
 		{
@@ -98,10 +109,9 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 				Zdir.x = 0.0;
 			if(Xdir.x < 0.0)
 				Xdir.x = 0.0;
-		}*/
-		
-		Xdir.enormal();
-		Zdir.enormal();
+			Position.x+=direction_dist[3];
+		}
+	
 		
 		final double sideStepPercent=.3f;
 		if(mGame.isKeyPressed(KeyEvent.VK_UP)){	

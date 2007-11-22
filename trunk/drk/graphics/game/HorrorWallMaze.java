@@ -103,8 +103,32 @@ public class HorrorWallMaze extends RenderableMaze
 		Room r=getCurrentRoom();
 		Vector3D crp=mc.Position.minus(this.getRoomMiddle(r));
 		float [] f=new float[4];
+		
+		float rw=(ROOM_WIDTH-WALL_WIDTH)*0.5f;
+		float rh=(ROOM_LENGTH-WALL_WIDTH)*0.5f;
+		
+		f[0]=(float)Math.abs(rh+crp.z);
+		f[1]=(float)Math.abs(rw-crp.x);
+		f[2]=(float)Math.abs(rh-crp.z);
+		f[3]=(float)Math.abs(rw+crp.x);
+		
+		
+		
+		if(r.Up() && (Math.abs(crp.x) < DOOR_WIDTH*0.5f))
+			f[0]+=ROOM_LENGTH;
 	
-		f[0]=(float)crp.y;
+		if(r.Down() && (Math.abs(crp.x) < DOOR_WIDTH*0.5f))
+			f[2]+=ROOM_HEIGHT;
+		
+		if(r.Right() && (Math.abs(crp.z) < DOOR_WIDTH*0.5f))
+			f[1]+=ROOM_LENGTH;
+		
+		if(r.Left() && (Math.abs(crp.z) < DOOR_WIDTH*0.5f))
+			f[3]+=ROOM_LENGTH;
+		
+		System.err.println("camera_distance: f0:"+f[0]+" f1:"+f[1]+" f2:"+f[2]+" f3:"+f[3]);
+		
+	//	f[0]=(float)crp.z;
 	/*	f[0]=(float)crp.y-(float)(RENDER_WIDTH*0.5);
 		f[1]=(float)(RENDER_WIDTH*0.5)-(float)crp.x;
 		f[2]=(float)(RENDER_WIDTH*0.5)-(float)crp.y;
@@ -260,7 +284,7 @@ public class HorrorWallMaze extends RenderableMaze
 	{
 		if(!isInitialized())
 			initialize(gl);
-		gl.glEnable(GL.GL_CULL_FACE);
+		//gl.glEnable(GL.GL_CULL_FACE);
 		//gl.glFrontFace(GL.GL_CCW);
 		FinalOutputShader.applyShader();
 		time+=900.0f*this.dt.ddt;
@@ -269,6 +293,7 @@ public class HorrorWallMaze extends RenderableMaze
 		Room croom=this.getCurrentRoom();
 		int cx=getRoomX(croom);
 		int cz=getRoomZ(croom);
+		//gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL.GL_LINE); //set the polygon mode
 		if(mc.Position.y > ROOM_HEIGHT || ALWAYSROOM)
 		{
 			for(Room r: this.RoomList)
@@ -280,11 +305,21 @@ public class HorrorWallMaze extends RenderableMaze
 		{
 			for(Room r: this.RoomList)
 			{
-				if(	(getRoomX(r)==cx)
-				||	(getRoomZ(r)==cz)
-				)
+				int rx=getRoomX(r);
+				int rz=getRoomZ(r);
+				
+				if(
+						((rx==cx) || (rz==cz))
+					)
 				{
-					renderRoom(gl,r);
+					if
+					(
+							((rx==cx) && (rz==cz))||
+							(rx > cx && croom.Right())||
+							(rx < cx && croom.Left()) ||
+							(rz > cz && croom.Down()) ||
+							(rz < cz && croom.Up())
+						)renderRoom(gl,r);
 				}
 			}
 		}
