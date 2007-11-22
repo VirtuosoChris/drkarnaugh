@@ -3,7 +3,7 @@ import drk.KarnaughLog;
 import drk.graphics.*;
 public class KarnaughShaders
 {
-	static final String FinalRenderFragment=
+	static final String LightingRenderFragment=
 		"uniform sampler2D texture;\n" +
 		"void main()\n" +
 		"{\n" +
@@ -13,6 +13,18 @@ public class KarnaughShaders
 		"    gl_FragColor = outcolor;\n" +
 		"}" +
 		"";
+	
+	static final String LightingRenderVertex=
+		"void main()"+
+		"{"+
+			"gl_Position=ftransform();"+
+		"}"+
+		"";
+		
+	
+	
+
+		/* Compute the diffuse, ambient and globalAmbient term
 	/*tmp1 = input_image(x,y) - input_image(x+1,y+1)
 	tmp2 = input_image(x+1,y) - input_image(x,y+1)
 	output_image(x,y) = absolute_value(tmp1) + absolute_value(tmp2)*/
@@ -36,7 +48,9 @@ public class KarnaughShaders
 	public static GLSLShader getOutputShader()
 	{
 		GLSLShader out=new GLSLShader();
-		GLSLShaderSection frag=new GLSLShaderSection(FinalRenderFragment);
+		GLSLShaderSection vert=new GLSLShaderSection(LightingRenderVertex);
+		vert.setVertexShader(true);
+		GLSLShaderSection frag=new GLSLShaderSection(LightingRenderFragment);
 		out.addShaderSection(frag);
 	//	out.
 		
