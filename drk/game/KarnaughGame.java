@@ -139,14 +139,17 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		
 		if(!((KarnaughMaze)this.m).nextmap.equals("LAST_LEVEL")){
 			
+			//close call bonus
+			if(minutesLeft() ==0 && secondsLeft() <30){
+				Score+=30; 
+			}
 			
-			/*
-			x points for every second left
-			MBRAM32 (11:01:50 PM): constant*x for every minute
-			MBRAM32 (11:02:02 PM): constant2 for each photo/journal/whatever
-			MBRAM32 (11:02:22 PM): and a bonus for using as small a number of wires as possible
-			MBRAM32 (11:02:54 PM): large bonus for finishing the map after time runs out
-			*/
+			Score += secondsLeft();
+			Score += minutesLeft()*65;//five point bonus for each whole minute
+			
+			//bonus items score
+			//wire amount bonus
+			
 			
 			loadMap( ((KarnaughMaze)this.m).mapDirectory+((KarnaughMaze)this.m).nextmap);
 			
@@ -313,7 +316,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		KarnaughGame m = new KarnaughGame();
 		m.loadMap("map01.kar");
 		m.camera.fovy = 30;
-	    m.doMain(800,600,null,true);
+	    m.doMain(1440,900,null,true);
 	}
 	
 	
@@ -339,7 +342,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		KarnaughGame m = new KarnaughGame();
 		
 		m.camera.fovy = 30;
-	    m.doMain(800,600,null,true);
+	    m.doMain(1440,900,null,true);
 		m.loadMap("map01.kar");
 		for(boolean b:((KarnaughMaze)m.m).solution){	
 			System.out.println(b);	
