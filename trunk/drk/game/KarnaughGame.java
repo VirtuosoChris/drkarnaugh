@@ -298,6 +298,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		
 	}
 	
+	public static final int GAME_WIDTH=1024;
+	public static final int GAME_HEIGHT=768;
 	
 	//how much time is left, minutes only
 	public long minutesLeft(){
@@ -316,7 +318,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		KarnaughGame m = new KarnaughGame();
 		m.loadMap("map01.kar");
 		m.camera.fovy = 30;
-	    m.doMain(1440,900,null,true);
+	    m.doMain(GAME_WIDTH,GAME_HEIGHT,null,true);
 	}
 	
 	
@@ -342,7 +344,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		KarnaughGame m = new KarnaughGame();
 		
 		m.camera.fovy = 30;
-	    m.doMain(1440,900,null,true);
+	    m.doMain(GAME_WIDTH,GAME_HEIGHT,null,true);
 		m.loadMap("map01.kar");
 		for(boolean b:((KarnaughMaze)m.m).solution){	
 			System.out.println(b);	

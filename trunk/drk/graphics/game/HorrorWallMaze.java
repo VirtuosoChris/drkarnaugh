@@ -20,7 +20,7 @@ public class HorrorWallMaze extends RenderableMaze
 	final static float DOOR_WIDTH=1.0f;
 	final static float DOOR_HEIGHT=3.0f*.75f;
 	Texture bricks;
-	final static float BRICK_SCALE=.5f;
+	final static float BRICK_SCALE=1.5f;
 	final static float PLANK_SCALE=.9f;
 	Texture planks;
 	final static boolean ALWAYSROOM=false;
@@ -126,7 +126,7 @@ public class HorrorWallMaze extends RenderableMaze
 		if(r.Left() && (Math.abs(crp.z) < DOOR_WIDTH*0.5f))
 			f[3]+=ROOM_LENGTH;
 		
-		System.err.println("camera_distance: f0:"+f[0]+" f1:"+f[1]+" f2:"+f[2]+" f3:"+f[3]);
+	//	System.err.println("camera_distance: f0:"+f[0]+" f1:"+f[1]+" f2:"+f[2]+" f3:"+f[3]);
 		
 	//	f[0]=(float)crp.z;
 	/*	f[0]=(float)crp.y-(float)(RENDER_WIDTH*0.5);
