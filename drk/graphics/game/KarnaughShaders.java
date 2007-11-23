@@ -4,13 +4,16 @@ import drk.graphics.*;
 public class KarnaughShaders
 {
 	static final String LightingRenderFragment=
-		"uniform sampler2D texture;\n" +
+		"uniform sampler2D texture,surface;\n" +
 		"void main()\n" +
 		"{\n" +
-		"    vec4 outcolor = texture2D(texture,gl_TexCoord[0].st);\n" +
-//		"    if(dot(gl_FragCoord.rgb,gl_FragCoord.rgb) > .5*.5)\n"+
-//		"        outcolor*=2.0;\n"+
-		"    gl_FragColor = outcolor;\n" +
+		"   vec4 outcolor;"+
+	    "    outcolor = texture2D(texture,gl_TexCoord[0].st);\n" +
+		"    outcolor = texture2D(surface,gl_TexCoord[0].st);\n" +
+		
+		//"    if(dot(gl_FragCoord.rgb,gl_FragCoord.rgb) > .5*.5)\n"+
+		//"        outcolor*=2.0;\n"+
+//		"    gl_FragColor = vec4(outcolor.aaa,1.0);\n" +
 		"}" +
 		"";
 	
@@ -18,6 +21,7 @@ public class KarnaughShaders
 		"void main()"+
 		"{"+
 			"gl_Position=ftransform();"+
+//			"gl_TexCoord[0]=gl_MultiTexCoord0;"+
 		"}"+
 		"";
 		

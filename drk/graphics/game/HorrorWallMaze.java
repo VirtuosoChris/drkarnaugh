@@ -20,9 +20,11 @@ public class HorrorWallMaze extends RenderableMaze
 	final static float DOOR_WIDTH=1.0f;
 	final static float DOOR_HEIGHT=3.0f*.75f;
 	Texture bricks;
+	Texture bricksnormals;
 	final static float BRICK_SCALE=1.5f;
 	final static float PLANK_SCALE=.9f;
 	Texture planks;
+	Texture planksnormals;
 	final static boolean ALWAYSROOM=false;
 	GLSLShader FinalOutputShader;
 	public HorrorWallMaze(int w, int h)
@@ -55,7 +57,12 @@ public class HorrorWallMaze extends RenderableMaze
 	
 	int numv;
 	int WallsVBO;
+	
 	int thandle;
+	int surfaceobj;
+	int colorobj;
+	
+	
 	float time=0.0f;
 	public void initializedatabuffers(GL gl)
 	{
@@ -79,6 +86,25 @@ public class HorrorWallMaze extends RenderableMaze
 			bricks.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER,GL.GL_LINEAR);
 			bricks.setTexParameteri(GL.GL_TEXTURE_WRAP_S,GL.GL_REPEAT);
 			bricks.setTexParameterf(GL.GL_TEXTURE_WRAP_T,GL.GL_REPEAT);
+			
+			gl.glActiveTexture(GL.GL_TEXTURE1);
+			gl.glClientActiveTexture(GL.GL_TEXTURE1);
+			im=ImageIO.read(HorrorWallMaze.class.getResource("brickssurface.png"));
+			bricksnormals=TextureIO.newTexture(im, false);
+			bricksnormals.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER,GL.GL_NEAREST);
+			bricksnormals.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER,GL.GL_NEAREST);
+			bricksnormals.setTexParameteri(GL.GL_TEXTURE_WRAP_S,GL.GL_REPEAT);
+			bricksnormals.setTexParameterf(GL.GL_TEXTURE_WRAP_T,GL.GL_REPEAT);
+			
+			im=ImageIO.read(HorrorWallMaze.class.getResource("plankssurface.png"));
+			planksnormals=TextureIO.newTexture(im, false);
+			planksnormals.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER,GL.GL_NEAREST);
+			planksnormals.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER,GL.GL_NEAREST);
+			planksnormals.setTexParameteri(GL.GL_TEXTURE_WRAP_S,GL.GL_REPEAT);
+			planksnormals.setTexParameterf(GL.GL_TEXTURE_WRAP_T,GL.GL_REPEAT);
+			gl.glActiveTexture(GL.GL_TEXTURE0);
+			gl.glClientActiveTexture(GL.GL_TEXTURE0);
+			
 		}catch(Exception e)
 		{
 			drk.KarnaughLog.log("Failure loading texture map: roughbricks.jpg:"+e);
@@ -90,6 +116,9 @@ public class HorrorWallMaze extends RenderableMaze
 		FinalOutputShader=KarnaughShaders.getOutputShader();
 		try
 		{
+			colorobj=FinalOutputShader.getUniformObject("texture");
+			surfaceobj=FinalOutputShader.getUniformObject("surface");
+			
 			thandle=FinalOutputShader.getUniformObject("t");
 		}catch(Exception e)
 		{
@@ -149,6 +178,11 @@ public class HorrorWallMaze extends RenderableMaze
 		float w=ROOM_WIDTH*0.5f;
 		float l=ROOM_LENGTH*0.5f;
 		
+		
+		gl.glActiveTexture(GL.GL_TEXTURE1);
+		planksnormals.enable();
+		planksnormals.bind();
+		gl.glActiveTexture(GL.GL_TEXTURE0);
 		planks.enable();
 		planks.bind();
 		gl.glBegin(GL.GL_QUADS);
@@ -194,18 +228,42 @@ public class HorrorWallMaze extends RenderableMaze
 		w-=WALL_WIDTH*0.5f;
 		float dheight=DOOR_HEIGHT;
 		float dw=DOOR_WIDTH*0.5f;
-		bricks.bind();
 		float bs=1.0f/BRICK_SCALE;
+		
+		
+		
+		
+		gl.glActiveTexture(GL.GL_TEXTURE0);
+		bricks.enable();
+		bricks.bind();
+		
+		gl.glActiveTexture(GL.GL_TEXTURE1);
+		bricksnormals.enable();
+		bricksnormals.bind();
+	
+		//gl.glActiveTexture(GL.GL_TEXTURE0);
 		
 		gl.glEnableClientState(GL.GL_VERTEX_ARRAY);
 		gl.glEnableClientState(GL.GL_NORMAL_ARRAY);
-		gl.glEnableClientState(GL.GL_TEXTURE_COORD_ARRAY);
 		gl.glBindBuffer( GL.GL_ARRAY_BUFFER_ARB, WallsVBO);
 		gl.glVertexPointer( 3, GL.GL_FLOAT, 0, 0);
 		gl.glNormalPointer(GL.GL_FLOAT,0,numv*3*4);
+		
+		
+		//gl.glClientActiveTexture(GL.GL_TEXTURE1);
+		gl.glEnableClientState(GL.GL_TEXTURE_COORD_ARRAY);
 		gl.glTexCoordPointer(2,GL.GL_FLOAT,0,numv*6*4);
+		//gl.glClientActiveTexture(GL.GL_TEXTURE0);
+		//gl.glEnableClientState(GL.GL_TEXTURE_COORD_ARRAY);
+		//gl.glTexCoordPointer(2,GL.GL_FLOAT,0,numv*6*4);
+		
 		gl.glDrawArrays(GL.GL_QUADS,0,numv);
+		
+		//gl.glClientActiveTexture(GL.GL_TEXTURE0);
 		gl.glDisableClientState(GL.GL_TEXTURE_COORD_ARRAY);
+		//gl.glClientActiveTexture(GL.GL_TEXTURE1);
+		//gl.glDisableClientState(GL.GL_TEXTURE_COORD_ARRAY);
+		//gl.glClientActiveTexture(GL.GL_TEXTURE0);
 		gl.glDisableClientState(GL.GL_NORMAL_ARRAY);
 		gl.glDisableClientState(GL.GL_VERTEX_ARRAY);
 		
@@ -289,6 +347,8 @@ public class HorrorWallMaze extends RenderableMaze
 		FinalOutputShader.applyShader();
 		time+=900.0f*this.dt.ddt;
 		FinalOutputShader.setUniformFloat(thandle,time);
+		gl.glUniform1i(colorobj,0); //set "texture" to texure unit 0
+		gl.glUniform1i(surfaceobj,1);//set "surface" to texture unit 0
 		drk.game.MazeCamera mc=this.getCamera();
 		Room croom=this.getCurrentRoom();
 		int cx=getRoomX(croom);
@@ -325,6 +385,12 @@ public class HorrorWallMaze extends RenderableMaze
 		}
 		
 		gl.glDisable(GL.GL_CULL_FACE);
+		
+		gl.glActiveTexture(GL.GL_TEXTURE1);
+		gl.glClientActiveTexture(GL.GL_TEXTURE1);
+		gl.glDisable(GL.GL_TEXTURE_2D);
+		gl.glClientActiveTexture(GL.GL_TEXTURE0);
+		gl.glActiveTexture(GL.GL_TEXTURE0);
 		GLSLShader.applyShader(0);
 	// TODO Auto-generated method stub
 

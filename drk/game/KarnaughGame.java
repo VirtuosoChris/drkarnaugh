@@ -298,8 +298,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		
 	}
 	
-	public static final int GAME_WIDTH=1024;
-	public static final int GAME_HEIGHT=768;
+	public static final int GAME_WIDTH=800;
+	public static final int GAME_HEIGHT=600;
 	
 	//how much time is left, minutes only
 	public long minutesLeft(){
