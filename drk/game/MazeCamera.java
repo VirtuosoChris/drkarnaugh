@@ -70,7 +70,6 @@ public class MazeCamera extends EulerCamera implements MazeGameTracker,Updatable
 		if(xrotation < -90.0) xrotation = -90.0;
 		if(xrotation > 90.0) xrotation = 90.0;
 		float[]  direction_dist=mGame.m.distanceToWalls();
-		((KarnaughGame)mGame).Score = (int)(direction_dist[3]*1000.0f);
 		final double cwidth=0.125;
 	
 		Xdir.enormal();
