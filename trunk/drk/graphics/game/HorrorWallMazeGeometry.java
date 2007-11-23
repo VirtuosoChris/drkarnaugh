@@ -2,10 +2,7 @@ package drk.graphics.game;
 import java.nio.FloatBuffer;
 
 import com.sun.opengl.util.*;
-import java.util.*;
 import javax.media.opengl.*;
-import drk.Vector3D;
-
 
 public class HorrorWallMazeGeometry
 {
