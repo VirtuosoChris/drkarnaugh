@@ -19,6 +19,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	private long lastUpdate = 0;
 	
 	
+	public MazeItem inputSource = null;
+	
 	public KarnaughOverlays overlays;
 	
 	protected int songID = 0;
@@ -34,6 +36,14 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	
 //		mouseClicked = true;
 //	}
+	
+	
+	public void discardWire(){
+		inputSource = null;
+		hasWire = false;
+		doubleClickLeft = doubleClickRight = leftClick = rightClick = false;
+		overlays.currentCursor = overlays.cursor;
+	}
 	
 	
 	//does super's initialization
@@ -165,7 +175,19 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	//loads a level.
 	//TODO : Spawn the Camera so that it's always looking down a hallway and not at a wall
 	public boolean loadMap(String m){
+		
+		
+		
+		hasWire = false;
+		cycleTime = 0;
+		currentOutput = 0;
+		inputSource = null;
+		
+		if(overlays!=null)
+		overlays.currentCursor = overlays.cursor;
+		
 		this.m = (KarnaughMaze)KarnaughMaze.loadMaze(m);
+
 	
 		if( this.m == null) return false;
 		
@@ -180,7 +202,6 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		//this is awesome chris...I'm going to modify Maze a bit so it's a nicer call...but this works awesome.
 		//double xoff=(double)(rm % this.m.getWidth())*RenderableMaze.RENDER_WIDTH;
 		//double zoff=(double)(rm /this.m.getWidth())*RenderableMaze.RENDER_WIDTH;
-		
 		
 		//ec.Position = new Vector3D(xoff+RenderableMaze.RENDER_WIDTH/2,.7*RenderableMaze.RENDER_HEIGHT,zoff+.5*RenderableMaze.RENDER_WIDTH);
 		ec.Position	= this.m.getRoomMiddle(this.m.getRoom(rm));
@@ -219,6 +240,20 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	public void update(){
 		
 		super.update();
+		
+		if(!hasWire)
+		overlays.currentCursor = overlays.cursor;
+		else
+			overlays.currentCursor = overlays.wireHand;
+		
+		if(doubleClickLeft||doubleClickRight)discardWire();
+		
+		
+		if(!hasWire)
+		updateInfo("");
+		else updateInfo("Double Click to discard wire");
+		
+
 		
 		if(paused)return;
 		
@@ -298,8 +333,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		
 	}
 	
-	public static final int GAME_WIDTH=800;
-	public static final int GAME_HEIGHT=600;
+	public static final int GAME_WIDTH=1024;
+	public static final int GAME_HEIGHT=768;
 	
 	//how much time is left, minutes only
 	public long minutesLeft(){
@@ -344,7 +379,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		KarnaughGame m = new KarnaughGame();
 		
 		m.camera.fovy = 30;
-	    m.doMain(GAME_WIDTH,GAME_HEIGHT,null,true);
+	    m.doMain(1440,900,null,true);
 		m.loadMap("map01.kar");
 		for(boolean b:((KarnaughMaze)m.m).solution){	
 			System.out.println(b);	

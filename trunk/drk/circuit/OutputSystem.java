@@ -41,14 +41,28 @@ public abstract class OutputSystem extends MazeItem
 	public void onMazeItemHighlighted(KarnaughGame k){
 		super.onMazeItemHighlighted(k);
 		
+		if(!k.hasWire){
+			k.updateInfo("Click to attach a wire to the component's output");
+		}else{
+			if(k.inputSource != this){
+			k.updateInfo("Left or Right click to connect wire to left or right input. Left is Free, Right is Connected");
+			}
+		}
+		
+		
 		if(k.leftClick || k.rightClick){
 		if(!k.hasWire){
 			k.hasWire = true;
-			k.overlays.currentCursor = k.overlays.wireHand;
+			k.inputSource = this;
+			//k.overlays.currentCursor = k.overlays.wireHand;
 		}
 		else{
-			k.overlays.currentCursor = k.overlays.cursor;
+			
+			if(k.inputSource != this){
+		//	k.overlays.currentCursor = k.overlays.cursor;
 			k.hasWire = false;
+			k.inputSource = null;
+			}
 		}
 		}
 		

@@ -108,6 +108,9 @@ Sit down and analyze every aspect of the game from start to end, and figure out 
 
 Prettify and polish EVERYTHING
 
+Toggle tips
+
+Restart map option
 
 
 
