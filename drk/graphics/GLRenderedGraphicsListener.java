@@ -29,6 +29,8 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	
 	public boolean leftClick = false;
 	public boolean rightClick = false;
+	public boolean doubleClickLeft = false;
+	public boolean doubleClickRight = false;
 	
 	public static JPanel truthTable;
 	public static JPanel infoTable;
@@ -202,13 +204,22 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		
 		if(m.getButton() == MouseEvent.BUTTON1){
 			leftClick = true;
-			System.out.println("LEFT");
+			
+			if(m.getClickCount() == 2){
+				doubleClickLeft = true;
+			}
+			
 		}
 		
 		
 		if(m.getButton() == MouseEvent.BUTTON3 || m.getButton() == MouseEvent.BUTTON2){
 			rightClick = true;
 			System.out.println("RIGHT");
+			
+				if(m.getClickCount() == 2){
+				doubleClickRight = true;
+			}
+			
 		}
 		
 		mouseMoved(m);
@@ -367,7 +378,14 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		infoTable.setLayout(new BorderLayout());
 		infoTable.setBackground(Color.black);
 		infoTable.setFont(new Font("Serif", Font.BOLD, 12));
-		infoText.append("Welcome to Dr.Karnaugh's Laboratory");
+		
+		String s = "";
+		for(int i = 0; i < 50; i++){
+			s += ""+(i%10);
+		}
+		
+		infoText.append(s);
+			//"Welcome to Dr.Karnaugh's Laboratory");
 		infoText.setForeground(Color.white);
 		infoText.setBackground(Color.black);
 		infoText.setMargin(new Insets(5,0,0,15));
@@ -376,6 +394,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		JTextArea solText = new JTextArea("Solution:");
 		solText.setForeground(Color.green);
 		solText.setBackground(Color.black);
+		solText.setEditable(false);
 		solText.setMargin(new Insets(5,0,0,15));
 		
 		solPanel.setFont(new Font("Serif", Font.BOLD, 20));
@@ -390,6 +409,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		
 		//JTextArea jtc = new JTextArea();
 		jtc.setForeground(Color.red);
+		jtc.setEditable(false);
 		jtc.setBackground(Color.black);
 		jtc.setFont(new Font("Serif", Font.BOLD, 18));
 		
@@ -461,11 +481,26 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		infoText.setText(lineRead[i]);
 		infoText.setForeground(Color.white);
 		infoText.setBackground(Color.black);
+		infoText.setFont(new Font("Serif", Font.BOLD,12));
+		infoTable.add(infoText, BorderLayout.WEST);
+		infoTable.validate();
+		infoTable.repaint();
+	}
+	
+	
+	
+	public static void updateInfo(String s){
+		infoTable.removeAll();
+		//infoText.setText(null);
+		infoText.setText(s);
+		infoText.setForeground(Color.white);
+		infoText.setBackground(Color.black);
 		infoText.setFont(new Font("Serif", Font.BOLD, 12));
 		infoTable.add(infoText, BorderLayout.WEST);
 		infoTable.validate();
 		infoTable.repaint();
 	}
+	
 	
 public static void updateTT(int x,int numinputs, boolean y){
   		truthTable.removeAll();

@@ -1,11 +1,18 @@
 //class representing the exit -- where the user leaves the maze after connecting their solution
 
 package drk.circuit;
+import drk.game.KarnaughGame;
 
 
 public class Exit extends OutputSystem {
 	public Exit(){}
 	
+
+	
+	public void onMazeItemHighlighted(KarnaughGame k){
+		k.updateInfo("Attach the puzzle solution to the exit's input to move to the next floor");
+	//	k.overlays.currentCursor = k.overlays.interactHand;
+	}
 
 	public  boolean evaluate(){
 		return false;
