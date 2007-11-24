@@ -45,7 +45,7 @@ public abstract class OutputSystem extends MazeItem
 			k.updateInfo("Click to attach a wire to the component's output");
 		}else{
 			if(k.inputSource != this){
-			k.updateInfo("Left or Right click to connect wire to left or right input. Left is Free, Right is Connected");
+			k.updateInfo("Left or Right click to connect wire to L or R input. L is connected, R is connected");
 			}
 		}
 		
