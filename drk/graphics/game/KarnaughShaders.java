@@ -13,7 +13,7 @@ public class KarnaughShaders
 		
 		//"    if(dot(gl_FragCoord.rgb,gl_FragCoord.rgb) > .5*.5)\n"+
 		//"        outcolor*=2.0;\n"+
-		"    gl_FragColor = vec4(outcolor.aaa,1.0);\n" +
+		"    gl_FragColor = vec4(outcolor.rgb,1.0);\n" +
 		"}" +
 		"";
 	

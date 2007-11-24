@@ -342,7 +342,7 @@ public class HorrorWallMaze extends RenderableMaze
 	{
 		if(!isInitialized())
 			initialize(gl);
-		//gl.glEnable(GL.GL_CULL_FACE);
+		gl.glEnable(GL.GL_CULL_FACE);
 		//gl.glFrontFace(GL.GL_CCW);
 		FinalOutputShader.applyShader();
 		time+=900.0f*this.dt.ddt;
