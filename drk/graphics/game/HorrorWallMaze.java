@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import drk.Vector3D;
 import drk.maze.RenderableMaze;
 import drk.maze.Room;
-import drk.graphics.GLSLShader;
+import drk.graphics.*;
 
 
 public class HorrorWallMaze extends RenderableMaze
@@ -26,6 +26,7 @@ public class HorrorWallMaze extends RenderableMaze
 	Texture planks;
 	Texture planksnormals;
 	final static boolean ALWAYSROOM=false;
+	GLLightSource camlight;
 	GLSLShader FinalOutputShader;
 	public HorrorWallMaze(int w, int h)
 	{
@@ -102,6 +103,9 @@ public class HorrorWallMaze extends RenderableMaze
 			planksnormals.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER,GL.GL_NEAREST);
 			planksnormals.setTexParameteri(GL.GL_TEXTURE_WRAP_S,GL.GL_REPEAT);
 			planksnormals.setTexParameterf(GL.GL_TEXTURE_WRAP_T,GL.GL_REPEAT);
+			
+			this.camlight=new GLLightSource(GL.GL_LIGHT0);
+			
 			gl.glActiveTexture(GL.GL_TEXTURE0);
 			gl.glClientActiveTexture(GL.GL_TEXTURE0);
 			
@@ -175,8 +179,13 @@ public class HorrorWallMaze extends RenderableMaze
 		gl.glTranslated(centerbottom.x,centerbottom.y,centerbottom.z);
 		
 		
+		
 		float w=ROOM_WIDTH*0.5f;
 		float l=ROOM_LENGTH*0.5f;
+		
+		camlight.Position=this.getCamera().Position.minus(centerbottom);
+		
+		camlight.render(gl);
 		
 		
 		gl.glActiveTexture(GL.GL_TEXTURE1);
@@ -188,34 +197,41 @@ public class HorrorWallMaze extends RenderableMaze
 		gl.glBegin(GL.GL_QUADS);
 		{
 			//gl.glColor3f(1.0f,0.0f,0.0f);
+			gl.glNormal3f(0.0f, 1.0f,0.0f);
 			gl.glTexCoord2f(0.0f,0.0f);
 			gl.glVertex3f(-w,0.0f,-l);
 			
+			gl.glNormal3f(0.0f, 1.0f,0.0f);
 			gl.glTexCoord2f(0.0f,l*2.0f/PLANK_SCALE);
 			//gl.glColor3f(0.0f,1.0f,0.0f);
 			gl.glVertex3f(-w,0.0f,l);
 			
+			gl.glNormal3f(0.0f, 1.0f,0.0f);
 			gl.glTexCoord2f(w*2.0f/PLANK_SCALE,l*2.0f/PLANK_SCALE);
 			//gl.glColor3f(0.0f,1.0f,1.0f);
 			gl.glVertex3f(w,0.0f,l);
 			
+			gl.glNormal3f(0.0f, 1.0f,0.0f);
 			gl.glTexCoord2f(w*2.0f/PLANK_SCALE,0.0f);
 			//gl.glColor3f(0.0f,0.0f,1.0f);
 			gl.glVertex3f(w,0.0f,-l);
 			
 			
-			
+			gl.glNormal3f(0.0f,-1.0f,0.0f);
 			gl.glTexCoord2f(0.0f,l*2.0f/PLANK_SCALE);
 			//gl.glColor3f(0.0f,1.0f,0.0f);
 			gl.glVertex3f(-w,ROOM_HEIGHT,l);
 			
+			gl.glNormal3f(0.0f,-1.0f,0.0f);
 			gl.glTexCoord2f(0.0f,0.0f);
 			gl.glVertex3f(-w,ROOM_HEIGHT,-l);
 			
+			gl.glNormal3f(0.0f,-1.0f,0.0f);
 			gl.glTexCoord2f(w*2.0f/PLANK_SCALE,0.0f);
 			//gl.glColor3f(0.0f,0.0f,1.0f);
 			gl.glVertex3f(w,ROOM_HEIGHT,-l);
 			
+			gl.glNormal3f(0.0f,-1.0f,0.0f);
 			gl.glTexCoord2f(w*2.0f/PLANK_SCALE,l*2.0f/PLANK_SCALE);
 			//gl.glColor3f(0.0f,1.0f,1.0f);
 			gl.glVertex3f(w,ROOM_HEIGHT,l);
@@ -272,6 +288,7 @@ public class HorrorWallMaze extends RenderableMaze
 			
 			if(!r.Up())
 			{
+				gl.glNormal3f(0.0f,0.0f,1.0f);
 				gl.glTexCoord2f(dw*bs,dheight*bs);
 				gl.glVertex3f(dw,dheight,-l);
 				gl.glTexCoord2f(-dw*bs,dheight*bs);
@@ -283,6 +300,7 @@ public class HorrorWallMaze extends RenderableMaze
 			}
 			if(!r.Left())
 			{
+				gl.glNormal3f(1.0f,0.0f,0.0f);
 				gl.glTexCoord2f(dheight*bs,-dw*bs);
 				gl.glVertex3f(-w,dheight,-dw);
 				gl.glTexCoord2f(dheight*bs,dw*bs);
@@ -294,6 +312,7 @@ public class HorrorWallMaze extends RenderableMaze
 			}
 			if(!r.Down())
 			{
+				gl.glNormal3f(0.0f,0.0f,-1.0f);
 				gl.glTexCoord2f(-dw*bs,dheight*bs);
 				gl.glVertex3f(-dw,dheight,l);
 				gl.glTexCoord2f(dw*bs,dheight*bs);
@@ -305,6 +324,7 @@ public class HorrorWallMaze extends RenderableMaze
 			}
 			if(!r.Right())
 			{
+				gl.glNormal3f(-1.0f,0.0f,0.0f);
 				gl.glTexCoord2f(0.0f,-dw*bs);
 				gl.glVertex3f(w,0.0f,-dw);
 				gl.glTexCoord2f(0.0f,dw*bs);
@@ -343,6 +363,7 @@ public class HorrorWallMaze extends RenderableMaze
 		if(!isInitialized())
 			initialize(gl);
 		gl.glEnable(GL.GL_CULL_FACE);
+		
 		//gl.glFrontFace(GL.GL_CCW);
 		FinalOutputShader.applyShader();
 		time+=900.0f*this.dt.ddt;
@@ -353,6 +374,8 @@ public class HorrorWallMaze extends RenderableMaze
 		Room croom=this.getCurrentRoom();
 		int cx=getRoomX(croom);
 		int cz=getRoomZ(croom);
+		gl.glEnable(GL.GL_LIGHTING);
+		this.camlight.enable(gl);
 		//gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL.GL_LINE); //set the polygon mode
 		if(mc.Position.y > ROOM_HEIGHT || ALWAYSROOM)
 		{
@@ -385,14 +408,16 @@ public class HorrorWallMaze extends RenderableMaze
 		}
 		
 		gl.glDisable(GL.GL_CULL_FACE);
-		
+		this.camlight.disable(gl);
 		gl.glActiveTexture(GL.GL_TEXTURE1);
 		gl.glClientActiveTexture(GL.GL_TEXTURE1);
 		gl.glDisable(GL.GL_TEXTURE_2D);
 		gl.glClientActiveTexture(GL.GL_TEXTURE0);
 		gl.glActiveTexture(GL.GL_TEXTURE0);
 		GLSLShader.applyShader(0);
-	// TODO Auto-generated method stub
+		gl.glDisable(GL.GL_LIGHTING);
+		
+		// TODO Auto-generated method stub
 
 	}
 

@@ -4,26 +4,76 @@ import drk.graphics.*;
 public class KarnaughShaders
 {
 	static final String LightingRenderFragment=
+	"uniform sampler2D texture,surface;\n" +
+	"varying vec3 N;"+"\n"+
+	"varying vec3 v;"+"\n"+
+	"void main (void)"+"\n"+
+	"{"+"\n"+
+	"vec3 L = normalize(gl_LightSource[0].position.xyz - v); "+"\n"+
+	"vec3 E = normalize(-v); // we are in Eye Coordinates, so EyePos is (0,0,0)"+"\n"+
+	"vec3 R = normalize(-reflect(L,N)); "+"\n"+
+
+//	calculate Ambient Term:
+"	vec4 Iamb = gl_LightSource[0].ambient;"+"\n"+
+
+//	calculate Diffuse Term:
+"	vec4 Idiff = gl_LightSource[0].diffuse * max(dot(N,L), 0.0);"+"\n"+
+//	 calculate Specular Term:
+//"	vec4 Ispec = gl_FrontLightProduct[0].specular "+"\n"+
+//"	              //    * pow(max(dot(R,E),0.0),0.3*gl_FrontMaterial.shininess);"+"\n"+
+
+//	 write Total Color:
+"	gl_FragColor = Iamb + Idiff"+"\n"+
+
+"	}"+"\n"+
+"";
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+/*		
+		
 		"uniform sampler2D texture,surface;\n" +
 		"void main()\n" +
 		"{\n" +
 		"   vec4 outcolor;"+
-	//    "    outcolor = texture2D(texture,gl_TexCoord[0].st);\n" +
+	    "    outcolor = texture2D(texture,gl_TexCoord[0].st);\n" +
 		"    outcolor = texture2D(surface,gl_TexCoord[0].st);\n" +
 		
 		//"    if(dot(gl_FragCoord.rgb,gl_FragCoord.rgb) > .5*.5)\n"+
 		//"        outcolor*=2.0;\n"+
-		"    gl_FragColor = vec4(outcolor.rgb,1.0);\n" +
+		"    gl_FragColor = vec4(normalize(outcolor.rgb),1.0);\n" +
 		"}" +
-		"";
+		"";*/
 	
 	static final String LightingRenderVertex=
-		"void main()"+
-		"{"+
-			"gl_Position=ftransform();"+
+	
+	"varying vec3 N;"+"\n"+
+	"varying vec3 v;"+"\n"+
+
+	"void main(void)"+"\n"+
+	"{"+"\n"+
+	"   v = vec3(gl_ModelViewMatrix * gl_Vertex);"+"\n"+
+
+	"	N = normalize(gl_NormalMatrix * gl_Normal);"+"\n"+
+
+	"   gl_Position = ftransform();"+"\n"+
+	"}"+"\n"+
+	"";
+	
+	/*"void main()"+
+	"{"+
+		"gl_Position=ftransform();"+
 ///			"gl_TexCoord[0]=gl_MultiTexCoord0;"+
-		"}"+
-		"";
+	"}"+
+	"";*/
 		
 	
 	
