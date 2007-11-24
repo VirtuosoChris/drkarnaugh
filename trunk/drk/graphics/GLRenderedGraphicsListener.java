@@ -380,7 +380,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		infoTable.setFont(new Font("Serif", Font.BOLD, 12));
 		
 		String s = "";
-		for(int i = 0; i < 50; i++){
+		for(int i = 0; i < 70; i++){
 			s += ""+(i%10);
 		}
 		
@@ -391,14 +391,14 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		infoText.setMargin(new Insets(5,0,0,15));
 		infoTable.add(infoText, BorderLayout.WEST);
 		
-		JTextArea solText = new JTextArea("Solution:");
-		solText.setForeground(Color.green);
-		solText.setBackground(Color.black);
-		solText.setEditable(false);
-		solText.setMargin(new Insets(5,0,0,15));
+	//	JTextArea solText = new JTextArea("Solution:");
+	//	solText.setForeground(Color.green);
+	//	solText.setBackground(Color.black);
+	//	solText.setEditable(false);
+	//	solText.setMargin(new Insets(5,0,0,15));
 		
-		solPanel.setFont(new Font("Serif", Font.BOLD, 20));
-		solPanel.add(solText, BorderLayout.EAST);
+	//	solPanel.setFont(new Font("Serif", Font.BOLD, 12));
+	//	solPanel.add(solText, BorderLayout.EAST);
 		
 		
 		
@@ -411,13 +411,13 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		jtc.setForeground(Color.red);
 		jtc.setEditable(false);
 		jtc.setBackground(Color.black);
-		jtc.setFont(new Font("Serif", Font.BOLD, 18));
+		jtc.setFont(new Font("Serif", Font.BOLD, 12));
 		
 		//box.add(new JButton("Coming Soon to a game near you: Status Bar"), BorderLayout.WEST);
 		
 //		jtc.setWidth(this.width);
 		
-		for(int i = 0; i < drk.maze.KarnaughMaze.MAX_INPUTS; i++){
+		for(int i = 0; i < drk.maze.KarnaughMaze.MAX_INPUTS+2+("Solution: ").length(); i++){
 			jtc.append("x");
 			//if(i+1 == 10){
 			//	jtc.append("|");
@@ -431,7 +431,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		jtc.setVisible(true);
 		
 		box.add(infoTable, BorderLayout.WEST);
-		box.add(solPanel, BorderLayout.CENTER);
+	//	box.add(solPanel, BorderLayout.CENTER);
 		box.add(truthTable, BorderLayout.EAST);
 		
 		
@@ -517,8 +517,9 @@ public static void updateTT(int x,int numinputs, boolean y){
   		//JTextArea jtc = JTextArea();
   		jtc.setForeground(Color.red);
   		jtc.setBackground(Color.black);
-  		jtc.setFont(new Font("Serif", Font.BOLD, 18));
+  		jtc.setFont(new Font("Serif", Font.BOLD, 12));
   
+  		jtc.append("Solution: ");
  	    jtc.append(j);
   	    jtc.append("|");
   	    jtc.append(Integer.toString(i));

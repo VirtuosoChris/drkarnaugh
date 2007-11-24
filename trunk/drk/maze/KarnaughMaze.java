@@ -22,8 +22,8 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 	
 	public int numInputs;
 	
-	public static final int MAX_INPUTS = 32;//a map may have no more than 32 inputs.  Because an int can only
-	//store 2^32 for the truth table index.  And over like 4 is starting to get motherfucking ridiculous
+	public static final int MAX_INPUTS = 8;//with 8, it will take 2.5 seconds * 256 to scroll through the entire truth table. this should
+	//be plenty
 
 	String filename;
 	//constructor, takes width, height, timelimit, next map, and an arraylist of components to populate the maze with.

@@ -372,15 +372,19 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	
 	//point of entry
 	public static void main(String args[]){
-	
+			
 		KarnaughLog.clearLog();
 		KarnaughLog.log("Starting Dr. Karnaugh's Lab");
 		
 		KarnaughGame m = new KarnaughGame();
 		
 		m.camera.fovy = 30;
-	    m.doMain(1440,900,null,true);
-		m.loadMap("map01.kar");
+	    
+	    	m.loadMap("map07.kar");
+	    	
+	    	
+	    m.doMain(1024,768,null,true);
+	
 		for(boolean b:((KarnaughMaze)m.m).solution){	
 			System.out.println(b);	
 		}
