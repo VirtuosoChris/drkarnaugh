@@ -2,28 +2,40 @@ package drk.graphics.game;
 import drk.KarnaughLog;
 import drk.graphics.*;
 public class KarnaughShaders
-{
+{ 
+	
+	static final String LightingRenderVertex=
+	"varying mat3 NormalTransform;"+"\n"+
+	"varying vec3 N;"+"\n"+
+	"void main(void)"+"\n"+
+	"{"+"\n"+
+	
+	"N=normalize(gl_NormalMatrix*gl_Normal);"+
+	"   gl_Position = ftransform();"+"\n"+
+	"}"+"\n"+
+	"";
 	static final String LightingRenderFragment=
 	"uniform sampler2D texture,surface;\n" +
 	"varying vec3 N;"+"\n"+
-	"varying vec3 v;"+"\n"+
+//	"varying vec3 v;"+"\n"+
 	"void main (void)"+"\n"+
 	"{"+"\n"+
-	"vec3 L = normalize(gl_LightSource[0].position.xyz - v); "+"\n"+
-	"vec3 E = normalize(-v); // we are in Eye Coordinates, so EyePos is (0,0,0)"+"\n"+
-	"vec3 R = normalize(-reflect(L,N)); "+"\n"+
+	// "    outcolor = texture2D(surface,gl_TexCoord[0].st);\n" +
+	//"vec3 L = normalize(gl_LightSource[0].position.xyz - gl_FragCoord.xyz); "+"\n"+
+	//"vec3 E = normalize(-gl_FragCoord.xyz); // we are in Eye Coordinates, so EyePos is (0,0,0)"+"\n"+
+	//"vec3 R = normalize(-reflect(L,N)); "+"\n"+
 
 //	calculate Ambient Term:
-"	vec4 Iamb = gl_LightSource[0].ambient;"+"\n"+
+//"	vec4 Iamb = gl_LightSource[0].ambient;"+"\n"+
 
 //	calculate Diffuse Term:
-"	vec4 Idiff = gl_LightSource[0].diffuse * max(dot(N,L), 0.0);"+"\n"+
+//"	vec4 Idiff =gl_LightSource[0].diffuse * max(dot(N,L), 0.0);"+"\n"+
 //	 calculate Specular Term:
 //"	vec4 Ispec = gl_FrontLightProduct[0].specular "+"\n"+
 //"	              //    * pow(max(dot(R,E),0.0),0.3*gl_FrontMaterial.shininess);"+"\n"+
 
 //	 write Total Color:
-"	gl_FragColor = Iamb + Idiff"+"\n"+
+"	gl_FragColor = vec4((normalize(N)+1.0)/2,1.0);"+"\n"+
 
 "	}"+"\n"+
 "";
@@ -52,21 +64,7 @@ public class KarnaughShaders
 		"    gl_FragColor = vec4(normalize(outcolor.rgb),1.0);\n" +
 		"}" +
 		"";*/
-	
-	static final String LightingRenderVertex=
-	
-	"varying vec3 N;"+"\n"+
-	"varying vec3 v;"+"\n"+
 
-	"void main(void)"+"\n"+
-	"{"+"\n"+
-	"   v = vec3(gl_ModelViewMatrix * gl_Vertex);"+"\n"+
-
-	"	N = normalize(gl_NormalMatrix * gl_Normal);"+"\n"+
-
-	"   gl_Position = ftransform();"+"\n"+
-	"}"+"\n"+
-	"";
 	
 	/*"void main()"+
 	"{"+
@@ -106,6 +104,7 @@ public class KarnaughShaders
 		vert.setVertexShader(true);
 		GLSLShaderSection frag=new GLSLShaderSection(LightingRenderFragment);
 		out.addShaderSection(frag);
+		out.addShaderSection(vert);
 	//	out.
 		
 		try
