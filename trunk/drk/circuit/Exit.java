@@ -22,7 +22,15 @@ public class Exit extends OutputSystem {
 	
 	if(k.hasWire){
 		
+		
+		
 		setInput((OutputSystem)k.inputSource, 0);
+		
+		k.hasWire = false;
+		
+		k.inputSource = null;
+		
+		k.winMap();
 		
 	}
 	

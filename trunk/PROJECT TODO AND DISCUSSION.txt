@@ -115,6 +115,4 @@ Restart map option
 STATUS BAR FONTS: I cleared some space by making the max number of inputs 8, which still has a truth table size of 256, still plenty ridiculous for anything but the simplest puzzles.  There's room for 70 characters plus tghe maximum truth table display in 640x480 resolution, which I'm going to suggest as our minimum supported resolution-- but I do think that maybe we should include an option for the display bar font size when we get around to the options menu, because it is a little small at 1440x900 resolutions, and I know that a lot of gamers with high end systems run games in resolutions at least that high, sometimes significantly higher.  
 
 
-
-
-
+STOP INFINITE LOOPS STOP INFINITE LOOPS STOP INFINITE LOOPS
