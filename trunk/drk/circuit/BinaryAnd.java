@@ -3,7 +3,9 @@ public class BinaryAnd extends BinaryGate
 {
 	
 	public BinaryAnd(){
+		super();
 		
+	   	type = "And Gate";
 	}
 	
 	public BinaryAnd(OutputSystem ac,OutputSystem bc)

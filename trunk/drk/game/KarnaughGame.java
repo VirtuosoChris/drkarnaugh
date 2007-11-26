@@ -1,3 +1,6 @@
+//critical -- cycle through combinations of inputs when click on exit with wire plugged in
+//if matches truth table, call winMap();
+
 package drk.game;
 import java.awt.event.KeyEvent;
 import java.io.*;
@@ -8,6 +11,7 @@ import drk.circuit.*;
 import drk.sound.*;
 import javax.media.opengl.*;
 import java.awt.event.*;
+import java.util.*;
 
 public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 
@@ -31,6 +35,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 
 	public boolean hasWire = false;
 	
+//	public ArrayList<Wire> wires = null; //collection of wires within the maze
 	
 	
 	public static final int GAME_WIDTH=1024;//resolution constants
@@ -62,6 +67,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	
 	//constructor-- initialize the variables
 	public KarnaughGame(){
+		
+	//	wires = new ArrayList<Wire>(); 
 		Score = 0;
 		Time = 0;
 		paused = false;
@@ -155,7 +162,6 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		//compute the user's score for this map and add it to score, 
 		//show loading/score tally splash screen
 		
-		if(!((KarnaughMaze)this.m).nextmap.equals("LAST_LEVEL")){
 			
 			//close call bonus
 			if(minutesLeft() ==0 && secondsLeft() <30){
@@ -169,9 +175,10 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			//wire amount bonus
 			
 			
+		if(!((KarnaughMaze)this.m).nextmap.equals("LAST_LEVEL")){
 			loadMap( ((KarnaughMaze)this.m).mapDirectory+((KarnaughMaze)this.m).nextmap);
-			
-		}
+		}	
+		
 		else{
 			gameOver();
 		}
@@ -182,9 +189,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	//loads a level.
 	//TODO : Spawn the Camera so that it's always looking down a hallway and not at a wall
 	public boolean loadMap(String m){
-		
-		
-		
+		LogicInput.inputNumber = 0;
+		//wires = new ArrayList<Wire>(); 
 		hasWire = false;
 		cycleTime = 0;
 		currentOutput = 0;

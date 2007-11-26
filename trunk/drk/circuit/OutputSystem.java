@@ -8,7 +8,7 @@ public abstract class OutputSystem extends MazeItem
 	public abstract int getNumInputs();
 	public abstract OutputSystem getInput(int i);
 	public abstract OutputSystem setInput(OutputSystem os,int i);
-	
+	public String type = "outputSystem";
 	
 	public String toString()
 	{
@@ -48,10 +48,17 @@ public abstract class OutputSystem extends MazeItem
 		//updates tutorial hints appropriately
 		
 		if(!k.hasWire){
-			k.updateInfo("Click to attach a wire to the component's output");
+			k.updateInfo("Click to attach a wire to the "+type+" output");
 		}else{
 			if(k.inputSource != this){
-			k.updateInfo("Left or Right click to connect wire to L or R input. L is connected, R is connected");
+				
+			String leftTaken = "free";
+			String rightTaken = "free";
+			
+			if(getInput(0)!= null)leftTaken = "taken";
+			if(getInput(1)!=null) rightTaken = "taken";
+				
+			k.updateInfo("Left or Right click to connect wire to L or R input. L is "+leftTaken+", R is "+rightTaken);
 			}
 		}
 		
@@ -63,8 +70,20 @@ public abstract class OutputSystem extends MazeItem
 			//k.overlays.currentCursor = k.overlays.wireHand;
 		}
 		else{
-			
+			//attach wire
 			if(k.inputSource != this){
+				
+			Wire w = new Wire();
+			
+			int inputHand = 0;
+			if(k.rightClick)inputHand = 1;
+			
+			w.setInput((OutputSystem)k.inputSource, 0);
+			
+			this.setInput(w, inputHand);
+			
+//			k.wires.add(w);
+			
 		//	k.overlays.currentCursor = k.overlays.cursor;
 			k.hasWire = false;
 			k.inputSource = null;

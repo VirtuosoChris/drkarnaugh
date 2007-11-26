@@ -5,7 +5,7 @@ public class Inverter extends Wire
 {
 	
 	public Inverter(){
-		
+		type = "Inverter";
 	}
 	
 	public Inverter(OutputSystem os)

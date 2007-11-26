@@ -6,29 +6,51 @@ import drk.game.KarnaughGame;
 
 
 public class Exit extends OutputSystem {
+	
+	OutputSystem input = null;
+	
 	public Exit(){}
 	
-
+	
 	
 	public void onMazeItemHighlighted(KarnaughGame k){
 		k.updateInfo("Attach the puzzle solution to the exit's input to move to the next floor");
 	//	k.overlays.currentCursor = k.overlays.interactHand;
+	
+	
+	if(k.leftClick||k.rightClick){
+	
+	if(k.hasWire){
+		
+		setInput((OutputSystem)k.inputSource, 0);
+		
+	}
+	
+	}
+		
+		
+	
 	}
 
 	public  boolean evaluate(){
-		return false;
+		return input.evaluate();
 	}
 	
 	public int getNumInputs(){
-		return 0;
+		return 1;
+	}
+	
+	public OutputSystem getInput(){
+		return input;
 	}
 	
 	public OutputSystem getInput(int i){
-	return null;	
+		return input;	
 	}
 	
 	public OutputSystem setInput(OutputSystem os,int i){
-		return null;
+		input = os;
+		return os;
 	}
 	
 	

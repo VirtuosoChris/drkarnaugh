@@ -1,4 +1,5 @@
 package drk.circuit;
+import drk.game.KarnaughGame;
 
 public abstract class BinaryGate extends OutputSystem
 {
@@ -40,4 +41,8 @@ public abstract class BinaryGate extends OutputSystem
 		};
 		return pi;
 	}
+	
+	
+	
+	
 }
