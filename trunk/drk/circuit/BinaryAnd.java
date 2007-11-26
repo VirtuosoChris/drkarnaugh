@@ -1,4 +1,6 @@
 package drk.circuit;
+
+//Steve: implements a binary and gate
 public class BinaryAnd extends BinaryGate
 {
 	

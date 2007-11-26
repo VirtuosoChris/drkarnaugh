@@ -36,6 +36,7 @@ public class DeltaTimer implements Updatable
 		ddt*=1e-9;
 	}
 	
+	//
 	public double getDeltaTimeSeconds()
 	{
 		return ddt;
