@@ -270,7 +270,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		if(!hasWire){
 		
 		
-		if(minutesLeft() >= 0 && secondsLeft() > 0)updateInfo("");
+		if(Time >= 0)updateInfo("");
 		else updateInfo("RUN! The Bunny is after you!");
 		
 		
