@@ -8,25 +8,26 @@ import drk.circuit.*;
 public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 {
 	
-	public int timelimit = 0;
-	public String nextmap = null; 
+	public int timelimit = 0; //what is the timelimit for this map?
+	public String nextmap = null; //what is the name of the map to go to after this one is finished?
 	public ArrayList<MazeItem> components = null;
-	public String songfile = null;
-	public String mapDirectory = null;
+	public String songfile = null; //string name of the file containing the song for this map.
+	public String mapDirectory = null; //string containing the path to the current map -- used to access the next map, by appending the mapname to this string
 
 	//some accessor methods
 	public int timeLimit(){return timelimit;}
 	public String nextLevel(){return nextmap;}
 	
-	public boolean solution[];
+	public boolean solution[];//truth table solution for the current map
 	
-	public int numInputs;
+	public int numInputs;//how many inputs are there on this map?
 	
-	public static final int MAX_INPUTS = 8;//with 8, it will take 2.5 seconds * 256 to scroll through the entire truth table. this should
+	public static final int MAX_INPUTS = 8;//with 8, it will still take 512 seconds to scroll through the entire truth table once. this should
 	//be plenty
 
 	String filename;
-	//constructor, takes width, height, timelimit, next map, and an arraylist of components to populate the maze with.
+	
+	//constructor, takes all the variables needed to initailize the game level
 	public KarnaughMaze(int w, int h, int t, String n, ArrayList<MazeItem> c, String sf, String d, boolean s[], int inputs){
 		
 		super(w,h);
@@ -64,7 +65,6 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		ArrayList<Room> copy = new ArrayList<Room>(RoomList);
 		ArrayList<MazeItem> cCopy = new ArrayList<MazeItem>(c);
 		
-		
 	
 		
 		Random r = new Random();
@@ -83,18 +83,16 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		
 		
 		mapDirectory = d;
-		
-		//temp-- this was a lazy test to make sure the camera-set-coordinates in karnaughgame were correct and the 
-		//camera would not spawn in the incorrect location
-		//RoomList.get(0).setItem(new Entrance());
+
 	}
 
-	//loads a map.  adds extension to f
+	//loads a map.
 	public static KarnaughMaze loadMaze(String f){
 		
 		KarnaughLog.log("\nLoading map "+f+"");
 		
-		String sf;
+		//variables to store data loaded in from file
+		String sf; //song filename
 		boolean solution[] = null;
 		int numinputs = 0;
 		int mazewidth = 0;
@@ -102,13 +100,13 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		int timelimit = 0;
 		String nextmap = null; //"LAST_LEVEL" means that this is the last map of the campaign
 		int numcomponents = 0;
-		ArrayList<MazeItem> components = new ArrayList<MazeItem>();
+		ArrayList<MazeItem> components = new ArrayList<MazeItem>(); //arraylist to store the list of components for the maze
 		String d;//the path of the current mapFile.
 		File mapFile=null;
 		
 		//TODO : we will add the win conditions to the map format when we've finalized the gameplay
 		
-		try{ //scan the data.  throw exceptions where appropriate.  if successful create a new KarnaughMaze with the data
+		try{ //scan the data.  log exceptions where appropriate.  if successful create a new KarnaughMaze with the data
 		 Scanner s = new Scanner(mapFile = new File(f));
 		
 		 d = mapFile.getPath().substring(0,mapFile.getPath().length() - mapFile.getName().length());
@@ -162,6 +160,8 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		
 		numinputs = s.nextInt();
 		
+		//if the user exceeds the max number of inputs they're an asshole that hates the player.  If i knew how to format their hard drive from Java
+		//I would
 		if(numinputs > MAX_INPUTS){
 			KarnaughLog.log("Map contains way too many inputs.  Please discard your map and start over.  Bastard");
 			return null;
@@ -182,6 +182,7 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		
 		KarnaughLog.log("\nMap Truth Table Solution:");
 		
+		//log the truth table as well as an "approximation" (eg leading zeroes dropped) of their binary value
 		for(int i = 0; i < solution.length;i++){
 			KarnaughLog.log(""+Integer.toString(i,2)+":"+solution[i]);
 		}
@@ -226,6 +227,7 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 	}
 	
 	
+	//test
 	public static void main(String args[]){
 		KarnaughLog.clearLog();
 		KarnaughMaze x;

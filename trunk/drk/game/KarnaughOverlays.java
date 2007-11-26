@@ -1,3 +1,5 @@
+//class to create, manage, and draw the guiOverlayItems required for KarnaughGame
+
 package drk.game;
 
 import javax.media.opengl.GL;
@@ -48,12 +50,13 @@ public class KarnaughOverlays implements Updatable, GLInitializable {
 		wireHand = new guiOverlayItem();
 		cancel = new guiOverlayItem();
 		
+		
 		int resWidth = kg.getWidth();
 		int resHeight = kg.getHeight();
 		
 		
-		System.out.println("Shit should be drawn in relation to :");
-		System.out.println(""+resWidth + "x" + resHeight);
+		//System.out.println("Shit should be drawn in relation to :");
+		//System.out.println(""+resWidth + "x" + resHeight);
 		
 		
 		int digitWidth = (int)(.03*resWidth);
@@ -170,6 +173,8 @@ public class KarnaughOverlays implements Updatable, GLInitializable {
 		gl.glPushMatrix();
 		
 		gl.glLoadIdentity();
+		
+		//sets opengl blending to use the transparency stored in the bitmap file
 		gl.glEnable (GL.GL_BLEND); gl.glBlendFunc (GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 		gl.glOrtho(0, width, 0, height, -1.0, 1.0);
 		
@@ -180,21 +185,19 @@ public class KarnaughOverlays implements Updatable, GLInitializable {
 	    guiOverlayItem.setGUIColor(1f,1f,1f);
 	    
 	    
-	 	currentCursor.draw(gl);
+	 	currentCursor.draw(gl); //draw whatever the current cursor is
 	 	
-	 	guiOverlayItem.setGUIColor(0,1f,0);
 	 	
-	    String scoreString = "5c0re:"+kg.Score;
-	    
+	 	//draw the score display
+	 	guiOverlayItem.setGUIColor(0,1f,0); 
+	 	String scoreString = "5c0re:"+kg.Score;
+	   
 	    for(int i = 0; i < scoreString.length(); i++){
 	    	
 	    	char a =scoreString.charAt(i);
 	    	int b = 0;
 	    	
-	    	if(a == ':'){
-	    		
-	    	
-	    		
+	    	if(a == ':'){	
 	    		colon.drawAt(0+i*colon.width,0,gl);
 	    	}
 	    	else if(a == 'c')
@@ -214,8 +217,11 @@ public class KarnaughOverlays implements Updatable, GLInitializable {
 	    	}
 	    	
 	    }
-
+	
 		
+		//draw the jack bauer clock
+		//red digits if under 30 seconds
+		//bunny digits when time runs out
 		String bauerClock = "";
 			
 	    if(kg.minutesLeft() < 10)bauerClock+="0";
@@ -250,7 +256,7 @@ public class KarnaughOverlays implements Updatable, GLInitializable {
 	    	
 	    }
 	    
-	    
+	    //reset the color
 	    guiOverlayItem.setGUIColor(1f,1f,1f);
 	    
 	    
@@ -258,6 +264,7 @@ public class KarnaughOverlays implements Updatable, GLInitializable {
 	    
 	    //you should like, totally STOP drawing them here
 	
+		//exit 2d mode, disable blending
 		gl.glDisable (GL.GL_BLEND);
 		gl.glPopMatrix();
 		

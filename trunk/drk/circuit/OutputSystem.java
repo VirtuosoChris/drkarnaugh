@@ -38,8 +38,14 @@ public abstract class OutputSystem extends MazeItem
 	}*/
 	
 	
+	//when the object is highlighted, do this stuff
 	public void onMazeItemHighlighted(KarnaughGame k){
 		super.onMazeItemHighlighted(k);
+		
+		//if the user has a wire and they click, attach to appropriate input
+		//if they click without one, this is the new source for them to drag a wire
+		//adjusts cursors appropriately
+		//updates tutorial hints appropriately
 		
 		if(!k.hasWire){
 			k.updateInfo("Click to attach a wire to the component's output");

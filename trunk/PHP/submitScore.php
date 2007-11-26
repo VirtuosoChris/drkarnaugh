@@ -6,6 +6,8 @@
 //If all the checks are passed, username, score, and rand are saved into the database.
 //the output then contains a string describing the user's placement
 
+//see rankedgame for details on how this works.
+
 require("phpHash.php");
 
 if(( isSet($_REQUEST['name'])  && isSet($_REQUEST['score']) )) {
