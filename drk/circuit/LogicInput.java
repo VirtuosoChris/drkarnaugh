@@ -37,8 +37,8 @@ public class LogicInput extends OutputSystem
 		if(!k.hasWire){
 			k.updateInfo("Click to attach a wire to the "+type+" output");
 		}else{
-				
-			k.updateInfo("Logical inputs cannot accept wire inputs");
+				if(k.inputSource!=this)
+					k.updateInfo("Logical inputs cannot accept wire inputs");
 			}
 		
 		

@@ -267,10 +267,17 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		//if the user double clicks while holding a wire, discard it
 		if(hasWire&&(doubleClickLeft||doubleClickRight))discardWire();
 		
-		if(!hasWire)
-		updateInfo("");
+		if(!hasWire){
+		
+		
+		if(minutesLeft() >= 0 && secondsLeft() > 0)updateInfo("");
+		else updateInfo("RUN! The Bunny is after you!");
+		
+		
+		}
 		else updateInfo("Double Click to discard wire"); //tutorial tip on the status bar
 		
+	
 		
 		//TODO URGENT**** get rid of this, go to the menu instead, pause game, SOMETHING
 		if(isKeyPressed(KeyEvent.VK_ESCAPE)){
@@ -332,6 +339,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			}else{
 			KarnaughLog.log("Could not open song file");
 			}
+			
+			die();
 		}
 		}
 		
@@ -391,7 +400,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		
 		m.camera.fovy = 30;
 	    
-	    	m.loadMap("map07.kar");
+	    	m.loadMap("map01.kar");
 	    	
 	    	
 	    m.doMain(GAME_WIDTH,GAME_HEIGHT,null,true);

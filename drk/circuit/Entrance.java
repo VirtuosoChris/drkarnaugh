@@ -3,9 +3,17 @@
 
 package drk.circuit;
 import drk.maze.MazeItem;
+import drk.game.KarnaughGame;
+
 public class Entrance extends MazeItem {
 	
 	public Entrance(){}
+	
+	//when the item turns out to be highlighted
+	public void onMazeItemHighlighted(KarnaughGame k){
+		k.updateInfo("This is the entrance");
+	
+	}
 	
 	public String toString(){
 		return "Entrance";

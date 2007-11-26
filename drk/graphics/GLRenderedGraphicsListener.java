@@ -381,12 +381,12 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		
 		String s = "";
 		for(int i = 0; i < 70; i++){
-			s += ""+(i%10);
+			s += "X";
 		}
 		
 		infoText.append(s);
 			//"Welcome to Dr.Karnaugh's Laboratory");
-		infoText.setForeground(Color.white);
+		infoText.setForeground(Color.black);
 		infoText.setBackground(Color.black);
 		infoText.setMargin(new Insets(5,0,0,15));
 		infoTable.add(infoText, BorderLayout.WEST);
@@ -408,7 +408,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		truthTable.setBackground(Color.black);
 		
 		//JTextArea jtc = new JTextArea();
-		jtc.setForeground(Color.red);
+		jtc.setForeground(Color.black);
 		jtc.setEditable(false);
 		jtc.setBackground(Color.black);
 		jtc.setFont(new Font("Serif", Font.BOLD, 12));
@@ -418,7 +418,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 //		jtc.setWidth(this.width);
 		
 		for(int i = 0; i < drk.maze.KarnaughMaze.MAX_INPUTS+2+("Solution: ").length(); i++){
-			jtc.append("x");
+			jtc.append("X");
 			//if(i+1 == 10){
 			//	jtc.append("|");
 			//	jtc.append(Integer.toString(1));
