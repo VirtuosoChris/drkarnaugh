@@ -4,24 +4,79 @@ import drk.graphics.*;
 public class KarnaughShaders
 { 
 	
+/*
+ *	
+ *	if(dot(c1,c1) < dot(c2,c2))
+ *	{
+ *		NormalTransform[2] = normalize(c2);
+ *		NormalTransform[0] = normalize(NormalTransform[1],NormalTransform[2]);
+ *	}
+ *	else
+ *	{
+ *		NormalTransform[0] = normalize(c1);
+ *		NormalTransform[2] = normalize(NormalTransform[1],NormalTransform[0]); //should these be switched?
+ *
+ *	}
+	
+
+
+
+*/
+	
+	
+	
+	
+	
 	static final String LightingRenderVertex=
 	"varying mat3 NormalTransform;"+"\n"+
-	"varying vec3 N;"+"\n"+
+	"varying vec3 Position;"+
 	"void main(void)"+"\n"+
 	"{"+"\n"+
-	
-	"N=normalize(gl_NormalMatrix*gl_Normal);"+
+	"   const vec3 up=vec3(0.0,1.0,0.0);"+"\n"+
+	"   const vec3 side=vec3(0.0,0.0,1.0);"+"\n"+
+	"   NormalTransform[1]=normalize(gl_Normal);"+"\n"+
+	"   vec3 c1 = cross(NormalTransform[1],up);"+"\n"+
+	"   vec3 c2 = cross(NormalTransform[1],side);"+"\n"+
+	"	if(dot(c1,c1) < dot(c2,c2))"+"\n"+
+	"   {"+"\n"+
+	"        NormalTransform[2] = normalize(c2);"+"\n"+
+    "        NormalTransform[0] = normalize(cross(NormalTransform[1],NormalTransform[2]));"+"\n"+
+    "   }"+"\n"+
+    "   else"+"\n"+
+	"	{"+"\n"+
+	"        NormalTransform[0] = normalize(c1);"+"\n"+
+	"        NormalTransform[2] = normalize(cross(NormalTransform[0],NormalTransform[1])); //should these be switched?"+"\n"+
+	"   }"+"\n"+
+	"   gl_TexCoord[0]=gl_MultiTexCoord0;"+
+	"   NormalTransform=transpose(NormalTransform);"+
+	"   Position = (gl_ModelViewMatrix*gl_Vertex).xyz; "+
 	"   gl_Position = ftransform();"+"\n"+
 	"}"+"\n"+
 	"";
+	
 	static final String LightingRenderFragment=
+		"uniform sampler2D texture,surface;\n" +
+		"varying mat3 NormalTransform;"+"\n"+
+		"void main (void)"+"\n"+
+		"{"+"\n"+
+		"    vec4 outcolor = texture2D(surface,gl_TexCoord[0].st);\n" +
+		"    vec3 N = normalize(NormalTransform*outcolor.rgb);"+"\n"+
+	//	"vec3 L = gl_LightSource[0].position.xyz - gl_FragCoord.xyz; "+"\n"+
+	"	gl_FragColor = vec4((N+1.0)/2,1.0);"+"\n"+
+
+	"	}"+"\n"+
+	"";
+
+	
+	
+/*	static final String LightingRenderFragment=
 	"uniform sampler2D texture,surface;\n" +
-	"varying vec3 N;"+"\n"+
+	"varying mat3 NormalTransform;"+"\n"+
 //	"varying vec3 v;"+"\n"+
 	"void main (void)"+"\n"+
 	"{"+"\n"+
 	// "    outcolor = texture2D(surface,gl_TexCoord[0].st);\n" +
-	//"vec3 L = normalize(gl_LightSource[0].position.xyz - gl_FragCoord.xyz); "+"\n"+
+	"vec3 L = gl_LightSource[0].position.xyz - gl_FragCoord.xyz; "+"\n"+
 	//"vec3 E = normalize(-gl_FragCoord.xyz); // we are in Eye Coordinates, so EyePos is (0,0,0)"+"\n"+
 	//"vec3 R = normalize(-reflect(L,N)); "+"\n"+
 
@@ -35,11 +90,11 @@ public class KarnaughShaders
 //"	              //    * pow(max(dot(R,E),0.0),0.3*gl_FrontMaterial.shininess);"+"\n"+
 
 //	 write Total Color:
-"	gl_FragColor = vec4((normalize(N)+1.0)/2,1.0);"+"\n"+
+"	gl_FragColor = vec4((normalize(NormalTransform[1])+1.0)/2,1.0);"+"\n"+
 
 "	}"+"\n"+
 "";
-		
+*/		
 		
 		
 		

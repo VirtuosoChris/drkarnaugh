@@ -32,11 +32,11 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	public boolean doubleClickLeft = false;
 	public boolean doubleClickRight = false;
 	
-	public static JPanel truthTable;
-	public static JPanel infoTable;
-	public static JTextArea infoText = new JTextArea();
-	public static JTextArea jtc = new JTextArea();
-	public static String lineRead[] = new String[4];
+	public JPanel truthTable;
+	public JPanel infoTable;
+	public JTextArea infoText = new JTextArea();
+	public JTextArea jtc = new JTextArea();
+	public String lineRead[] = new String[4];
 
 	int xPrev, yPrev;
 
@@ -475,7 +475,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	
 
 	
-	public static void updateInfo(int i){
+	public void updateInfo(int i){
 		infoTable.removeAll();
 		//infoText.setText(null);
 		infoText.setText(lineRead[i]);
@@ -489,7 +489,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	
 	
 	
-	public static void updateInfo(String s){
+	public void updateInfo(String s){
 		infoTable.removeAll();
 		//infoText.setText(null);
 		infoText.setText(s);
@@ -502,7 +502,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	}
 	
 	
-public static void updateTT(int x,int numinputs, boolean y){
+public void updateTT(int x,int numinputs, boolean y){
   		truthTable.removeAll();
   		jtc.setText("");
   		int i = (y)?1:0;

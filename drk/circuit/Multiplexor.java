@@ -1,6 +1,6 @@
 package drk.circuit;
 
-//implements a multiplexor 
+//Steve: implements a multiplexor.  The first width inputs in the array are a binary selector switch to choose between 2^width inputs
 public class Multiplexor extends MultiGate
 {
 	int width;
@@ -21,8 +21,8 @@ public class Multiplexor extends MultiGate
 	{
 		int index=0;
 
-		for(int i=0;i<width;i++) index+=osarray[i].evaluate() ? (1 << i) : 0;  //binary to decimal conversion
-		
+		for(int i=0;i<width;i++) index+=osarray[i].evaluate() ? (1 << i) : 0;  //binary to decimal conversion by adding
+		//evaluate that specific switch and return its value
 		return osarray[index+width].evaluate();
 	}
 }

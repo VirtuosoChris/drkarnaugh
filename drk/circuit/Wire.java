@@ -1,4 +1,6 @@
 package drk.circuit;
+
+//This implements a wire by itself..it has only one input and mirrors that to the output
 public class Wire extends OutputSystem
 {
 	OutputSystem input;
@@ -23,6 +25,8 @@ public class Wire extends OutputSystem
 	{
 		return (i==0 ? input : input);	//null input?
 	}
+	
+	//set the input high if selected, otherwise do nothing
 	public OutputSystem setInput(OutputSystem os, int i)
 	{
 		if(i==0)

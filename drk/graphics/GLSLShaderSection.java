@@ -31,14 +31,14 @@ public class GLSLShaderSection
 	{
 		is_compiled=false;		
 		shader_source=
-	//			"#version 120\n"+
+				"#version 120\n"+
 				s;
 	}
 	public void setSource(String s)
 	{
 		is_compiled=false;
 		shader_source=
-	//		"#version 120\n"+
+			"#version 120\n"+
 			s;
 	}
 	public void compileSection() throws GLSLShader.ShaderException
