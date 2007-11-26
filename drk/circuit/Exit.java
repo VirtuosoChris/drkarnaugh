@@ -1,4 +1,5 @@
 //class representing the exit -- where the user leaves the maze after connecting their solution
+//it takes one input, has no output
 
 package drk.circuit;
 import drk.game.KarnaughGame;

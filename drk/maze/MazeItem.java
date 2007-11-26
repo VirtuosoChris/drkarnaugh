@@ -1,3 +1,5 @@
+//generic class referring to any object that can be found in a room in the maze
+
 
 package drk.maze;
 import javax.media.opengl.*;
@@ -11,28 +13,22 @@ public abstract class MazeItem implements drk.graphics.GLRenderable, MazeItemLis
 	protected Room room = null;
 	protected KarnaughMaze rm = null;
 
-	public static final double boundingRadius = 1.5;
-	public static final double distanceRadius = 3.0;
+	public static final double boundingRadius = 1.5; //radius of a sphere the user should be looking at in order for a mouse event to flag
+	public static final double distanceRadius = 3.0; //radius of a sphere the user should be inside in order for the mouse event to flag
 	
-	public Vector3D boundingSphere;
-
+	//are both of the sphere collision/look conditions above met?
 	public boolean isMazeItemHighlighted(KarnaughGame k){
-
-	
 	return (
 		k.ec.isPointingAt( ((HorrorWallMaze)k.m).getRoomMiddle(this.getRoom()), boundingRadius) 
 	&& k.ec.isCollidedWith(((HorrorWallMaze)k.m).getRoomMiddle(this.getRoom()), distanceRadius)
-	
 		);
-		
-		
-
-
 	}
 	
+	//when the item turns out to be highlighted
 	public void onMazeItemHighlighted(KarnaughGame k){
 	}
 	
+	//what to do if the camera is inside the mazeitem
 	public void onMazeItemEntered(MazeItem m){}
 
 
@@ -53,10 +49,14 @@ public abstract class MazeItem implements drk.graphics.GLRenderable, MazeItemLis
 		}
 	}
 	
+	
+	//sets a reference to the maze the object is in
 	public void setMaze(KarnaughMaze m){
 		rm = m;
 	}
 	
+	
+	//draws the mazeitem -- for testing purposes the base class draws a sphere in the center of the room
 	public void render(GL gl)
 	{
 			gl.glMatrixMode(GL.GL_MODELVIEW);

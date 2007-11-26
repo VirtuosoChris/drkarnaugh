@@ -1,5 +1,8 @@
 <?php
 
+//set of functions to hash the input values from KarnaughGame, to see if the hash data matches that from KarnaughGame
+//thus it is identical to that in RankedGame
+
 //given a hash integer returns a char that is either a-z, A-Z, or 0-9
 function hashChar($val1){
 

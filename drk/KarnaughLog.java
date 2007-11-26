@@ -1,3 +1,5 @@
+//a class to write messages to a log file
+
 package drk;
 import java.io.*;
 
@@ -6,6 +8,8 @@ public class KarnaughLog extends Object{
 
 private static final File LOG = new File("log.txt");
 	
+	
+	//clears the log
 	public static void clearLog(){
 		
 		try{

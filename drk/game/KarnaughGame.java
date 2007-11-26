@@ -8,36 +8,37 @@ import drk.circuit.*;
 import drk.sound.*;
 import javax.media.opengl.*;
 import java.awt.event.*;
+
 public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 
-	public int currentOutput = 0;
+	public int currentOutput = 0; //current index into the solution truth table
 
-	public int Score = 0;
-	private long Time; 
-	public boolean paused;
-	long cycleTime = 0;
-	private long lastUpdate = 0;
+	public int Score = 0; //should be self explanatory
 	
+	private long Time; //milliseconds remaining
 	
-	public MazeItem inputSource = null;
+	public boolean paused; //should also be self explanatory
 	
-	public KarnaughOverlays overlays;
+	long cycleTime = 0; //time since the truth table last cycled
 	
-	protected int songID = 0;
-
+	private long lastUpdate = 0;  //system time at which the game loop updated last
+	
+	public MazeItem inputSource = null; //reference to the mazeitem that starts a wired connection
+	
+	public KarnaughOverlays overlays; //object to manage the Karnaugh Game's HUD
+	
+	protected int songID = 0; //id for use with the sound engine
 
 	public boolean hasWire = false;
 	
-	//event handler for when the mouse is clicked
-	//sets a flag for the game event loop
-//	public void mouseReleased(MouseEvent m){
-		
-//		super.mouseReleased(m);
-	
-//		mouseClicked = true;
-//	}
 	
 	
+	public static final int GAME_WIDTH=1024;//resolution constants
+	public static final int GAME_HEIGHT=768;
+	
+
+	//called when the user is carrying a wire attached to a component's output, and they change their mind and decide to discard
+	//and start somewhere else
 	public void discardWire(){
 		inputSource = null;
 		hasWire = false;
@@ -64,6 +65,12 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		Score = 0;
 		Time = 0;
 		paused = false;
+		hasWire = false;
+		songID = 0;
+		inputSource = null;
+		lastUpdate = 0;
+		cycleTime = 0;
+		currentOutput = 0;
 	}
 	
 	
@@ -71,7 +78,6 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	
 	//loads a game from a particular file
 	public void setSingleMapCampaign(KarnaughGame m, String map){
-		
 		
 		KarnaughLog.clearLog();
 		
@@ -102,13 +108,14 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	}
 	
 	
-	public void keyReleased(KeyEvent k){
 	
-	super.keyReleased(k);
-	if(k.getKeyCode() == KeyEvent.VK_SHIFT){
-		winMap();		
-	 }
-	}
+	//
+	//public void keyReleased(KeyEvent k){
+	//super.keyReleased(k);
+	//if(k.getKeyCode() == KeyEvent.VK_SHIFT){
+	//	winMap();		
+	//}
+	//}
 	
 	
 //	public void keyPressed(KeyEvent k){
@@ -125,6 +132,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	
 	
 	//when the game is over by death or winning manage endgame situation
+	//TODO URGENT*****
 	public void gameOver(){
 		//submit score
 		//high score table
@@ -135,11 +143,11 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	//you can only die if bunny kills you
 	//if you die, it's game over
 	public void die(){
-		
 		//do stuff -- like knock the camera over and shoot blood everywhere
 		gameOver();
 		
 	}
+	
 	
 	//what happens when the user exits a map
 	public void winMap(){
@@ -162,7 +170,6 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			
 			
 			loadMap( ((KarnaughMaze)this.m).mapDirectory+((KarnaughMaze)this.m).nextmap);
-			
 			
 		}
 		else{
@@ -239,59 +246,59 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	//one iteration of the game loop
 	public void update(){
 		
-		super.update();
 		
+		if(paused)return;
+		
+		super.update();
+	
+	
+		//set the cursor based on the current gamestate
 		if(!hasWire)
 		overlays.currentCursor = overlays.cursor;
 		else
 			overlays.currentCursor = overlays.wireHand;
 		
-		if(doubleClickLeft||doubleClickRight)discardWire();
-		
+		//if the user double clicks while holding a wire, discard it
+		if(hasWire&&(doubleClickLeft||doubleClickRight))discardWire();
 		
 		if(!hasWire)
 		updateInfo("");
-		else updateInfo("Double Click to discard wire");
+		else updateInfo("Double Click to discard wire"); //tutorial tip on the status bar
 		
-
 		
-		if(paused)return;
-		
+		//TODO URGENT**** get rid of this, go to the menu instead, pause game, SOMETHING
 		if(isKeyPressed(KeyEvent.VK_ESCAPE)){
 			System.exit(0);
 		}
 		
-		
-		
-		
+	
+		//get the object in the room the player is currently in
 		MazeItem x = ((KarnaughMaze)m).getCurrentRoom().getItem();
 		
+		//handle mouse hovering, clicks, etc....
 		if(x!=null){
-		
-		
-		//handles clicking or highlighting items
+		//handles clicking and highlighting items
 			if(x.isMazeItemHighlighted(this)){
-			
 				x.onMazeItemHighlighted(this);		
-			}else{//handle click if no interaction
-				if(!hasWire)
-				overlays.currentCursor = overlays.cursor;
-			}
-		
-			
-			
-			
+			}	
 		}	
 			
 			
+		//whether events happened or not, reset click flags
 		leftClick = false;
 		rightClick = false;
+		doubleClickLeft = false;
+		doubleClickRight = false;
 		
 		//test for win/die
+		//**** TODO URGENT *****
 		
 		
 		//if time <= release the bunny or otherwise kill the player
 		
+		//cycle through the truth table solutions every 2 seconds, 
+		//and show them in the status bar so the user can see what they should be matching with their puzzle
+		//TODO URGENT: check here 
 		if(System.currentTimeMillis() - cycleTime >= 2000){
 			cycleTime = System.currentTimeMillis();
 			currentOutput = (currentOutput+1)%truthTableSize();
@@ -300,21 +307,16 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			 
 		}
 		
-		//if(Time%2 == 0)
 		
-		//else
-		//	updateTT(currentOutput,2,((KarnaughMaze)m).solution[currentOutput]);
-			
+		
 		if(Time > 0){
-		long tmp = System.currentTimeMillis() - lastUpdate;
-
-		Time -= tmp;
 		
-		lastUpdate = System.currentTimeMillis();
-		
-		if(Time < 0)Time = 0;
+		Time -= System.currentTimeMillis() - lastUpdate;
+	
 		
 		if(Time <=0){
+			
+			Time = 0;
 			final File f = new File("drk/sound/music/mission.mp3");
 	
 			SoundStreamer.stopPlayImmediately(songID);
@@ -327,14 +329,12 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		}
 		}
 		
+		lastUpdate = System.currentTimeMillis();
 		
 	//	if(Time % 1000 == 0)
 	//		System.out.println(""+minutesLeft()+":"+secondsLeft());
 		
 	}
-	
-	public static final int GAME_WIDTH=1024;
-	public static final int GAME_HEIGHT=768;
 	
 	//how much time is left, minutes only
 	public long minutesLeft(){
@@ -346,6 +346,9 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		return (Time/1000)%60;
 	}
 	
+	
+	
+	//starts a new game at map01
 	public static void mainGame(){
 		KarnaughLog.clearLog();
 		KarnaughLog.log("Starting Dr. Karnaugh's Lab");
@@ -357,11 +360,13 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	}
 	
 	
-	
+	//returns the value at the current truth table index
 	public boolean getCurrentSolution(){
 		return ((KarnaughMaze)m).solution[currentOutput];	
 	}
 	
+	
+	//returns the size of the solution truth table -- which is 2^(number of inputs)
 	public int truthTableSize(){
 		return ((KarnaughMaze)m).solution.length;
 	}
@@ -370,7 +375,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	
 	
 	
-	//point of entry
+	//runs a test iteration of the game
 	public static void main(String args[]){
 			
 		KarnaughLog.clearLog();
@@ -383,7 +388,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	    	m.loadMap("map07.kar");
 	    	
 	    	
-	    m.doMain(1024,768,null,true);
+	    m.doMain(GAME_WIDTH,GAME_HEIGHT,null,true);
 	
 		for(boolean b:((KarnaughMaze)m.m).solution){	
 			System.out.println(b);	

@@ -16,11 +16,13 @@ public int height; //in pixels
 public int x; public int y; //lower left coordinates
 public Texture t;
 
+//manages texture coordinates
 public float texStartU = 0;
 public float texStartV = 0;
 public float texSizeU = 1;
 public float texSizeV = 1;
 
+//manages color and opacity
 public static float r = 1.0f;
 public static float g = 1.0f;
 public static float b = 1.0f;

@@ -2,6 +2,9 @@
 
 //php script that retrieves the top ten scores from the mysql database
 //if html = no, generates in plain text, for use from within the KarnaughGame application
+//otherwise it is shown as a table for use from within a web browser
+
+//see rankedgame for more details of how this works.
 
 $dbc = mysql_connect('localhost', 'root', 'asdfzxcv') or die("ERROR: There was a problem accessing the database, please try again later"); 
 
@@ -43,7 +46,8 @@ if($result && mysql_num_rows($result) > 0){
      echo '</tr>';
    }
    else
-   {
+   {//that really long ugly string is a seperator so that the program knows that the next string read in is the score and not part of a name
+   //its longer than the maximum name string, so this works.  check rankedgame for details.  
     echo ($row['name'])." "."abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"." ".$row['score']." ";
    }
 
