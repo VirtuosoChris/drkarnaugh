@@ -41,9 +41,9 @@ public class KarnaughShaders
     "   Binormal=cross(Normal,Tangent);"+"\n"+
 	"   gl_TexCoord[0]=gl_MultiTexCoord0;"+
 	//"   NormalTransform=transpose(NormalTransform);"+
-	//"   Position = (gl_ModelViewMatrix*gl_Vertex).xyz; "+
+	"   Position = (gl_ModelViewMatrix*gl_Vertex).xyz; "+
 	"   gl_Position = ftransform();"+"\n"+
-	"   Position = gl_Position.xyz;"+"\n"+
+	//"   Position = gl_Modelgl_Vertex.xyz;"+"\n"+
 	"}"+"\n"+
 	"";
 	
@@ -63,7 +63,7 @@ public class KarnaughShaders
 		"    vec3 N = gl_NormalMatrix*ntransform*normalcolor.rgb;"+
 		//"	 ntransform=transpose(ntransform);" +
 		
-		"    vec3 LightDot=Position.xyz;"+
+		"    vec3 LightDot=-Position.xyz;"+
 		"    LightDot = normalize(LightDot);"+
 		//"	 N =ntransform;"+"\n"+
 		"    vec3 M = vec3(1.0,0.9,0.9)*max(dot(N,LightDot),0.0);"+
