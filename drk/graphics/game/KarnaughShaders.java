@@ -28,41 +28,47 @@ public class KarnaughShaders
 	
 	
 	static final String LightingRenderVertex=
-	"varying mat3 NormalTransform;"+"\n"+
+
+	"varying vec3 Binormal;"+
 	"varying vec3 Position;"+
+	"varying vec3 Normal;"+
+	"varying vec3 Tangent;"+
+	
 	"void main(void)"+"\n"+
 	"{"+"\n"+
-	"   const vec3 up=vec3(0.0,1.0,0.0);"+"\n"+
-	"   const vec3 side=vec3(0.0,0.0,1.0);"+"\n"+
-	"   NormalTransform[1]=normalize(gl_Normal);"+"\n"+
-	"   vec3 c1 = cross(NormalTransform[1],up);"+"\n"+
-	"   vec3 c2 = cross(NormalTransform[1],side);"+"\n"+
-	"	if(dot(c1,c1) < dot(c2,c2))"+"\n"+
-	"   {"+"\n"+
-	"        NormalTransform[2] = normalize(c2);"+"\n"+
-    "        NormalTransform[0] = normalize(cross(NormalTransform[1],NormalTransform[2]));"+"\n"+
-    "   }"+"\n"+
-    "   else"+"\n"+
-	"	{"+"\n"+
-	"        NormalTransform[0] = normalize(c1);"+"\n"+
-	"        NormalTransform[2] = normalize(cross(NormalTransform[0],NormalTransform[1])); //should these be switched?"+"\n"+
-	"   }"+"\n"+
+	"   Tangent=gl_MultiTexCoord1.xyz;"+"\n"+
+    "   Normal=gl_Normal;"+"\n"+
+    "   Binormal=cross(Normal,Tangent);"+"\n"+
 	"   gl_TexCoord[0]=gl_MultiTexCoord0;"+
-	"   NormalTransform=transpose(NormalTransform);"+
-	"   Position = (gl_ModelViewMatrix*gl_Vertex).xyz; "+
+	//"   NormalTransform=transpose(NormalTransform);"+
+	//"   Position = (gl_ModelViewMatrix*gl_Vertex).xyz; "+
 	"   gl_Position = ftransform();"+"\n"+
+	"   Position = gl_Position.xyz;"+"\n"+
 	"}"+"\n"+
 	"";
 	
 	static final String LightingRenderFragment=
 		"uniform sampler2D texture,surface;\n" +
-		"varying mat3 NormalTransform;"+"\n"+
+		"varying vec3 Binormal;"+
+		"varying vec3 Position;"+
+		"varying vec3 Normal;"+
+		"varying vec3 Tangent;"+
 		"void main (void)"+"\n"+
 		"{"+"\n"+
-		"    vec4 outcolor = texture2D(surface,gl_TexCoord[0].st);\n" +
-		"    vec3 N = normalize(NormalTransform*outcolor.rgb);"+"\n"+
+		"    vec4 normalcolor = texture2D(surface,gl_TexCoord[0].st);\n" +
+		"    vec4 diffuse     = texture2D(texture,gl_TexCoord[0].st);"+
+		"    const mat3 ntransform=mat3(Binormal,Tangent,Normal);" +
+		"    normalcolor.rgb/=normalcolor.a;"+
+		"    normalcolor.rgb=normalize(normalcolor.rgb*2.0-1.0);"+
+		"    vec3 N = gl_NormalMatrix*ntransform*normalcolor.rgb;"+
+		//"	 ntransform=transpose(ntransform);" +
+		
+		"    vec3 LightDot=Position.xyz;"+
+		"    LightDot = normalize(LightDot);"+
+		//"	 N =ntransform;"+"\n"+
+		"    vec3 M = vec3(1.0,0.9,0.9)*max(dot(N,LightDot),0.0);"+
 	//	"vec3 L = gl_LightSource[0].position.xyz - gl_FragCoord.xyz; "+"\n"+
-	"	gl_FragColor = vec4((N+1.0)/2,1.0);"+"\n"+
+	"	gl_FragColor = diffuse*vec4(M,1.0);"+"\n"+
 
 	"	}"+"\n"+
 	"";

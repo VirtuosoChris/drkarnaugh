@@ -1,6 +1,6 @@
 package drk.graphics.game;
 import java.nio.FloatBuffer;
-
+import drk.Vector3D;
 import com.sun.opengl.util.*;
 import javax.media.opengl.*;
 
@@ -15,6 +15,36 @@ public class HorrorWallMazeGeometry
 	static float abs(float a)
 	{
 		return (a > 0 ? a : -a);
+	}
+	
+	public static Vector3D getTangent(Vector3D Normal)
+	{
+		Vector3D Tangent=new Vector3D();
+		if(Normal.x > 0.0)
+		{
+			Tangent.z=1.0;
+		}
+		else if(Normal.x < 0.0)
+		{
+			Tangent.z=-1.0;
+		}
+		else if(Normal.y > 0.0)
+		{
+			Tangent.x=1.0;
+		}
+		else if(Normal.y < 0.0)
+		{
+			Tangent.x=-1.0;
+		}
+		else if(Normal.z > 0.0)
+		{
+			Tangent.y=1.0;
+		}
+		else
+		{
+			Tangent.y=-1.0;
+		}
+		return Tangent;
 	}
 	static int buildWallsVBO(GL gl)
 	{
@@ -261,6 +291,18 @@ public class HorrorWallMazeGeometry
 		dw,ROOM_HEIGHT,-l,
 		-dw,ROOM_HEIGHT,-l,
 		};		
+		
+		float[] TangentFloats=new float[NFloats.length];
+		Vector3D temptangent=Vector3D.tmpv;
+		for(int i=0; i < TangentFloats.length/3;i++)
+		{
+			temptangent.equals(NFloats[3*i],NFloats[3*i+1],NFloats[3*i+2]);
+			temptangent=getTangent(temptangent);
+			TangentFloats[3*i]=(float)temptangent.x;
+			TangentFloats[3*i+1]=(float)temptangent.y;
+			TangentFloats[3*i+2]=(float)temptangent.z;
+		}
+		
 	
 		
 		//Tesselator.  Tesselates the base blocks below into subquads arranged by brick scale.  This is so there may be as little repetition
@@ -345,7 +387,7 @@ public class HorrorWallMazeGeometry
 	
 		numv=NewVertices.size()/3;
 		 */
-		FloatBuffer databuf=BufferUtil.newFloatBuffer(numv*(2+3+3)); //per pixel data size
+		FloatBuffer databuf=BufferUtil.newFloatBuffer(numv*(2+3+3+3)); //per pixel data size
 	//	float[] array=NewVertices.toArray();
 		/*float[] array=new float[NewVertices.size()];
 		for(int i=0;i<NewVertices.size();i++)
@@ -365,6 +407,8 @@ public class HorrorWallMazeGeometry
 	//	databuf.put
 		databuf.put(VFloats);
 		databuf.put(NFloats);
+		databuf.put(TangentFloats);
+	//	databuf.put(BitangentFloats);
 		databuf.put(TFloats);
 		databuf.rewind();
 		
@@ -377,7 +421,7 @@ public class HorrorWallMazeGeometry
 		gl.glBindBufferARB( GL.GL_ARRAY_BUFFER_ARB, WallsVBO);
 		 // Copy data to the server into the VBO.
 		 gl.glBufferDataARB( GL.GL_ARRAY_BUFFER_ARB,
-		                     numv*4*8,databuf,  //load 4bytes/float*8floatspervertex into GPU memory
+		                     numv*4*(3+3+3+2),databuf,  //load 4bytes/float*8floatspervertex into GPU memory
 		                     GL.GL_STATIC_DRAW_ARB );
 		 return WallsVBO;
 	}
