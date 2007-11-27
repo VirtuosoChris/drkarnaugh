@@ -27,7 +27,8 @@ public class HorrorWallMaze extends RenderableMaze
 	Texture planksnormals;
 	final static boolean ALWAYSROOM=false;
 	GLLightSource camlight;
-	GLSLShader FinalOutputShader;
+	GLLightSource roomlight;
+	public GLSLShader FinalOutputShader;
 	public HorrorWallMaze(int w, int h)
 	{
 		super(w, h);
@@ -91,20 +92,25 @@ public class HorrorWallMaze extends RenderableMaze
 			gl.glActiveTexture(GL.GL_TEXTURE1);
 			gl.glClientActiveTexture(GL.GL_TEXTURE1);
 			im=ImageIO.read(HorrorWallMaze.class.getResource("brickssurface.png"));
-			bricksnormals=TextureIO.newTexture(im, false);
-			bricksnormals.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER,GL.GL_NEAREST);
+			bricksnormals=TextureIO.newTexture(im, true);
+			bricksnormals.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER,GL.GL_NEAREST_MIPMAP_NEAREST);
 			bricksnormals.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER,GL.GL_NEAREST);
 			bricksnormals.setTexParameteri(GL.GL_TEXTURE_WRAP_S,GL.GL_REPEAT);
 			bricksnormals.setTexParameterf(GL.GL_TEXTURE_WRAP_T,GL.GL_REPEAT);
 			
 			im=ImageIO.read(HorrorWallMaze.class.getResource("plankssurface.png"));
-			planksnormals=TextureIO.newTexture(im, false);
-			planksnormals.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER,GL.GL_NEAREST);
+			planksnormals=TextureIO.newTexture(im, true);
+			planksnormals.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER,GL.GL_NEAREST_MIPMAP_NEAREST);
 			planksnormals.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER,GL.GL_NEAREST);
 			planksnormals.setTexParameteri(GL.GL_TEXTURE_WRAP_S,GL.GL_REPEAT);
 			planksnormals.setTexParameterf(GL.GL_TEXTURE_WRAP_T,GL.GL_REPEAT);
 			
 			this.camlight=new GLLightSource(GL.GL_LIGHT0);
+			camlight.Color=new Vector3D(1.0,.75,.4);
+			camlight.Attenuation=new Vector3D(.85,0.0,0.065);
+			roomlight=new GLLightSource(GL.GL_LIGHT1);
+			roomlight.Color=new Vector3D(1.0,.82,.2);
+			roomlight.Attenuation=new Vector3D(1.0,0.2,0.1);
 			
 			gl.glActiveTexture(GL.GL_TEXTURE0);
 			gl.glClientActiveTexture(GL.GL_TEXTURE0);
@@ -388,7 +394,7 @@ public class HorrorWallMaze extends RenderableMaze
 		if(id < 0 || id >= RoomList.size()) return null;
 		return RoomList.get(id);
 	}
-	
+
 	public void render(GL gl)
 	{
 		if(!isInitialized())
@@ -398,6 +404,7 @@ public class HorrorWallMaze extends RenderableMaze
 		//gl.glFrontFace(GL.GL_CCW);
 		FinalOutputShader.applyShader();
 		time+=900.0f*this.dt.ddt;
+		
 		FinalOutputShader.setUniformFloat(thandle,time);
 		gl.glUniform1i(colorobj,0); //set "texture" to texure unit 0
 		gl.glUniform1i(surfaceobj,1);//set "surface" to texture unit 0
@@ -407,6 +414,9 @@ public class HorrorWallMaze extends RenderableMaze
 		int cz=getRoomZ(croom);
 		gl.glEnable(GL.GL_LIGHTING);
 		this.camlight.enable(gl);
+		this.roomlight.enable(gl);
+		this.roomlight.Position=this.getRoomMiddle(croom);
+		roomlight.Position.eplus(new Vector3D(Math.sin(time),this.DOOR_HEIGHT,Math.cos(time)));
 		//gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL.GL_LINE); //set the polygon mode
 		if(mc.Position.y > ROOM_HEIGHT || ALWAYSROOM)
 		{
@@ -454,6 +464,7 @@ public class HorrorWallMaze extends RenderableMaze
 
 	public void update()
 	{
+		
 	// TODO Auto-generated method stub
 
 	}

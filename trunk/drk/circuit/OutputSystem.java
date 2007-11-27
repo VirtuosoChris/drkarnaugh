@@ -2,6 +2,16 @@ package drk.circuit;
 import java.io.*;
 import drk.maze.MazeItem;
 import drk.game.KarnaughGame;
+import drk.graphics.game.HorrorWallMaze;
+import drk.graphics.game.HorrorWallMazeGeometry;
+
+import com.sun.opengl.util.texture.*;
+
+import javax.imageio.ImageIO;
+import javax.media.opengl.*;
+
+import java.awt.image.*;
+import drk.Vector3D;
 public abstract class OutputSystem extends MazeItem
 {
 	public abstract boolean evaluate();
@@ -32,10 +42,199 @@ public abstract class OutputSystem extends MazeItem
 		}
 	}
 	
-/*	public void render(GL gl)
+	boolean init=false;
+	Texture metal;
+	Texture metalsurf;
+	void initialize(GL gl)
 	{
-		super.render(gl);
-	}*/
+		try
+		{
+			BufferedImage im=ImageIO.read(OutputSystem.class.getResource("metal.jpg"));
+			metal = TextureIO.newTexture(im,true);
+			metal.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER,GL.GL_LINEAR_MIPMAP_LINEAR);
+			metal.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER,GL.GL_LINEAR);
+			metal.setTexParameteri(GL.GL_TEXTURE_WRAP_S,GL.GL_REPEAT);
+			metal.setTexParameterf(GL.GL_TEXTURE_WRAP_T,GL.GL_REPEAT);
+			gl.glActiveTexture(GL.GL_TEXTURE1);
+			gl.glClientActiveTexture(GL.GL_TEXTURE1);
+			im=ImageIO.read(OutputSystem.class.getResource("metalsurf.png"));
+			metalsurf=TextureIO.newTexture(im, true);
+			metalsurf.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER,GL.GL_NEAREST_MIPMAP_NEAREST);
+			metalsurf.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER,GL.GL_NEAREST);
+			metalsurf.setTexParameteri(GL.GL_TEXTURE_WRAP_S,GL.GL_REPEAT);
+			metalsurf.setTexParameterf(GL.GL_TEXTURE_WRAP_T,GL.GL_REPEAT);
+			gl.glActiveTexture(GL.GL_TEXTURE0);
+			gl.glClientActiveTexture(GL.GL_TEXTURE0);
+		}
+		catch(Exception e)
+		{
+			System.err.println("The output texure failed");
+			drk.KarnaughLog.log(e);
+		}
+		
+	}
+	static final float CWIDTH=1.0f;
+	public void render(GL gl)
+	{
+		if(!init)
+		{
+			initialize(gl);
+			init=true;
+		}
+		
+		gl.glActiveTexture(GL.GL_TEXTURE1);
+		metalsurf.enable();
+		metalsurf.bind();
+		gl.glActiveTexture(GL.GL_TEXTURE0);
+		metal.enable();
+		metal.bind();
+		
+		Vector3D Tangent=Vector3D.tmpv;
+		
+		gl.glBegin(GL.GL_QUADS);
+		{
+			gl.glNormal3f(0.0f, 1.0f,0.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(0.0,1.0,0.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,0.0f,0.0f);
+			gl.glVertex3f(-CWIDTH,CWIDTH*.5f,-CWIDTH);
+			
+			gl.glNormal3f(0.0f, 1.0f,0.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(0.0,1.0,0.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,0.0f,1.0f);
+			gl.glVertex3f(-CWIDTH,CWIDTH*.5f,CWIDTH);
+			
+			gl.glNormal3f(0.0f, 1.0f,0.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(0.0,1.0,0.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,1.0f,1.0f);
+			gl.glVertex3f(CWIDTH,CWIDTH*.5f,CWIDTH);
+			
+			gl.glNormal3f(0.0f, 1.0f,0.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(0.0,1.0,0.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,1.0f,0.0f);
+			gl.glVertex3f(CWIDTH,CWIDTH*.5f,-CWIDTH);
+			
+			
+			
+			gl.glNormal3f(0.0f, 0.0f,1.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(0.0,0.0,1.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,0.0f,0.0f);
+			gl.glVertex3f(-CWIDTH,CWIDTH*.5f,CWIDTH);
+			
+			gl.glNormal3f(0.0f, 0.0f,1.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(0.0,0.0,1.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,0.0f,0.5f);
+			gl.glVertex3f(-CWIDTH,0.0f,CWIDTH);
+			
+			
+			gl.glNormal3f(0.0f, 0.0f,1.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(0.0,0.0,1.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,1.0f,0.5f);
+			gl.glVertex3f(CWIDTH,0.0f,CWIDTH);
+			
+			gl.glNormal3f(0.0f, 0.0f,1.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(0.0,0.0,1.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,1.0f,0.0f);
+			gl.glVertex3f(CWIDTH,CWIDTH*.5f,CWIDTH);
+			
+			
+			
+			
+			
+			
+			
+			gl.glNormal3f(0.0f, 0.0f,-1.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(0.0,0.0,-1.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,1.0f,0.0f);
+			gl.glVertex3f(CWIDTH,CWIDTH*.5f,-CWIDTH);
+			
+			gl.glNormal3f(0.0f, 0.0f,-1.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(0.0,0.0,-1.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,1.0f,0.5f);
+			gl.glVertex3f(CWIDTH,0.0f,-CWIDTH);
+			
+			gl.glNormal3f(0.0f, 0.0f,-1.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(0.0,0.0,-1.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,0.0f,0.5f);
+			gl.glVertex3f(-CWIDTH,0.0f,-CWIDTH);
+			
+			gl.glNormal3f(0.0f, 0.0f,-1.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(0.0,0.0,-1.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,0.0f,0.0f);
+			gl.glVertex3f(-CWIDTH,CWIDTH*.5f,-CWIDTH);
+			
+			
+			
+			
+			
+			
+	
+		
+			
+			gl.glNormal3f(1.0f, 0.0f,0.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(1.0,0.0,0.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,1.0f,0.0f);
+			gl.glVertex3f(CWIDTH,CWIDTH*.5f,CWIDTH);
+			
+			gl.glNormal3f(1.0f, 0.0f,0.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(1.0,0.0,0.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,1.0f,0.5f);
+			gl.glVertex3f(CWIDTH,0.0f,CWIDTH);
+			
+			gl.glNormal3f(1.0f, 0.0f,0.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(1.0,0.0,0.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,0.0f,0.5f);
+			gl.glVertex3f(CWIDTH,0.0f,-CWIDTH);
+			
+			gl.glNormal3f(1.0f, 0.0f,0.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(1.0,0.0,0.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,0.0f,0.0f);
+			gl.glVertex3f(CWIDTH,CWIDTH*.5f,-CWIDTH);
+			
+			
+			gl.glNormal3f(-1.0f, 0.0f,0.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(-1.0,0.0,0.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,0.0f,0.0f);
+			gl.glVertex3f(-CWIDTH,CWIDTH*.5f,-CWIDTH);
+			
+			gl.glNormal3f(-1.0f, 0.0f,0.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(-1.0,0.0,0.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,0.0f,0.5f);
+			gl.glVertex3f(-CWIDTH,0.0f,-CWIDTH);
+			
+			gl.glNormal3f(-1.0f, 0.0f,0.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(-1.0,0.0,0.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,1.0f,0.5f);
+			gl.glVertex3f(-CWIDTH,0.0f,CWIDTH);
+			
+			gl.glNormal3f(-1.0f, 0.0f,0.0f);
+			Tangent=HorrorWallMazeGeometry.getTangent(new Vector3D(-1.0,0.0,0.0));
+			gl.glMultiTexCoord3f(GL.GL_TEXTURE1,(float)Tangent.x,(float)Tangent.y,(float)Tangent.z);
+			gl.glMultiTexCoord2f(GL.GL_TEXTURE0,1.0f,0.0f);
+			gl.glVertex3f(-CWIDTH,CWIDTH*.5f,CWIDTH);
+		}
+		gl.glEnd();
+		//super.render(gl);
+		
+	}
 	
 	
 	//when the object is highlighted, do this stuff
