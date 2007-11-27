@@ -259,23 +259,21 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	
 	
 		//set the cursor based on the current gamestate
-		if(!hasWire)
+		if(!hasWire){
 		overlays.currentCursor = overlays.cursor;
-		else
+		
+			if(Time > 0)updateInfo("");
+			else updateInfo("RUN! The Bunny is after you!");
+		
+		}else{//if has wire
+			if((doubleClickLeft||doubleClickRight))discardWire();
 			overlays.currentCursor = overlays.wireHand;
+			updateInfo("Double Click to discard wire"); //tutorial tip on the status bar
+		}
 		
 		//if the user double clicks while holding a wire, discard it
-		if(hasWire&&(doubleClickLeft||doubleClickRight))discardWire();
-		
-		if(!hasWire){
 		
 		
-		if(Time >= 0)updateInfo("");
-		else updateInfo("RUN! The Bunny is after you!");
-		
-		
-		}
-		else updateInfo("Double Click to discard wire"); //tutorial tip on the status bar
 		
 	
 		
