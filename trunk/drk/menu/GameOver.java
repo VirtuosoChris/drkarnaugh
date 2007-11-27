@@ -8,14 +8,14 @@ public class GameOver extends JFrame{
 	
 	public static JFrame gameover;
 
-	public static void gameOver(){
+	public static void gameisOver(){
 		gameover = new JFrame();
 		gameover.setUndecorated(true);
 		gameover.setSize(800, 600);                
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         gameover.setBounds((screenSize.width-800)/2, (screenSize.height-600)/2, 800, 600);
         
-        ImageIcon gobunny = new ImageIcon("Bunny.gif");
+        ImageIcon gobunny = new ImageIcon("Bunny.jpg");
         JLabel goLabel = new JLabel(gobunny);
         goLabel.setBounds(0, 0, gobunny.getIconWidth(), gobunny.getIconHeight());
        
@@ -26,6 +26,8 @@ public class GameOver extends JFrame{
 			public void keyPressed(KeyEvent ke){
 				if(ke.getKeyCode() == KeyEvent.VK_SPACE)
 					gameover.dispose();
+					Menu mainMenu = new Menu();
+					mainMenu.GameGUI();
 			}
 		});
 		gameover.requestFocus();
@@ -33,7 +35,7 @@ public class GameOver extends JFrame{
 	}
 	
 	public static void main(String args[]){
-		gameOver();
+		gameisOver();
 	}
 	
 }
