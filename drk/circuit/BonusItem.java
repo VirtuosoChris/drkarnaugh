@@ -31,9 +31,12 @@ if(!pickedUp){
 }
 
 
+
 public void render(GL gl){
 	if(!pickedUp)
+	{
 		super.render(gl);
+	}
 }
 	
 
