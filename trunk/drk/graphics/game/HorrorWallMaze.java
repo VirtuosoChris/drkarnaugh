@@ -107,7 +107,7 @@ public class HorrorWallMaze extends RenderableMaze
 			
 			this.camlight=new GLLightSource(GL.GL_LIGHT0);
 			camlight.Color=new Vector3D(1.0,.75,.4);
-			camlight.Attenuation=new Vector3D(.85,0.0,0.065);
+			camlight.Attenuation=new Vector3D(1.0,0.0,0.105);
 			roomlight=new GLLightSource(GL.GL_LIGHT1);
 			roomlight.Color=new Vector3D(1.0,.82,.2);
 			roomlight.Attenuation=new Vector3D(1.0,0.2,0.1);

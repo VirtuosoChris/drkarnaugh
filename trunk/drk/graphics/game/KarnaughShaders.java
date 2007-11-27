@@ -30,11 +30,11 @@ public class KarnaughShaders
 	static final String LightingRenderVertex=
 
 	"varying vec3 Binormal;"+
+	"varying vec3 Position;"+
 	"varying vec3 Normal;"+
 	"varying vec3 Tangent;"+
 	"varying vec3 Lpos;"+
-	"varying vec3 Lpos2;"+
-	"varying vec2 dist;"+
+	"varying float dist;"+
 	"void main(void)"+"\n"+
 	"{"+"\n"+
 	"   Tangent=gl_MultiTexCoord1.xyz;"+"\n"+
@@ -42,11 +42,10 @@ public class KarnaughShaders
     "   Binormal=cross(Normal,Tangent);"+"\n"+
 	"   gl_TexCoord[0]=gl_MultiTexCoord0;"+
 	//"   NormalTransform=transpose(NormalTransform);"+
-	"   const vec3 Position = (gl_ModelViewMatrix*gl_Vertex).xyz; "+
+	"   Position = (gl_ModelViewMatrix*gl_Vertex).xyz; "+
 	"   gl_Position = ftransform();"+"\n"+
 	"   Lpos = gl_LightSource[0].position.xyz - Position.xyz;"+"\n"+
-	"   Lpos2 = gl_LightSource[1].position.xyz - Position.xyz;"+"\n"+
-	"   dist = vec2(length(Lpos),length(Lpos2));"+
+	"   dist = length(Lpos);"+
 	//"   Position = gl_Modelgl_Vertex.xyz;"+"\n"+
 	"}"+"\n"+
 	"";
@@ -54,35 +53,26 @@ public class KarnaughShaders
 	static final String LightingRenderFragment=
 		"uniform sampler2D texture,surface;\n" +
 		"varying vec3 Binormal;"+
+		"varying vec3 Position;"+
 		"varying vec3 Normal;"+
 		"varying vec3 Tangent;"+
 		"varying vec3 Lpos;"+
-		"varying vec3 Lpos2;"+
-		"varying vec2 dist;"+
+		"varying float dist;"+
 		"vec3 getNormal();"+
 		"const vec3 latt=vec3(" +
 		"gl_LightSource[0].constantAttenuation," +
 		"gl_LightSource[0].linearAttenuation," +
 		"gl_LightSource[0].quadraticAttenuation);"+
 		
-		"const vec3 latt2=vec3(" +
-				"gl_LightSource[1].constantAttenuation," +
-				"gl_LightSource[1].linearAttenuation," +
-				"gl_LightSource[1].quadraticAttenuation);"+
 		"void main (void)"+"\n"+
 		"{"+"\n"+
 		"    vec4 diffuse = texture2D(texture,gl_TexCoord[0].st);"+
 		"    const vec3 N = getNormal();"+
 		"    const vec3 LightDot= normalize(Lpos);"+
-		"    const vec3 Light2Dot=normalize(Lpos2);"+
-		"    const  vec3 distv = vec3(1,dist.x,dist.x*dist.x);"+
-		"    const vec3  dist2v= vec3(1,dist.y,dist.y*dist.y);"+
-		"    const float att=1.0/dot(latt,distv);"+		
-		"    const float att2=1.0/dot(latt2,dist2v);"+
+		"    const  vec3 distv = vec3(1,dist,dist*dist);"+
+		"    float att=1.0/dot(latt,distv);"+		
 		"    const vec3 M = gl_LightSource[0].diffuse.rgb*max(dot(N,LightDot),0.0)*att;"+
-		"    const vec3 M2 = gl_LightSource[1].diffuse.rgb*max(dot(N,Light2Dot),0.0)*att2;"+
-		
-		"    gl_FragColor=diffuse*vec4(M+M2,1.0);"+
+		"    gl_FragColor=diffuse*vec4(M,1.0);"+
 	"	}"+"\n"+
 	"   vec3 getNormal()"+
 	"   {" +
