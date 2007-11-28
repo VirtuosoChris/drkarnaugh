@@ -114,8 +114,15 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 	public void update(){
 		ec.update();
 		//check for key presses and update camera accordingly
-		
-		
+			
+	}
+	
+	public void frameVisible(){
+		jf.dispose();
+	}
+	
+	public void closeGL(){
+		super.closeGL();
 	}
 	
 	public static void main(String[] argv)

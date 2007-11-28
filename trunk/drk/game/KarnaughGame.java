@@ -9,6 +9,8 @@ import drk.*;
 import drk.maze.*;
 import drk.circuit.*;
 import drk.sound.*;
+import drk.menu.GameOver;
+import drk.menu.Menu;
 import javax.media.opengl.*;
 import java.awt.event.*;
 import java.util.*;
@@ -34,6 +36,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	protected int songID = 0; //id for use with the sound engine
 
 	public boolean hasWire = false;
+	
+	protected MazeGame glWindow;
 	
 //	public ArrayList<Wire> wires = null; //collection of wires within the maze
 	
@@ -61,8 +65,6 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		overlays.initialize(gl);
 		
 	}
-
-	
 	
 	
 	//constructor-- initialize the variables
@@ -141,9 +143,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	//when the game is over by death or winning manage endgame situation
 	//TODO URGENT*****
 	public void gameOver(){
-		//submit score
-		//high score table
-		//return to menu
+		
 	}
 	
 	
@@ -151,6 +151,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	//if you die, it's game over
 	public void die(){
 		//do stuff -- like knock the camera over and shoot blood everywhere
+		GameOver.gameisOver();
 		gameOver();
 		
 	}
@@ -337,7 +338,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			}else{
 			KarnaughLog.log("Could not open song file");
 			}
-			
+			frameVisible();
 			die();
 		}
 		}
@@ -363,6 +364,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	
 	//starts a new game at map01
 	public static void mainGame(){
+		Menu.story.dispose();
 		KarnaughLog.clearLog();
 		KarnaughLog.log("Starting Dr. Karnaugh's Lab");
 		
