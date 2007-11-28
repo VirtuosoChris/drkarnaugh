@@ -10,7 +10,7 @@ import drk.maze.*;
 import drk.circuit.*;
 import drk.sound.*;
 import drk.menu.GameOver;
-import drk.menu.Menu;
+import drk.menu.*;
 import javax.media.opengl.*;
 import java.awt.event.*;
 import java.util.*;
@@ -181,6 +181,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		}	
 		
 		else{
+			WinMenu.WinGame();
 			gameOver();
 		}
 		
@@ -364,7 +365,6 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	
 	//starts a new game at map01
 	public static void mainGame(){
-		Menu.story.dispose();
 		KarnaughLog.clearLog();
 		KarnaughLog.log("Starting Dr. Karnaugh's Lab");
 		
@@ -372,6 +372,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		m.loadMap("map01.kar");
 		m.camera.fovy = 30;
 	    m.doMain(GAME_WIDTH,GAME_HEIGHT,null,true);
+	    Menu.story.dispose();
 	}
 	
 	
