@@ -1,22 +1,18 @@
 package drk.menu;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
+import java.util.ArrayList;
 import javax.swing.*;
- 
-/*This is just a test credits class. Feel free to change or use anything here.
- *I figured that at the end of the game we could show the final story and then
- *show something like this. I also plan on putting more credits and more elaborate
- *credits to the authors of the resources in the help file. Tommarrow I will work
- *on creating like a final story menu, sort of like I did with the intro menu.*/
+import drk.menu.*;
 
-@SuppressWarnings("serial")
 public class Credits extends JPanel implements ActionListener{
 	
+	protected static JFrame frame;
 	protected ArrayList<String> buffer;
 	protected int lines;
 	protected int i;
- 
+	protected Timer timer;
+ 	
 	public Credits(String[] text, int lines, int interval){
 		
 		i = 0;
@@ -29,16 +25,29 @@ public class Credits extends JPanel implements ActionListener{
 		}
 		this.lines = lines;
 		this.setBackground(Color.black);
-		new javax.swing.Timer(interval, this).start();
+		timer = new javax.swing.Timer(interval, this);
+		timer.start();
 	}
  
 	public void paintComponent(Graphics g){
 		
 		if(i == lines*2){
+			timer.stop();
 			super.paintComponent(g);
 			g.setColor(new Color(0.0f, 0.5f, 0.5f).brighter().brighter());
 			g.setFont(new Font("Serif", Font.BOLD, 36));
 			g.drawString("THE END", 200, 200);
+			
+			try{
+				Thread.sleep(5000); //For some reason it does not draw THE END like its suppose to.
+				//It is suppose to hold THE END for roughly 5 seconds then send you back to the main menu...
+			}
+			catch(InterruptedException e){
+				e.printStackTrace();
+			}
+			frame.dispose();
+			Menu mainMenu = new Menu();
+			mainMenu.GameGUI();
 		}
 		
 		else{
@@ -85,9 +94,9 @@ public class Credits extends JPanel implements ActionListener{
 			repaint();
 	}
  
-	public static void main(String[] args){
+ 	public static void mainCredit(){
 		
-		JFrame frame = new JFrame();
+		frame = new JFrame("Dr.Karnaugh's Laboratory");
 		String[] credits = {
 		"Special thanks to the Creators",
 		" ",
@@ -108,5 +117,9 @@ public class Credits extends JPanel implements ActionListener{
 		frame.getContentPane().add(new Credits(credits, 12, 700));
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+ 	}
+ 
+	public static void main(String[] args){
+		mainCredit();
 	}
 }
