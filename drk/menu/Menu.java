@@ -8,12 +8,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Menu extends drk.game.KarnaughGame implements KeyListener{
 	
-	JFrame frame, story;
-	JScrollPane scrollPane;
-	ImageIcon icon;
-	JFileChooser gameFile;
-	String newline;
-	JTextArea log;
+	public JFrame frame;
+	public static JFrame story;
+	public JScrollPane scrollPane;
+	public ImageIcon icon;
+	public JFileChooser gameFile;
+	public String newline;
+	public JTextArea log;
 	
 	public Menu(){
 		frame = new JFrame("Dr.Karnaugh's Laboratory");
