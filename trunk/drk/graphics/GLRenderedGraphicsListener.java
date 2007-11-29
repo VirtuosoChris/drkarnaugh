@@ -38,6 +38,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	public JTextArea infoText = new JTextArea();
 	public JTextArea jtc = new JTextArea();
 	public String lineRead[] = new String[4];
+	protected JFrame jf;
 
 	int xPrev, yPrev;
 
@@ -270,7 +271,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 	public static boolean linuxhack=false;
 	public void doMain(int w,int h,GLCapabilities glcaps,boolean runasFast)
 	{
-		JFrame jf=new JFrame("Dr. Karnaugh's Lab");
+		jf=new JFrame("Dr. Karnaugh's Lab");
 		GLCanvas ad = new GLCanvas(glcaps);
 		//ad.addKeyListener(this);
 	
@@ -473,8 +474,6 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 		anim.start();
 		//jf
 	}
-	
-
 	
 	public void updateInfo(int i){
 		infoTable.removeAll();
