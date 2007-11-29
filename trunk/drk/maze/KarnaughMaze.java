@@ -18,6 +18,8 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 	public int timeLimit(){return timelimit;}
 	public String nextLevel(){return nextmap;}
 	
+	public Exit mazeExit;
+		
 	public boolean solution[];//truth table solution for the current map
 	
 	public int numInputs;//how many inputs are there on this map?
@@ -26,6 +28,9 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 	//be plenty
 
 	String filename;
+
+	LogicInput inputsA[];
+
 	
 	//constructor, takes all the variables needed to initailize the game level
 	public KarnaughMaze(int w, int h, int t, String n, ArrayList<MazeItem> c, String sf, String d, boolean s[], int inputs){
@@ -37,14 +42,22 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		songfile = sf;
 		
 		c.add(new Entrance());
-		c.add(new Exit());
+		c.add(mazeExit = new Exit());
 	
 		
 		numInputs = inputs;
 		
 		
+		inputsA = new LogicInput[numInputs];
+		
 		for(int i = 0; i < numInputs; i++){
-			c.add(new LogicInput(false));
+			
+			LogicInput li = new LogicInput(false);
+			
+			c.add(li);
+			
+			inputsA[i] = li;
+			
 		}
 		
 		components = c;

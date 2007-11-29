@@ -15,6 +15,7 @@ import java.awt.Robot;
 
 public abstract class GLRenderedGraphicsListener implements GLEventListener, KeyListener,MouseMotionListener, MouseListener
 {
+	public String ttString = null;
 	
 	protected int width,height;
 	public Camera camera;
@@ -511,6 +512,8 @@ public void updateTT(int x,int numinputs, boolean y){
   		for(int k = j.length(); k < numinputs; k++){ //Add on 0's depending on number of inputs.
    			j = "0".concat(j);
  		}
+ 		
+ 		ttString = j;
  		
  		//System.out.println(""+j+"|"+i);
  		
