@@ -37,10 +37,11 @@ public class GameOver extends JFrame{
      	
 		gameover.addKeyListener(new KeyAdapter(){
 			public void keyPressed(KeyEvent ke){
-				if(ke.getKeyCode() == KeyEvent.VK_SPACE)
+				if(ke.getKeyCode() == KeyEvent.VK_SPACE){
 					gameover.dispose();
 					Menu mainMenu = new Menu();
 					mainMenu.GameGUI();
+				}
 			}
 		});
 		gameover.requestFocus();
