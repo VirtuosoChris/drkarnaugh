@@ -1,7 +1,7 @@
 package drk.game;
 import drk.DeltaTimer;
 import drk.Updatable;
-
+import java.awt.*;
 import drk.graphics.*;
 import drk.maze.*;
 import java.awt.event.*;
