@@ -30,7 +30,15 @@ public class Exit extends OutputSystem {
 		
 		k.inputSource = null;
 		
+		boolean ready = true;
+		
+		for(boolean b: k.ttMatched){
+			if(!b)ready = false;
+		}
+		
+		if(ready){
 		k.winMap();
+		}
 		
 	}
 	
