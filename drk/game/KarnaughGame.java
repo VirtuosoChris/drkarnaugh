@@ -183,6 +183,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		}	
 		
 		else{
+			SoundStreamer.stopPlayImmediately(songID);
+			frameVisible();
 			WinMenu.WinGame();
 			gameOver();
 		}
@@ -276,7 +278,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		
 		super.update();
 	
-	
+		
 		//set the cursor based on the current gamestate
 		if(!hasWire){
 		overlays.currentCursor = overlays.cursor;
@@ -298,7 +300,9 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		
 		//TODO URGENT**** get rid of this, go to the menu instead, pause game, SOMETHING
 		if(isKeyPressed(KeyEvent.VK_ESCAPE)){
-			System.exit(0);
+			frameVisible();
+			Menu mainMenu = new Menu();
+			mainMenu.GameGUI();
 		}
 		
 	
@@ -372,6 +376,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			KarnaughLog.log("Could not open song file");
 			}
 			frameVisible();
+			SoundStreamer.stopPlayImmediately(songID);
 			die();
 		}
 		}
@@ -420,9 +425,6 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	}
 	
 
-	
-	
-	
 	//runs a test iteration of the game
 	public static void main(String args[]){
 			
