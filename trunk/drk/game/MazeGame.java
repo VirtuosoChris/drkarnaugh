@@ -117,8 +117,12 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 			
 	}
 	
-	public void frameVisible(){
+	public void frameClose(){
 		jf.dispose();
+	}
+	
+	public void frameVisible(){
+		jf.setVisible(false);
 	}
 	
 	public static void main(String[] argv)

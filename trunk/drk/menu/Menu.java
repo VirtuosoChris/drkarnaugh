@@ -203,6 +203,14 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 		exitItem.setMnemonic('X');
 		file.add(exitItem);
 		
+		JMenu options = new JMenu("Options");
+		options.setMnemonic('O');
+		JMenuItem saveGame = new JMenuItem("Save Game");
+		saveGame.setMnemonic('S');
+		options.add(saveGame);
+		JMenuItem loadGame = new JMenuItem("Load Game");
+		options.add(loadGame);
+		
 		JMenu help = new JMenu("Help");
 		help.setMnemonic('H');
 		JMenuItem gameHelp = new JMenuItem("Game Help");
@@ -314,6 +322,22 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 			}
 		);
 		
+		saveGame.addActionListener(
+			new ActionListener(){
+				public void actionPerformed(ActionEvent e){	
+					System.out.println("Saving the game");
+				}
+			}
+		);
+		
+		loadGame.addActionListener(
+			new ActionListener(){
+				public void actionPerformed(ActionEvent e){	
+					System.out.println("Loading the game");
+				}
+			}
+		);
+		
 		gameHelp.addActionListener(
 			new ActionListener(){
 				public void actionPerformed(ActionEvent e){
@@ -344,6 +368,7 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 								
 		JMenuBar menubar = new JMenuBar();
 		menubar.add(file);
+		menubar.add(options);
 		menubar.add(help);
 		
 		return menubar;

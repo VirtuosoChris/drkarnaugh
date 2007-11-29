@@ -263,7 +263,6 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	}
 	
 	
-	
 	public void unPause(){
 		lastUpdate = System.currentTimeMillis();//that way the timer doesn't count off for when the game was paused
 		paused = false;		
@@ -301,6 +300,13 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		//TODO URGENT**** get rid of this, go to the menu instead, pause game, SOMETHING
 		if(isKeyPressed(KeyEvent.VK_ESCAPE)){
 			SoundStreamer.stopPlayImmediately(songID);
+			frameClose();
+			Menu mainMenu = new Menu();
+			mainMenu.GameGUI();
+		}
+		
+		if(isKeyPressed(KeyEvent.VK_M)){
+			paused = true;
 			frameVisible();
 			Menu mainMenu = new Menu();
 			mainMenu.GameGUI();
