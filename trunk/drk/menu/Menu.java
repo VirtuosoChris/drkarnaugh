@@ -15,6 +15,7 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 	public JFileChooser gameFile;
 	public String newline;
 	public JTextArea log;
+	public String userName = null;
 	
 	public Menu(){
 		frame = new JFrame("Dr.Karnaugh's Laboratory");
@@ -44,6 +45,15 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 			new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					System.out.println("Starting a new ranked game");
+					
+						//Adopted from http://www.java2s.com/Code/Java/Swing-JFC/Informationdialogwithcustomizedlogo.htm
+    					do{
+    						userName = (String)JOptionPane.showInputDialog(new JFrame(),
+        										"Please enter your name",
+        										"Player Name", JOptionPane.INFORMATION_MESSAGE);
+    											System.out.println("User's name is: " + userName);
+    					}while(userName == null);
+					
 						story = new JFrame();
 						story.setUndecorated(true);
 						story.setSize(800, 600);                

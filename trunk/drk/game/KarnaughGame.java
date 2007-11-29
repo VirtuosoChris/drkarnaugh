@@ -41,6 +41,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	
 	protected MazeGame glWindow;
 	
+	protected String userName;
 //	public ArrayList<Wire> wires = null; //collection of wires within the maze
 	
 	
@@ -307,6 +308,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		
 		if(isKeyPressed(KeyEvent.VK_M)){
 			paused = true;
+			SoundStreamer.stopPlayImmediately(songID);
 			frameVisible();
 			Menu mainMenu = new Menu();
 			mainMenu.GameGUI();
