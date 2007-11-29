@@ -37,6 +37,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 
 	public boolean hasWire = false;
 	
+	public boolean ttMatched[] = null;
+	
 	protected MazeGame glWindow;
 	
 //	public ArrayList<Wire> wires = null; //collection of wires within the maze
@@ -188,6 +190,16 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	}
 	
 	
+	
+	//ttMatched keeps track of whether the truth table solution matches the current puzzle solution
+	//this method resets ttMatched
+	public void resetMatched(){
+		for(int xb = 0; xb < ttMatched.length; xb++){
+			ttMatched[xb] = false;
+		}
+	}
+	
+	
 	//loads a level.
 	//TODO : Spawn the Camera so that it's always looking down a hallway and not at a wall
 	public boolean loadMap(String m){
@@ -239,6 +251,11 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		}else{
 			KarnaughLog.log("Could not open song file");
 		}
+		
+		int xa = km.solution.length;
+		ttMatched = new boolean[xa];
+		
+		resetMatched();
 		
 		return true;
 	}
@@ -313,13 +330,28 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		//and show them in the status bar so the user can see what they should be matching with their puzzle
 		//TODO URGENT: check here 
 		if(System.currentTimeMillis() - cycleTime >= 2000){
+			
+			//for each input, for each char of ttstring
+			//set the inputs 
+			
+			
+			
+			
 			cycleTime = System.currentTimeMillis();
 			currentOutput = (currentOutput+1)%truthTableSize();
 			updateTT(currentOutput,((KarnaughMaze)m).numInputs,((KarnaughMaze)m).solution[currentOutput]);
+			
+			
+			//ttMatched[currentOutput] = ((KarnaughMaze)m).mazeExit.evaluate() == getCurrentSolution(); 	
+			
+			
+			
 		//	Score = getCurrentSolution() == true?1:0;
 			 
 		}
 		
+		
+	//	System.out.println(ttString);
 		
 		
 		if(Time > 0){
@@ -401,7 +433,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		
 		m.camera.fovy = 30;
 	    
-	    	m.loadMap("map01.kar");
+	    	m.loadMap("map07.kar");
 	    	
 	    	
 	    m.doMain(GAME_WIDTH,GAME_HEIGHT,null,true);
