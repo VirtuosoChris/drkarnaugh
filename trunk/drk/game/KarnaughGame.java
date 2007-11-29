@@ -300,11 +300,11 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		
 		//TODO URGENT**** get rid of this, go to the menu instead, pause game, SOMETHING
 		if(isKeyPressed(KeyEvent.VK_ESCAPE)){
+			SoundStreamer.stopPlayImmediately(songID);
 			frameVisible();
 			Menu mainMenu = new Menu();
 			mainMenu.GameGUI();
 		}
-		
 	
 		//get the object in the room the player is currently in
 		MazeItem x = ((KarnaughMaze)m).getCurrentRoom().getItem();
