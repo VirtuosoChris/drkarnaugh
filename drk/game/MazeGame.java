@@ -121,10 +121,6 @@ public class MazeGame extends GLRenderedGraphicsListener implements KeyListener,
 		jf.dispose();
 	}
 	
-	public void closeGL(){
-		super.closeGL();
-	}
-	
 	public static void main(String[] argv)
 	{
 		MazeGame tgl=new MazeGame();
