@@ -15,7 +15,7 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 	public JFileChooser gameFile;
 	public String newline;
 	public JTextArea log;
-	public String userName = null;
+	public static String userName = null;
 	
 	public Menu(){
 		frame = new JFrame("Dr.Karnaugh's Laboratory");
