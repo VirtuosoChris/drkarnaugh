@@ -42,6 +42,9 @@ public class GameOver extends JFrame{
 					Menu mainMenu = new Menu();
 					mainMenu.GameGUI();
 				}
+				else{
+					
+				}
 			}
 		});
 		gameover.requestFocus();
