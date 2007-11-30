@@ -43,6 +43,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	
 	protected String mapName = "map01.kar";
 	
+	Bunny bunneh = null;
+	
 //	public ArrayList<Wire> wires = null; //collection of wires within the maze
 	
 	
@@ -291,9 +293,13 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	public void update(){
 		
 		if(paused)return;
+	
 		
 		super.update();
 	
+
+		if(bunneh!=null)bunneh.update();
+
 		
 		//set the cursor based on the current gamestate
 		if(!hasWire){
@@ -386,9 +392,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			
 			//for each input, for each char of ttstring
 			//set the inputs 
-			
-			
-			
+		
 			
 			cycleTime = System.currentTimeMillis();
 			currentOutput = (currentOutput+1)%truthTableSize();
@@ -412,6 +416,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		Time -= System.currentTimeMillis() - lastUpdate;
 			
 		if(Time <=0){
+			
+			bunneh = new Bunny(this);
 			
 			Time = 0;
 			final File f = new File("drk/sound/music/mission.mp3");

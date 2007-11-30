@@ -12,8 +12,8 @@ public abstract class MazeItem implements drk.graphics.GLRenderable, MazeItemLis
 	protected Room room = null;
 	protected KarnaughMaze rm = null;
 
-	public static final double boundingRadius = 1.5; //radius of a sphere the user should be looking at in order for a mouse event to flag
-	public static final double distanceRadius = 3.0; //radius of a sphere the user should be inside in order for the mouse event to flag
+	public static double boundingRadius = 1.5; //radius of a sphere the user should be looking at in order for a mouse event to flag
+	public static double distanceRadius = 3.0; //radius of a sphere the user should be inside in order for the mouse event to flag
 	
 	//are both of the sphere collision/look conditions above met?
 	public boolean isMazeItemHighlighted(KarnaughGame k){
