@@ -19,6 +19,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 
 	public int Score = 0; //should be self explanatory
 	
+	public int tempScore = 0;
+	
 	private long Time; //milliseconds remaining
 	
 	public boolean paused; //should also be self explanatory
@@ -38,6 +40,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	//public boolean ttMatched[] = null;
 	
 	protected MazeGame glWindow;
+	
+	protected String mapName = "map01.kar";
 	
 //	public ArrayList<Wire> wires = null; //collection of wires within the maze
 	
@@ -68,7 +72,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	
 	
 	public KarnaughMaze getMaze(){
-		return (KarnaughMaze)m;
+		return (KarnaughMaze)m; 
 	
 	}
 	
@@ -184,13 +188,14 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			
 			Score += secondsLeft();
 			Score += minutesLeft()*65;//five point bonus for each whole minute
-			
+			tempScore = tempScore + Score;
 			//bonus items score
 			//wire amount bonus
 			
 			
 		if(!((KarnaughMaze)this.m).nextmap.equals("LAST_LEVEL")){
 			loadMap( ((KarnaughMaze)this.m).mapDirectory+((KarnaughMaze)this.m).nextmap);
+			mapName = ((KarnaughMaze)this.m).nextmap;
 		}	
 		
 		else{
@@ -285,7 +290,6 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	//one iteration of the game loop
 	public void update(){
 		
-		
 		if(paused)return;
 		
 		super.update();
@@ -317,6 +321,25 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			Menu mainMenu = new Menu();
 			mainMenu.GameGUI();
 		}
+		
+		//Need to set a temp score so that score doesnt get reset.
+		/*if(isKeyPressed(KeyEvent.VK_R)){
+			SoundStreamer.stopPlayImmediately(songID);
+			if(tempScore == 0){
+				if(Score == 0)
+					tempScore = Score;
+				else
+					tempScore = Score - 10;
+			}
+			else
+				tempScore = tempScore - 10;
+			frameClose();
+			KarnaughGame m = new KarnaughGame();
+			this.Score = this.tempScore;
+			m.loadMap(mapName);
+			m.camera.fovy = 30;
+	    	m.doMain(GAME_WIDTH,GAME_HEIGHT,null,true);
+		}*/
 		
 		/*if(isKeyPressed(KeyEvent.VK_M)){
 			paused = true;
@@ -381,8 +404,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		if(Time > 0){
 		
 		Time -= System.currentTimeMillis() - lastUpdate;
-	
-		
+			
 		if(Time <=0){
 			
 			Time = 0;
