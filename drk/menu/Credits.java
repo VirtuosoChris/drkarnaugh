@@ -3,8 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
-import drk.menu.*;
 
+@SuppressWarnings("serial")
 public class Credits extends JPanel implements ActionListener{
 	
 	protected static JFrame frame;

@@ -5,7 +5,6 @@ package drk.maze;
 import javax.media.opengl.*;
 import javax.media.opengl.glu.*;
 import drk.game.KarnaughGame;
-import drk.Vector3D;
 import drk.graphics.game.HorrorWallMaze;
 
 

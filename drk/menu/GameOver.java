@@ -1,18 +1,18 @@
 package drk.menu;
-import drk.sound.*;
-import javax.sound.sampled.*;
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.*;
 
+@SuppressWarnings("serial")
 public class GameOver extends JFrame{
 	
 	public static JFrame gameover;
 
 	public static void gameisOver(){
-		int laugh = 0;
+		//int laugh = 0;
 		gameover = new JFrame();
 		gameover.setUndecorated(true);
 		gameover.setSize(800, 600);                
@@ -29,7 +29,7 @@ public class GameOver extends JFrame{
 		File haha = new File("drk/sound/music/Laugh.mp3");
 		
 		if(haha!=null){
-		laugh = SoundStreamer.playThreadedStreamedLooped(haha);
+	//	laugh = SoundStreamer.playThreadedStreamedLooped(haha);
 		}
 		else{
 			System.out.println("The bunny cannot laugh.");

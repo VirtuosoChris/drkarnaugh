@@ -2,7 +2,6 @@ package drk.circuit;
 import java.io.*;
 import drk.maze.MazeItem;
 import drk.game.KarnaughGame;
-import drk.graphics.game.HorrorWallMaze;
 import drk.graphics.game.HorrorWallMazeGeometry;
 
 import com.sun.opengl.util.texture.*;

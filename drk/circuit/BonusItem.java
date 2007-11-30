@@ -2,8 +2,6 @@ package drk.circuit;
 import drk.maze.MazeItem;
 import drk.game.KarnaughGame;
 import javax.media.opengl.*;
-import javax.media.opengl.glu.*;
-
 public class BonusItem extends MazeItem{
 
 public boolean pickedUp=false;

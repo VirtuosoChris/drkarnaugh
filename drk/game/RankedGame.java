@@ -28,7 +28,7 @@ public static final String SUCCESS = "SUCCESS:";
 
 //returns a fixed length string of size 50.  each character has a different function associated with it.
 //Hash key is returned in only alphanumeric characters, that is A-Z, a-z, and 0-9 characters
-private static String hash(int score, String name, int rand){
+ static String hash(int score, String name, int rand){
 	
 	char[] hash = new char[50]; 
 		
@@ -177,7 +177,7 @@ public static String[][] getHighScores(){
 
 
 //posts the user's score to the table, and retrieves the string telling the user how they placed
-private static String postHighScore(int score, String name,int r, String hash){
+static String postHighScore(int score, String name,int r, String hash){
 	
 	if(name.length() > MAXINPUTLENGTH)return "Could not post high score : input name string is invalid";
 	

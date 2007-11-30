@@ -1,5 +1,4 @@
 package drk.circuit;
-import drk.game.KarnaughGame;
 
 
 //Steve: implements a generic binary gate in terms of a circuit system
