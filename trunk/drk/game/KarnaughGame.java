@@ -9,7 +9,7 @@ import drk.*;
 import drk.maze.*;
 import drk.circuit.*;
 import drk.sound.*;
-import drk.menu.GameOver;
+import drk.game.*;
 import drk.menu.*;
 import javax.media.opengl.*;
 import java.awt.event.*;
@@ -41,7 +41,6 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	
 	protected MazeGame glWindow;
 	
-	protected String userName;
 //	public ArrayList<Wire> wires = null; //collection of wires within the maze
 	
 	
@@ -146,7 +145,13 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	//when the game is over by death or winning manage endgame situation
 	//TODO URGENT*****
 	public void gameOver(){
-		
+		if(Menu.userName == null){	
+		}
+		else{
+			String newHash = RankedGame.hash(Score, Menu.userName, new Random().nextInt(20000));
+			String postScore = RankedGame.postHighScore(Score, Menu.userName, new Random().nextInt(20000), newHash);
+			String[][] getScore = RankedGame.getHighScores();
+		}
 	}
 	
 	
@@ -185,7 +190,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		
 		else{
 			SoundStreamer.stopPlayImmediately(songID);
-			frameVisible();
+			frameClose();
 			WinMenu.WinGame();
 			gameOver();
 		}
@@ -306,13 +311,13 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			mainMenu.GameGUI();
 		}
 		
-		if(isKeyPressed(KeyEvent.VK_M)){
+		/*if(isKeyPressed(KeyEvent.VK_M)){
 			paused = true;
 			SoundStreamer.stopPlayImmediately(songID);
 			frameVisible();
 			Menu mainMenu = new Menu();
 			mainMenu.GameGUI();
-		}
+		}*/
 	
 		//get the object in the room the player is currently in
 		MazeItem x = ((KarnaughMaze)m).getCurrentRoom().getItem();
@@ -383,7 +388,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			}else{
 			KarnaughLog.log("Could not open song file");
 			}
-			frameVisible();
+			frameClose();
 			SoundStreamer.stopPlayImmediately(songID);
 			die();
 		}
