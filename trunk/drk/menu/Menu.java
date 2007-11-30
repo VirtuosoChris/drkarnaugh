@@ -24,6 +24,12 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 		newline = "\n";
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		try{
+			new Robot().mouseMove((screenSize.width-800)/2,(screenSize.width-600)/2);
+		} 
+		catch(AWTException e) {
+			System.out.println("Could not get mouse robot.");
+		}
         frame.setBounds((screenSize.width-800)/2, (screenSize.height-600)/2, 800, 600);
 		
 		JLabel background = new JLabel(icon);
