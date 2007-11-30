@@ -25,7 +25,7 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		try{
-			new Robot().mouseMove((screenSize.width-800)/2,(screenSize.width-600)/2);
+			new Robot().mouseMove((screenSize.width)/2,(screenSize.width)/2);
 		} 
 		catch(AWTException e) {
 			System.out.println("Could not get mouse robot.");
@@ -162,7 +162,7 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 			new ActionListener(){
 				public void actionPerformed(ActionEvent e){	
 					System.out.println("Exiting the game");
-					frame.dispose(); frame = null;
+					System.exit(0);
 				}
 			}
 		);
@@ -342,7 +342,7 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 			new ActionListener(){
 				public void actionPerformed(ActionEvent e){	
 					System.out.println("Exiting the game");
-					frame.dispose(); frame = null;
+					System.exit(0);
 				}
 			}
 		);
