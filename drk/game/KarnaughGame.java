@@ -192,6 +192,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			SoundStreamer.stopPlayImmediately(songID);
 			frameClose();
 			WinMenu.WinGame();
+			Menu mainMenu = new Menu();
+			mainMenu.GameGUI();
 			gameOver();
 		}
 		
