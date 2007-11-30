@@ -54,6 +54,28 @@ public abstract class BinaryGate extends OutputSystem
 	}
 	
 	
+	//will adding 
+	public boolean noLoop(OutputSystem x){
+		
+		if(this == x)return false;
+		
+		boolean ax = true;
+		if(Ain != null){
+			ax = Ain.noLoop(x);
+		}
+		
+		boolean ay = true;
+		
+		if(Bin != null){
+			ay = Bin.noLoop(x);
+		}
+		
+		
+		return (ax && ay);
+		
+	}
+	
+	
 	
 	
 }

@@ -29,7 +29,7 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 
 	String filename;
 
-	LogicInput inputsA[];
+	public LogicInput inputsA[];
 
 	
 	//constructor, takes all the variables needed to initailize the game level

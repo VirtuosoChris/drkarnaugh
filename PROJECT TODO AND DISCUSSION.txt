@@ -1,17 +1,23 @@
 Current Project todo list:]
 
-CRITICAL FEATURES:
+
+Update from Chris: Gameplay code should properly evaluate puzzles when the user clicks on the exit (with or without a wire, so the user can hook up shit and then change stuff at the beginning without having to reconnect other stuff.  Cycles are now prevented (can see with the NO icon and help message) Null pointer exception is caught.  
+
+I see that the checkTruthTable function that saved me a crapload of work takes an int truth table-- i convert it when it needs to be checked, but i assume this is so we can have "don't care"s?  That would add an interesting dimension to the puzzles maybe?
+
+Also it works but the user has no idea right now if their solution is right until they click on the exit and it either does nothing or it loads a map.  This weekend I'm thinking about adding like, a little gem on the corner of the screen that's either green or red, to show whether the current cycle matches the desired output.  I say a single instead of one for each combo because theres up to 256 combos and that'll uh... clutter the screen a little.  
+
+
+Priority Features:
 -----------------------------------------------------------------------
 
-Gameplay code/RankedGame
+MazeItem render methods
 
-MazeItem render methods -- So the mazeItems aren't spheres lodged in the floor and we can tell what we're looking at
-
-Wall Collision
-
-I think We'll need Some way of communicating to the player which inputs are which... like maybe a spray painted number on each of them or something?  eg 00, 01, 32 etc Because, say, A+ (B*A) is not the same as B + (A*B) when, say, a = 1 and b = 0.  the first evaluates to 1 and the second to 0.  
+Bunny: Rendering, Animation, Pathfinding, "interaction" with player
 
 the Goggles
+
+Wire dragging
 
 
 Local High Score Table/User Account files:
@@ -57,62 +63,52 @@ If config not found, dropdown to select video mode
 
 save preferences to config file, load up with game
 
-
-
-
 Other (eg whatever and whenever we get around to, or misc bugfixes)
 ----------------------------------------------------------------------
 
-Cursor fade effect when user starts to move (realMyst)
+ability to switch back and forth from menu to game
 
-handle map not found/other exceptions better.
+finish RankedGame class-- different (secure) campaign management, different gameover methods, etc
+
+Cursor fade effect when user starts to move
+
+handle map not found/other exceptions better. 
 
 Tutorial Campaign
 
 Plenty of maps
 
-loading/score/inventory screen
+loading/score/inventory screen (ingame)
 
 Status Icons
 
 Help File: 
 	Editing/modding instructions, game instructions, story 	synopsis, credits, sources for our art/sound/etc
 
-Bunny: Rendering, Animation, Pathfinding, "interaction" with player
-
-Raccoon Dude
-
-Integrate Tip of the Day file thing. 
+Raccoon Dude/Integrate Tip of the Day file thing. 
 
 "black voids" in maze rendering
 
-Map/Logic Editor
+Map/Logic Editor GUI application
 
-Randomized Room decorations/styles
+Randomized Room decorations/styles/texturesets
 
 Test in Windowed mode
 
-Make sure our god damn game always has keyboard and mouse focus
-
 Notes/Story/Cutscenes
 
-puzzle management -- will we have unsolvable puzzles you have to "trick"?
+puzzle management -- will we have technically unsolvable puzzles you have to "trick" using the cycle delay time?  This only works if theres a matched array that gets cycled through, instead of the current alternative implementation
 
-stop gameplay and timers until the user can actually see the first frame...
+stop gameplay and timers until the user can actually see the first frame
 
-Component browser?
+Component browser?  this is one of the things we thought about when we were first brainstorming
 
-Checksum on class files
-
-Sit down and analyze every aspect of the game from start to end, and figure out what we can improve. Hire focus testers if at all possible
+Checksum on class files for rankedgame (so the user cant go NOCLIPPING LAWL GOT AROUND THE HASH FUNCTION)
 
 Prettify and polish EVERYTHING
 
-Toggle tips
+Toggle tips option
 
 Restart map option
 
 STATUS BAR FONTS: I cleared some space by making the max number of inputs 8, which still has a truth table size of 256, still plenty ridiculous for anything but the simplest puzzles.  There's room for 70 characters plus tghe maximum truth table display in 640x480 resolution, which I'm going to suggest as our minimum supported resolution-- but I do think that maybe we should include an option for the display bar font size when we get around to the options menu, because it is a little small at 1440x900 resolutions, and I know that a lot of gamers with high end systems run games in resolutions at least that high, sometimes significantly higher.  
-
-
-STOP INFINITE LOOPS STOP INFINITE LOOPS STOP INFINITE LOOPS

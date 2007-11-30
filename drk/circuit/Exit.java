@@ -30,17 +30,35 @@ public class Exit extends OutputSystem {
 		
 		k.inputSource = null;
 		
-		boolean ready = true;
 		
-		for(boolean b: k.ttMatched){
-			if(!b)ready = false;
+	
+		
 		}
+		
+		
+		//checkTruthTable takes int. i convert it here
+		//temp
+		//we could allow don't cares.  taht would be cool
+		int[] x = new int[k.getMaze().solution.length];
+		for(int i = 0; i < x.length; i++){
+			x[i] = k.getMaze().solution[i]?1:0;
+		}
+	
+	
+		boolean ready = false;
+		try{
+		ready = OutputSystem.checkTruthTable(x,k.getMaze().inputsA, this);
+		}catch(Exception e){
+			ready = false;
+		}
+		//for(boolean b: k.ttMatched){
+		//	if(!b)ready = false;
+		//	}
 		
 		if(ready){
 		k.winMap();
 		}
-		
-	}
+	
 	
 	}
 		
