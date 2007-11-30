@@ -1,10 +1,7 @@
 package drk.game;
-import java.awt.event.KeyEvent;
 import java.io.*;
-import javax.media.opengl.*;
-import java.awt.event.*;
-import java.util.*;
 
+@SuppressWarnings("serial")
 public class SaveLoad extends KarnaughGame implements Serializable{
 	
 	protected KarnaughGame karGame;

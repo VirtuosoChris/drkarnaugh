@@ -1,12 +1,11 @@
 package drk.menu;
 
-import drk.menu.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.*;
 
+@SuppressWarnings("serial")
 public class WinMenu extends JFrame{
 	
 	public static JFrame win;
