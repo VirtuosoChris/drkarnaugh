@@ -322,8 +322,14 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			mainMenu.GameGUI();
 		}
 		
+		//Oh yea I wanna get me some score!
+		//You can test the Reset map with this...
+		/*if(isKeyPressed(KeyEvent.VK_S)){
+			Score = Score + 5;
+		}*/
+		
 		//Need to set a temp score so that score doesnt get reset.
-		/*if(isKeyPressed(KeyEvent.VK_R)){
+		if(isKeyPressed(KeyEvent.VK_R)){
 			SoundStreamer.stopPlayImmediately(songID);
 			if(tempScore == 0){
 				if(Score == 0)
@@ -335,11 +341,11 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 				tempScore = tempScore - 10;
 			frameClose();
 			KarnaughGame m = new KarnaughGame();
-			this.Score = this.tempScore;
+			m.Score = this.tempScore;
 			m.loadMap(mapName);
 			m.camera.fovy = 30;
 	    	m.doMain(GAME_WIDTH,GAME_HEIGHT,null,true);
-		}*/
+		}
 		
 		/*if(isKeyPressed(KeyEvent.VK_M)){
 			paused = true;
