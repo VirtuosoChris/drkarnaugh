@@ -82,4 +82,13 @@ public class LogicInput extends OutputSystem
 	{
 		return output;
 	}
+	
+	
+	public boolean noLoop(OutputSystem x){
+		
+	return true;
+		
+	}
+	
+	
 }

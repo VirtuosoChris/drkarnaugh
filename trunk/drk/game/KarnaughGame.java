@@ -37,7 +37,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 
 	public boolean hasWire = false;
 	
-	public boolean ttMatched[] = null;
+	//public boolean ttMatched[] = null;
 	
 	protected MazeGame glWindow;
 	
@@ -67,6 +67,13 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		overlays.initialize(gl);
 		
 	}
+	
+	
+	public KarnaughMaze getMaze(){
+		return (KarnaughMaze)m;
+	
+	}
+	
 	
 	
 	//constructor-- initialize the variables
@@ -203,11 +210,11 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	
 	//ttMatched keeps track of whether the truth table solution matches the current puzzle solution
 	//this method resets ttMatched
-	public void resetMatched(){
-		for(int xb = 0; xb < ttMatched.length; xb++){
-			ttMatched[xb] = false;
-		}
-	}
+//	public void resetMatched(){
+//		for(int xb = 0; xb < ttMatched.length; xb++){
+//			ttMatched[xb] = false;
+//		}
+//	}
 	
 	
 	//loads a level.
@@ -262,10 +269,10 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			KarnaughLog.log("Could not open song file");
 		}
 		
-		int xa = km.solution.length;
-		ttMatched = new boolean[xa];
+		//int xa = km.solution.length;
+		//ttMatched = new boolean[xa];
 		
-		resetMatched();
+		//resetMatched();
 		
 		return true;
 	}

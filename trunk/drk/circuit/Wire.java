@@ -37,4 +37,18 @@ public class Wire extends OutputSystem
 		}
 		else return input;
 	}
+	
+		public boolean noLoop(OutputSystem x){
+		
+		if(this == x)return false;
+		
+		boolean ax = true; 
+			
+		if(input !=null)ax = input.noLoop(x);
+		
+		return ax;
+		
+	}
+	
+	
 }	

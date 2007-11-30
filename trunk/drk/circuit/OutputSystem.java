@@ -246,7 +246,16 @@ public abstract class OutputSystem extends MazeItem
 		//adjusts cursors appropriately
 		//updates tutorial hints appropriately
 		
+		boolean noCycle = true;
+		 
+		 if(k.inputSource != null)
+			noCycle = ((OutputSystem)(k.inputSource)).noLoop(this);
+		
+		
 		if(!k.hasWire){
+			
+			
+			
 			k.updateInfo("Click to attach a wire to the "+type+" output");
 		}else{
 			if(k.inputSource != this){
@@ -265,10 +274,11 @@ public abstract class OutputSystem extends MazeItem
 		if(k.leftClick || k.rightClick){
 		if(!k.hasWire){
 			k.hasWire = true;
+
 			k.inputSource = this;
 			//k.overlays.currentCursor = k.overlays.wireHand;
 		}
-		else{
+		else if(noCycle){ //if adding the component will not cause a cycle
 			//attach wire
 			if(k.inputSource != this){
 				
@@ -276,6 +286,8 @@ public abstract class OutputSystem extends MazeItem
 			
 			int inputHand = 0;
 			if(k.rightClick)inputHand = 1;
+			
+		
 			
 			w.setInput((OutputSystem)k.inputSource, 0);
 			
@@ -295,7 +307,14 @@ public abstract class OutputSystem extends MazeItem
 		  k.overlays.currentCursor = k.overlays.interactHand;}
 		}
 		
+		
+		if(!noCycle){
+			k.updateInfo("If you form a cycle the machine will explode.  No.");
+			k.overlays.currentCursor = k.overlays.cancel;
 		}
+		
+		
+	}
 	
 
 	
@@ -314,4 +333,9 @@ public abstract class OutputSystem extends MazeItem
 		}
 		return true;
 	}
+	
+	
+	public boolean noLoop(OutputSystem x){return true;}
+	
+	
 }

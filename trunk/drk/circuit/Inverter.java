@@ -16,4 +16,9 @@ public class Inverter extends Wire
 	{
 		return !(input.evaluate());
 	}
+	
+	
+
+	
+	
 }
