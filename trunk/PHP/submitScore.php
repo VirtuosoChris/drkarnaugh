@@ -29,10 +29,20 @@ if(( isSet($_REQUEST['name'])  && isSet($_REQUEST['score']) )) {
  $n = trim($n);  
  $r = trim($r); 
 
+
+//echo "$h";
+//echo "\n";
+//echo hashData($n, $s, $r);
+
+
+//echo "$n $s $r "; 
+
+
  if(ctype_digit($s) && ctype_digit($r)){
 
   if(strlen($n) <= 25){
 
+	
     if(strlen($h) == 50 && hashData($n, $s, $r) == $h){
    
    
