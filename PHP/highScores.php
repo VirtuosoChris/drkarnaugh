@@ -8,7 +8,7 @@
 
 
 //***************************************************************
-$dbc = mysql_connect('www.soapforge.com', 'soapforg_chrisp', 'asdfzxcv') or die("ERROR: There was a problem accessing the database, please try again later"); 
+$dbc = mysql_connect('localhost', 'soapforg_chrisp', 'asdfzxcv') or die("ERROR: There was a problem accessing the database, please try again later"); 
 //***************************************************************
 
 
