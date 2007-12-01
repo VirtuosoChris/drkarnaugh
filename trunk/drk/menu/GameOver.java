@@ -6,7 +6,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.*;
 
-@SuppressWarnings("serial")
 public class GameOver extends JFrame{
 	
 	public static JFrame gameover;
@@ -19,7 +18,7 @@ public class GameOver extends JFrame{
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         gameover.setBounds((screenSize.width-800)/2, (screenSize.height-600)/2, 800, 600);
         
-        ImageIcon gobunny = new ImageIcon("Bunny.jpg");
+        ImageIcon gobunny = new ImageIcon("drk/menu/Bunny.jpg");
         JLabel goLabel = new JLabel(gobunny);
         goLabel.setBounds(0, 0, gobunny.getIconWidth(), gobunny.getIconHeight());
        
@@ -28,12 +27,12 @@ public class GameOver extends JFrame{
 		
 		File haha = new File("drk/sound/music/Laugh.mp3");
 		
-		if(haha!=null){
+		/*if(haha!=null){
 	//	laugh = SoundStreamer.playThreadedStreamedLooped(haha);
 		}
 		else{
 			System.out.println("The bunny cannot laugh.");
-		}
+		}*/
      	
 		gameover.addKeyListener(new KeyAdapter(){
 			public void keyPressed(KeyEvent ke){
