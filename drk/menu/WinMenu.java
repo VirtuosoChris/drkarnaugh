@@ -54,6 +54,7 @@ public class WinMenu extends JFrame implements KeyListener{
 		wPanel.add(winContinue, BorderLayout.SOUTH);
 		
 		setContentPane(wPanel);
+		addKeyListener(this);
 	}
 		
 		public void keyPressed(KeyEvent ke){
