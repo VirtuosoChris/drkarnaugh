@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.*;
 
+@SuppressWarnings("serial")
 public class GameOver extends JFrame{
 	
 	public static JFrame gameover;
@@ -25,7 +25,7 @@ public class GameOver extends JFrame{
        	gameover.setContentPane(goLabel);
 		gameover.setVisible(true);
 		
-		File haha = new File("drk/sound/music/Laugh.mp3");
+	//	File haha = new File("drk/sound/music/Laugh.mp3");
 		
 		/*if(haha!=null){
 	//	laugh = SoundStreamer.playThreadedStreamedLooped(haha);

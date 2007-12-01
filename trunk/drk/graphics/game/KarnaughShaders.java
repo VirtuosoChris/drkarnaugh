@@ -35,12 +35,14 @@ public class KarnaughShaders
 	"varying vec3 Tangent;"+
 	"varying vec3 Lpos;"+
 	"varying float dist;"+
+	//"invariant varying mat3 ntransform;"+
 	"void main(void)"+"\n"+
 	"{"+"\n"+
 	"   Tangent=gl_MultiTexCoord1.xyz;"+"\n"+
     "   Normal=gl_Normal;"+"\n"+
     "   Binormal=cross(Normal,Tangent);"+"\n"+
 	"   gl_TexCoord[0]=gl_MultiTexCoord0;"+
+	//"   ntransform=gl_NormalMatrix*mat3(Binormal,Tangent,Normal);" +
 	//"   NormalTransform=transpose(NormalTransform);"+
 	"   Position = (gl_ModelViewMatrix*gl_Vertex).xyz; "+
 	"   gl_Position = ftransform();"+"\n"+
@@ -58,12 +60,13 @@ public class KarnaughShaders
 		"varying vec3 Tangent;"+
 		"varying vec3 Lpos;"+
 		"varying float dist;"+
+		//"invariant varying mat3 ntransform;"+
 		"vec3 getNormal();"+
 		"const vec3 latt=vec3(" +
 		"gl_LightSource[0].constantAttenuation," +
 		"gl_LightSource[0].linearAttenuation," +
 		"gl_LightSource[0].quadraticAttenuation);"+
-		
+		//v1 dot v2, v1.x*v2.x + v1.y*v2.y + 
 		"void main (void)"+"\n"+
 		"{"+"\n"+
 		"    vec4 diffuse = texture2D(texture,gl_TexCoord[0].st);"+
@@ -72,7 +75,7 @@ public class KarnaughShaders
 		"    const  vec3 distv = vec3(1,dist,dist*dist);"+
 		"    float att=1.0/dot(latt,distv);"+		
 		"    const vec3 M = gl_LightSource[0].diffuse.rgb*max(dot(N,LightDot),0.0)*att;"+
-		"    gl_FragColor=diffuse*vec4(M,1.0);"+
+		"    gl_FragColor= diffuse*vec4(M,1.0);"+
 	"	}"+"\n"+
 	"   vec3 getNormal()"+
 	"   {" +
