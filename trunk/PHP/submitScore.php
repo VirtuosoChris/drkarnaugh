@@ -37,7 +37,7 @@ if(( isSet($_REQUEST['name'])  && isSet($_REQUEST['score']) )) {
    
    
     //****needs username and url****
-    $dbc = mysql_connect('www.soapforge.com', 'soapforg_chrisp', 'asdfzxcv') or die("could not connect to database"); 
+    $dbc = mysql_connect('localhost', 'soapforg_chrisp', 'asdfzxcv') or die("could not connect to database"); 
 
 	
      if(ini_get('magic_quotes_gpc')){$n = stripslashes($n);}
