@@ -389,13 +389,13 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	    	m.doMain(GAME_WIDTH,GAME_HEIGHT,null,true);
 		}
 		
-		/*if(isKeyPressed(KeyEvent.VK_M)){
+		if(isKeyPressed(KeyEvent.VK_M)){
 			paused = true;
 			SoundStreamer.stopPlayImmediately(songID);
-			frameVisible();
+			super.frameVisible(0);
 			Menu mainMenu = new Menu();
 			mainMenu.GameGUI();
-		}*/
+		}
 	
 		//get the object in the room the player is currently in
 		MazeItem x = ((KarnaughMaze)m).getCurrentRoom().getItem();
