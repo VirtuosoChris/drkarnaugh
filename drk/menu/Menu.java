@@ -20,7 +20,7 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 	public Menu(){
 		frame = new JFrame("Dr.Karnaugh's Laboratory");
 		gameFile = new JFileChooser();
-		icon = new ImageIcon("bg.jpg");
+		icon = new ImageIcon("drk/menu/bg.jpg");
 		newline = "\n";
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -68,7 +68,7 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 						story.setVisible(true);
 						try{
 							String lineRead = new String();
-							BufferedReader br = new BufferedReader(new FileReader(new File("story.txt")));
+							BufferedReader br = new BufferedReader(new FileReader(new File("drk/menu/story.txt")));
 							JTextArea storymode = new JTextArea();
 							for(int i = 0; i < 11; i++){
 								lineRead = br.readLine() + "\n";
@@ -77,7 +77,7 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 							JPanel storyPanel = new JPanel();
 							storyPanel.setLayout(new GridBagLayout());
 							GridBagConstraints sconstraint = new GridBagConstraints();
-							JLabel imgLabel = new JLabel(new ImageIcon("Mad.jpg"));
+							JLabel imgLabel = new JLabel(new ImageIcon("drk/menu/Mad.jpg"));
 							
 							storymode.setEnabled(false);
 							storymode.setLineWrap(true);
@@ -256,7 +256,7 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 						story.setVisible(true);
 						try{
 							String lineRead = new String();
-							BufferedReader br = new BufferedReader(new FileReader(new File("story.txt")));
+							BufferedReader br = new BufferedReader(new FileReader(new File("drk/menu/story.txt")));
 							JTextArea storymode = new JTextArea();
 							for(int i = 0; i < 11; i++){
 								lineRead = br.readLine() + "\n";
@@ -265,7 +265,7 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 							JPanel storyPanel = new JPanel();
 							storyPanel.setLayout(new GridBagLayout());
 							GridBagConstraints sconstraint = new GridBagConstraints();
-							JLabel imgLabel = new JLabel(new ImageIcon("Mad.jpg"));
+							JLabel imgLabel = new JLabel(new ImageIcon("drk/menu/Mad.jpg"));
 							
 							storymode.setEnabled(false);
 							storymode.setLineWrap(true);

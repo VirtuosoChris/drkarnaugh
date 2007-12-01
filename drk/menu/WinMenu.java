@@ -20,7 +20,7 @@ public class WinMenu extends JFrame{
         JPanel wPanel = new JPanel();
         wPanel.setLayout(new BorderLayout());
         
-        ImageIcon wire = new ImageIcon("Wire.jpg");
+        ImageIcon wire = new ImageIcon("drk/menu/Wire.jpg");
         JLabel wLabel = new JLabel(wire);
         
         wLabel.setBounds(0, 0, wire.getIconWidth(), wire.getIconHeight());
