@@ -17,13 +17,11 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 
 	public int currentOutput = 0; //current index into the solution truth table
 
-	public int tempScore = 0;
-
 	public int Score = 0; //should be self explanatory
 	
-	private long Time; //milliseconds remaining
+	public int tempScore = 0;
 	
-	protected long tempTime = 0;
+	protected long Time; //milliseconds remaining
 	
 	public boolean paused; //should also be self explanatory
 	
@@ -202,7 +200,6 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			
 			Score += secondsLeft();
 			Score += minutesLeft()*65;//five point bonus for each whole minute
-			tempScore = tempScore + Score;
 			//bonus items score
 			//wire amount bonus
 			
@@ -305,10 +302,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	
 	//one iteration of the game loop
 	public void update(){
-	
-		tempTime = Time;
-		tempScore = Score;
 		
+		tempScore = Score;
 		if(paused)return;
 		
 		super.update();
@@ -350,15 +345,16 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			Score = Score + 5;
 		}*/
 		
-		/*if(isKeyPressed(KeyEvent.VK_S)){
-			SaveLoad.savegame(Menu.userName, Time, Score, mapName);
+		//Really weird error here.
+		/*SaveLoad sl = new SaveLoad();
+		
+		if(isKeyPressed(KeyEvent.VK_S)){
+			sl.savegame(Menu.userName, Time, Score, mapName);
 		}
 		
 		if(isKeyPressed(KeyEvent.VK_L)){
-			SaveLoad.loadgame(Menu.userName);
-			Time = tempTime;
-			Score = tempScore;
-		}*/
+			sl.loadgame(Menu.userName);	
+		}*/ 
 		
 		//Need to set a temp score so that score doesnt get reset.
 		if(isKeyPressed(KeyEvent.VK_R)){
