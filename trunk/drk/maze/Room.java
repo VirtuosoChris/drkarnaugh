@@ -107,6 +107,10 @@ public class Room implements GLRenderable{
 		Path = true;
 	}
 	
+	public void setPathFalse(){
+		Path = false;
+	}
+	
 	public boolean Path(){
 		return Path;
 	}
