@@ -78,8 +78,9 @@ public void update(){
 		k.die();
 	}
 	
-	
-	long timeSinceUpdate = System.currentTimeMillis() - moveStart; //the time since the PATHFINDING was updated
+	//USE A DELTA TIMER HERE...
+	//Specifically, get the delta timer from the karnaughgame
+//	long timeSinceUpdate = System.currentTimeMillis() - moveStart; //the time since the PATHFINDING was updated
 	
 	//update position given current paramaters
 	position = position.plus(

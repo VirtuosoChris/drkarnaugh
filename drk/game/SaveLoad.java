@@ -3,7 +3,7 @@ import java.io.*;
 
 public class SaveLoad extends KarnaughGame{
 	
-	public static void loadgame(String filename){
+	public void loadgame(String filename){
 		if(filename.length() > 0){
 			filename = filename.concat(".karfig");
 					
@@ -24,7 +24,7 @@ public class SaveLoad extends KarnaughGame{
 		}
 	}
  
-	public static void savegame(String filename, long T, int S, String MN){
+	public void savegame(String filename, long T, int S, String MN){
 		if(filename.length() > 0){
 			filename = filename.concat(".karfig");
 		

@@ -17,13 +17,13 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 
 	public int currentOutput = 0; //current index into the solution truth table
 
-	public static int tempScore = 0;
+	public int tempScore = 0;
 
 	public int Score = 0; //should be self explanatory
 	
 	private long Time; //milliseconds remaining
 	
-	protected static long tempTime = 0;
+	protected long tempTime = 0;
 	
 	public boolean paused; //should also be self explanatory
 	

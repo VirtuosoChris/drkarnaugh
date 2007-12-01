@@ -1,6 +1,5 @@
 package drk.circuit;
 
-
 public class BinaryOr extends BinaryGate
 {
 	public BinaryOr(){
