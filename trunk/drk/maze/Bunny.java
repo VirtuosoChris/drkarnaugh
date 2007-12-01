@@ -1,13 +1,12 @@
 //bunny draft one
-//just goes to the room the player is in
+//just goes to the room the player is in and sits in the middle
 //probably very easy to avoid
 //is just a pink sphere and not actually a bunny
 
-//dosomething special if path size is 1
+//TODO : corner-node based pathfinding
+//"Kill" when bunny is in the same room as player
+//"recover" if kill fails and the bunny goes off its rails
 
-//todo: make sure that when you step on it at normal camera height it works
-//finish chase
-//add handling for when the player and the bunny are in the same room so it doesnt either go through the wall or some other ridiculous behavior
 
 package drk.maze;
 import javax.media.opengl.*;
@@ -19,15 +18,6 @@ import drk.Vector3D;
 import drk.Updatable;
 import drk.circuit.Entrance;
 
-//normalize move vector;
-//the bunny should work as follows
-//rate to get from one doorway to another
-//stores target room
-//if enough time elapsed, we're "there"
-//get shortest path
-//get entrance to that room
-//set movement vector
-
 public class Bunny implements drk.graphics.GLRenderable, Updatable {
 
 public static final long moveTimeStraight = 5000; //in milliseconds, the time it takes to move across the room straight
@@ -37,8 +27,6 @@ public static final long moveTimeStraight = 5000; //in milliseconds, the time it
 
 //also need a time duration for movign from center of room -- start positions etc
 
-//setRoom
-//setMaze
 
 Room movingTo = null;
 Room room = null;
@@ -122,6 +110,9 @@ public void update(){
 		System.out.println(targetRoom);
 		
 		LinkedList<Room> path  = new  LinkedList<Room>();
+		
+		rm.clearPaths();
+		
 		path = rm.shortestPath(room, targetRoom, path); // returns a linked list containing the shortest path to the player
 		
 		
@@ -201,7 +192,7 @@ public void render(GL gl){
 	
 	gl.glPushMatrix();
 	
-	gl.glTranslated(position.x, position.y, position.z);
+	gl.glTranslated(position.x, position.y + distanceRadius, position.z);
 	
 		GLU glu=new GLU();
 			
