@@ -109,7 +109,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		
 		m.loadMap(map);
 		m.camera.fovy = 30;
-	    m.doMain(800,600,null,true);
+	    m.doMain(GAME_WIDTH,GAME_HEIGHT,null,true);
 		/*if(!((KarnaughMaze)this.m).nextmap.equals("LAST_LEVEL")){
 			loadMap(((KarnaughMaze)this.m).nextmap);
 		}
@@ -124,6 +124,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	public void render(GL gl){
 		
 		super.render(gl);
+		
+		if(bunneh != null)bunneh.render(gl);
 					
 		overlays.render(gl);
 		
@@ -169,6 +171,11 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	//you can only die if bunny kills you
 	//if you die, it's game over
 	public void die(){
+		
+		frameClose();
+		SoundStreamer.stopPlayImmediately(songID);
+			
+		
 		//do stuff -- like knock the camera over and shoot blood everywhere
 		GameOver.gameisOver();
 		gameOver();
@@ -429,9 +436,16 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			}else{
 			KarnaughLog.log("Could not open song file");
 			}
-			frameClose();
-			SoundStreamer.stopPlayImmediately(songID);
-			die();
+			
+			//frameClose();
+			//SoundStreamer.stopPlayImmediately(songID);
+			
+			
+			//REMOVED because we have bunny now 
+			//die();
+			
+			
+			
 		}
 		}
 		
@@ -489,7 +503,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		
 		m.camera.fovy = 30;
 	    
-	    	m.loadMap("map07.kar");
+	    	m.loadMap("map01.kar");
 	    	
 	    	
 	    m.doMain(GAME_WIDTH,GAME_HEIGHT,null,true);

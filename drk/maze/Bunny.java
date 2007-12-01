@@ -3,6 +3,11 @@
 //probably very easy to avoid
 //is just a pink sphere and not actually a bunny
 
+
+//todo: make sure that when you step on it at normal camera height it works
+//finish chase
+//add handling for when the player and the bunny are in the same room so it doesnt either go through the wall or some other ridiculous behavior
+
 package drk.maze;
 import javax.media.opengl.*;
 import javax.media.opengl.glu.*;
@@ -46,7 +51,7 @@ KarnaughGame k = null;
 //TODO -- make the bunneh spawn in the room furthest away from the player
 //for now it just spawns at the entrance
 public Bunny(KarnaughGame kg){
-	distanceRadius = 1.5;
+	distanceRadius = 0.5;
 	this.k = kg;
 	
 	Entrance e = null;
@@ -106,8 +111,8 @@ public void update(){
 	
 	
 	//if the camera intersects the bunny-sphere
-	if((k.ec.isCollidedWith(this.position, distanceRadius))){
-		k.gameOver();
+	if((k.ec.isCollidedWith(this.position.plus(new Vector3D(0,k.ec.Position.y,0)), distanceRadius))){
+		k.die();
 	}
 	
 
@@ -119,6 +124,22 @@ public void render(GL gl){
 	
 	//translate to the appropriate location
 	//draw a pink sphere with radius 1.5
+	
+	gl.glColor3f(1.0f,.75f, .75f);
+	
+	gl.glPushMatrix();
+	
+	gl.glTranslated(position.x, position.y, position.z);
+	
+		GLU glu=new GLU();
+			
+		GLUquadric s= glu.gluNewQuadric();
+		
+		glu.gluQuadricTexture(s,false);
+		
+	  glu.gluSphere(s, distanceRadius, 10,10);
+	
+ 	gl.glPopMatrix();
 	
 	
 }

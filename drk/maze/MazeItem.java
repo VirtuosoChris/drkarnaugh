@@ -58,6 +58,9 @@ public abstract class MazeItem implements drk.graphics.GLRenderable, MazeItemLis
 	//draws the mazeitem -- for testing purposes the base class draws a sphere in the center of the room
 	public void render(GL gl)
 	{
+		
+			if(true)return;		
+			
 			gl.glMatrixMode(GL.GL_MODELVIEW);
 			gl.glPushMatrix();
 		//	Vector3D centermiddle=rm.getRoomMiddle(room);
@@ -68,12 +71,12 @@ public abstract class MazeItem implements drk.graphics.GLRenderable, MazeItemLis
 			GLUquadric s= glu.gluNewQuadric();
 		glu.gluQuadricTexture(s, true);
 		
-		gl.glLineWidth(5);
+	///	gl.glLineWidth(5);
 		//this would be useful for debugging but doesn't work
 			
 			gl.glColor3f(0f,0f,0f);
 			
-			glu.gluSphere(s, 1, 10,10);
+			glu.gluSphere(s, boundingRadius, 10,10);
 			
 			gl.glPopMatrix();	
 	}
