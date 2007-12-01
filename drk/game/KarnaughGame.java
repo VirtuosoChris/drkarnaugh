@@ -239,6 +239,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		cycleTime = 0;
 		currentOutput = 0;
 		inputSource = null;
+		bunneh = null;
 		
 		if(overlays!=null)
 		overlays.currentCursor = overlays.cursor;

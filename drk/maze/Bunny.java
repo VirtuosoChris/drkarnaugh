@@ -1,12 +1,12 @@
 //bunny draft one
-//just goes to the room the player is in and sits in the middle
+//just goes to the room the player is in and initializes a chase mode
+//if the user "escapes" into another room while the bunny is chasing then the bunny moves to the center of the room
+//to get back on the path grid
 //probably very easy to avoid
 //is just a pink sphere and not actually a bunny
 
 //TODO : corner-node based pathfinding
-//"Kill" when bunny is in the same room as player
-//"recover" if kill fails and the bunny goes off its rails
-
+//make the bunny always move at a constant speed, maybe better recovery from kill failures
 
 package drk.maze;
 import javax.media.opengl.*;
@@ -20,13 +20,7 @@ import drk.circuit.Entrance;
 
 public class Bunny implements drk.graphics.GLRenderable, Updatable {
 
-public static final long moveTimeStraight = 5000; //in milliseconds, the time it takes to move across the room straight
-
-//once we have path finding in, we need different move times for moving diagonally and moving straight across the room
-//public static final long moveTimeDiag = (long)((double)moveTimeStraight / (double)(Math.sqrt(2)));
-
-//also need a time duration for movign from center of room -- start positions etc
-
+public static final long moveTimeStraight = 2000; //in milliseconds, the time it takes to move across the room straight
 
 Room movingTo = null;
 Room room = null;
@@ -38,11 +32,9 @@ public static final double distanceRadius = 0.5;
 KarnaughMaze rm = null;
 long lastUpdate = 0;
 double distance = 0;
+boolean kill = false;
 
 
-
-//position = rate*time
-//
 
 
 //spawn in maze
@@ -90,16 +82,40 @@ public void update(){
 	long timeSinceUpdate = System.currentTimeMillis() - moveStart; //the time since the PATHFINDING was updated
 	
 	//update position given current paramaters
-	position = 
+	position = position.plus(
+		(direction.times((distance / (double)moveTimeStraight))).times((double)(System.currentTimeMillis() - lastUpdate))
+				);
+	
+	
+	
+	if(kill){ //if bunny and player are still in same room move towards him otherwise move towards center of room
 		
-		position.plus(
-			(direction.times((distance / (double)moveTimeStraight))).times((double)(System.currentTimeMillis() - lastUpdate))
-				
-			);
+		if(room == rm.getCurrentRoom()){
 			
+			this.direction = k.ec.Position.minus(position);
+			
+			direction.y = 0;
+			
+			this.distance = direction.mag();
+			this.direction = this.direction.normal();
+			
+		}else {//enter kill recovery mode if the player "escapes" to the next room
+			kill = false;	
+			
+			this.direction = rm.getRoomMiddle(movingTo).minus(position);
+			this.distance = direction.mag();
+			
+			direction = direction.normal();
+			
+			moveStart = System.currentTimeMillis();
+			//set target to center of current room
+		
+		}
+		
+	}		
 			
 	
-	if(System.currentTimeMillis() - moveStart > moveTimeStraight){ 
+	else if(System.currentTimeMillis() - moveStart > moveTimeStraight){ 
 		//if we've arrived at our destination
 		
 		
@@ -123,14 +139,24 @@ public void update(){
 		
 		
 			
-		if(path == null || path.size()==1 || path.size() == 0){
+		if(path == null || path.size()==1 || path.size() == 0){//bunny is in kill mode
 		
-			if(path == null)System.out.println("Shortest path returned null");
 			
 			//the bunny and the player are in the same room
 			
-			this.distance = 0;
-			return;
+			movingTo = room;
+			
+			this.direction = k.ec.Position.minus(position);
+			direction.y = 0;
+			
+			this.distance = direction.mag();
+			this.direction = this.direction.normal();
+			
+			
+			kill = true;
+			
+			//this.distance = 0;
+			//return;
 			
 		}else{
 			
@@ -155,6 +181,7 @@ public void update(){
 			this.direction = ((HorrorWallMaze)rm).getRoomMiddle(movingTo).minus(((HorrorWallMaze)rm).getRoomMiddle(room));
 			this.distance = direction.mag();
 			this.direction = this.direction.normal();
+			
 			
 			
 			
