@@ -6,7 +6,7 @@ import java.awt.*;
 import java.io.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class Menu extends drk.game.KarnaughGame implements KeyListener{
+public class Menu extends KarnaughGame implements KeyListener{
 	
 	public JFrame frame;
 	public static JFrame story;
@@ -176,7 +176,7 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 		//System.out.println(super.onoff());
 		resumeB = new JButton("Resume Game");
 		resumeB.setEnabled(false);
-		if(1 == 1)
+		//if(1 == 1)
 			resumeB.setEnabled(true);
 		resumeB.setVerticalTextPosition(AbstractButton.CENTER);
 		resumeB.addActionListener(

@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-@SuppressWarnings("serial")
+
 public class Credits extends JPanel implements ActionListener{
 	
 	protected static JFrame frame;
@@ -38,7 +38,7 @@ public class Credits extends JPanel implements ActionListener{
 			g.setFont(new Font("Serif", Font.BOLD, 36));
 			g.drawString("THE END", 200, 200);
 			
-			try{
+			/*try{
 				Thread.sleep(5000); //For some reason it does not draw THE END like its suppose to.
 				//It is suppose to hold THE END for roughly 5 seconds then send you back to the main menu...
 			}
@@ -47,7 +47,7 @@ public class Credits extends JPanel implements ActionListener{
 			}
 			frame.dispose();
 			Menu mainMenu = new Menu();
-			mainMenu.GameGUI();
+			mainMenu.GameGUI();*/
 		}
 		
 		else{

@@ -40,8 +40,6 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	
 	//public boolean ttMatched[] = null;
 	
-	protected MazeGame glWindow;
-	
 	protected String mapName = "map01.kar";
 	
 	protected static String tempmapName = "map01.kar";
@@ -307,6 +305,9 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		return true;
 	}
 	
+	public void frameVisible(int x){
+		super.frameVisible(x);
+	}
 	
 	public void unPause(){
 		lastUpdate = System.currentTimeMillis();//that way the timer doesn't count off for when the game was paused
@@ -389,13 +390,13 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	    	m.doMain(GAME_WIDTH,GAME_HEIGHT,null,true);
 		}
 		
-		if(isKeyPressed(KeyEvent.VK_M)){
+		/*if(isKeyPressed(KeyEvent.VK_M)){
 			paused = true;
 			SoundStreamer.stopPlayImmediately(songID);
-			super.frameVisible(0);
+			frameVisible(0);
 			Menu mainMenu = new Menu();
 			mainMenu.GameGUI();
-		}
+		}*/
 	
 		//get the object in the room the player is currently in
 		MazeItem x = ((KarnaughMaze)m).getCurrentRoom().getItem();
