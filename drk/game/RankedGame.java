@@ -18,7 +18,7 @@ import java.util.*;
  
 public final class RankedGame extends KarnaughGame {
 
-public static final String site = "http://localhost";//to be changed
+public static final String site = "http://soapforge.com/rbs/KarnaughGame/";//to be changed
 public static final int MAXINPUTLENGTH = 25;
 
 //used for verifying whether or not the php script for data retrieval is functioning properly
