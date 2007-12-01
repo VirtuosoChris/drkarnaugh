@@ -77,7 +77,7 @@ public class GameOver extends JFrame implements KeyListener{
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds((screenSize.width-800)/2, (screenSize.height-600)/2, 800, 600);
     
-		ImageIcon gobunny = new ImageIcon("drk/menu/Bunny.jpg");
+		ImageIcon gobunny = new ImageIcon("drk/menu/Bunny.gif");
 		JLabel goLabel = new JLabel(gobunny);
 		goLabel.setBounds(0, 0, gobunny.getIconWidth(), gobunny.getIconHeight());
    
