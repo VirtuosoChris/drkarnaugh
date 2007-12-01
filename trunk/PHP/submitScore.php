@@ -1,5 +1,12 @@
 <?php
 
+
+//soapfog_karnaugh.userscores
+//fields
+//name
+//score
+//rand
+
 //php page to which data is submitted from the KarnaughGame
 //data is verified, and the hash key is compared to the serverside hash
 //of the same data.
@@ -28,16 +35,25 @@ if(( isSet($_REQUEST['name'])  && isSet($_REQUEST['score']) )) {
 
     if(strlen($h) == 50 && hashData($n, $s, $r) == $h){
    
-   $dbc = mysql_connect('localhost', 'root', 'asdfzxcv') or die("could not connect to database"); 
+   
+    //****needs username and url****
+    $dbc = mysql_connect('www.soapforge.com', 'soapforg_chrisp', 'asdfzxcv') or die("could not connect to database"); 
 
 	
      if(ini_get('magic_quotes_gpc')){$n = stripslashes($n);}
      $n = mysql_real_escape_string($n);
 
 
-    mysql_select_db('userscores')  or die("could not select database"); 
+    mysql_select_db('soapforg_karnaugh')  or die("could not select database"); 
+
+    
+
+    $resultRand = @mysql_query("select * from userscores where name  = $n AND rand = $r");
+    $submitted = @mysql_num_rows($resultRand);
+    if($submitted == 0){
+
  
-    $request = "insert into userscores (name, score) values ('{$_REQUEST['name']}', {$_REQUEST['score']})";
+    $request = "insert into userscores (name, score, rand) values ('{$_REQUEST['name']}', {$_REQUEST['score']}, {$_REQUEST['r']})";
  
     $result = mysql_query($request) or die("could not process request"); 
 
@@ -48,15 +64,17 @@ if(( isSet($_REQUEST['name'])  && isSet($_REQUEST['score']) )) {
     $result3 = @mysql_query("select * from userscores where score > $s");
     $result2 = @mysql_query("select * from userscores");
 
+
     $i = @mysql_num_rows($result3);
     $j = @mysql_num_rows($result2);
 
     $k = $j - $i - 1;
      
    echo "Out of $j users, $i scored higher and $k scored equal or lower."; 
-
+  
    mysql_close();
-   
+
+	}else echo "This score and hash key have already been submitted!";
     }else echo "Invalid Hash key!";
    }else echo "Name is an invalid string!";
   }else echo "Score is not numeric!";
