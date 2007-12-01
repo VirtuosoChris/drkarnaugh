@@ -12,6 +12,7 @@ import drk.sound.*;
 import drk.menu.*;
 import javax.media.opengl.*;
 import java.awt.event.*;
+import java.util.*;
 
 public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 
@@ -163,9 +164,22 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		if(Menu.userName == null){	
 		}
 		else{
-	//		String newHash = RankedGame.hash(Score, Menu.userName, new Random().nextInt(20000));
-	//		String postScore = RankedGame.postHighScore(Score, Menu.userName, new Random().nextInt(20000), newHash);
-	//		String[][] getScore = RankedGame.getHighScores();
+			int asdkjghskdjgh= new Random().nextInt(255);
+			if(asdkjghskdjgh < 0 ){
+				asdkjghskdjgh = - asdkjghskdjgh;
+			}
+			
+			String newHash = RankedGame.hash(Score, Menu.userName, asdkjghskdjgh);
+			String postScore = RankedGame.postHighScore(Score, Menu.userName, asdkjghskdjgh, newHash);
+			
+			System.out.println("Hash key is " + newHash);
+			
+			System.out.println(""+postScore);
+			
+			String[][] getScore = RankedGame.getHighScores();
+			
+			//System.out.println(""+getScore);
+			
 		}
 	}
 	
