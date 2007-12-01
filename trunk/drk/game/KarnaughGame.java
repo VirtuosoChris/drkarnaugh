@@ -17,11 +17,13 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 
 	public int currentOutput = 0; //current index into the solution truth table
 
+	public static int tempScore = 0;
+
 	public int Score = 0; //should be self explanatory
 	
-	public int tempScore = 0;
-	
 	private long Time; //milliseconds remaining
+	
+	protected static long tempTime = 0;
 	
 	public boolean paused; //should also be self explanatory
 	
@@ -42,6 +44,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	protected MazeGame glWindow;
 	
 	protected String mapName = "map01.kar";
+	
+	protected static String tempmapName = "map01.kar";
 	
 	Bunny bunneh = null;
 	
@@ -206,6 +210,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		if(!((KarnaughMaze)this.m).nextmap.equals("LAST_LEVEL")){
 			loadMap( ((KarnaughMaze)this.m).mapDirectory+((KarnaughMaze)this.m).nextmap);
 			mapName = ((KarnaughMaze)this.m).nextmap;
+			tempmapName = ((KarnaughMaze)this.m).nextmap;
 		}	
 		
 		else{
@@ -300,9 +305,11 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	
 	//one iteration of the game loop
 	public void update(){
+	
+		tempTime = Time;
+		tempScore = Score;
 		
 		if(paused)return;
-	
 		
 		super.update();
 	
@@ -339,8 +346,18 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		
 		//Oh yea I wanna get me some score!
 		//You can test the Reset map with this...
-		/*if(isKeyPressed(KeyEvent.VK_S)){
+		/*if(isKeyPressed(KeyEvent.VK_SPACE)){
 			Score = Score + 5;
+		}*/
+		
+		/*if(isKeyPressed(KeyEvent.VK_S)){
+			SaveLoad.savegame(Menu.userName, Time, Score, mapName);
+		}
+		
+		if(isKeyPressed(KeyEvent.VK_L)){
+			SaveLoad.loadgame(Menu.userName);
+			Time = tempTime;
+			Score = tempScore;
 		}*/
 		
 		//Need to set a temp score so that score doesnt get reset.
