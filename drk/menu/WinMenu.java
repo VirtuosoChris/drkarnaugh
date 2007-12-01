@@ -6,16 +6,14 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
-public class WinMenu extends JFrame{
+public class WinMenu extends JFrame implements KeyListener{
 	
-	public static JFrame win;
-	
-	public static void WinGame(){
-		win = new JFrame();
-		win.setUndecorated(true);
-		win.setSize(800, 600);                
+	public WinMenu(){
+		super();
+		setUndecorated(true);
+		setSize(800, 600);                
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        win.setBounds((screenSize.width-800)/2, (screenSize.height-600)/2, 800, 600);
+        setBounds((screenSize.width-800)/2, (screenSize.height-600)/2, 800, 600);
         
         JPanel wPanel = new JPanel();
         wPanel.setLayout(new BorderLayout());
@@ -55,22 +53,30 @@ public class WinMenu extends JFrame{
 		wPanel.add(wLabel, BorderLayout.CENTER);
 		wPanel.add(winContinue, BorderLayout.SOUTH);
 		
-		win.setContentPane(wPanel);
-		win.setVisible(true);
-     	
-		win.addKeyListener(new KeyAdapter(){
-			public void keyPressed(KeyEvent ke){
-				if(ke.getKeyCode() == KeyEvent.VK_SPACE){
-					win.dispose();
-					Credits.mainCredit();
-				}
-			}
-		});
-		win.requestFocus();	
-	} 
-	
-	public static void main(String args[]){
-		WinGame();
+		setContentPane(wPanel);
 	}
+		
+		public void keyPressed(KeyEvent ke){
+			if(ke.getKeyCode() == KeyEvent.VK_SPACE){
+				this.dispose();
+				Credits.mainCredit();
+			}
+			else{
+				
+			}
+		}
+	
+		public void keyReleased(KeyEvent ke){}
+		public void keyTyped(KeyEvent ke){}
+		
+		public static void WinGame(){
+			WinMenu wm = new WinMenu();
+			wm.setVisible(true);
+			wm.requestFocus();		
+		}
+	
+		public static void main(String args[]){
+			WinGame();
+		}
 	
 }

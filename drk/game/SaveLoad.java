@@ -3,6 +3,10 @@ import java.io.*;
 
 public class SaveLoad extends KarnaughGame{
 	
+	public SaveLoad(){
+		
+	}
+	
 	public void loadgame(String filename){
 		if(filename.length() > 0){
 			filename = filename.concat(".karfig");
@@ -11,8 +15,8 @@ public class SaveLoad extends KarnaughGame{
 				FileInputStream fis = new FileInputStream(filename);
 				DataInputStream dis = new DataInputStream(fis);
 				
-				tempTime = dis.readLong();
-				tempScore = dis.readInt();
+				super.Time = dis.readLong();
+				super.Score = dis.readInt();
 				//tempmapName = dis.readBytes();
 				
 				dis.close();
