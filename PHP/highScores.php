@@ -6,19 +6,16 @@
 
 //see rankedgame for more details of how this works.
 
-
-//***************************************************************
-$dbc = mysql_connect('localhost', 'soapforg_chrisp', 'asdfzxcv') or die("ERROR: There was a problem accessing the database, please try again later"); 
-//***************************************************************
-
+    //****needs username and url****
+    $dbc = mysql_connect('localhost', 'soapforg_chrisp', 'asdfzxcv') or die("could not connect to database"); 
 
 mysql_select_db('soapforg_karnaugh')  or die("ERROR: There was a problem accessing the database, please try again later"); 
 
-$request = "select name AND score from userscores order by score desc limit 10";
+$request = "select * from userscores order by score desc limit 10";
 
 $result = mysql_query($request) or die("ERROR: There was a problem accessing the database, please try again later"); 
 
-$result2 = mysql_query("select name AND score from userscores");
+$result2 = mysql_query("select * from userscores");
 
 if($_GET['html']!="no")
 {

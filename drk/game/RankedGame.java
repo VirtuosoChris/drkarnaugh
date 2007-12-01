@@ -97,6 +97,10 @@ public static final String SUCCESS = "SUCCESS:";
 			
 		}
 		
+		
+	//	System.out.println("LHashVal of "+val+" = "+hash[i]);
+		
+		
 		//hash[i] = (char)((val%94)+33);
 		
 	}	
@@ -203,6 +207,34 @@ static String postHighScore(int score, String name,int r, String hash){
 	
 	
 	return stx;
+}
+
+
+public static void main(String args[]){
+	
+	Random r = new Random();
+		
+	String name = "test";
+	
+	int score = 0;
+String hv = null;
+	
+	
+	
+	for(int i = 0; i < 100; i++){
+	
+	
+	score = i;
+int rand = r.nextInt()%255;
+	if(rand < 0) rand = -rand;
+	
+	hv = hash(score, name, rand);
+	
+	//hv = hash(score, name, rand));
+	
+	System.out.println(postHighScore(score, name, rand, hv));
+	
+	}
 }
 
 

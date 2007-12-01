@@ -56,23 +56,22 @@ $hash[0] = hashChar($ascii4);
 
     if($i % 2 == 0){
 
-	$val1 = ($score*$score);
+	$val1 = (int)($score*$score);
 	
+	$val2 = (int)ord($hash[$i-1]);
 
-	$val2 = ord($hash[$i-1]);
-
-	$val3 = $val2 * $i;
-	$val3 = $val3/11;
+	$val3 = (int)$val2 * (int)$i;
+	$val3 = (int)(int)$val3/(int)11;
 	
 	$val = $val3 + $val1;
 	
-	$val = $val3; 
+	//$val = $val3; 
 	
 	}
 		
     else{
         
-    $valA = ord($hash[($rand % $i)]); 
+    	$valA = ord($hash[($rand % $i)]); 
 	$valB = ord($hash[$i-1]);
 	$valC = strlen($name);
 	$val = $valA*$valB*7;
@@ -82,7 +81,11 @@ $hash[0] = hashChar($ascii4);
 	
    //given the integer, $val, perform a funtion to
    //convert it to an alphanumeric character
+
+	
    $hash[$i] =  hashChar($val);
+
+//   echo "hashChar of $val = $hash[$i]";
 
       	
   }
