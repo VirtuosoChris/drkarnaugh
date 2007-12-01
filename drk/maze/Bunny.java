@@ -81,6 +81,12 @@ public String toString(){
 
 public void update(){
 	
+	//if the camera intersects the bunny-sphere
+	if((k.ec.isCollidedWith(this.position.plus(new Vector3D(0,k.ec.Position.y,0)), distanceRadius))){
+		k.die();
+	}
+	
+	
 	long timeSinceUpdate = System.currentTimeMillis() - moveStart; //the time since the PATHFINDING was updated
 	
 	//update position given current paramaters
@@ -171,10 +177,7 @@ public void update(){
 	}
 	
 	
-	//if the camera intersects the bunny-sphere
-	if((k.ec.isCollidedWith(this.position.plus(new Vector3D(0,k.ec.Position.y,0)), distanceRadius))){
-		k.die();
-	}
+	
 
 	lastUpdate = System.currentTimeMillis();
 	
