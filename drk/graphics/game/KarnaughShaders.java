@@ -3,30 +3,6 @@ import drk.KarnaughLog;
 import drk.graphics.*;
 public class KarnaughShaders
 { 
-	
-/*
- *	
- *	if(dot(c1,c1) < dot(c2,c2))
- *	{
- *		NormalTransform[2] = normalize(c2);
- *		NormalTransform[0] = normalize(NormalTransform[1],NormalTransform[2]);
- *	}
- *	else
- *	{
- *		NormalTransform[0] = normalize(c1);
- *		NormalTransform[2] = normalize(NormalTransform[1],NormalTransform[0]); //should these be switched?
- *
- *	}
-	
-
-
-
-*/
-	
-	
-	
-	
-	
 	static final String LightingRenderVertex=
 
 	"varying vec3 Binormal;"+
@@ -42,7 +18,10 @@ public class KarnaughShaders
     "   Normal=gl_Normal;"+"\n"+
     "   Binormal=cross(Normal,Tangent);"+"\n"+
 	"   gl_TexCoord[0]=gl_MultiTexCoord0;"+
-	//"   ntransform=gl_NormalMatrix*mat3(Binormal,Tangent,Normal);" +
+	"   const mat3 ntransform=gl_NormalMatrix*mat3(Binormal,Tangent,Normal);" +
+	"   Binormal=ntransform[0];"+
+	"   Tangent =ntransform[1];"+
+	"   Normal  =ntransform[2];"+
 	//"   NormalTransform=transpose(NormalTransform);"+
 	"   Position = (gl_ModelViewMatrix*gl_Vertex).xyz; "+
 	"   gl_Position = ftransform();"+"\n"+
@@ -80,10 +59,10 @@ public class KarnaughShaders
 	"   vec3 getNormal()"+
 	"   {" +
 	"    vec4 normalcolor = texture2D(surface,gl_TexCoord[0].st);\n" +
-	"    const mat3 ntransform=gl_NormalMatrix*mat3(Binormal,Tangent,Normal);" +
+	"    const mat3 ntransform=mat3(Binormal,Tangent,Normal);" +
 	"    normalcolor.rgb/=normalcolor.a;"+
 	"    normalcolor.rgb=normalize(normalcolor.rgb*2.0-1.0);"+
-	"    return ntransform*normalcolor.rgb;"+
+	"    return (ntransform*normalcolor.rgb);"+
 	"   }" +
 	"";
 
