@@ -33,17 +33,23 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
         frame.setBounds((screenSize.width-800)/2, (screenSize.height-600)/2, 800, 600);
 		
 		JLabel background = new JLabel(icon);
-		background.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
-		frame.getLayeredPane().add(background, new Integer(Integer.MIN_VALUE));
+		//background.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
+		//frame.getLayeredPane().add(background, new Integer(Integer.MIN_VALUE));
 		
+		JPanel PanelF = new JPanel(new BorderLayout());
 		JPanel panelG = new JPanel();
+		JPanel panelB = new JPanel(new BorderLayout());
+		
+		PanelF.add(createMenuBar(),BorderLayout.NORTH);
+		panelB.add(background,BorderLayout.SOUTH);
+		PanelF.add(panelB,BorderLayout.CENTER);
+		PanelF.add(panelG,BorderLayout.SOUTH);
 		panelG.setOpaque(false);
 		
-		panelG.setLayout(new GridBagLayout());
-		GridBagConstraints constraint = new GridBagConstraints();
+		panelG.setLayout(new GridLayout(2,2));
 		
 		//Buttons
-		JButton rankB, customB, exitB; 
+		JButton rankB, customB, resumeB, exitB; 
 		rankB = new JButton("Start New Ranked Game");
 		rankB.setVerticalTextPosition(AbstractButton.CENTER);
 		rankB.setHorizontalTextPosition(AbstractButton.LEADING);
@@ -167,32 +173,23 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 			}
 		);
 		
-		constraint.fill = GridBagConstraints.HORIZONTAL;
-		constraint.weighty = 1.0;   
-		constraint.anchor = GridBagConstraints.PAGE_END;
-		constraint.gridx = 1;       
-		constraint.gridwidth = 4;
-		constraint.gridy = 1;
-		constraint.ipady = 20;
-		constraint.ipadx = 600; 
+		resumeB = new JButton("Resume Game");
+		resumeB.setVerticalTextPosition(AbstractButton.CENTER);
+		resumeB.addActionListener(
+			new ActionListener(){
+				public void actionPerformed(ActionEvent e){	
+					System.out.println("Resuming the game");
+					System.exit(0);
+				}
+			}
+		);
 			
-		panelG.add(rankB, constraint);
-			
-		constraint.weighty = 0.0;
-		constraint.gridx = 1;       
-		constraint.gridwidth = 4;   
-		constraint.gridy = 2;
-		
-		panelG.add(customB, constraint);
-		
-		constraint.weighty = 0.0; 
-		constraint.gridx = 1;       
-		constraint.gridwidth = 4;   
-		constraint.gridy = 3;       
-		
- 		panelG.add(exitB, constraint);
+		panelG.add(rankB);
+		panelG.add(customB);
+		panelG.add(resumeB);      
+ 		panelG.add(exitB);
  		
-		frame.setContentPane(panelG);
+		frame.setContentPane(PanelF);
 		
 		log = new JTextArea(5,20);
         log.setMargin(new Insets(5,5,5,5));
@@ -404,7 +401,7 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 		//this is never used, so it threw a warning
   //      JPanel foregroundPanel = new JPanel(new BorderLayout(100, 100));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setJMenuBar(createMenuBar());
+        //frame.setJMenuBar(createMenuBar());
 		
         //Display the window.
         frame.setSize(800, 600);
