@@ -370,7 +370,7 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 					
 					try{
 						Desktop desktop = Desktop.getDesktop();
-						desktop.open(new File("Test.chm"));
+						desktop.open(new File("KarnaughHelp/Test.chm"));
 					}
 					catch(IOException ex){ ex.printStackTrace(); }
 					
