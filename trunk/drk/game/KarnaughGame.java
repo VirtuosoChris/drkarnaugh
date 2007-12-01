@@ -177,6 +177,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			
 		
 		//do stuff -- like knock the camera over and shoot blood everywhere
+		
 		GameOver.gameisOver();
 		gameOver();
 		

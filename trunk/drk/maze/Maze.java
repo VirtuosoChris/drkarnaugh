@@ -246,7 +246,7 @@ public class Maze {
 		return null; //Default return null.	
 	}
 	
-/*	//Given a LinkedList of rooms, this method prints out the numbers of the path from source to destination inclusive.
+	//Given a LinkedList of rooms, this method prints out the numbers of the path from source to destination inclusive.
 	public void printPath(LinkedList MazePath){
 		
 		Room TempRoom = new Room();	
@@ -257,14 +257,16 @@ public class Maze {
 	}
 	
 	//Returns a LinkedList of the shortest path of room numbers.
-	public void printPath(LinkedList MazePath){
+	//public void printPath(LinkedList MazePath){
 		
-		Room TempRoom = new Room();	
-		while(MazePath.size() > 0){
-			TempRoom = (Room)MazePath.removeFirst();
-			System.out.println("Room: "+TempRoom.getID());
-		}
-	}*/
+	//	Room TempRoom = new Room();	
+	///	while(MazePath.size() > 0){
+		///	TempRoom = (Room)MazePath.removeFirst();
+			//System.out.println("Room: "+TempRoom.getID());
+		//}
+	//}
+	
+	
 	public int getRoomX(Room r)
 	{
 		return r.getID() % getWidth();
@@ -323,10 +325,10 @@ public class Maze {
 		} */
 		
 				
-		/*Test Case for shortestPath method.
+//		Test Case for shortestPath method.
 		LinkedList NewPath = new LinkedList();
 		NewPath = m.shortestPath(m.getRoom(4),m.getRoom(9),NewPath);
-		m.printPath(NewPath);*/
+		m.printPath(NewPath);
 		
 	}
 }
