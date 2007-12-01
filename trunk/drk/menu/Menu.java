@@ -173,13 +173,17 @@ public class Menu extends drk.game.KarnaughGame implements KeyListener{
 			}
 		);
 		
+		//System.out.println(super.onoff());
 		resumeB = new JButton("Resume Game");
+		resumeB.setEnabled(false);
+		if(1 == 1)
+			resumeB.setEnabled(true);
 		resumeB.setVerticalTextPosition(AbstractButton.CENTER);
 		resumeB.addActionListener(
 			new ActionListener(){
 				public void actionPerformed(ActionEvent e){	
 					System.out.println("Resuming the game");
-					System.exit(0);
+					//frameVisible(1);
 				}
 			}
 		);
