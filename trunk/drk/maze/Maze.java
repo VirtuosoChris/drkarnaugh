@@ -4,15 +4,13 @@ import java.util.Random;
 import java.util.LinkedList;
 import java.util.Iterator;
 
-public class Maze { 
-	//I had other things I needed to get done so I didnt have time to test and fix the shortest path
-					// and other stuff. I will get on it as soon as I can and update it. I just wanted to give the basic
-					// working room and maze class.
+//Constructs a randomly created maze.
+public class Maze {
 	
 	protected ArrayList<Room> RoomList; //Holds a list of all the rooms in the maze.
 	protected int width, height;
 
-	
+	//Creates a string of the maze.
 	public String toString(){
 	  String str = "\n\nMaze Contains Rooms:\n\n";
 	  for(Room r:RoomList){
@@ -56,7 +54,7 @@ public class Maze {
 		Create(); //Populates the maze with rooms.
 	}
 
-	
+	//Creates a list of generic rooms with room ID's.
 	public void Create(){
 		
 		int i;
@@ -67,25 +65,26 @@ public class Maze {
 		Generate();	
 	}
 	
+	//Generates a new random maze.
 	public void Generate(){
 		
-		ArrayList<Room> RoomVisited = new ArrayList<Room>();
+		ArrayList<Room> RoomVisited = new ArrayList<Room>(); //Keeps tracks of rooms added into the maze.
 		Random Generator = new Random();
 		int RoomNumber, NumVisit = 0;
-		Room CellRoom = new Room();
-		Room FronRoom = new Room();
+		Room CellRoom = new Room(); //The random room that is picked to find a new room.
+		Room FronRoom = new Room(); //The random room based picked based off of the CellRoom.
 		
 		while(NumVisit < (width*height)){
 		
-			if(NumVisit == 0){ //First case.
+			if(NumVisit == 0){ //First case. Gets a random room and adds the first room.
 				RoomNumber = Generator.nextInt((width*height));
 				CellRoom = RoomList.get(RoomNumber);
 				CellRoom.setVisit();
-				NumVisit++;
+				NumVisit++; //Add the number of rooms visited.
 				RoomVisited.add(CellRoom);
 			}
 			
-			else{
+			else{ //Add all of the other rooms.
 				RoomNumber = Generator.nextInt(RoomVisited.size());
 				CellRoom = RoomVisited.get(RoomNumber);	
 			}
@@ -95,26 +94,26 @@ public class Maze {
 			Move[0] = -1; Move[1] = 1; Move[2] = -width; Move[3] = width; //Set the directions to the move array.
 			Direction = Generator.nextInt(4); //Used to pick a random direction.
 		
-			while(error(CellRoom, Direction) == false)
+			while(error(CellRoom, Direction) == false) //Check and make sure you can move in that direction.
 				Direction = Generator.nextInt(4);	
 			
 			FronRoom = RoomList.get(CellRoom.getID()+Move[Direction]); //Set the new room.
 			//System.out.println("1:::"+NumVisit+"..."+CellRoom.getID() + "..." + FronRoom.getID());
 			while(FronRoom.Visited() == true){
 				
-				while(allVisit(CellRoom, Move) == true){
-					RoomVisited.remove(CellRoom);
+				while(allVisit(CellRoom, Move) == true){ //Check to see if all the rooms have been visited
+					RoomVisited.remove(CellRoom); //around the cell room.
 					RoomNumber = Generator.nextInt(RoomVisited.size());
 					CellRoom = RoomVisited.get(RoomNumber);
 				}
 				
 				Direction = Generator.nextInt(4); //Used to pick a random direction.
-				while(error(CellRoom, Direction) == false)
+				while(error(CellRoom, Direction) == false) //Check to make sure you can move in that direction.
 					Direction = Generator.nextInt(4);		
 				FronRoom = RoomList.get(CellRoom.getID()+Move[Direction]); //Set the new room.
 			}
 			
-			if(FronRoom.Visited() == false){
+			if(FronRoom.Visited() == false){ //If the room has not been visited before add it, otherwise find a new room.
 				FronRoom.setVisit();
 				NumVisit++;
 				RoomVisited.add(FronRoom);
@@ -124,6 +123,7 @@ public class Maze {
 		}
 	}
 
+	//Checks to see if there is a room to move to.
 	public boolean error(Room Cell, int Direct){
 		if(Direct == 3){
 			if(Cell.getID() >= RoomList.size()-width)
@@ -145,6 +145,7 @@ public class Maze {
 		return true;
 	}
 	
+	//Method to break down the walls so the maze can be created.
 	public void genWalls(Room First, Room Second, int Direct){
 		
 		//These set the boolean walls to true, in opposite directions.
@@ -166,6 +167,7 @@ public class Maze {
 		}
 	}
 	
+	//Checks to see if the room has been visited, to make sure we only add the rooms in once.
 	public boolean allVisit(Room Cell, int[] move){
 		
 		if(Cell.getID() >= RoomList.size()-width) //Cant move down.
@@ -195,7 +197,7 @@ public class Maze {
 		return false;
 	}
 	
-	//Will find the shortest path using the depth first search algorithm.
+	//Recursively will find the shortest path using the depth first search algorithm.
 	public LinkedList<Room> shortestPath(Room Source, Room Dest, LinkedList<Room> MazePath){
 		
 		//System.out.println("This is Room #: "+Source.getID());
@@ -247,6 +249,7 @@ public class Maze {
 		return null; //Default return null.	
 	}
 	
+	//After you find a path, call this to clear all the paths.
 	public void clearPaths(){
 		for(Iterator i = RoomList.iterator(); i.hasNext();){
    			Room s = (Room)i.next();
@@ -273,6 +276,8 @@ public class Maze {
 			System.out.println("Room: "+TempRoom.getID());
 		}
 	}*/
+	
+	//Set of get functions to get locations, sizes, and rooms.
 	public int getRoomX(Room r)
 	{
 		return r.getID() % getWidth();
