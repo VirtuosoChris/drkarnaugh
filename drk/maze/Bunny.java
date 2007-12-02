@@ -22,16 +22,39 @@ public class Bunny implements drk.graphics.GLRenderable, Updatable {
 
 public static final long moveTimeStraight = 2000; //in milliseconds, the time it takes to move across the room straight
 
+
+//the room the bunny is moving to in its current state
 Room movingTo = null;
+
+//the room the bunny is actually in
 Room room = null;
+
+//self explanatory
 Vector3D position = null;
+
+//self explanatory
 Vector3D direction = null;
+
+//the time the bunny started its current state
 long moveStart = 0;
+
+//reference to the game the bunny is part of
 KarnaughGame k = null;
+
+//collision radius
 public static final double distanceRadius = 0.5;
+
+//reference to the maze the bunny is in
 KarnaughMaze rm = null;
+
+//system time at which the bunny was last updated
 long lastUpdate = 0;
+
+//the distance the bunny is traveling in its current state
 double distance = 0;
+
+//flag for the bunny's state machine
+//it can either be moving to the room the player is in using the node system, or moving right at the player if its in the same room
 boolean kill = false;
 
 
@@ -51,7 +74,7 @@ public Bunny(KarnaughGame kg){
 	for(MazeItem i: k.getMaze().components){
 		if(i instanceof Entrance){e = (Entrance)i;break;}
 	}
-	
+
 	this.position=((HorrorWallMaze)rm).getRoomMiddle(e.getRoom());
 	this.direction = new Vector3D(0,0,0); 
 	
@@ -73,7 +96,7 @@ public String toString(){
 
 public void update(){
 	
-	//if the camera intersects the bunny-sphere
+	//if the camera intersects the bunny-sphere its game over
 	if((k.ec.isCollidedWith(this.position.plus(new Vector3D(0,k.ec.Position.y,0)), distanceRadius))){
 		k.die();
 	}
@@ -140,8 +163,7 @@ public void update(){
 		
 		
 			
-		if(path == null || path.size()==1 || path.size() == 0){//bunny is in kill mode
-		
+		if(path == null || path.size()==1 || path.size() == 0){ //if the bunny and the player are in the same room, enter kill modee
 			
 			//the bunny and the player are in the same room
 			
@@ -203,17 +225,14 @@ public void update(){
 
 		
 	}
-	
-	
-	
 
 	lastUpdate = System.currentTimeMillis();
-	
-
 }
 
 
 
+
+//draw a pink sphere at the bunny's current location
 public void render(GL gl){
 	
 	//translate to the appropriate location
