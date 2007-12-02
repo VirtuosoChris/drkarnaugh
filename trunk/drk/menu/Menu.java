@@ -215,7 +215,10 @@ public class Menu extends KarnaughGame implements KeyListener{
 		file.add(rankedItem);
 		JMenuItem customItem = new JMenuItem("Open Custom Game");
 		customItem.setMnemonic('C');
-		file.add(customItem);	
+		file.add(customItem);
+		JMenuItem scoresItem = new JMenuItem("View High Scores");
+		customItem.setMnemonic('S');
+		file.add(scoresItem);	
 		JMenuItem exitItem = new JMenuItem("Exit");
 		exitItem.setMnemonic('X');
 		file.add(exitItem);
@@ -335,6 +338,30 @@ public class Menu extends KarnaughGame implements KeyListener{
                 		log.append("Open command cancelled by user." + newline);
             		log.setCaretPosition(log.getDocument().getLength());
 					
+				}
+			}
+		);
+		
+		scoresItem.addActionListener(
+			new ActionListener(){
+				public void actionPerformed(ActionEvent e){	
+					System.out.println("Showing the high scores table");
+					try{
+						JEditorPane url = new JEditorPane();
+						url.setPage("http://soapforge.com/rbs/KarnaughGame/highScores.php");
+						url.setVisible(true);
+						JFrame urlF = new JFrame("Dr. Karnaugh's Laboratory High Scores");
+						urlF.add(url);
+						urlF.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        				urlF.setVisible(true);
+        				urlF.setResizable(false);
+        				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        				urlF.setBounds((screenSize.width-800), (screenSize.height-600), 800, 600);
+        				urlF.setSize(400, 400);
+					}
+					catch(IOException io){
+						io.printStackTrace();
+					}
 				}
 			}
 		);
