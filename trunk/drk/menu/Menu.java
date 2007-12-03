@@ -376,7 +376,7 @@ public class Menu extends KarnaughGame implements KeyListener{
 					
 					try{
 						Desktop desktop = Desktop.getDesktop();
-						desktop.open(new File("KarnaughHelp/Test.chm")); //Open help file.
+						desktop.open(new File("KarnaughHelp/DrKarnaugh.chm")); //Open help file.
 					}
 					catch(IOException ex){ ex.printStackTrace(); }
 					
