@@ -456,6 +456,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 			
 			bunneh = new Bunny(this);
 			
+			System.out.println("new bunny");
+			
 			Time = 0;
 			final File f = new File("drk/sound/music/mission.mp3");
 	
@@ -533,7 +535,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		
 		m.camera.fovy = 30;
 	    
-	    	m.loadMap("map01.kar");
+	    	m.loadMap("map03.kar");
 	    	
 	    	
 	    m.doMain(GAME_WIDTH,GAME_HEIGHT,null,true);

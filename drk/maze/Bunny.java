@@ -89,7 +89,7 @@ public Bunny(KarnaughGame kg){
 
 
 public String toString(){
-	return "Hi, my name is flapjack!";
+	return "Hi, my name is Stanford Flapjack Karnaugh II!";
 }
 
 
