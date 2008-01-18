@@ -44,6 +44,10 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 	
 	protected static String tempmapName = "map01.kar";
 	
+	
+	private long longest = 0;
+	
+	
 	Bunny bunneh = null;
 	
 //	public ArrayList<Wire> wires = null; //collection of wires within the maze
@@ -344,6 +348,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		
 		
 		
+		
 	
 		
 		//TODO URGENT**** get rid of this, go to the menu instead, pause game, SOMETHING
@@ -450,8 +455,19 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener{
 		
 		if(Time > 0){
 		
-		Time -= System.currentTimeMillis() - lastUpdate;
+		
+		long frametime;
+		Time -= (frametime = System.currentTimeMillis() - lastUpdate);
+		
+		//records the lowest framerate at a particular frame, excluding ones where it dips down to 1 fps to exclude serious hitches and loading
+		if(frametime > longest && frametime < 1000){
+		  longest = frametime;
+		  KarnaughLog.log("longest frametime: "+longest+"ms");
+		}
+		
+	
 			
+		
 		if(Time <=0){
 			
 			bunneh = new Bunny(this);
