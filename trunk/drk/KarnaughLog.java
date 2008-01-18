@@ -7,7 +7,9 @@ import java.io.*;
 public class KarnaughLog extends Object{
 
 private static final File LOG = new File("log.txt");
-	
+
+public static final boolean enabled = true;
+
 	
 	//clears the log
 	public static void clearLog(){
@@ -24,6 +26,8 @@ private static final File LOG = new File("log.txt");
 	
 	//writes something to the log and displays to stdout 
 	public static void log(String e){
+    	
+    	if(!enabled)return;
     	
     	try{
     		FileWriter f = new FileWriter(LOG,true);
