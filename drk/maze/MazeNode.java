@@ -212,5 +212,13 @@ public class MazeNode {
  //given a maze and a list of mazenodes, determine which mazenodes correspond to valid path nodes in the maze and adjust the flags accordingly
  public static void setActiveFlags(Maze m, MazeNode[] nodegraph){}
  
+ 
+ //takes the room ID and the location constant within the room and gives the appropriate index into the one dimensional node graph array
+ public static int positionToIndex(int room, int location){
+ 	return 3 * room + location; //three because there are 3 possible locations in each room
+ 	 //so the array looks like { [room 0, position1], [room 0, position 2], [room 0, position 3]........ [room n position 3]}
+ }
+ 
+ 
 
 }
