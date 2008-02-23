@@ -2,7 +2,7 @@ package drk.graphics.game;
 import drk.KarnaughLog;
 import drk.graphics.*;
 public class KarnaughShaders
-{ 
+{
 	static final String LightingRenderVertex=
 
 	"varying vec3 Binormal;"+
