@@ -417,7 +417,7 @@ public class HorrorWallMaze extends RenderableMaze
 		this.roomlight.enable(gl);
 		this.roomlight.Position=this.getRoomMiddle(croom);
 		roomlight.Position.eplus(new Vector3D(Math.sin(time),HorrorWallMaze.DOOR_HEIGHT,Math.cos(time)));
-		//gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL.GL_LINE); //set the polygon mode
+	//	gl.glPolygonMode(GL.GL_FRONT_AND_BACK,GL.GL_LINE); //set the polygon mode
 		if(mc.Position.y > ROOM_HEIGHT || ALWAYSROOM)
 		{
 			for(Room r: this.RoomList)
