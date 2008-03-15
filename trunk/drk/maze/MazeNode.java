@@ -241,8 +241,8 @@ public class MazeNode {
  			nodegraph[positionToIndex(r.RoomID, CENTER)].active = false; 		
  		}
  		
- 		nodegraph[positionToIndex(r.RoomID, NORTH)].active = r.Up;
- 		nodegraph[positionToIndex(r.RoomID, WEST)].active = r.Left;
+ 		nodegraph[positionToIndex(r.RoomID, NORTH)].active = !r.Up;
+ 		nodegraph[positionToIndex(r.RoomID, WEST)].active =!r.Left;
  		
  	}
  	
