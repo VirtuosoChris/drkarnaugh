@@ -7,8 +7,9 @@ import java.util.Iterator;
 //Constructs a randomly created maze.
 public class Maze {
 	
-	protected ArrayList<Room> RoomList; //Holds a list of all the rooms in the maze.
+	public ArrayList<Room> RoomList; //Holds a list of all the rooms in the maze.
 	protected int width, height;
+
 
 	//Creates a string of the maze.
 	public String toString(){
@@ -52,6 +53,8 @@ public class Maze {
 		width = x;
 		height = y;
 		Create(); //Populates the maze with rooms.
+
+		
 	}
 
 	//Creates a list of generic rooms with room ID's.

@@ -8,6 +8,7 @@ import drk.circuit.*;
 public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 {
 	
+	MazeNode nodeGraph[] = null;
 	public int timelimit = 0; //what is the timelimit for this map?
 	public String nextmap = null; //what is the name of the map to go to after this one is finished?
 	public ArrayList<MazeItem> components = null;
@@ -96,6 +97,31 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		
 		
 		mapDirectory = d;
+		
+		
+		MazeNode.mazeSize = RoomList.size();
+		MazeNode.mazeWidth = this.width;
+		MazeNode.mazeHeight = this.height;
+		
+		//three nodes for each room
+		nodeGraph = new MazeNode[RoomList.size() * 3];
+		
+		for(int i = 0; i < RoomList.size(); i++){
+			
+			
+		Vector3D tmpV = getRoomMiddle(RoomList.get(i));
+			
+			nodeGraph[MazeNode.positionToIndex(i, MazeNode.CENTER)] = new MazeNode(i, MazeNode.CENTER,  tmpV);
+			
+			nodeGraph[MazeNode.positionToIndex(i, MazeNode.NORTH)] = new MazeNode(i, MazeNode.NORTH, tmpV);
+			
+			nodeGraph[MazeNode.positionToIndex(i, MazeNode.WEST)] = new MazeNode(i, MazeNode.WEST, tmpV);
+		}
+		
+		
+		MazeNode.setActiveFlags(this, nodeGraph);
+		
+		
 
 	}
 
