@@ -36,6 +36,7 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 	public LogicInput inputsA[];
 
 	
+	
 	//constructor, takes all the variables needed to initailize the game level
 	public KarnaughMaze(int w, int h, int t, String n, ArrayList<MazeItem> c, String sf, String d, boolean s[], int inputs){
 		
@@ -138,38 +139,55 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 				if(i == j){
 					FloydTable[i][i] = 0.0;
 					PathTable[i][i] = i; //we don't have to take any path to get here
+					continue;
+				}
 					
-				}else{
-					FloydTable[i][j] = -1.0;  //can't have a negative distance, so this is an invalid value
-					PathTable[i][j] = -1; //there is no negative index into the array, so no path exists
+				//if a path exists and the nodes are active
+				if(nodeGraph[i].searchNodeConnection(j) && nodeGraph[i].active && nodeGraph[j].active){
+					FloydTable[i][j] = nodeGraph[i].position.distance(nodeGraph[j].position);
+					PathTable[i][j] = j;
+					continue;
+				}
+					
+					
+				FloydTable[i][j] = -1.0;  //can't have a negative distance, so this is an invalid value
+				PathTable[i][j] = -1; //there is no negative index into the array, so no path exists
+					
+				
 				}
 				
 			}
-		}
+		
+		
+		
+		
 		
 		//loop and make paths through valid nodes
-		
+		///loop though, use k as intermediate nodes		
+		for(int k = 0; k < nodeGraph.length; k++){
+			if(!nodeGraph[k].active)continue;
 		//loop through start nodes
 		for(int i = 0; i < nodeGraph.length; i++){
 			
-			if(!nodeGraph[i].active)continue;
+		 if(!nodeGraph[i].active)continue;
 			
 			//loop through destination nodes
 			for(int j = 0; j < nodeGraph.length; j++){
 				if(!nodeGraph[j].active)continue;
 				
-				///loop though, use k as intermediate nodes		
-				for(int k = 0; k < nodeGraph.length; k++){
-					if(!nodeGraph[k].active)continue;
+			
 					
 					//if distance from i to j is less than the distance from i to k + the distance from k to j and i, j, and k have connections
 					//OR the current distance is infinity
 					
 					//make sure the connections actually exist
-					if(nodeGraph[i].searchNodeConnection(j) && nodeGraph[j].searchNodeConnection(k)){
+					//if(nodeGraph[i].searchNodeConnection(j) && nodeGraph[j].searchNodeConnection(k)){
+					
+					if(FloydTable[i][k] >= 0.0 && FloydTable[k][j] >= 0.0){
+				
 						double tDist = 0;
 						
-						if( FloydTable[i][j] < 0 || (tDist = (nodeGraph[i].position.distance(nodeGraph[k].position) + nodeGraph[k].position.distance(nodeGraph[j].position))) < FloydTable[i][j]){
+						if( FloydTable[i][j] < 0 || (tDist = (FloydTable[i][k] + FloydTable[k][j])) < FloydTable[i][j]){
 							
 							FloydTable[i][j] = tDist;
 							PathTable[i][j] = k;
