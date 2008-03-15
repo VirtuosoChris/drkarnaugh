@@ -60,6 +60,20 @@ public class Vector3D
 		return this;
 	}
 	
+	
+	
+	
+	public double distance(Vector3D b){
+		
+		
+		return Math.sqrt(   (this.x - b.x) + (this.y - b.y) + (this.z - b.z)   );
+		
+		
+	}
+	
+	
+	
+	
 	//add and return new (A+B)
 	public final Vector3D plus(Vector3D nv)
 	{

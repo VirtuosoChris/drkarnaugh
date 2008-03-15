@@ -8,13 +8,16 @@ import drk.circuit.*;
 public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 {
 	
+	public double FloydTable[][] = null;
+	public int PathTable[][] = null;
+	
 	MazeNode nodeGraph[] = null;
 	public int timelimit = 0; //what is the timelimit for this map?
 	public String nextmap = null; //what is the name of the map to go to after this one is finished?
 	public ArrayList<MazeItem> components = null;
 	public String songfile = null; //string name of the file containing the song for this map.
 	public String mapDirectory = null; //string containing the path to the current map -- used to access the next map, by appending the mapname to this string
-
+	
 	//some accessor methods
 	public int timeLimit(){return timelimit;}
 	public String nextLevel(){return nextmap;}
@@ -122,8 +125,74 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		MazeNode.setActiveFlags(this, nodeGraph);
 		
 		
+		FloydTable = new double[nodeGraph.length][nodeGraph.length];
+		PathTable = new int[nodeGraph.length][nodeGraph.length];
+		
+		
+		
+		//initialize tables
+		
+		for(int i = 0; i < nodeGraph.length; i++){
+			for(int j = 0; j < nodeGraph.length; j++){
+				
+				if(i == j){
+					FloydTable[i][i] = 0.0;
+					PathTable[i][i] = i; //we don't have to take any path to get here
+					
+				}else{
+					FloydTable[i][j] = -1.0;  //can't have a negative distance, so this is an invalid value
+					PathTable[i][j] = -1; //there is no negative index into the array, so no path exists
+				}
+				
+			}
+		}
+		
+		//loop and make paths through valid nodes
+		
+		//loop through start nodes
+		for(int i = 0; i < nodeGraph.length; i++){
+			
+			if(!nodeGraph[i].active)continue;
+			
+			//loop through destination nodes
+			for(int j = 0; j < nodeGraph.length; j++){
+				if(!nodeGraph[j].active)continue;
+				
+				///loop though, use k as intermediate nodes		
+				for(int k = 0; k < nodeGraph.length; k++){
+					if(!nodeGraph[k].active)continue;
+					
+					//if distance from i to j is less than the distance from i to k + the distance from k to j and i, j, and k have connections
+					//OR the current distance is infinity
+					
+					//make sure the connections actually exist
+					if(nodeGraph[i].searchNodeConnection(j) && nodeGraph[j].searchNodeConnection(k)){
+						double tDist = 0;
+						
+						if( FloydTable[i][j] < 0 || (tDist = (nodeGraph[i].position.distance(nodeGraph[k].position) + nodeGraph[k].position.distance(nodeGraph[j].position))) < FloydTable[i][j]){
+							
+							FloydTable[i][j] = tDist;
+							PathTable[i][j] = k;
+							
+								
+						}
+						
+					}
+					
+					
+				}		
+			}	
+		}
+		
+				
 
 	}
+	
+	
+	
+	
+	
+	
 
 	//loads a map.
 	public static KarnaughMaze loadMaze(String f){

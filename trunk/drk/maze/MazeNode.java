@@ -39,6 +39,28 @@ public class MazeNode {
  }
  
  
+ 
+ public boolean searchNodeConnection(int a, int b){
+ 	
+ 	for(int[] x: connectionList){
+ 		
+ 		if(x[0] == a && x[1] == b){
+ 			return true;
+ 		}
+ 		
+ 	}
+	return false; 	
+ }
+ 
+ 
+ 
+ public boolean searchNodeConnection(int q){
+ 	return searchNodeConnection(q/3, q%3);
+ }
+ 
+ 
+ 
+ 
  //returns a list of ordered pairs containing the <room id, position> of connected nodes in the graph
  public ArrayList<int[]> generateConnections(){
  	
