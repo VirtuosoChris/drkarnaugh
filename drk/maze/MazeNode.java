@@ -34,7 +34,7 @@ public class MazeNode {
  	roomLocation = l;
  	position = p;
  	
- 	generateConnections();
+ 	connectionList = generateConnections();
  	
  }
  
@@ -210,7 +210,21 @@ public class MazeNode {
  
  //THIS FUNCTION IS A STUB.  ILL GET TO IT SOON
  //given a maze and a list of mazenodes, determine which mazenodes correspond to valid path nodes in the maze and adjust the flags accordingly
- public static void setActiveFlags(Maze m, MazeNode[] nodegraph){}
+ public static void setActiveFlags(Maze m, MazeNode[] nodegraph){
+ 	
+ 	for(Room r : m.RoomList){
+	    
+	    //if there's an item in the middle of the floor bunny/wires can't go through it 	
+ 		if(r.localItem!= null){
+ 			nodegraph[positionToIndex(r.RoomID, CENTER)].active = false; 		
+ 		}
+ 		
+ 		nodegraph[positionToIndex(r.RoomID, NORTH)].active = r.Up;
+ 		nodegraph[positionToIndex(r.RoomID, WEST)].active = r.Left;
+ 		
+ 	}
+ 	
+ }
  
  
  //takes the room ID and the location constant within the room and gives the appropriate index into the one dimensional node graph array
