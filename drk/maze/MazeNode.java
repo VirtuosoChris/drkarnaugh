@@ -54,8 +54,15 @@ public class MazeNode {
  
  
  
- public boolean searchNodeConnection(int q){
- 	return searchNodeConnection(q/3, q%3);
+ public boolean searchNodeConnection(MazeNode a){
+ 	
+ 	
+ 	for(int[] x: connectionList){
+ 		
+ 		if(x[0] == a.roomID && x[1] == a.roomLocation)return true;
+ 		
+ 	}return false;
+ 	
  }
  
  

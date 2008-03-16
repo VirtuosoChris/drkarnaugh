@@ -116,13 +116,13 @@ public MazeNode getClosestNode(){
 	
 	for(int i = 0; i < rm.nodeGraph.length; i++){
 		
-		if((closest < 0 ||
-		(temp = k.ec.Position.distance( rm.nodeGraph[i].position)) < closest)
-	 	&& rm.nodeGraph[i].active
-	  ) {
+		if(rm.nodeGraph[i].active == false)continue;
+		
+		
+	if(closest < 0 || k.ec.Position.distance(rm.nodeGraph[i].position) < closest) {
 	  	
 	  closestRoom = rm.nodeGraph[i];
-	  closest = temp;
+	  closest =  k.ec.Position.distance(rm.nodeGraph[i].position);
 	  
 	  }
 		
@@ -184,7 +184,7 @@ public void update(){
 	
 	//if the camera intersects the bunny-sphere its game over
 	if((k.ec.isCollidedWith(this.position.plus(new Vector3D(0,k.ec.Position.y,0)), distanceRadius))){
-		k.die();
+	//	k.die();
 	}
 	
 	//update position given current paramaters
@@ -211,11 +211,11 @@ public void update(){
 			
 				moveUntilTime = System.currentTimeMillis() + (long)( (position.distance(targetNode.position)) / BUNNYSPEED );
 					
-				return;
+			
 				
 			}
 			
-			
+			else{
 		//run right at the player
 			this.direction = k.ec.Position.minus(position);
 			
@@ -224,12 +224,11 @@ public void update(){
 			this.direction = this.direction.normal();
 			
 			this.direction = this.direction.times(BUNNYSPEED);
-				
-			return;
+			}
 	}
 	
 	
-	if(bunnyState == MOVINGSTATE){
+	else if(bunnyState == MOVINGSTATE){
 		
 		
 		if(System.currentTimeMillis() >= moveUntilTime){
@@ -242,10 +241,10 @@ public void update(){
 			//if we're as close as we can get using the node graph enter kill mode
 			if(room == rm.getCurrentRoom() && targetNode == getClosestNode()){
 				bunnyState = KILLSTATE;
-				return;
+				
 			} 
 			
-			
+			else{
 			
 			MazeNode origin = targetNode;
 			
@@ -256,16 +255,10 @@ public void update(){
 			int x = 0;
 			//get the next node on the path from the node we just arrived at to the node closest to the player
 			
-				(x = rm.PathTable[
-					MazeNode.positionToIndex(origin.roomID, origin.roomLocation)
-						][
-							MazeNode.positionToIndex(targetNode.roomID, targetNode.roomLocation)
-						]) 
+				x = rm.PathTable[3*origin.roomID+origin.roomLocation][3*targetNode.roomID+targetNode.roomLocation]; 
 			
 			
-			targetNode = rm.nodeGraph [ 
-				x
-				];
+			targetNode = rm.nodeGraph [x];
 			
 			
 			this.room = rm.RoomList.get(targetNode.roomID);
@@ -276,7 +269,7 @@ public void update(){
 			
 			
 			moveUntilTime = System.currentTimeMillis() + (long)( (position.distance(targetNode.position)) / BUNNYSPEED );
-			
+			}	
 		} 
 		
 		

@@ -134,7 +134,12 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		//initialize tables
 		
 		for(int i = 0; i < nodeGraph.length; i++){
+			
+			if(nodeGraph[i].active == false)continue;
+			
 			for(int j = 0; j < nodeGraph.length; j++){
+				
+			if(nodeGraph[j].active == false)continue;
 				
 				if(i == j){
 					FloydTable[i][i] = 0.0;
@@ -143,7 +148,7 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 				}
 					
 				//if a path exists and the nodes are active
-				if(nodeGraph[i].searchNodeConnection(j) && nodeGraph[i].active && nodeGraph[j].active){
+				if(nodeGraph[i].searchNodeConnection(nodeGraph[j]) && nodeGraph[i].active && nodeGraph[j].active){
 					FloydTable[i][j] = nodeGraph[i].position.distance(nodeGraph[j].position);
 					PathTable[i][j] = j;
 					continue;
@@ -151,7 +156,7 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 					
 					
 				FloydTable[i][j] = -1.0;  //can't have a negative distance, so this is an invalid value
-				PathTable[i][j] = -1; //there is no negative index into the array, so no path exists
+				PathTable[i][j] = j; //there is no negative index into the array, so no path exists
 					
 				
 				}
@@ -181,7 +186,6 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 					//OR the current distance is infinity
 					
 					//make sure the connections actually exist
-					//if(nodeGraph[i].searchNodeConnection(j) && nodeGraph[j].searchNodeConnection(k)){
 					
 					if(FloydTable[i][k] >= 0.0 && FloydTable[k][j] >= 0.0){
 				
@@ -190,7 +194,7 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 						if( FloydTable[i][j] < 0 || (tDist = (FloydTable[i][k] + FloydTable[k][j])) < FloydTable[i][j]){
 							
 							FloydTable[i][j] = tDist;
-							PathTable[i][j] = k;
+							PathTable[i][j] = PathTable[i][k];
 							
 								
 						}
