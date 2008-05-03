@@ -102,37 +102,49 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		
 		mapDirectory = d;
 		
-		
+		//set some class constants
 		MazeNode.mazeSize = RoomList.size();
 		MazeNode.mazeWidth = this.width;
 		MazeNode.mazeHeight = this.height;
 		
-		//three nodes for each room
-		nodeGraph = new MazeNode[RoomList.size() * 3];
+		//nine nodes for each room
+		nodeGraph = new MazeNode[RoomList.size() * 9];
 		
+		
+		//for each room
 		for(int i = 0; i < RoomList.size(); i++){
 			
+
+		  Room tRm = RoomList.get(i);
+		  Vector3D tmpV = getRoomMiddle(tRm);
 			
-		Vector3D tmpV = getRoomMiddle(RoomList.get(i));
+			//for each node position in the room
+			for(int j = 0; j < 9; j++){
+				
+			  nodeGraph[9*i + j] = new MazeNode(tRm,tmpV,j);
 			
-			nodeGraph[MazeNode.positionToIndex(i, MazeNode.CENTER)] = new MazeNode(i, MazeNode.CENTER,  tmpV);
+			}
 			
-			nodeGraph[MazeNode.positionToIndex(i, MazeNode.NORTH)] = new MazeNode(i, MazeNode.NORTH, tmpV);
 			
-			nodeGraph[MazeNode.positionToIndex(i, MazeNode.WEST)] = new MazeNode(i, MazeNode.WEST, tmpV);
+			//nodeGraph[MazeNode.positionToIndex(i, MazeNode.CENTER)] = new MazeNode(i, MazeNode.CENTER,  tmpV);
+			
+			//nodeGraph[MazeNode.positionToIndex(i, MazeNode.NORTH)] = new MazeNode(i, MazeNode.NORTH, tmpV);
+			
+			//nodeGraph[MazeNode.positionToIndex(i, MazeNode.WEST)] = new MazeNode(i, MazeNode.WEST, tmpV);
 		}
 		
 		
-		MazeNode.setActiveFlags(this, nodeGraph);
+		//MazeNode.setActiveFlags(this, nodeGraph);
 		
 		
-		FloydTable = new double[nodeGraph.length][nodeGraph.length];
-		PathTable = new int[nodeGraph.length][nodeGraph.length];
+		//FloydTable = new double[nodeGraph.length][nodeGraph.length];
+		//PathTable = new int[nodeGraph.length][nodeGraph.length];
 		
 		
 		
 		//initialize tables
 		
+		/*
 		for(int i = 0; i < nodeGraph.length; i++){
 			
 			if(nodeGraph[i].active == false)continue;
@@ -162,12 +174,11 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 				}
 				
 			}
+		*/
 		
+		/*
 		
-		
-		
-		
-		//loop and make paths through valid nodes
+			//loop and make paths through valid nodes
 		///loop though, use k as intermediate nodes		
 		for(int k = 0; k < nodeGraph.length; k++){
 			if(!nodeGraph[k].active)continue;
@@ -204,7 +215,7 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 					
 				}		
 			}	
-		}
+		}*/
 		
 				
 

@@ -4,7 +4,8 @@
 package drk.maze;
 
 import drk.*;
-import java.util.*;
+import drk.graphics.game.*;
+import java.util.*; 
 
 //these nodes compose a graph containing doorways and unoccupied centers of rooms
 //used to generate wires and for bunny pathfinding
@@ -12,7 +13,9 @@ public class MazeNode {
 
   public int roomID = -1;
   public int roomLocation = -1;
+  
   public Vector3D position = null;
+  
   boolean active = true; // this flag is disabled if a mazenode is in the middle of a wall or mazeitem
  	//determines whether the floyd's table generates paths containing this node
 
@@ -20,26 +23,172 @@ public class MazeNode {
   public static int mazeWidth = 0;
   public static int mazeHeight = 0;
   
-  public static final int NORTH = 0;
-  public static final int WEST = 1;
+  public static final int TOP = 0;
+  public static final int BOTTOM = 1;
   public static final int CENTER = 2;
-  //south and east are not needed since these three are added for each room, thus covering every node except those on the south wall and those on the east wall
-  //but nodes on walls have no possibility of being flagged as active anyways
-
-  public ArrayList<int[]> connectionList = null;
+  public static final int LEFT = 3;
+  public static final int RIGHT = 4;
+  public static final int ULEFT = 5;
+  public static final int URIGHT = 6;
+  public static final int LLEFT = 7;
+  public static final int LRIGHT = 8;
+  
+  public int[] connectionList = null;
 
 //constructor.  duh.  
- public MazeNode(int r, int l, Vector3D p){
- 	roomID = r;
+ public MazeNode(Room r, Vector3D rc,  int l){
+ 
+ 	roomID = r.getID();
  	roomLocation = l;
- 	position = p;
  	
- 	connectionList = generateConnections();
+ 	position = new Vector3D(rc.x, rc.y, rc.z);
+ 	
+ 	//i'm not entirely sure about this -- i might be getting my axes and my length vs. width mixed up
+ 	//at any rate this sets the node location and connections array
+ 	//connections array contains indices into the karnaughmaze nodelist
+ 	boolean tmp = false;
+ 	
+ 	switch(l){
+ 	
+ 		case TOP:		position = new Vector3D(rc.x, rc.y, rc.z - HorrorWallMaze.ROOM_LENGTH);
+ 						tmp = false;
+ 						
+ 						//if there exists a room to the north
+ 						if(roomID - mazeWidth >= 0 && roomID / mazeWidth != 0){tmp = true;}
+ 						
+ 						if(tmp)connectionList = new int[4];
+ 						else connectionList = new int[3];
+ 						
+ 						connectionList[0] = ULEFT + roomID;
+ 						connectionList[1] = URIGHT + roomID;
+ 						connectionList[2] = CENTER + roomID;
+ 						
+ 						
+ 						if(tmp){
+ 							connectionList[3] = roomID - mazeWidth + BOTTOM;
+ 						}
+ 						
+ 						break;
+ 		case BOTTOM: 	position = new Vector3D(rc.x, rc.y, rc.z + HorrorWallMaze.ROOM_LENGTH);
+ 						
+ 						tmp = false;
+ 						
+ 						//if there exists a room to the south
+ 						if(roomID + mazeWidth < mazeSize && roomID / mazeWidth < (mazeHeight-1)){tmp = true;}
+ 						
+ 						if(tmp)connectionList = new int[4];
+ 						else connectionList = new int[3];
+ 						
+ 						connectionList[0] = LLEFT + roomID;
+ 						connectionList[1] = LRIGHT + roomID;
+ 						connectionList[2] = CENTER + roomID;
+ 						
+ 						
+ 						if(tmp){
+ 							connectionList[3] = roomID + mazeWidth + TOP;
+ 						}
+ 		
+ 		
+ 						break;
+ 		case CENTER: 	position = new Vector3D(rc.x, rc.y, rc.z);
+ 						connectionList = new int[8]; 
+ 						 connectionList[0] = roomID + ULEFT; 
+ 						 connectionList[1] = roomID + URIGHT; 
+ 						 connectionList[2] = roomID + LLEFT; 
+ 						 connectionList[3] = roomID + LRIGHT; 
+ 						 connectionList[4] = roomID + TOP;
+ 						 connectionList[5] = roomID + BOTTOM; 
+ 						 connectionList[6] = roomID + LEFT;
+ 						 connectionList[7] = roomID + RIGHT;
+ 		
+ 						break;
+ 		case LEFT: 		position = new Vector3D(rc.x - HorrorWallMaze.ROOM_WIDTH, rc.y, rc.z);
+ 						
+ 						 tmp = false;
+ 						
+ 						//if there exists a room to the left
+ 						if(roomID != 0 && roomID % mazeWidth!= 0){tmp = true;}
+ 						
+ 						if(tmp)connectionList = new int[4];
+ 						else connectionList = new int[3];
+ 						
+ 						connectionList[0] = ULEFT + roomID;
+ 						connectionList[1] = LLEFT + roomID;
+ 						connectionList[2] = CENTER + roomID;
+ 						
+ 						
+ 						if(tmp){
+ 							connectionList[3] = roomID - 1 + RIGHT;
+ 						}
+ 						
+ 						
+ 						
+ 		
+ 						break;
+ 		case RIGHT: 	position = new Vector3D(rc.x + HorrorWallMaze.ROOM_WIDTH, rc.y, rc.z);
+ 						
+ 						 tmp = false;
+ 						
+ 						//if there exists a room to the right
+ 						if(roomID  +1 != mazeSize  && roomID % mazeWidth!= mazeWidth - 1){tmp = true;}
+ 						
+ 						if(tmp)connectionList = new int[4];
+ 						else connectionList = new int[3];
+ 						
+ 						connectionList[0] = URIGHT + roomID;
+ 						connectionList[1] = LRIGHT + roomID;
+ 						connectionList[2] = CENTER + roomID;
+ 						
+ 						
+ 						if(tmp){
+ 							connectionList[3] = roomID + 1 + LEFT;
+ 						}
+ 						
+ 		
+ 		
+ 						break;
+ 		case ULEFT: 	position = new Vector3D(rc.x - HorrorWallMaze.ROOM_WIDTH, rc.y, rc.z - HorrorWallMaze.ROOM_LENGTH);
+ 						connectionList = new int[4]; 
+ 						 connectionList[0] = roomID + LEFT; 
+ 						 connectionList[1] = roomID + TOP; 
+ 						 connectionList[2] = roomID + CENTER; 
+ 						 connectionList[3] = roomID + LLEFT;
+ 					
+ 						break;
+ 		case URIGHT: 	position = new Vector3D(rc.x + HorrorWallMaze.ROOM_WIDTH, rc.y, rc.z - HorrorWallMaze.ROOM_LENGTH);
+ 						connectionList = new int[4]; 
+ 						 connectionList[0] = roomID + RIGHT; 
+ 						 connectionList[1] = roomID + TOP; 
+ 						 connectionList[2] = roomID + CENTER; 
+ 						 connectionList[3] = roomID + LRIGHT;
+ 						
+ 						break;
+ 		case LLEFT: 	position = new Vector3D(rc.x - HorrorWallMaze.ROOM_WIDTH, rc.y, rc.z + HorrorWallMaze.ROOM_LENGTH);
+ 						connectionList = new int[4]; 
+ 						 connectionList[0] = roomID + LEFT; 
+ 						 connectionList[1] = roomID + BOTTOM; 
+ 						 connectionList[2] = roomID + CENTER; 
+ 						 connectionList[3] = roomID + ULEFT;
+ 		
+ 						break;
+ 		case LRIGHT: 	position = new Vector3D(rc.x + HorrorWallMaze.ROOM_WIDTH, rc.y, rc.z + HorrorWallMaze.ROOM_LENGTH);
+ 						 connectionList = new int[4]; 
+ 						 connectionList[0] = roomID + RIGHT; 
+ 						 connectionList[1] = roomID + BOTTOM; 
+ 						 connectionList[2] = roomID + CENTER; 
+ 						 connectionList[3] = roomID + URIGHT;
+
+ 						break;
+ 		default:  break;
+ 	}
+ 	
+ 	
+    
  	
  }
  
  
- 
+ /*
  public boolean searchNodeConnection(int a, int b){
  	
  	for(int[] x: connectionList){
@@ -50,10 +199,10 @@ public class MazeNode {
  		
  	}
 	return false; 	
- }
+ }*/
  
  
- 
+ /*
  public boolean searchNodeConnection(MazeNode a){
  	
  	
@@ -63,11 +212,11 @@ public class MazeNode {
  		
  	}return false;
  	
- }
+ }*/
  
  
  
- 
+ /*
  //returns a list of ordered pairs containing the <room id, position> of connected nodes in the graph
  public ArrayList<int[]> generateConnections(){
  	
@@ -235,7 +384,9 @@ public class MazeNode {
  	return conn;
  }
   
+ */
  
+ /*
  
  //THIS FUNCTION IS A STUB.  ILL GET TO IT SOON
  //given a maze and a list of mazenodes, determine which mazenodes correspond to valid path nodes in the maze and adjust the flags accordingly
@@ -253,15 +404,15 @@ public class MazeNode {
  		
  	}
  	
- }
+ }*/
  
- 
+ /*
  //takes the room ID and the location constant within the room and gives the appropriate index into the one dimensional node graph array
  public static int positionToIndex(int room, int location){
  	return 3 * room + location; //three because there are 3 possible locations in each room
  	 //so the array looks like { [room 0, position1], [room 0, position 2], [room 0, position 3]........ [room n position 3]}
  }
- 
+ */
  
 
 }

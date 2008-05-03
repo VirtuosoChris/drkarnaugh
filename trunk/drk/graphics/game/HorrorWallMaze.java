@@ -13,16 +13,16 @@ import drk.graphics.*;
 public class HorrorWallMaze extends RenderableMaze
 {
 	
-	final static float ROOM_LENGTH=10.0f;	//all units are in meters
-	final static float ROOM_HEIGHT=3.0f;
-	final static float ROOM_WIDTH=10.0f;	//bricks are .5 meters texture
-	final static float WALL_WIDTH=.5f;
-	final static float DOOR_WIDTH=1.0f;
-	final static float DOOR_HEIGHT=3.0f*.75f;
+	public final static float ROOM_LENGTH=10.0f;	//all units are in meters
+	public final static float ROOM_HEIGHT=3.0f;
+	public final static float ROOM_WIDTH=10.0f;	//bricks are .5 meters texture
+	public final static float WALL_WIDTH=.5f;
+	public final static float DOOR_WIDTH=1.0f;
+	public final static float DOOR_HEIGHT=3.0f*.75f;
 	Texture bricks;
 	Texture bricksnormals;
-	final static float BRICK_SCALE=1.5f;
-	final static float PLANK_SCALE=.9f;
+	public final static float BRICK_SCALE=1.5f;
+	public final static float PLANK_SCALE=.9f;
 	Texture planks;
 	Texture planksnormals;
 	final static boolean ALWAYSROOM=false;
