@@ -32,12 +32,13 @@ public class MazeNode {
   public static final int URIGHT = 6;
   public static final int LLEFT = 7;
   public static final int LRIGHT = 8;
-  
+  protected Room associatedRoom;
   public int[] connectionList = null;
 
 //constructor.  duh.  
  public MazeNode(Room r, Vector3D rc,  int l){
- 
+ 	
+ 	associatedRoom = r;
  	roomID = r.getID();
  	roomLocation = l;
  	
@@ -68,6 +69,9 @@ public class MazeNode {
  							connectionList[3] = roomID - mazeWidth + BOTTOM;
  						}
  						
+ 						
+ 					    active = associatedRoom.Up;
+ 						
  						break;
  		case BOTTOM: 	position = new Vector3D(rc.x, rc.y, rc.z + HorrorWallMaze.ROOM_LENGTH);
  						
@@ -88,7 +92,9 @@ public class MazeNode {
  							connectionList[3] = roomID + mazeWidth + TOP;
  						}
  		
- 		
+ 					
+ 					    active = associatedRoom.Down;
+ 						
  						break;
  		case CENTER: 	position = new Vector3D(rc.x, rc.y, rc.z);
  						connectionList = new int[8]; 
@@ -100,7 +106,9 @@ public class MazeNode {
  						 connectionList[5] = roomID + BOTTOM; 
  						 connectionList[6] = roomID + LEFT;
  						 connectionList[7] = roomID + RIGHT;
- 		
+ 							
+ 						active = (associatedRoom.localItem != null);
+ 								
  						break;
  		case LEFT: 		position = new Vector3D(rc.x - HorrorWallMaze.ROOM_WIDTH, rc.y, rc.z);
  						
@@ -123,6 +131,8 @@ public class MazeNode {
  						
  						
  						
+ 					    active = associatedRoom.Left;
+ 						
  		
  						break;
  		case RIGHT: 	position = new Vector3D(rc.x + HorrorWallMaze.ROOM_WIDTH, rc.y, rc.z);
@@ -144,7 +154,8 @@ public class MazeNode {
  							connectionList[3] = roomID + 1 + LEFT;
  						}
  						
- 		
+ 						
+ 					    active = associatedRoom.Right;
  		
  						break;
  		case ULEFT: 	position = new Vector3D(rc.x - HorrorWallMaze.ROOM_WIDTH, rc.y, rc.z - HorrorWallMaze.ROOM_LENGTH);
