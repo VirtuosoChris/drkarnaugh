@@ -35,6 +35,17 @@ public class MazeNode {
   protected Room associatedRoom;
   public int[] connectionList = null;
 
+
+
+public boolean searchConnections(int s){
+	
+	for( int t : connectionList){
+		if(t == s) return true;
+	}
+	return false;
+}
+
+
 //constructor.  duh.  
  public MazeNode(Room r, Vector3D rc,  int l){
  	

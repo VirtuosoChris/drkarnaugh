@@ -137,14 +137,26 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		//MazeNode.setActiveFlags(this, nodeGraph);
 		
 		
-		//FloydTable = new double[nodeGraph.length][nodeGraph.length];
-		//PathTable = new int[nodeGraph.length][nodeGraph.length];
+		//GENERATE THE FLOYD TABLE AND PATH TABLE FROM THE NODE GRID
 		
+		FloydTable = new double[nodeGraph.length][nodeGraph.length];
+		PathTable = new int[nodeGraph.length][nodeGraph.length];
 		
 		
 		//initialize tables
 		
-		/*
+		//set everything to null to start
+		for(int i = 0; i < nodeGraph.length; i++){
+			for(int j = 0; j < nodeGraph.length; j++){
+				
+				FloydTable[i][j] = -1.0;
+				PathTable[i][j]= -1;
+			
+			}
+		}
+		
+		
+		
 		for(int i = 0; i < nodeGraph.length; i++){
 			
 			if(nodeGraph[i].active == false)continue;
@@ -153,39 +165,39 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 				
 			if(nodeGraph[j].active == false)continue;
 				
+				//the distance and path for each active node to itself is set.
 				if(i == j){
 					FloydTable[i][i] = 0.0;
 					PathTable[i][i] = i; //we don't have to take any path to get here
 					continue;
 				}
-					
-				//if a path exists and the nodes are active
-				if(nodeGraph[i].searchNodeConnection(nodeGraph[j]) && nodeGraph[i].active && nodeGraph[j].active){
+				
+						
+				//connect the adjacent nodes
+				else if(nodeGraph[i].searchConnections(j) && nodeGraph[i].active && nodeGraph[j].active){
 					FloydTable[i][j] = nodeGraph[i].position.distance(nodeGraph[j].position);
 					PathTable[i][j] = j;
 					continue;
 				}
 					
-					
+				else{	
 				FloydTable[i][j] = -1.0;  //can't have a negative distance, so this is an invalid value
 				PathTable[i][j] = j; //there is no negative index into the array, so no path exists
-					
-				
 				}
 				
+				}
 			}
-		*/
 		
-		/*
 		
-			//loop and make paths through valid nodes
+		
+		//loop and make paths through valid nodes
 		///loop though, use k as intermediate nodes		
 		for(int k = 0; k < nodeGraph.length; k++){
 			if(!nodeGraph[k].active)continue;
 		//loop through start nodes
 		for(int i = 0; i < nodeGraph.length; i++){
 			
-		 if(!nodeGraph[i].active)continue;
+		 if(!nodeGraph[i].active)continue; 
 			
 			//loop through destination nodes
 			for(int j = 0; j < nodeGraph.length; j++){
@@ -215,7 +227,7 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 					
 				}		
 			}	
-		}*/
+		}
 		
 				
 
