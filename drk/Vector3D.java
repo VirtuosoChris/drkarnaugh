@@ -238,4 +238,11 @@ public class Vector3D
 		return this;
 	}
 	
+	
+	public Vector3D midpoint(Vector3D b){
+		
+		return new Vector3D( (this.x + b.x) /2,(this.y + b.y) /2,(this.z + b.z) /2);
+		
+	}
+	
 }

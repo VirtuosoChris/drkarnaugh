@@ -21,7 +21,7 @@ public class SoundStreamer extends Thread{
 	}
 	public void run()
 	{
-		playSoundFile(song);
+		//playSoundFile(song);
 	}
 	static Vector<SoundStreamer> Streams;
 	static 

@@ -55,6 +55,17 @@ public boolean searchConnections(int s){
  	
  	position = new Vector3D(rc.x, rc.y, rc.z);
  	
+ 	Vector3D vTop = new Vector3D(rc.x, rc.y, rc.z - HorrorWallMaze.ROOM_LENGTH*.5);
+ 	Vector3D vBottom = new Vector3D(rc.x, rc.y, rc.z + HorrorWallMaze.ROOM_LENGTH*.5);
+ 	Vector3D vLeft = new Vector3D(rc.x - HorrorWallMaze.ROOM_WIDTH*.5, rc.y, rc.z);					
+ 	Vector3D vRight = new Vector3D(rc.x + HorrorWallMaze.ROOM_WIDTH*.5, rc.y, rc.z);
+ 	Vector3D vCenter = new Vector3D(rc.x, rc.y, rc.z);
+ 	Vector3D vUL = vTop.midpoint(vLeft);
+ 	Vector3D vUR = vTop.midpoint(vRight);
+ 	Vector3D vLL = vBottom.midpoint(vLeft);
+ 	Vector3D vLR = vBottom.midpoint(vRight);
+ 	
+ 
  	//i'm not entirely sure about this -- i might be getting my axes and my length vs. width mixed up
  	//at any rate this sets the node location and connections array
  	//connections array contains indices into the karnaughmaze nodelist
@@ -62,7 +73,7 @@ public boolean searchConnections(int s){
  	
  	switch(l){
  	
- 		case TOP:		position = new Vector3D(rc.x, rc.y, rc.z - HorrorWallMaze.ROOM_LENGTH);
+ 		case TOP:		position = vTop;
  						tmp = false;
  						
  						//if there exists a room to the north
@@ -84,8 +95,7 @@ public boolean searchConnections(int s){
  					    active = associatedRoom.Up;
  						
  						break;
- 		case BOTTOM: 	position = new Vector3D(rc.x, rc.y, rc.z + HorrorWallMaze.ROOM_LENGTH);
- 						
+ 		case BOTTOM: 	position = vBottom;
  						tmp = false;
  						
  						//if there exists a room to the south
@@ -107,7 +117,7 @@ public boolean searchConnections(int s){
  					    active = associatedRoom.Down;
  						
  						break;
- 		case CENTER: 	position = new Vector3D(rc.x, rc.y, rc.z);
+ 		case CENTER: 	position =vCenter;
  						connectionList = new int[8]; 
  						 connectionList[0] = roomID + ULEFT; 
  						 connectionList[1] = roomID + URIGHT; 
@@ -121,8 +131,7 @@ public boolean searchConnections(int s){
  						active = (associatedRoom.localItem != null);
  								
  						break;
- 		case LEFT: 		position = new Vector3D(rc.x - HorrorWallMaze.ROOM_WIDTH, rc.y, rc.z);
- 						
+ 		case LEFT: 		position = vLeft;
  						 tmp = false;
  						
  						//if there exists a room to the left
@@ -146,8 +155,7 @@ public boolean searchConnections(int s){
  						
  		
  						break;
- 		case RIGHT: 	position = new Vector3D(rc.x + HorrorWallMaze.ROOM_WIDTH, rc.y, rc.z);
- 						
+ 		case RIGHT: 	position = vRight;
  						 tmp = false;
  						
  						//if there exists a room to the right
@@ -169,7 +177,7 @@ public boolean searchConnections(int s){
  					    active = associatedRoom.Right;
  		
  						break;
- 		case ULEFT: 	position = new Vector3D(rc.x - HorrorWallMaze.ROOM_WIDTH, rc.y, rc.z - HorrorWallMaze.ROOM_LENGTH);
+ 		case ULEFT: 	position = vUL;
  						connectionList = new int[4]; 
  						 connectionList[0] = roomID + LEFT; 
  						 connectionList[1] = roomID + TOP; 
@@ -177,7 +185,7 @@ public boolean searchConnections(int s){
  						 connectionList[3] = roomID + LLEFT;
  					
  						break;
- 		case URIGHT: 	position = new Vector3D(rc.x + HorrorWallMaze.ROOM_WIDTH, rc.y, rc.z - HorrorWallMaze.ROOM_LENGTH);
+ 		case URIGHT: 	position = vUR;
  						connectionList = new int[4]; 
  						 connectionList[0] = roomID + RIGHT; 
  						 connectionList[1] = roomID + TOP; 
@@ -185,7 +193,7 @@ public boolean searchConnections(int s){
  						 connectionList[3] = roomID + LRIGHT;
  						
  						break;
- 		case LLEFT: 	position = new Vector3D(rc.x - HorrorWallMaze.ROOM_WIDTH, rc.y, rc.z + HorrorWallMaze.ROOM_LENGTH);
+ 		case LLEFT: 	position = vLL;
  						connectionList = new int[4]; 
  						 connectionList[0] = roomID + LEFT; 
  						 connectionList[1] = roomID + BOTTOM; 
@@ -193,7 +201,7 @@ public boolean searchConnections(int s){
  						 connectionList[3] = roomID + ULEFT;
  		
  						break;
- 		case LRIGHT: 	position = new Vector3D(rc.x + HorrorWallMaze.ROOM_WIDTH, rc.y, rc.z + HorrorWallMaze.ROOM_LENGTH);
+ 		case LRIGHT: 	position =vLR;
  						 connectionList = new int[4]; 
  						 connectionList[0] = roomID + RIGHT; 
  						 connectionList[1] = roomID + BOTTOM; 
@@ -205,7 +213,7 @@ public boolean searchConnections(int s){
  	}
  	
  	
-    
+    //active = true;
  	
  }
  
