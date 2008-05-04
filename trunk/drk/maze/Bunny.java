@@ -59,7 +59,7 @@ public static final int KILLSTATE = 0;
 
 public static final int MOVINGSTATE = 2;
 
-public static final double BUNNYSPEED = .01;
+public static final double BUNNYSPEED = .001;
 
 public long moveUntilTime = 0;
 public long moveStartedTime = 0;
@@ -270,8 +270,14 @@ public void update(){
 		
 	}
 	
+	double percent = (double)((double)System.currentTimeMillis() - (double)moveStartedTime) / (double)((double)moveUntilTime - (double)moveStartedTime);
 	
-	position = rm.nodeGraph[currentNode].position.plus(direction.times(BUNNYSPEED*(System.currentTimeMillis() - moveStartedTime)));
+	if(moveUntilTime!= moveStartedTime){
+	position = rm.nodeGraph[currentNode].position.plus(
+		
+		(rm.nodeGraph[targetNode].position.minus(rm.nodeGraph[currentNode].position)).times(percent));
+	}
+		//direction.times(BUNNYSPEED*(System.currentTimeMillis() - moveStartedTime)));
 	
 	
 	lastUpdate = System.currentTimeMillis();
