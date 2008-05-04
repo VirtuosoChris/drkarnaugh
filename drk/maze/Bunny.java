@@ -80,12 +80,13 @@ public Bunny(KarnaughGame kg){
 	
 	Room room = e.getRoom();
 	currentNode = MazeNode.ULEFT + room.getID()*9;
+	targetNode = currentNode;
 	
 	position = rm.nodeGraph[currentNode].position;
 	
 	
 	//set target node
-	targetNode = rm.PathTable[currentNode][closestNodePlayer()];
+	//targetNode = rm.PathTable[currentNode][closestNodePlayer()];
 	
 	if(targetNode <0){
 		System.out.println("Target = -1");
@@ -95,17 +96,18 @@ public Bunny(KarnaughGame kg){
 		System.out.println("current = -1");
 		System.exit(0);
 		}
+	direction = new Vector3D(0,0,0);
 	
-    direction = (rm.nodeGraph[targetNode].position).minus(rm.nodeGraph[currentNode].position);
-    direction = direction.normal();//.times(BUNNYSPEED);
+    //direction = (rm.nodeGraph[targetNode].position).minus(rm.nodeGraph[currentNode].position);
+    //direction = direction.normal();//.times(BUNNYSPEED);
 	
 	//set arrival time							 //distance / rate
-	moveUntilTime = System.currentTimeMillis() + (long)(((rm.nodeGraph[targetNode].position).distance(rm.nodeGraph[currentNode].position)) / BUNNYSPEED);
+	moveUntilTime = System.currentTimeMillis();// + (long)(((rm.nodeGraph[targetNode].position).distance(rm.nodeGraph[currentNode].position)) / BUNNYSPEED);
 	moveStartedTime = lastUpdate = System.currentTimeMillis();
 	
 	System.out.println("Starting at node "+currentNode+"moving to "+targetNode);
 	
-	//this.update();
+	this.update();
 	
 /*
 //	this.position=((HorrorWallMaze)rm).getRoomMiddle(e.getRoom());
