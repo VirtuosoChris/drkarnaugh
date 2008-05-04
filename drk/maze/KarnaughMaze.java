@@ -134,6 +134,7 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		}
 		
 		
+	
 		//MazeNode.setActiveFlags(this, nodeGraph);
 		
 		
@@ -146,24 +147,24 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		//initialize tables
 		
 		//set everything to null to start
-		for(int i = 0; i < nodeGraph.length; i++){
-			for(int j = 0; j < nodeGraph.length; j++){
-				
-				FloydTable[i][j] = -1.0;
-				PathTable[i][j]= -1;
+	//	for(int i = 0; i < nodeGraph.length; i++){
+	//		for(int j = 0; j < nodeGraph.length; j++){
+	//			
+	//			FloydTable[i][j] = -1.0;
+	//			PathTable[i][j]= -1;
 			
-			}
-		}
+	//		}
+	//	}
 		
 		
 		
 		for(int i = 0; i < nodeGraph.length; i++){
 			
-			if(nodeGraph[i].active == false)continue;
+		//	if(nodeGraph[i].active == false)continue;
 			
 			for(int j = 0; j < nodeGraph.length; j++){
 				
-			if(nodeGraph[j].active == false)continue;
+		//	if(nodeGraph[j].active == false)continue;
 				
 				//the distance and path for each active node to itself is set.
 				if(i == j){
@@ -181,7 +182,7 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 				}
 					
 				else{	
-				FloydTable[i][j] = -1.0;  //can't have a negative distance, so this is an invalid value
+				FloydTable[i][j] = 100000.0;  //can't have a negative distance, so this is an invalid value
 				PathTable[i][j] = j; //there is no negative index into the array, so no path exists
 				}
 				
@@ -209,12 +210,12 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 					//OR the current distance is infinity
 					
 					//make sure the connections actually exist
-					
 					if(FloydTable[i][k] >= 0.0 && FloydTable[k][j] >= 0.0){
 				
 						double tDist = 0;
 						
-						if( FloydTable[i][j] < 0 || (tDist = (FloydTable[i][k] + FloydTable[k][j])) < FloydTable[i][j]){
+						tDist = (FloydTable[i][k] + FloydTable[k][j]);
+						if( FloydTable[i][j] < 0 || tDist < FloydTable[i][j]){
 							
 							FloydTable[i][j] = tDist;
 							PathTable[i][j] = PathTable[i][k];
@@ -227,6 +228,17 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 					
 				}		
 			}	
+		}
+		
+		
+		for(int i = 0; i <  nodeGraph.length; i++){
+			
+			if(nodeGraph[i] == null){
+			System.out.println("HUGE PROBLEM WITH NODE GRAPH GENERATION");	
+			}
+			
+			MazeNode m = nodeGraph[i];
+			KarnaughLog.log("node "+m.roomID*9 + m.roomLocation+":"+m.position+"active?"+m.active);
 		}
 		
 				

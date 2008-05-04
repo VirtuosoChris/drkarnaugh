@@ -245,4 +245,9 @@ public class Vector3D
 		
 	}
 	
+	
+	public String toString(){
+		return "("+x+","+y+","+z+")";
+	}
+	
 }

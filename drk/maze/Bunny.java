@@ -59,9 +59,10 @@ public static final int KILLSTATE = 0;
 
 public static final int MOVINGSTATE = 2;
 
-public static final double BUNNYSPEED = .001;
+public static final double BUNNYSPEED = .01;
 
 public long moveUntilTime = 0;
+public long moveStartedTime = 0;
 
 
 //spawn in maze
@@ -86,16 +87,25 @@ public Bunny(KarnaughGame kg){
 	//set target node
 	targetNode = rm.PathTable[currentNode][closestNodePlayer()];
 	
+	if(targetNode <0){
+		System.out.println("Target = -1");
+		System.exit(0);
+		}
+		if(currentNode <0){
+		System.out.println("current = -1");
+		System.exit(0);
+		}
 	
     direction = (rm.nodeGraph[targetNode].position).minus(rm.nodeGraph[currentNode].position);
-    direction = direction.normal().times(BUNNYSPEED);
+    direction = direction.normal();//.times(BUNNYSPEED);
 	
 	//set arrival time							 //distance / rate
 	moveUntilTime = System.currentTimeMillis() + (long)(((rm.nodeGraph[targetNode].position).distance(rm.nodeGraph[currentNode].position)) / BUNNYSPEED);
+	moveStartedTime = lastUpdate = System.currentTimeMillis();
 	
-	lastUpdate = System.currentTimeMillis();
+	System.out.println("Starting at node "+currentNode+"moving to "+targetNode);
 	
-	this.update();
+	//this.update();
 	
 /*
 //	this.position=((HorrorWallMaze)rm).getRoomMiddle(e.getRoom());
@@ -186,38 +196,6 @@ public MazeNode getClosestNode(){
 
 
 
-public MazeNode getClosestNodeBunny(){
-	
-	double closest = -1;
-	double temp = 0;
-	MazeNode closestRoom = null;
-	
-	
-	
-	
-	for(int i = 0; i < rm.nodeGraph.length; i++){
-
-	if((closest < 0 ||
-		(temp = position.distance( rm.nodeGraph[i].position)) < closest)
-			&& rm.nodeGraph[i].active
-	  ) {
-	  	
-	  closestRoom = rm.nodeGraph[i];
-	  closest = temp;
-	  
-	  }
-	  		  	
-	}
-	
-	
-	return closestRoom;
-	
-}
-
-
-
-
-
 
 
 
@@ -232,36 +210,69 @@ public void update(){
 	
 	
 	
+	System.out.println("Bunny"+position+" "+direction);
 	//if the camera intersects the bunny-sphere its game over
 	//if((k.ec.isCollidedWith(this.position.plus(new Vector3D(0,k.ec.Position.y,0)), distanceRadius))){
 	//	k.die();
 	//}
 	
 	//update position given current paramaters
-	position = position.plus(direction.times( (System.currentTimeMillis() - lastUpdate)));
 	
+	//Vector3D tdirection = direction.times((System.currentTimeMillis() - lastUpdate));
+	//if(tdirection.x!= Float.NaN && 
+	//	tdirection.y != Float.NaN && tdirection.z != Float.NaN){
+	
+	//position = position.plus(tdirection);
+	//}
 	
 	if( System.currentTimeMillis() >= moveUntilTime){
 		
+		System.out.println("CHANGING PATHS");
+		
+		moveStartedTime = System.currentTimeMillis();
+		
 		currentNode = targetNode;
 		
-	//	position = rm.nodeGraph[currentNode].position;
+     	//	position = rm.nodeGraph[currentNode].position;
 	
 	
-	//set target node
+	   //set target node
 		targetNode = rm.PathTable[currentNode][closestNodePlayer()];
 	
 	
+		if(currentNode == targetNode){
+			direction = new Vector3D(0,0,0);
+			moveUntilTime= System.currentTimeMillis();
+			
+		}else{
+			
+	
+	if(targetNode <0){
+		System.out.println("Target = -1");
+		System.exit(0);
+		}
+		if(currentNode <0){
+		System.out.println("current = -1");
+		System.exit(0);
+		}			
+			
+	
     	direction = (rm.nodeGraph[targetNode].position).minus(rm.nodeGraph[currentNode].position);
-    	direction = direction.normal().times(BUNNYSPEED);
+    	direction = direction.normal();//.times(BUNNYSPEED);
 	
 	//set arrival time							 //distance / rate
 		moveUntilTime = System.currentTimeMillis() + (long)(((rm.nodeGraph[targetNode].position).distance(rm.nodeGraph[currentNode].position)) / BUNNYSPEED);
-	
+		}
 		
+	System.out.println("Changing targets "+currentNode+"moving to "+targetNode);
 		
 	}
 	
+	
+	position = rm.nodeGraph[currentNode].position.plus(direction.times(BUNNYSPEED*(System.currentTimeMillis() - moveStartedTime)));
+	
+	
+	lastUpdate = System.currentTimeMillis();
 	
 	/*
 	if(bunnyState == KILLSTATE){
@@ -347,7 +358,6 @@ public void update(){
 	}*/
 	
 
-	lastUpdate = System.currentTimeMillis();
 
 }
 
@@ -372,7 +382,7 @@ public void render(GL gl){
 		
 		glu.gluQuadricTexture(s,false);
 		
-	  glu.gluSphere(s, distanceRadius, 10,10);
+	  glu.gluSphere(s, distanceRadius*2, 10,10);
 	
  	gl.glPopMatrix();
 	
