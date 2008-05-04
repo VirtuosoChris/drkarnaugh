@@ -21,16 +21,16 @@ import drk.circuit.Entrance;
 
 public class Bunny implements drk.graphics.GLRenderable, Updatable {
 
-public static final long moveTimeStraight = 2000; //in milliseconds, the time it takes to move across the room straight
+//public static final long moveTimeStraight = 2000; //in milliseconds, the time it takes to move across the room straight
 
-
-MazeNode targetNode = null;
+int currentNode = 0;
+int targetNode = 0;
 
 //the room the bunny is moving to in its current state
 //Room movingTo = null;
 
 //the room the bunny is actually in
-Room room = null;
+//Room room = null;
 
 //self explanatory
 Vector3D position = null;
@@ -59,7 +59,7 @@ public static final int KILLSTATE = 0;
 
 public static final int MOVINGSTATE = 2;
 
-public static final double BUNNYSPEED = .0010;
+public static final double BUNNYSPEED = .001;
 
 public long moveUntilTime = 0;
 
@@ -70,15 +70,34 @@ public long moveUntilTime = 0;
 public Bunny(KarnaughGame kg){
 	
 	this.k = kg;
-	
-//	Entrance e = null;
-	
 	this.rm = k.getMaze();
 	
-//	for(MazeItem i: k.getMaze().components){
-//		if(i instanceof Entrance){e = (Entrance)i;break;}
-//	}
-//
+	Entrance e = null;
+	for(MazeItem i: k.getMaze().components){
+		if(i instanceof Entrance){e = (Entrance)i;break;}
+	}
+	
+	Room room = e.getRoom();
+	currentNode = MazeNode.ULEFT + room.getID()*9;
+	
+	position = rm.nodeGraph[currentNode].position;
+	
+	
+	//set target node
+	targetNode = rm.PathTable[currentNode][closestNodePlayer()];
+	
+	
+    direction = (rm.nodeGraph[targetNode].position).minus(rm.nodeGraph[currentNode].position);
+    direction = direction.normal().times(BUNNYSPEED);
+	
+	//set arrival time							 //distance / rate
+	moveUntilTime = System.currentTimeMillis() + (long)(((rm.nodeGraph[targetNode].position).distance(rm.nodeGraph[currentNode].position)) / BUNNYSPEED);
+	
+	lastUpdate = System.currentTimeMillis();
+	
+	this.update();
+	
+/*
 //	this.position=((HorrorWallMaze)rm).getRoomMiddle(e.getRoom());
 	this.direction = new Vector3D(0,0,0); 
 	
@@ -101,12 +120,41 @@ public Bunny(KarnaughGame kg){
 	moveUntilTime = System.currentTimeMillis();
 	
 	this.update();
-	
+	*/
 }
 
 
 
+public int closestNodePlayer(){
+	
+	double shortestSoFar = 10000; //really high value
+	int rid = rm.getCurrentRoom().getID();
+	
+	int nodeID = rid;
+	
+	for(int i = 0; i < 9; i++){
+		
+		if( !rm.nodeGraph[(rid*9)+i].active)continue;
+		Vector3D tLoc = rm.nodeGraph[(rid*9) + i].position;
+		
+		//distance from node to player
+		double tDist = k.ec.Position.distance(tLoc);
+		
+		if( tDist < shortestSoFar){
+			
+			nodeID = i + (rid*9);
+			shortestSoFar = tDist;
+			
+		}	
+		
+	}
+	
+	return nodeID;
+	
+}
 
+
+/*
 public MazeNode getClosestNode(){
 	
 	double closest = -1;
@@ -133,7 +181,7 @@ public MazeNode getClosestNode(){
 	return closestRoom;
 	
 }
-
+*/
 
 
 
@@ -182,17 +230,40 @@ public String toString(){
 
 public void update(){
 	
+	
+	
 	//if the camera intersects the bunny-sphere its game over
-	if((k.ec.isCollidedWith(this.position.plus(new Vector3D(0,k.ec.Position.y,0)), distanceRadius))){
+	//if((k.ec.isCollidedWith(this.position.plus(new Vector3D(0,k.ec.Position.y,0)), distanceRadius))){
 	//	k.die();
-	}
+	//}
 	
 	//update position given current paramaters
 	position = position.plus(direction.times( (System.currentTimeMillis() - lastUpdate)));
 	
 	
+	if( System.currentTimeMillis() >= moveUntilTime){
+		
+		currentNode = targetNode;
+		
+	//	position = rm.nodeGraph[currentNode].position;
 	
 	
+	//set target node
+		targetNode = rm.PathTable[currentNode][closestNodePlayer()];
+	
+	
+    	direction = (rm.nodeGraph[targetNode].position).minus(rm.nodeGraph[currentNode].position);
+    	direction = direction.normal().times(BUNNYSPEED);
+	
+	//set arrival time							 //distance / rate
+		moveUntilTime = System.currentTimeMillis() + (long)(((rm.nodeGraph[targetNode].position).distance(rm.nodeGraph[currentNode].position)) / BUNNYSPEED);
+	
+		
+		
+	}
+	
+	
+	/*
 	if(bunnyState == KILLSTATE){
 		
 			//test for killstate exit conditions and return to the nearest node if so
@@ -273,10 +344,11 @@ public void update(){
 		} 
 		
 		
-	}
+	}*/
 	
 
 	lastUpdate = System.currentTimeMillis();
+
 }
 
 
