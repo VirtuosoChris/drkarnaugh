@@ -48,7 +48,7 @@ public boolean searchConnections(int s){
 
 //constructor.  duh.  
  public MazeNode(Room r, Vector3D rc,  int l){
- 	
+ 	active = true;
  	associatedRoom = r;
  	roomID = r.getID();
  	roomLocation = l;
@@ -128,7 +128,8 @@ public boolean searchConnections(int s){
  						 connectionList[6] = roomID + LEFT;
  						 connectionList[7] = roomID + RIGHT;
  							
- 						active = (associatedRoom.localItem != null);
+ 						if(associatedRoom.localItem == null)active = true;
+ 						else active = false;
  								
  						break;
  		case LEFT: 		position = vLeft;

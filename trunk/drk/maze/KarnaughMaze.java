@@ -210,12 +210,12 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 					//OR the current distance is infinity
 					
 					//make sure the connections actually exist
-					if(FloydTable[i][k] >= 0.0 && FloydTable[k][j] >= 0.0){
+					//if(FloydTable[i][k] >= 0.0 && FloydTable[k][j] >= 0.0){
 				
 						double tDist = 0;
 						
 						tDist = (FloydTable[i][k] + FloydTable[k][j]);
-						if( FloydTable[i][j] < 0 || tDist < FloydTable[i][j]){
+						if(tDist < FloydTable[i][j]){
 							
 							FloydTable[i][j] = tDist;
 							PathTable[i][j] = PathTable[i][k];
@@ -223,7 +223,7 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 								
 						}
 						
-					}
+					//}
 					
 					
 				}		
