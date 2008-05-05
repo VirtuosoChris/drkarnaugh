@@ -105,9 +105,9 @@ public Bunny(KarnaughGame kg){
 	moveUntilTime = System.currentTimeMillis();// + (long)(((rm.nodeGraph[targetNode].position).distance(rm.nodeGraph[currentNode].position)) / BUNNYSPEED);
 	moveStartedTime = lastUpdate = System.currentTimeMillis();
 	
-	System.out.println("Starting at node "+currentNode+"moving to "+targetNode);
+//	System.out.println("Starting at node "+currentNode+"moving to "+targetNode);
 	
-	this.update();
+//	this.update();
 	
 /*
 //	this.position=((HorrorWallMaze)rm).getRoomMiddle(e.getRoom());
@@ -147,10 +147,10 @@ public int closestNodePlayer(){
 	for(int i = 0; i < 9; i++){
 		
 		if( !rm.nodeGraph[(rid*9)+i].active)continue;
-		Vector3D tLoc = rm.nodeGraph[(rid*9) + i].position;
+		//Vector3D tLoc = ;
 		
 		//distance from node to player
-		double tDist = k.ec.Position.distance(tLoc);
+		double tDist = k.ec.Position.distance(rm.nodeGraph[(rid*9) + i].position);
 		
 		if( tDist < shortestSoFar){
 			
@@ -212,7 +212,7 @@ public void update(){
 	
 	
 	
-	System.out.println("Bunny"+position+" "+direction);
+	//System.out.println("Bunny"+position+" "+direction);
 	//if the camera intersects the bunny-sphere its game over
 	//if((k.ec.isCollidedWith(this.position.plus(new Vector3D(0,k.ec.Position.y,0)), distanceRadius))){
 	//	k.die();
@@ -227,9 +227,23 @@ public void update(){
 	//position = position.plus(tdirection);
 	//}
 	
+	
+		
+	double percent = (double)((double)System.currentTimeMillis() - (double)moveStartedTime) / (double)((double)moveUntilTime - (double)moveStartedTime);
+	
+	
+	if(moveUntilTime!= moveStartedTime){
+	
+//	System.out.println("Percent there:"+percent);
+	
+	position = rm.nodeGraph[currentNode].position.plus(
+		
+		(rm.nodeGraph[targetNode].position.minus(rm.nodeGraph[currentNode].position)).times(percent));
+	}
+	
 	if( System.currentTimeMillis() >= moveUntilTime){
 		
-		System.out.println("CHANGING PATHS");
+	//	System.out.println("CHANGING PATHS");
 		
 		moveStartedTime = System.currentTimeMillis();
 		
@@ -243,7 +257,7 @@ public void update(){
 	
 	
 		if(currentNode == targetNode){
-			direction = new Vector3D(0,0,0);
+			direction.x = direction.y = direction.z = 0;
 			moveUntilTime= System.currentTimeMillis();
 			
 		}else{
@@ -266,17 +280,10 @@ public void update(){
 		moveUntilTime = System.currentTimeMillis() + (long)(((rm.nodeGraph[targetNode].position).distance(rm.nodeGraph[currentNode].position)) / BUNNYSPEED);
 		}
 		
-	System.out.println("Changing targets "+currentNode+"moving to "+targetNode);
+	//System.out.println("Changing targets "+currentNode+"moving to "+targetNode);
 		
 	}
-	
-	double percent = (double)((double)System.currentTimeMillis() - (double)moveStartedTime) / (double)((double)moveUntilTime - (double)moveStartedTime);
-	
-	if(moveUntilTime!= moveStartedTime){
-	position = rm.nodeGraph[currentNode].position.plus(
-		
-		(rm.nodeGraph[targetNode].position.minus(rm.nodeGraph[currentNode].position)).times(percent));
-	}
+
 		//direction.times(BUNNYSPEED*(System.currentTimeMillis() - moveStartedTime)));
 	
 	
