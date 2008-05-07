@@ -64,11 +64,7 @@ public class Vector3D
 	
 	
 	public double distance(Vector3D b){
-		
-		
-		return (this.minus(b)).mag();//Math.sqrt(   (this.x - b.x) + (this.y - b.y) + (this.z - b.z)   );
-		
-		
+		return (this.minus(b)).mag();
 	}
 	
 	
