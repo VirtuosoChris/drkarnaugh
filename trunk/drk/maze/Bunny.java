@@ -59,7 +59,7 @@ public static final int KILLSTATE = 0;
 
 public static final int MOVINGSTATE = 2;
 
-public static final double BUNNYSPEED = .001;
+public static final double BUNNYSPEED = .0025;
 
 public long moveUntilTime = 0;
 public long moveStartedTime = 0;
@@ -229,27 +229,25 @@ public void update(){
 	
 	
 		
-	double percent = (double)((double)System.currentTimeMillis() - (double)moveStartedTime) / (double)((double)moveUntilTime - (double)moveStartedTime);
-	
+	double percent = //(double)((double)System.currentTimeMillis() - (double)moveStartedTime) / (double)((double)moveUntilTime - (double)moveStartedTime);
+	(double)((double)System.currentTimeMillis() - (double)moveStartedTime) / (double)((double)moveUntilTime - (double)moveStartedTime);
 	
 	if(moveUntilTime!= moveStartedTime){
 	
-//	System.out.println("Percent there:"+percent);
+	//System.out.println("Percent there:"+percent);
 	
-	position = rm.nodeGraph[currentNode].position.plus(
-		
-		(rm.nodeGraph[targetNode].position.minus(rm.nodeGraph[currentNode].position)).times(percent));
-	}
+	position = rm.nodeGraph[currentNode].position.plus(direction.times(((rm.nodeGraph[targetNode].position).distance(rm.nodeGraph[currentNode].position))*percent));
+	}else position = rm.nodeGraph[currentNode].position;
 	
-	if( System.currentTimeMillis() >= moveUntilTime){
+	if(System.currentTimeMillis() >= moveUntilTime){
 		
 	//	System.out.println("CHANGING PATHS");
 		
-		moveStartedTime = System.currentTimeMillis();
+		moveStartedTime = moveUntilTime;
 		
 		currentNode = targetNode;
 		
-     	//	position = rm.nodeGraph[currentNode].position;
+     	//position = rm.nodeGraph[currentNode].position;
 	
 	
 	   //set target node
@@ -277,10 +275,12 @@ public void update(){
     	direction = direction.normal();//.times(BUNNYSPEED);
 	
 	//set arrival time							 //distance / rate
-		moveUntilTime = System.currentTimeMillis() + (long)(((rm.nodeGraph[targetNode].position).distance(rm.nodeGraph[currentNode].position)) / BUNNYSPEED);
+		moveUntilTime = moveStartedTime + 
+			(long)(((rm.nodeGraph[targetNode].position).distance(rm.nodeGraph[currentNode].position)) / BUNNYSPEED);
 		}
 		
 	//System.out.println("Changing targets "+currentNode+"moving to "+targetNode);
+	//System.out.println("Time to distance = "+(moveUntilTime-moveStartedTime));
 		
 	}
 
