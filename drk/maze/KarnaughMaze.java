@@ -298,11 +298,7 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 		}	
 	}
 	
-	
-	
-	
-		
-				
+			
 
 	}
 	
