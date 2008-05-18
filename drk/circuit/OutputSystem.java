@@ -11,6 +11,7 @@ import javax.media.opengl.*;
 
 import java.awt.image.*;
 import drk.Vector3D;
+
 public abstract class OutputSystem extends MazeItem
 {
 	public abstract boolean evaluate();

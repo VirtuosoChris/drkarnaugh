@@ -8,7 +8,7 @@ import drk.circuit.*;
 public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 {
 	
-	ArrayList<Vector3D>[][] wirePaths;
+	public ArrayList<Vector3D>[][] wirePaths;
 	
 	public double FloydTable[][] = null;
 	public int PathTable[][] = null;
@@ -260,7 +260,6 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 				ArrayList<Vector3D> current; //another reference for easier typing
 				current = wirePaths[i][j] = new ArrayList<Vector3D>(); 		
 				
-				//this may be the single greatest line of code ever written
 				//add the node of the start component in the trail
 				
 				int t1 = (components.get(i)).getRoom().getID()*9;
