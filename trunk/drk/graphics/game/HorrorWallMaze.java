@@ -14,10 +14,13 @@ public class HorrorWallMaze extends RenderableMaze
 {
 	
 	public final static float ROOM_LENGTH=10.0f;	//all units are in meters
-	public final static float ROOM_HEIGHT=3.0f;
+	public final static float ROOM_HEIGHT=50.0f; //was 3
 	public final static float ROOM_WIDTH=10.0f;	//bricks are .5 meters texture
 	public final static float WALL_WIDTH=.5f;
-	public final static float DOOR_WIDTH=1.0f;
+	
+	
+	public final static float DOOR_WIDTH=1.5f; // was 1
+	
 	public final static float DOOR_HEIGHT=3.0f*.75f;
 	Texture bricks;
 	Texture bricksnormals;

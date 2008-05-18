@@ -45,7 +45,7 @@ Vector3D direction = null;
 KarnaughGame k = null;
 
 //collision radius
-public static final double distanceRadius = 0.5;
+public static final double distanceRadius = 0.25;
 
 //reference to the maze the bunny is in
 KarnaughMaze rm = null;
@@ -397,7 +397,7 @@ public void render(GL gl){
 		
 		glu.gluQuadricTexture(s,false);
 		
-	  glu.gluSphere(s, distanceRadius*2, 10,10);
+	  glu.gluSphere(s, distanceRadius, 10,10);
 	
  	gl.glPopMatrix();
 	

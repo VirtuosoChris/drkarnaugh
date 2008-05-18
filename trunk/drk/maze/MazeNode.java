@@ -82,13 +82,13 @@ public boolean searchConnections(int s){
  						if(tmp)connectionList = new int[4];
  						else connectionList = new int[3];
  						
- 						connectionList[0] = ULEFT + roomID;
- 						connectionList[1] = URIGHT + roomID;
- 						connectionList[2] = CENTER + roomID;
+ 						connectionList[0] = ULEFT + roomID*9;
+ 						connectionList[1] = URIGHT + roomID*9;
+ 						connectionList[2] = CENTER + roomID*9;
  						
  						
  						if(tmp){
- 							connectionList[3] = roomID - mazeWidth + BOTTOM;
+ 							connectionList[3] = (roomID - mazeWidth)*9 + BOTTOM;
  						}
  						
  						
@@ -104,13 +104,13 @@ public boolean searchConnections(int s){
  						if(tmp)connectionList = new int[4];
  						else connectionList = new int[3];
  						
- 						connectionList[0] = LLEFT + roomID;
- 						connectionList[1] = LRIGHT + roomID;
- 						connectionList[2] = CENTER + roomID;
+ 						connectionList[0] = LLEFT + roomID*9;
+ 						connectionList[1] = LRIGHT + roomID*9;
+ 						connectionList[2] = CENTER + roomID*9;
  						
  						
  						if(tmp){
- 							connectionList[3] = roomID + mazeWidth + TOP;
+ 							connectionList[3] = (roomID + mazeWidth)*9 + TOP;
  						}
  		
  					
@@ -119,17 +119,16 @@ public boolean searchConnections(int s){
  						break;
  		case CENTER: 	position =vCenter;
  						connectionList = new int[8]; 
- 						 connectionList[0] = roomID + ULEFT; 
- 						 connectionList[1] = roomID + URIGHT; 
- 						 connectionList[2] = roomID + LLEFT; 
- 						 connectionList[3] = roomID + LRIGHT; 
- 						 connectionList[4] = roomID + TOP;
- 						 connectionList[5] = roomID + BOTTOM; 
- 						 connectionList[6] = roomID + LEFT;
- 						 connectionList[7] = roomID + RIGHT;
+ 						 connectionList[0] = roomID*9 + ULEFT; 
+ 						 connectionList[1] = roomID*9 + URIGHT; 
+ 						 connectionList[2] = roomID*9 + LLEFT; 
+ 						 connectionList[3] = roomID*9 + LRIGHT; 
+ 						 connectionList[4] = roomID*9 + TOP;
+ 						 connectionList[5] = roomID*9 + BOTTOM; 
+ 						 connectionList[6] = roomID*9 + LEFT;
+ 						 connectionList[7] = roomID*9 + RIGHT;
  							
- 						if(associatedRoom.localItem == null)active = true;
- 						else active = false;
+ 						active = (associatedRoom.localItem == null);
  								
  						break;
  		case LEFT: 		position = vLeft;
@@ -141,13 +140,13 @@ public boolean searchConnections(int s){
  						if(tmp)connectionList = new int[4];
  						else connectionList = new int[3];
  						
- 						connectionList[0] = ULEFT + roomID;
- 						connectionList[1] = LLEFT + roomID;
- 						connectionList[2] = CENTER + roomID;
+ 						connectionList[0] = ULEFT + roomID*9;
+ 						connectionList[1] = LLEFT + roomID*9;
+ 						connectionList[2] = CENTER + roomID*9;
  						
  						
  						if(tmp){
- 							connectionList[3] = roomID - 1 + RIGHT;
+ 							connectionList[3] = (roomID - 1)*9 + RIGHT;
  						}
  						
  						
@@ -165,13 +164,13 @@ public boolean searchConnections(int s){
  						if(tmp)connectionList = new int[4];
  						else connectionList = new int[3];
  						
- 						connectionList[0] = URIGHT + roomID;
- 						connectionList[1] = LRIGHT + roomID;
- 						connectionList[2] = CENTER + roomID;
+ 						connectionList[0] = URIGHT + roomID*9;
+ 						connectionList[1] = LRIGHT + roomID*9;
+ 						connectionList[2] = CENTER + roomID*9;
  						
  						
  						if(tmp){
- 							connectionList[3] = roomID + 1 + LEFT;
+ 							connectionList[3] = (roomID + 1)*9 + LEFT;
  						}
  						
  						
@@ -179,271 +178,59 @@ public boolean searchConnections(int s){
  		
  						break;
  		case ULEFT: 	position = vUL;
+ 		
+ 						active = true;
  						connectionList = new int[4]; 
- 						 connectionList[0] = roomID + LEFT; 
- 						 connectionList[1] = roomID + TOP; 
- 						 connectionList[2] = roomID + CENTER; 
- 						 connectionList[3] = roomID + LLEFT;
+ 						 connectionList[0] = roomID*9 + LEFT; 
+ 						 connectionList[1] = roomID*9+ TOP; 
+ 						 connectionList[2] = roomID*9 + CENTER; 
+ 						 connectionList[3] = roomID*9 + LLEFT;
  					
  						break;
  		case URIGHT: 	position = vUR;
+ 						active = true;
  						connectionList = new int[4]; 
- 						 connectionList[0] = roomID + RIGHT; 
- 						 connectionList[1] = roomID + TOP; 
- 						 connectionList[2] = roomID + CENTER; 
- 						 connectionList[3] = roomID + LRIGHT;
+ 						 connectionList[0] = roomID*9 + RIGHT; 
+ 						 connectionList[1] = roomID*9 + TOP; 
+ 						 connectionList[2] = roomID*9 + CENTER; 
+ 						 connectionList[3] = roomID*9 + LRIGHT;
  						
  						break;
- 		case LLEFT: 	position = vLL;
+ 	
+ 		case LLEFT: 	
+ 					active = true;
+ 					position = vLL;
  						connectionList = new int[4]; 
- 						 connectionList[0] = roomID + LEFT; 
- 						 connectionList[1] = roomID + BOTTOM; 
- 						 connectionList[2] = roomID + CENTER; 
- 						 connectionList[3] = roomID + ULEFT;
+ 						 connectionList[0] = roomID*9 + LEFT; 
+ 						 connectionList[1] = roomID*9 + BOTTOM; 
+ 						 connectionList[2] = roomID*9 + CENTER; 
+ 						 connectionList[3] = roomID*9 + ULEFT;
  		
  						break;
- 		case LRIGHT: 	position =vLR;
+ 		case LRIGHT: 	 active = true;
+ 						position =vLR;
  						 connectionList = new int[4]; 
- 						 connectionList[0] = roomID + RIGHT; 
- 						 connectionList[1] = roomID + BOTTOM; 
- 						 connectionList[2] = roomID + CENTER; 
- 						 connectionList[3] = roomID + URIGHT;
+ 						 connectionList[0] = roomID*9 + RIGHT; 
+ 						 connectionList[1] = roomID*9 + BOTTOM; 
+ 						 connectionList[2] = roomID*9 + CENTER; 
+ 						 connectionList[3] = roomID*9 + URIGHT;
 
  						break;
- 		default:  break;
- 	}
- 	
- 	
-    //active = true;
- 	
- }
- 
- 
- /*
- public boolean searchNodeConnection(int a, int b){
- 	
- 	for(int[] x: connectionList){
- 		
- 		if(x[0] == a && x[1] == b){
- 			return true;
- 		}
- 		
- 	}
-	return false; 	
- }*/
- 
- 
- /*
- public boolean searchNodeConnection(MazeNode a){
- 	
- 	
- 	for(int[] x: connectionList){
- 		
- 		if(x[0] == a.roomID && x[1] == a.roomLocation)return true;
- 		
- 	}return false;
- 	
- }*/
- 
- 
- 
- /*
- //returns a list of ordered pairs containing the <room id, position> of connected nodes in the graph
- public ArrayList<int[]> generateConnections(){
- 	
- 	ArrayList<int[]> conn = new ArrayList<int[]>();
- 	
- 	int[] tArray =  null;
- 	
- 	//if there's problems constructing the graph its likely that we forgot to set the mazeSize class field
- 	KarnaughLog.log("\nWorking with maze of size " + mazeSize);
- 	
- 	switch(roomLocation){
- 		
- 		//if this is a northern doorway node
- 		case NORTH:
+ 		default:  
  			
- 			//connect to the west node of this room
- 			tArray = new int[2];
- 			tArray[0] = roomID;
- 			tArray[1] = WEST;
- 			conn.add(tArray);
- 			
- 			
- 			//connect to the center node of this room
- 			tArray = new int[2];
- 			tArray[0] = roomID;
- 			tArray[1] = CENTER;
- 			conn.add(tArray);
- 			
- 			//connect to the east room's west node if the room exists
- 			if(roomID + 1 < mazeSize && roomID % mazeWidth != mazeWidth-1){
- 			 tArray = new int[2];
- 			 tArray[0] = roomID+1;
- 			 tArray[1] = WEST;
- 			 conn.add(tArray);
- 			}
- 				
- 			
- 			//if there is a room directly to the north add its node connections
- 			if(roomID - mazeWidth >= 0){
- 			
- 			    //room to the north's center node
- 				tArray = new int[2];
- 				tArray[0] = roomID - mazeWidth;
- 				tArray[1] = CENTER;
- 				conn.add(tArray);
- 				
- 				//room to the north's west node
- 				tArray = new int[2];
- 				tArray[0] = roomID - mazeWidth;
- 				tArray[1] = WEST;
- 				conn.add(tArray);
- 				
- 				//room to the northeast's west node -- requires extra check to make sure that there is a room to the northeast
- 				if(roomID % mazeWidth != mazeWidth - 1 && roomID - mazeWidth + 1 >= 0){
- 				 tArray = new int[2];
- 				 tArray[0] = roomID - mazeWidth + 1;
- 				 tArray[1] = WEST;
- 				 conn.add(tArray);
- 				}
- 			}
- 			break;
- 			
- 			
- 			
- 		case WEST:
- 			
- 			//connect to this room's north node
- 			tArray = new int[2];
- 			tArray[0] = roomID;
- 			tArray[1] = NORTH;
- 			conn.add(tArray);
- 			
- 			//connect to this room's center node
- 			tArray = new int[2];
- 			tArray[0] = roomID;
- 			tArray[1] = CENTER;
- 			conn.add(tArray);
- 			
- 			
- 			//connect to west room's center and north nodes
- 			if(roomID-1 >=0 && roomID % mazeWidth != 0){
- 			
- 			 tArray = new int[2];
- 			 tArray[0] = roomID-1;
- 			 tArray[1] = NORTH;
- 			 conn.add(tArray);
- 			
- 			 tArray = new int[2];
- 			 tArray[0] = roomID-1;
- 			 tArray[1] = CENTER;
- 			 conn.add(tArray);
- 			}
- 			
- 			//connect to the southwest room's north node
- 			if(roomID-1 + mazeWidth < mazeSize && roomID % mazeWidth != 0){
- 			tArray = new int[2];
- 			tArray[0] = roomID-1 + mazeWidth;
- 			tArray[1] = NORTH;
- 			conn.add(tArray);
- 			}
- 			
- 			//connect to the south room's north node
- 			if(roomID + mazeWidth < mazeSize){
- 				if(roomID + 1 < mazeSize){
- 			 	 tArray = new int[2];
- 			 	 tArray[0] = roomID+mazeWidth;
- 			 	 tArray[1] = NORTH;
- 			 	 conn.add(tArray);
- 				}
- 			}
- 			
- 			
- 			
- 			
- 			
- 			break; 
- 		
- 		case CENTER: 
- 			
- 			//connect to this room's north node
- 			tArray = new int[2];
- 			tArray[0] = roomID;
- 			tArray[1] = NORTH;
- 			conn.add(tArray);
- 			
- 			//connect to this room's west node
- 			tArray = new int[2];
- 			tArray[0] = roomID;
- 			tArray[1] = WEST;
- 			conn.add(tArray);
- 			
- 			//connect to the south room's north node
- 			if(roomID + mazeWidth < mazeSize){
- 				if(roomID + 1 < mazeSize){
- 			 	 tArray = new int[2];
- 			 	 tArray[0] = roomID+mazeWidth;
- 			 	 tArray[1] = NORTH;
- 			 	 conn.add(tArray);
- 				}
- 			}
- 			
- 			//connect to the east room's west node
- 			//connect to the east room's west node if the room exists
- 			if(roomID + 1 < mazeSize && roomID % mazeWidth != mazeWidth-1){
- 			 tArray = new int[2];
- 			 tArray[0] = roomID+1;
- 			 tArray[1] = WEST;
- 			 conn.add(tArray);
- 			}
- 			
+ 			KarnaughLog.log("INVALID NODE POSITION");
+ 			System.exit(0);
  			
  			break;
- 		
  	}
  	
  	
- 	//log the connections made
- 	KarnaughLog.log("\nNode "+roomID + "," + roomLocation+":");
- 	
- 	for(int[] x : conn){
- 		KarnaughLog.log(""+x[0] + ":" + x[1]);
- 	}
- 	KarnaughLog.log("\n");
- 	
- 	return conn;
  }
-  
- */
  
- /*
  
- //THIS FUNCTION IS A STUB.  ILL GET TO IT SOON
- //given a maze and a list of mazenodes, determine which mazenodes correspond to valid path nodes in the maze and adjust the flags accordingly
- public static void setActiveFlags(Maze m, MazeNode[] nodegraph){
- 	
- 	for(Room r : m.RoomList){
-	    
-	    //if there's an item in the middle of the floor bunny/wires can't go through it 	
- 		if(r.localItem!= null){
- 			nodegraph[positionToIndex(r.RoomID, CENTER)].active = false; 		
- 		}
- 		
- 		nodegraph[positionToIndex(r.RoomID, NORTH)].active = !r.Up;
- 		nodegraph[positionToIndex(r.RoomID, WEST)].active =!r.Left;
- 		
- 	}
- 	
- }*/
+
  
- /*
- //takes the room ID and the location constant within the room and gives the appropriate index into the one dimensional node graph array
- public static int positionToIndex(int room, int location){
- 	return 3 * room + location; //three because there are 3 possible locations in each room
- 	 //so the array looks like { [room 0, position1], [room 0, position 2], [room 0, position 3]........ [room n position 3]}
- }
- */
+ 
  
 
 }
