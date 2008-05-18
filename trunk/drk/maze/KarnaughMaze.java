@@ -8,6 +8,8 @@ import drk.circuit.*;
 public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 {
 	
+	ArrayList<Vector3D>[][] wirePaths;
+	
 	public double FloydTable[][] = null;
 	public int PathTable[][] = null;
 	
@@ -240,6 +242,65 @@ public class KarnaughMaze extends drk.graphics.game.HorrorWallMaze
 			MazeNode m = nodeGraph[i];
 			KarnaughLog.log("node "+m.roomID*9 + m.roomLocation+":"+m.position+"active?"+m.active);
 		}
+	
+	
+	
+	
+	
+	
+	//generate paths for wires
+	wirePaths = (ArrayList<Vector3D>[][])new ArrayList[components.size()][components.size()];
+	
+	
+	for(int i = 0; i < components.size(); i++){
+		for(int j = 0; j < components.size(); j++){
+				
+				if(i ==j) {wirePaths[i][j] = null; continue;}
+				
+				ArrayList<Vector3D> current; //another reference for easier typing
+				current = wirePaths[i][j] = new ArrayList<Vector3D>(); 		
+				
+				//this may be the single greatest line of code ever written
+				//add the node of the start component in the trail
+				
+				int t1 = (components.get(i)).getRoom().getID()*9;
+				int t2 = (components.get(j)).getRoom().getID()*9;
+					
+				current.add( nodeGraph[(t1) + MazeNode.CENTER].position );
+				
+				
+				int tArray[] = {MazeNode.ULEFT, MazeNode.URIGHT, MazeNode.LLEFT, MazeNode.LRIGHT};
+			//	Random r = new Random();
+				
+				int k = 0, p = 0;
+				
+				//initiazlize k and p
+				k = t1 + tArray[Math.abs(r.nextInt()%4)];
+				p = t2 + tArray[Math.abs(r.nextInt()%4)];
+					
+					
+				current.add(nodeGraph[k].position);
+				
+				//use the path table and add each node along the paths
+				while(k!=p){
+					current.add(nodeGraph[k = (PathTable[k][p])].position);
+				}
+				
+				//add the last node along the path
+				current.add(nodeGraph[p].position);
+				
+				
+				//add the position of the end component of the wire trail
+				current.add( nodeGraph[ t2 + MazeNode.CENTER].position );
+				
+				
+			
+		}	
+	}
+	
+	
+	
+	
 		
 				
 
