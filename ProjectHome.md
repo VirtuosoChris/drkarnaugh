@@ -1,0 +1,1 @@
+Dr. Karnaugh's Laboratory is a game designed to assist learning about logic circuits and implementing combinational discrete logic systems.
