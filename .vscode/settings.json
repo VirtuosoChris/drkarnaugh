@@ -1,5 +1,13 @@
 {
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "lib\\gluegen-rt.jar",
+        "lib\\jogl.jar",
+        "c:\\Users\\chris\\GitHub\\drkarnaugh\\lib\\gluegen-rt.jar",
+        "c:\\Users\\chris\\GitHub\\drkarnaugh\\lib\\jogl.jar",
+        "lib/gluegen-rt.jar",
+        "lib/jogl.jar"
+    ],
+    "java.project.sourcePaths": [
+        "."
     ]
 }

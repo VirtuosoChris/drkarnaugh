@@ -1,74 +1,68 @@
 package drk.graphics.game;
+
 import drk.KarnaughLog;
 import drk.graphics.*;
-public class KarnaughShaders
-{
-	static final String LightingRenderVertex=
 
-	"varying vec3 Binormal;"+
-	"varying vec3 Position;"+
-	"varying vec3 Normal;"+
-	"varying vec3 Tangent;"+
-	"varying vec3 Lpos;"+
-	"varying float dist;"+
-	//"invariant varying mat3 ntransform;"+
-	"void main(void)"+"\n"+
-	"{"+"\n"+
-	"   Tangent=gl_MultiTexCoord1.xyz;"+"\n"+
-    "   Normal=gl_Normal;"+"\n"+
-    "   Binormal=cross(Normal,Tangent);"+"\n"+
-	"   gl_TexCoord[0]=gl_MultiTexCoord0;"+
-	"   const mat3 ntransform=gl_NormalMatrix*mat3(Binormal,Tangent,Normal);" +
-	"   Binormal=ntransform[0];"+
-	"   Tangent =ntransform[1];"+
-	"   Normal  =ntransform[2];"+
-	//"   NormalTransform=transpose(NormalTransform);"+
-	"   Position = (gl_ModelViewMatrix*gl_Vertex).xyz; "+
-	"   gl_Position = ftransform();"+"\n"+
-	"   Lpos = gl_LightSource[0].position.xyz - Position.xyz;"+"\n"+
-	"   dist = length(Lpos);"+
-	//"   Position = gl_Modelgl_Vertex.xyz;"+"\n"+
-	"}"+"\n"+
-	"";
-	//fix this for point light cutoffs.
-	static final String LightingRenderFragment=
-		"uniform sampler2D texture,surface;\n" +
-		"varying vec3 Binormal;"+
-		"varying vec3 Position;"+
-		"varying vec3 Normal;"+
-		"varying vec3 Tangent;"+
-		"varying vec3 Lpos;"+
-		"varying float dist;"+
-		//"invariant varying mat3 ntransform;"+
-		"vec3 getNormal();"+
-		"const vec3 latt=vec3(" +
-		"gl_LightSource[0].constantAttenuation," +
-		"gl_LightSource[0].linearAttenuation," +
-		"gl_LightSource[0].quadraticAttenuation);"+
-		//v1 dot v2, v1.x*v2.x + v1.y*v2.y + 
-		"void main (void)"+"\n"+
-		"{"+"\n"+
-		"    vec4 diffuse = texture2D(texture,gl_TexCoord[0].st);"+
-		"    const vec3 N = getNormal();"+
-		"    const vec3 LightDot= normalize(Lpos);"+
-		"    const  vec3 distv = vec3(1,dist,dist*dist);"+
-		"    float att=1.0/dot(latt,distv);"+		
-		"    const vec3 M = gl_LightSource[0].diffuse.rgb*max(dot(N,LightDot),0.0)*att;"+
-		"    gl_FragColor= diffuse*vec4(M,1.0);"+
-	"	}"+"\n"+
-	"   vec3 getNormal()"+
-	"   {" +
-	"    vec4 normalcolor = texture2D(surface,gl_TexCoord[0].st);\n" +
-	"    const mat3 ntransform=mat3(Binormal,Tangent,Normal);" +
-	"    normalcolor.rgb/=normalcolor.a;"+
-	"    normalcolor.rgb=normalize(normalcolor.rgb*2.0-1.0);"+
-	"    return (ntransform*normalcolor.rgb);"+
-	"   }" +
-	"";
+public class KarnaughShaders {
 
-	
-	
-/*	static final String LightingRenderFragment=
+    static final String LightingRenderVertex
+            = "varying vec3 Binormal;"
+            + "varying vec3 Position;"
+            + "varying vec3 Normal;"
+            + "varying vec3 Tangent;"
+            + "varying vec3 Lpos;"
+            + "varying float dist;"
+            + //"invariant varying mat3 ntransform;"+
+            "void main(void)" + "\n"
+            + "{" + "\n"
+            + "   Tangent=gl_MultiTexCoord1.xyz;" + "\n"
+            + "   Normal=gl_Normal;" + "\n"
+            + "   Binormal=cross(Normal,Tangent);" + "\n"
+            + "   gl_TexCoord[0]=gl_MultiTexCoord0;"
+            + "   mat3 ntransform=gl_NormalMatrix*mat3(Binormal,Tangent,Normal);"
+            + "   Binormal=ntransform[0];"
+            + "   Tangent =ntransform[1];"
+            + "   Normal  =ntransform[2];"
+            + //"   NormalTransform=transpose(NormalTransform);"+
+            "   Position = (gl_ModelViewMatrix*gl_Vertex).xyz; "
+            + "   gl_Position = ftransform();" + "\n"
+            + "   Lpos = gl_LightSource[0].position.xyz - Position.xyz;" + "\n"
+            + "   dist = length(Lpos);"
+            + //"   Position = gl_Modelgl_Vertex.xyz;"+"\n"+
+            "}" + "\n"
+            + "";
+    //fix this for point light cutoffs.
+    static final String LightingRenderFragment
+            = "uniform sampler2D texture,surface;\n"
+            + "varying vec3 Binormal;"
+            + "varying vec3 Position;"
+            + "varying vec3 Normal;"
+            + "varying vec3 Tangent;"
+            + "varying vec3 Lpos;"
+            + "varying float dist;"
+            + "vec3 getNormal();"
+            + "void main (void)" + "\n"
+            + "{" + "\n"
+            + "vec3 latt = vec3(gl_LightSource[0].constantAttenuation, gl_LightSource[0].linearAttenuation, gl_LightSource[0].quadraticAttenuation);\n"
+            + "    vec4 diffuse = texture2D(texture,gl_TexCoord[0].st);"
+            + "    vec3 N = getNormal();"
+            + "    vec3 LightDot= normalize(Lpos);"
+            + "    vec3 distv = vec3(1,dist,dist*dist);"
+            + "    float att=1.0/dot(latt,distv);"
+            + "    vec3 M = gl_LightSource[0].diffuse.rgb*max(dot(N,LightDot),0.0)*att;"
+            + "    gl_FragColor= diffuse*vec4(M,1.0);"
+            + "	}" + "\n"
+            + "   vec3 getNormal()"
+            + "   {"
+            + "    vec4 normalcolor = texture2D(surface,gl_TexCoord[0].st);\n"
+            + "    mat3 ntransform=mat3(Binormal,Tangent,Normal);"
+            + "    normalcolor.rgb/=normalcolor.a;"
+            + "    normalcolor.rgb=normalize(normalcolor.rgb*2.0-1.0);"
+            + "    return (ntransform*normalcolor.rgb);"
+            + "   }"
+            + "";
+
+    /*	static final String LightingRenderFragment=
 	"uniform sampler2D texture,surface;\n" +
 	"varying mat3 NormalTransform;"+"\n"+
 //	"varying vec3 v;"+"\n"+
@@ -93,18 +87,8 @@ public class KarnaughShaders
 
 "	}"+"\n"+
 "";
-*/		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-/*		
+     */
+ /*		
 		
 		"uniform sampler2D texture,surface;\n" +
 		"void main()\n" +
@@ -118,23 +102,17 @@ public class KarnaughShaders
 		"    gl_FragColor = vec4(normalize(outcolor.rgb),1.0);\n" +
 		"}" +
 		"";*/
-
-	
-	/*"void main()"+
+ /*"void main()"+
 	"{"+
 		"gl_Position=ftransform();"+
 ///			"gl_TexCoord[0]=gl_MultiTexCoord0;"+
 	"}"+
 	"";*/
-		
-	
-	
-
-		/* Compute the diffuse, ambient and globalAmbient term
+ /* Compute the diffuse, ambient and globalAmbient term
 	/*tmp1 = input_image(x,y) - input_image(x+1,y+1)
 	tmp2 = input_image(x+1,y) - input_image(x,y+1)
 	output_image(x,y) = absolute_value(tmp1) + absolute_value(tmp2)*/
-	/*
+ /*
 	static final String FinalRenderFragment=
 		"uniform sampler2D texture;\n" +
 		"uniform float t;\n" +
@@ -150,29 +128,24 @@ public class KarnaughShaders
 		"    gl_FragColor=outcolor;"+
 		"}" +
 		"";*/
-	
-	public static GLSLShader getOutputShader()
-	{
-		GLSLShader out=new GLSLShader();
-		GLSLShaderSection vert=new GLSLShaderSection(LightingRenderVertex);
-		vert.setVertexShader(true);
-		GLSLShaderSection frag=new GLSLShaderSection(LightingRenderFragment);
-		out.addShaderSection(frag);
-		out.addShaderSection(vert);
-	//	out.
-		
-		try
-		{
-			out.compileShader();
-			out.linkShader();
-		}
-		catch(Exception e)
-		{
-		//	System.err.println("Shader error");
-			KarnaughLog.log(e);
-		}
-		
-		return out;
-	}
+    public static GLSLShader getOutputShader() {
+        GLSLShader out = new GLSLShader();
+        GLSLShaderSection vert = new GLSLShaderSection(LightingRenderVertex);
+        vert.setVertexShader(true);
+        GLSLShaderSection frag = new GLSLShaderSection(LightingRenderFragment);
+        out.addShaderSection(frag);
+        out.addShaderSection(vert);
+        //	out.
+
+        try {
+            out.compileShader();
+            out.linkShader();
+        } catch (Exception e) {
+            //	System.err.println("Shader error");
+            KarnaughLog.log(e);
+        }
+
+        return out;
+    }
 
 }
