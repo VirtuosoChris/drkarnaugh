@@ -8,6 +8,8 @@ You explore Dr. Karnaugh's spooky lab, solving binary logic puzzles with his mys
 
 https://github.com/user-attachments/assets/0e7b535e-b7ae-40f9-b259-24e1225dfbb4
 
+At the time we were influenced by Portal, the vorpal bunny from Monty Python, [Rocky's Boots](https://en.wikipedia.org/wiki/Rocky%27s_Boots), as well as just a general sense of 80's Apple II / home computer game kitsch.
+
 Based on JOGL 1.1.1, which I had to dig up on the web archive.
 
 The game is playable as is.
