@@ -4,11 +4,10 @@
 //to get back on the path grid
 //probably very easy to avoid
 //is just a pink sphere and not actually a bunny
-
 //TODO : corner-node based pathfinding
 //make the bunny always move at a constant speed, maybe better recovery from kill failures
-
 package drk.maze;
+
 import drk.KarnaughLog;
 import javax.media.opengl.*;
 import javax.media.opengl.glu.*;
@@ -22,94 +21,87 @@ import drk.circuit.Entrance;
 public class Bunny implements drk.graphics.GLRenderable, Updatable {
 
 //public static final long moveTimeStraight = 2000; //in milliseconds, the time it takes to move across the room straight
-
-int currentNode = 0;
-int targetNode = 0;
+    int currentNode = 0;
+    int targetNode = 0;
 
 //the room the bunny is moving to in its current state
 //Room movingTo = null;
-
 //the room the bunny is actually in
 //Room room = null;
+//self explanatory
+    Vector3D position = null;
 
 //self explanatory
-Vector3D position = null;
-
-//self explanatory
-Vector3D direction = null;
+    Vector3D direction = null;
 
 //the time the bunny started its current state
 //long moveStart = 0;
-
 //reference to the game the bunny is part of
-KarnaughGame k = null;
+    KarnaughGame k = null;
 
 //collision radius
-public static final double distanceRadius = 0.25;
+    public static final double distanceRadius = 0.25;
 
 //reference to the maze the bunny is in
-KarnaughMaze rm = null;
+    KarnaughMaze rm = null;
 
 //system time at which the bunny was last updated
-long lastUpdate = 0;
+    long lastUpdate = 0;
 
-public int bunnyState = MOVINGSTATE;
+    public int bunnyState = MOVINGSTATE;
 
-public static final int KILLSTATE = 0;
+    public static final int KILLSTATE = 0;
 
-public static final int MOVINGSTATE = 2;
+    public static final int MOVINGSTATE = 2;
 
-public static final double BUNNYSPEED = .0025;
+    public static final double BUNNYSPEED = .0025;
 
-public long moveUntilTime = 0;
-public long moveStartedTime = 0;
-
+    public long moveUntilTime = 0;
+    public long moveStartedTime = 0;
 
 //spawn in maze
 //TODO -- make the bunneh spawn in the room furthest away from the player
 //for now it just spawns at the entrance
-public Bunny(KarnaughGame kg){
-	
-	this.k = kg;
-	this.rm = k.getMaze();
-	
-	Entrance e = null;
-	for(MazeItem i: k.getMaze().components){
-		if(i instanceof Entrance){e = (Entrance)i;break;}
-	}
-	
-	Room room = e.getRoom();
-	currentNode = MazeNode.ULEFT + room.getID()*9;
-	targetNode = currentNode;
-	
-	position = rm.nodeGraph[currentNode].position;
-	
-	
-	//set target node
-	//targetNode = rm.PathTable[currentNode][closestNodePlayer()];
-	
-	if(targetNode <0){
-		System.out.println("Target = -1");
-		System.exit(0);
-		}
-		if(currentNode <0){
-		System.out.println("current = -1");
-		System.exit(0);
-		}
-	direction = new Vector3D(0,0,0);
-	
-    //direction = (rm.nodeGraph[targetNode].position).minus(rm.nodeGraph[currentNode].position);
-    //direction = direction.normal();//.times(BUNNYSPEED);
-	
-	//set arrival time							 //distance / rate
-	moveUntilTime = System.currentTimeMillis();// + (long)(((rm.nodeGraph[targetNode].position).distance(rm.nodeGraph[currentNode].position)) / BUNNYSPEED);
-	moveStartedTime = lastUpdate = System.currentTimeMillis();
-	
+    public Bunny(KarnaughGame kg) {
+
+        this.k = kg;
+        this.rm = k.getMaze();
+
+        Entrance e = null;
+        for (MazeItem i : k.getMaze().components) {
+            if (i instanceof Entrance) {
+                e = (Entrance) i;
+                break;
+            }
+        }
+
+        Room room = e.getRoom();
+        currentNode = MazeNode.ULEFT + room.getID() * 9;
+        targetNode = currentNode;
+
+        position = rm.nodeGraph[currentNode].position;
+
+        //set target node
+        //targetNode = rm.PathTable[currentNode][closestNodePlayer()];
+        if (targetNode < 0) {
+            System.out.println("Target = -1");
+            System.exit(0);
+        }
+        if (currentNode < 0) {
+            System.out.println("current = -1");
+            System.exit(0);
+        }
+        direction = new Vector3D(0, 0, 0);
+
+        //direction = (rm.nodeGraph[targetNode].position).minus(rm.nodeGraph[currentNode].position);
+        //direction = direction.normal();//.times(BUNNYSPEED);
+        //set arrival time							 //distance / rate
+        moveUntilTime = System.currentTimeMillis();// + (long)(((rm.nodeGraph[targetNode].position).distance(rm.nodeGraph[currentNode].position)) / BUNNYSPEED);
+        moveStartedTime = lastUpdate = System.currentTimeMillis();
+
 //	System.out.println("Starting at node "+currentNode+"moving to "+targetNode);
-	
 //	this.update();
-	
-/*
+        /*
 //	this.position=((HorrorWallMaze)rm).getRoomMiddle(e.getRoom());
 	this.direction = new Vector3D(0,0,0); 
 	
@@ -132,41 +124,41 @@ public Bunny(KarnaughGame kg){
 	moveUntilTime = System.currentTimeMillis();
 	
 	this.update();
-	*/
-}
+         */
+    }
+
+    public int closestNodePlayer() {
+
+        double shortestSoFar = 10000; //really high value
+        int rid = rm.getCurrentRoom().getID();
+
+        int nodeID = rid;
+
+        for (int i = 0; i < 9; i++) {
+
+            if (!rm.nodeGraph[(rid * 9) + i].active) {
+                continue;
+            }
+            //Vector3D tLoc = ;
+
+            //distance from node to player
+            double tDist = k.ec.Position.distance(rm.nodeGraph[(rid * 9) + i].position);
+
+            if (tDist < shortestSoFar) {
+
+                nodeID = i + (rid * 9);
+                shortestSoFar = tDist;
+
+            }
+
+        }
+
+        return nodeID;
+
+    }
 
 
-
-public int closestNodePlayer(){
-	
-	double shortestSoFar = 10000; //really high value
-	int rid = rm.getCurrentRoom().getID();
-	
-	int nodeID = rid;
-	
-	for(int i = 0; i < 9; i++){
-		
-		if( !rm.nodeGraph[(rid*9)+i].active)continue;
-		//Vector3D tLoc = ;
-		
-		//distance from node to player
-		double tDist = k.ec.Position.distance(rm.nodeGraph[(rid*9) + i].position);
-		
-		if( tDist < shortestSoFar){
-			
-			nodeID = i + (rid*9);
-			shortestSoFar = tDist;
-			
-		}	
-		
-	}
-	
-	return nodeID;
-	
-}
-
-
-/*
+    /*
 public MazeNode getClosestNode(){
 	
 	double closest = -1;
@@ -193,103 +185,79 @@ public MazeNode getClosestNode(){
 	return closestRoom;
 	
 }
-*/
+     */
+    public String toString() {
+        return "Hi, my name is Stanford Flapjack Karnaugh II!";
+    }
 
+    public void update() {
 
+        //System.out.println("Bunny"+position+" "+direction);
+        //if the camera intersects the bunny-sphere its game over
+        if ((k.ec.isCollidedWith(this.position.plus(new Vector3D(0, k.ec.Position.y, 0)), distanceRadius))) {
+            k.die();
+        }
 
+        //update position given current paramaters
+        //Vector3D tdirection = direction.times((System.currentTimeMillis() - lastUpdate));
+        //if(tdirection.x!= Float.NaN && 
+        //	tdirection.y != Float.NaN && tdirection.z != Float.NaN){
+        //position = position.plus(tdirection);
+        //}
+        double percent
+                = //(double)((double)System.currentTimeMillis() - (double)moveStartedTime) / (double)((double)moveUntilTime - (double)moveStartedTime);
+                (double) ((double) System.currentTimeMillis() - (double) moveStartedTime) / (double) ((double) moveUntilTime - (double) moveStartedTime);
 
+        if (moveUntilTime != moveStartedTime) {
 
+            //System.out.println("Percent there:"+percent);
+            position = rm.nodeGraph[currentNode].position.plus(direction.times(((rm.nodeGraph[targetNode].position).distance(rm.nodeGraph[currentNode].position)) * percent));
+        } else {
+            position = rm.nodeGraph[currentNode].position;
+        }
 
+        if (System.currentTimeMillis() >= moveUntilTime) {
 
+            //	System.out.println("CHANGING PATHS");
+            moveStartedTime = moveUntilTime;
 
-public String toString(){
-	return "Hi, my name is Stanford Flapjack Karnaugh II!";
-}
+            currentNode = targetNode;
 
+            //position = rm.nodeGraph[currentNode].position;
+            //set target node
+            targetNode = rm.PathTable[currentNode][closestNodePlayer()];
 
+            if (currentNode == targetNode) {
+                direction.x = direction.y = direction.z = 0;
+                moveUntilTime = System.currentTimeMillis();
 
-public void update(){
-	
-	
-	
-	//System.out.println("Bunny"+position+" "+direction);
-	//if the camera intersects the bunny-sphere its game over
-	//if((k.ec.isCollidedWith(this.position.plus(new Vector3D(0,k.ec.Position.y,0)), distanceRadius))){
-	//	k.die();
-	//}
-	
-	//update position given current paramaters
-	
-	//Vector3D tdirection = direction.times((System.currentTimeMillis() - lastUpdate));
-	//if(tdirection.x!= Float.NaN && 
-	//	tdirection.y != Float.NaN && tdirection.z != Float.NaN){
-	
-	//position = position.plus(tdirection);
-	//}
-	
-	
-		
-	double percent = //(double)((double)System.currentTimeMillis() - (double)moveStartedTime) / (double)((double)moveUntilTime - (double)moveStartedTime);
-	(double)((double)System.currentTimeMillis() - (double)moveStartedTime) / (double)((double)moveUntilTime - (double)moveStartedTime);
-	
-	if(moveUntilTime!= moveStartedTime){
-	
-	//System.out.println("Percent there:"+percent);
-	
-	position = rm.nodeGraph[currentNode].position.plus(direction.times(((rm.nodeGraph[targetNode].position).distance(rm.nodeGraph[currentNode].position))*percent));
-	}else position = rm.nodeGraph[currentNode].position;
-	
-	if(System.currentTimeMillis() >= moveUntilTime){
-		
-	//	System.out.println("CHANGING PATHS");
-		
-		moveStartedTime = moveUntilTime;
-		
-		currentNode = targetNode;
-		
-     	//position = rm.nodeGraph[currentNode].position;
-	
-	
-	   //set target node
-		targetNode = rm.PathTable[currentNode][closestNodePlayer()];
-	
-	
-		if(currentNode == targetNode){
-			direction.x = direction.y = direction.z = 0;
-			moveUntilTime= System.currentTimeMillis();
-			
-		}else{
-			
-	
-	if(targetNode <0){
-		System.out.println("Target = -1");
-		System.exit(0);
-		}
-		if(currentNode <0){
-		System.out.println("current = -1");
-		System.exit(0);
-		}			
-			
-	
-    	direction = (rm.nodeGraph[targetNode].position).minus(rm.nodeGraph[currentNode].position);
-    	direction = direction.normal();//.times(BUNNYSPEED);
-	
-	//set arrival time							 //distance / rate
-		moveUntilTime = moveStartedTime + 
-			(long)(((rm.nodeGraph[targetNode].position).distance(rm.nodeGraph[currentNode].position)) / BUNNYSPEED);
-		}
-		
-	//System.out.println("Changing targets "+currentNode+"moving to "+targetNode);
-	//System.out.println("Time to distance = "+(moveUntilTime-moveStartedTime));
-		
-	}
+            } else {
 
-		//direction.times(BUNNYSPEED*(System.currentTimeMillis() - moveStartedTime)));
-	
-	
-	lastUpdate = System.currentTimeMillis();
-	
-	/*
+                if (targetNode < 0) {
+                    System.out.println("Target = -1");
+                    System.exit(0);
+                }
+                if (currentNode < 0) {
+                    System.out.println("current = -1");
+                    System.exit(0);
+                }
+
+                direction = (rm.nodeGraph[targetNode].position).minus(rm.nodeGraph[currentNode].position);
+                direction = direction.normal();//.times(BUNNYSPEED);
+
+                //set arrival time							 //distance / rate
+                moveUntilTime = moveStartedTime
+                        + (long) (((rm.nodeGraph[targetNode].position).distance(rm.nodeGraph[currentNode].position)) / BUNNYSPEED);
+            }
+
+            //System.out.println("Changing targets "+currentNode+"moving to "+targetNode);
+            //System.out.println("Time to distance = "+(moveUntilTime-moveStartedTime));
+        }
+
+        //direction.times(BUNNYSPEED*(System.currentTimeMillis() - moveStartedTime)));
+        lastUpdate = System.currentTimeMillis();
+
+        /*
 	if(bunnyState == KILLSTATE){
 		
 			//test for killstate exit conditions and return to the nearest node if so
@@ -371,39 +339,29 @@ public void update(){
 		
 		
 	}*/
-	
-
-
-}
-
-
-
+    }
 
 //draw a pink sphere at the bunny's current location
-public void render(GL gl){
-	
-	//translate to the appropriate location
-	//draw a pink sphere with radius 1.5
-	
-	gl.glColor3f(1.0f,.75f, .75f);
-	
-	gl.glPushMatrix();
-	
-	gl.glTranslated(position.x, position.y + distanceRadius, position.z);
-	
-		GLU glu=new GLU();
-			
-		GLUquadric s= glu.gluNewQuadric();
-		
-		glu.gluQuadricTexture(s,false);
-		
-	  glu.gluSphere(s, distanceRadius, 10,10);
-	
- 	gl.glPopMatrix();
-	
-	
-}
+    public void render(GL gl) {
 
+        //translate to the appropriate location
+        //draw a pink sphere with radius 1.5
+        gl.glColor3f(1.0f, .75f, .75f);
 
+        gl.glPushMatrix();
+
+        gl.glTranslated(position.x, position.y + distanceRadius, position.z);
+
+        GLU glu = new GLU();
+
+        GLUquadric s = glu.gluNewQuadric();
+
+        glu.gluQuadricTexture(s, false);
+
+        glu.gluSphere(s, distanceRadius, 10, 10);
+
+        gl.glPopMatrix();
+
+    }
 
 }

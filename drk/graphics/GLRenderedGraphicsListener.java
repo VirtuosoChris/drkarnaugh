@@ -283,7 +283,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 
             KarnaughLog.log("Fullscreen available = " + (fullscreen = gd.isFullScreenSupported()));
 
-            fullscreen = false;
+            //fullscreen = false;
             if (fullscreen && gd.isDisplayChangeSupported()) {
                 dm = gd.getDisplayMode();
 
