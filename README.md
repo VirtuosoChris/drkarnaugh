@@ -30,3 +30,11 @@ javac -cp "lib/*" -sourcepath .\ -d .\bin .\drk\circuit\*.java
 javac -cp "lib/*" -sourcepath .\ -d .\bin .\drk\game\KarnaughGame.java
 
 jar cfm KarnaughGame.jar MANIFEST.MF -C bin . -C . .
+
+This project was interesting for the three of us as students due to:
+- Its 3D graphics with real-time lighting
+- Maze Generation
+- Nav-graph table for the Bunny to traverse the rooms and then chase the player when they're in the same room
+- Binary Logic component System
+- Complete set of game features
+- etc!
