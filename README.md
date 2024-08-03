@@ -1,4 +1,4 @@
-## Dr. Karnaugh's Lab
+## Dr. Karnaugh's Lab (2008)
 
 Sophomore Computer Science 2 class project, a 3D puzzle game made my myself and 2 fellow Students in Java.
 
