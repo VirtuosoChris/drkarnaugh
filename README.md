@@ -8,7 +8,9 @@ At the time we were influenced by Portal, the vorpal bunny from Monty Python, [R
 
 ![image](https://github.com/user-attachments/assets/b44aa59e-7f04-454e-a08b-b16cfa80f549)
 
-https://github.com/user-attachments/assets/0e7b535e-b7ae-40f9-b259-24e1225dfbb4
+![image](https://github.com/user-attachments/assets/e29e1116-1aef-4b9c-b930-f8d1390b7a62)
+
+![image](https://github.com/user-attachments/assets/9c40d9f1-1025-4186-97de-a48c3bdd9478)
 
 Based on JOGL 1.1.1, which I had to dig up on the web archive.
 
@@ -40,3 +42,7 @@ This project was interesting for the three of us as students due to:
 - Binary Logic component System
 - Complete set of game features
 - etc!
+
+
+
+https://github.com/user-attachments/assets/0e7b535e-b7ae-40f9-b259-24e1225dfbb4
