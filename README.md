@@ -17,6 +17,8 @@ The game is playable as is.
 Things that don't work:
 - MP3 playback is not working.  Presumably based on depends.
 - Theres some general Jank with mouselook, framerates, display modes, etc that could be fixed
+- This version of the game is asset light, but I absolutely think it would be worth hooking up a stanford bunny renderer (static mesh and rotation) to chase the player instead of just the placeholder pink ball I used for time.
+- Could render the wires going into and out of the components while we're at it.  That was also something we cut for time.  Right now you just sort of have to read the tooltips and keep stuff in your head.
 
 ### Run instructions:
 From the root directory you can just run the JAR
