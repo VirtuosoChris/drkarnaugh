@@ -16,7 +16,7 @@ Based on JOGL 1.1.1, which I had to dig up on the web archive.
 
 The game is playable as is.
 
-Things that don't work:
+Things that don't work or are unfinished:
 - MP3 playback is not working.  Presumably based on depends.
 - Theres some general Jank with mouselook, framerates, display modes, etc that could be fixed
 - This version of the game is asset light, but I absolutely think it would be worth hooking up a stanford bunny renderer (static mesh and rotation) to chase the player instead of just the placeholder pink ball I used for time.
