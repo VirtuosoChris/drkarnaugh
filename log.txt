@@ -18,15 +18,15 @@ node 00:(5.0,0.0,0.0)active?false
 node 01:(5.0,0.0,10.0)active?true
 node 02:(5.0,0.0,5.0)active?false
 node 03:(0.0,0.0,5.0)active?false
-node 04:(10.0,0.0,5.0)active?true
+node 04:(10.0,0.0,5.0)active?false
 node 05:(2.5,0.0,2.5)active?true
 node 06:(7.5,0.0,2.5)active?true
 node 07:(2.5,0.0,7.5)active?true
 node 08:(7.5,0.0,7.5)active?true
 node 90:(15.0,0.0,0.0)active?false
-node 91:(15.0,0.0,10.0)active?false
-node 92:(15.0,0.0,5.0)active?true
-node 93:(10.0,0.0,5.0)active?true
+node 91:(15.0,0.0,10.0)active?true
+node 92:(15.0,0.0,5.0)active?false
+node 93:(10.0,0.0,5.0)active?false
 node 94:(20.0,0.0,5.0)active?false
 node 95:(12.5,0.0,2.5)active?true
 node 96:(17.5,0.0,2.5)active?true
@@ -36,15 +36,15 @@ node 180:(5.0,0.0,10.0)active?true
 node 181:(5.0,0.0,20.0)active?true
 node 182:(5.0,0.0,15.0)active?false
 node 183:(0.0,0.0,15.0)active?false
-node 184:(10.0,0.0,15.0)active?false
+node 184:(10.0,0.0,15.0)active?true
 node 185:(2.5,0.0,12.5)active?true
 node 186:(7.5,0.0,12.5)active?true
 node 187:(2.5,0.0,17.5)active?true
 node 188:(7.5,0.0,17.5)active?true
-node 270:(15.0,0.0,10.0)active?false
+node 270:(15.0,0.0,10.0)active?true
 node 271:(15.0,0.0,20.0)active?true
-node 272:(15.0,0.0,15.0)active?false
-node 273:(10.0,0.0,15.0)active?false
+node 272:(15.0,0.0,15.0)active?true
+node 273:(10.0,0.0,15.0)active?true
 node 274:(20.0,0.0,15.0)active?false
 node 275:(12.5,0.0,12.5)active?true
 node 276:(17.5,0.0,12.5)active?true
@@ -54,7 +54,7 @@ node 360:(5.0,0.0,20.0)active?true
 node 361:(5.0,0.0,30.0)active?false
 node 362:(5.0,0.0,25.0)active?false
 node 363:(0.0,0.0,25.0)active?false
-node 364:(10.0,0.0,25.0)active?true
+node 364:(10.0,0.0,25.0)active?false
 node 365:(2.5,0.0,22.5)active?true
 node 366:(7.5,0.0,22.5)active?true
 node 367:(2.5,0.0,27.5)active?true
@@ -62,7 +62,7 @@ node 368:(7.5,0.0,27.5)active?true
 node 450:(15.0,0.0,20.0)active?true
 node 451:(15.0,0.0,30.0)active?false
 node 452:(15.0,0.0,25.0)active?false
-node 453:(10.0,0.0,25.0)active?true
+node 453:(10.0,0.0,25.0)active?false
 node 454:(20.0,0.0,25.0)active?false
 node 455:(12.5,0.0,22.5)active?true
 node 456:(17.5,0.0,22.5)active?true
@@ -70,9 +70,7 @@ node 457:(12.5,0.0,27.5)active?true
 node 458:(17.5,0.0,27.5)active?true
 Fullscreen available = true
 1440x900x32bpp@[Unknown refresh rate]
-longest frametime: 242ms
-longest frametime: 270ms
-longest frametime: 584ms
+longest frametime: 295ms
 
 Loading map map02.kar
 Maze is 2 by 2
@@ -145,7 +143,7 @@ node 00:(5.0,0.0,0.0)active?false
 node 01:(5.0,0.0,10.0)active?true
 node 02:(5.0,0.0,5.0)active?false
 node 03:(0.0,0.0,5.0)active?false
-node 04:(10.0,0.0,5.0)active?false
+node 04:(10.0,0.0,5.0)active?true
 node 05:(2.5,0.0,2.5)active?true
 node 06:(7.5,0.0,2.5)active?true
 node 07:(2.5,0.0,7.5)active?true
@@ -153,7 +151,7 @@ node 08:(7.5,0.0,7.5)active?true
 node 90:(15.0,0.0,0.0)active?false
 node 91:(15.0,0.0,10.0)active?true
 node 92:(15.0,0.0,5.0)active?false
-node 93:(10.0,0.0,5.0)active?false
+node 93:(10.0,0.0,5.0)active?true
 node 94:(20.0,0.0,5.0)active?false
 node 95:(12.5,0.0,2.5)active?true
 node 96:(17.5,0.0,2.5)active?true
@@ -161,17 +159,17 @@ node 97:(12.5,0.0,7.5)active?true
 node 98:(17.5,0.0,7.5)active?true
 node 180:(5.0,0.0,10.0)active?true
 node 181:(5.0,0.0,20.0)active?true
-node 182:(5.0,0.0,15.0)active?true
+node 182:(5.0,0.0,15.0)active?false
 node 183:(0.0,0.0,15.0)active?false
-node 184:(10.0,0.0,15.0)active?true
+node 184:(10.0,0.0,15.0)active?false
 node 185:(2.5,0.0,12.5)active?true
 node 186:(7.5,0.0,12.5)active?true
 node 187:(2.5,0.0,17.5)active?true
 node 188:(7.5,0.0,17.5)active?true
 node 270:(15.0,0.0,10.0)active?true
-node 271:(15.0,0.0,20.0)active?true
+node 271:(15.0,0.0,20.0)active?false
 node 272:(15.0,0.0,15.0)active?false
-node 273:(10.0,0.0,15.0)active?true
+node 273:(10.0,0.0,15.0)active?false
 node 274:(20.0,0.0,15.0)active?false
 node 275:(12.5,0.0,12.5)active?true
 node 276:(17.5,0.0,12.5)active?true
@@ -179,17 +177,17 @@ node 277:(12.5,0.0,17.5)active?true
 node 278:(17.5,0.0,17.5)active?true
 node 360:(5.0,0.0,20.0)active?true
 node 361:(5.0,0.0,30.0)active?false
-node 362:(5.0,0.0,25.0)active?false
+node 362:(5.0,0.0,25.0)active?true
 node 363:(0.0,0.0,25.0)active?false
-node 364:(10.0,0.0,25.0)active?false
+node 364:(10.0,0.0,25.0)active?true
 node 365:(2.5,0.0,22.5)active?true
 node 366:(7.5,0.0,22.5)active?true
 node 367:(2.5,0.0,27.5)active?true
 node 368:(7.5,0.0,27.5)active?true
-node 450:(15.0,0.0,20.0)active?true
+node 450:(15.0,0.0,20.0)active?false
 node 451:(15.0,0.0,30.0)active?false
 node 452:(15.0,0.0,25.0)active?false
-node 453:(10.0,0.0,25.0)active?false
+node 453:(10.0,0.0,25.0)active?true
 node 454:(20.0,0.0,25.0)active?false
 node 455:(12.5,0.0,22.5)active?true
 node 456:(17.5,0.0,22.5)active?true
