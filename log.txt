@@ -16,7 +16,7 @@ Song is MartianCowboy
 Successfully loaded map data
 node 00:(5.0,0.0,0.0)active?false
 node 01:(5.0,0.0,10.0)active?true
-node 02:(5.0,0.0,5.0)active?true
+node 02:(5.0,0.0,5.0)active?false
 node 03:(0.0,0.0,5.0)active?false
 node 04:(10.0,0.0,5.0)active?false
 node 05:(2.5,0.0,2.5)active?true
@@ -25,7 +25,7 @@ node 07:(2.5,0.0,7.5)active?true
 node 08:(7.5,0.0,7.5)active?true
 node 90:(15.0,0.0,0.0)active?false
 node 91:(15.0,0.0,10.0)active?true
-node 92:(15.0,0.0,5.0)active?false
+node 92:(15.0,0.0,5.0)active?true
 node 93:(10.0,0.0,5.0)active?false
 node 94:(20.0,0.0,5.0)active?false
 node 95:(12.5,0.0,2.5)active?true
@@ -36,15 +36,15 @@ node 180:(5.0,0.0,10.0)active?true
 node 181:(5.0,0.0,20.0)active?true
 node 182:(5.0,0.0,15.0)active?false
 node 183:(0.0,0.0,15.0)active?false
-node 184:(10.0,0.0,15.0)active?false
+node 184:(10.0,0.0,15.0)active?true
 node 185:(2.5,0.0,12.5)active?true
 node 186:(7.5,0.0,12.5)active?true
 node 187:(2.5,0.0,17.5)active?true
 node 188:(7.5,0.0,17.5)active?true
 node 270:(15.0,0.0,10.0)active?true
-node 271:(15.0,0.0,20.0)active?true
+node 271:(15.0,0.0,20.0)active?false
 node 272:(15.0,0.0,15.0)active?false
-node 273:(10.0,0.0,15.0)active?false
+node 273:(10.0,0.0,15.0)active?true
 node 274:(20.0,0.0,15.0)active?false
 node 275:(12.5,0.0,12.5)active?true
 node 276:(17.5,0.0,12.5)active?true
@@ -59,7 +59,7 @@ node 365:(2.5,0.0,22.5)active?true
 node 366:(7.5,0.0,22.5)active?true
 node 367:(2.5,0.0,27.5)active?true
 node 368:(7.5,0.0,27.5)active?true
-node 450:(15.0,0.0,20.0)active?true
+node 450:(15.0,0.0,20.0)active?false
 node 451:(15.0,0.0,30.0)active?false
 node 452:(15.0,0.0,25.0)active?false
 node 453:(10.0,0.0,25.0)active?true
@@ -71,5 +71,5 @@ node 458:(17.5,0.0,27.5)active?true
 Fullscreen available = true
 SETTING FULLSCREEN DISPLAY MODE:
 1920x1080x32bpp@[Unknown refresh rate]
-longest frametime: 113ms
-longest frametime: 251ms
+longest frametime: 67ms
+longest frametime: 140ms
