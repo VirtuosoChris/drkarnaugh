@@ -17,7 +17,6 @@ Based on JOGL 1.1.1, which I had to dig up on the web archive.
 The game is playable as is.
 
 Things that don't work or are unfinished:
-- MP3 playback is not working.  Presumably based on depends.
 - Theres some general Jank with mouselook, framerates, display modes, etc that could be fixed
 - This version of the game is asset light, but I absolutely think it would be worth hooking up a stanford bunny renderer (static mesh and rotation) to chase the player instead of just the placeholder pink ball I used for time.
 - A "hologram" of the gate symbol floating over the maze components would be a good quality of life improvement
@@ -45,8 +44,7 @@ This project was interesting for the three of us as students due to:
 - Nav-graph table for the Bunny to traverse the rooms and then chase the player when they're in the same room
 - Binary Logic component System
 - Complete set of game features
+- (Removed from this version) We implemented an online high score table with PHP and MySQL, just because we could.  It was more of a tech demo thing and its long since been taken down so that's removed from this build.
 - etc!
-
-
 
 https://github.com/user-attachments/assets/0e7b535e-b7ae-40f9-b259-24e1225dfbb4
