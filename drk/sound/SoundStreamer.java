@@ -59,11 +59,12 @@ public class SoundStreamer extends Thread {
 
         AudioFileFormat.Type[] types = AudioSystem.getAudioFileTypes();
 
+        /* // debug verify mp3 supported
         KarnaughLog.log("SUPPORTED FORMATS");
         for (AudioFileFormat.Type type : types) {
             KarnaughLog.log(type.getExtension());
         }
-
+         */
         AudioInputStream din = null;
         @SuppressWarnings("serial")
         class SoundFinishedException extends Exception {
@@ -101,8 +102,8 @@ public class SoundStreamer extends Thread {
             }
 
         } catch (SoundFinishedException sfe) {
-            KarnaughLog.log("GOT A SoundFinishedException: " + sfe);
-            sfe.printStackTrace();
+            //KarnaughLog.log("GOT A SoundFinishedException: " + sfe);
+            //sfe.printStackTrace();
         } catch (Exception e) {
             KarnaughLog.log("GOT AN EXCEPTION: " + e);
             e.printStackTrace();

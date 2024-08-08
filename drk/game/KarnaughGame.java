@@ -144,24 +144,6 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener {
     //when the game is over by death or winning manage endgame situation
     //TODO URGENT*****
     public void gameOver() {
-        if (Menu.userName == null) {
-        } else {
-            int asdkjghskdjgh = new Random().nextInt(255);
-            if (asdkjghskdjgh < 0) {
-                asdkjghskdjgh = -asdkjghskdjgh;
-            }
-
-            String newHash = RankedGame.hash(Score, Menu.userName, asdkjghskdjgh);
-            String postScore = RankedGame.postHighScore(Score, Menu.userName, asdkjghskdjgh, newHash);
-
-            System.out.println("Hash key is " + newHash);
-
-            System.out.println("" + postScore);
-
-            String[][] getScore = RankedGame.getHighScores();
-
-            //System.out.println(""+getScore);
-        }
     }
 
     //you can only die if bunny kills you
