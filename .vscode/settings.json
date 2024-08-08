@@ -5,7 +5,15 @@
         "c:\\Users\\chris\\GitHub\\drkarnaugh\\lib\\gluegen-rt.jar",
         "c:\\Users\\chris\\GitHub\\drkarnaugh\\lib\\jogl.jar",
         "lib/gluegen-rt.jar",
-        "lib/jogl.jar"
+        "lib/jogl.jar",
+        "lib/javalayer.jar",
+        "lib/jl1.0.1.jar",
+        "lib/mp3spi1.9.5.jar",
+        "lib/tritonus_mp3-0.3.6.jar",
+        "lib/tritonus_mp3.jar",
+        "lib/mp3spi-1.9.5.jar",
+        "lib/tritonus_share.jar",
+        "lib/tritonus_share-0.3.6.jar"
     ],
     "java.project.sourcePaths": [
         "."
