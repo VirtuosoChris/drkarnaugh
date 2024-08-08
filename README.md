@@ -18,10 +18,12 @@ The game is playable as is.
 
 Things that don't work or are unfinished:
 - Theres some general Jank with mouselook, framerates, display modes, etc that could be fixed
+- Biggest of these is that the framerate is terrible for some reason for the first 30 seconds or so after the game boots up.
 - This version of the game is asset light, but I absolutely think it would be worth hooking up a stanford bunny renderer (static mesh and rotation) to chase the player instead of just the placeholder pink ball I used for time.
 - A "hologram" of the gate symbol floating over the maze components would be a good quality of life improvement
 - Replace brick-sphere placeholder rendering for journals with a custom model as well and hook it up to some dummy lore writeups
 - Could render the wires going into and out of the components while we're at it.  That was also something we cut for time.  Right now you just sort of have to read the tooltips and keep stuff in your head.
+- "Goggles" feature is either unfinished or not working
 
 At this point I think the game would be eminently playable and fun as is.  Beyond that I'd just leave this build alone and remake this concept in a modern engine like Virtuoso (maybe for VR?) if I wanted to take it further.
 
