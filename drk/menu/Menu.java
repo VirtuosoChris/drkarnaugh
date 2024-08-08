@@ -178,7 +178,7 @@ public class Menu extends KarnaughGame implements KeyListener {
         panelG.add(rankB); //Add all the buttons.
         panelG.add(customB);
         //panelG.add(resumeB);
-        panelG.add(exitB);
+        //panelG.add(exitB);
 
         frame.setContentPane(PanelF); //Set the buttons.
     }
