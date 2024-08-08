@@ -263,9 +263,7 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 
         DisplayMode dm = null;
 
-        DisplayMode[] validmodes = {new DisplayMode(640, 480, 32, 0),
-            new DisplayMode(640, 480, 16, 0),
-            new DisplayMode(640, 480, 8, 0)};
+        DisplayMode[] validmodes = {new DisplayMode(1920, 1080, 32, 60)};
         //attempt to get the graphics device in order to set the application to a fullscreen window
 
         try {
@@ -313,10 +311,12 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
                 jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 gd.setFullScreenWindow(jf);
 
-                drk.KarnaughLog.log("" + new DisplayMode(1440, 900, 32, 0));
+                DisplayMode displayMode = new DisplayMode(width, height, 32, 0);
+
+                drk.KarnaughLog.log("SETTING FULLSCREEN DISPLAY MODE:\n" + displayMode);
 
                 //gd.setDisplayMode(dm);
-                gd.setDisplayMode(new DisplayMode(width, height, 32, 0));
+                gd.setDisplayMode(displayMode);
             }
         } catch (Exception e) {
             KarnaughLog.log(e);

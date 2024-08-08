@@ -48,8 +48,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener {
     Bunny bunneh = null;
 
 //	public ArrayList<Wire> wires = null; //collection of wires within the maze
-    public static final int GAME_WIDTH = 1024;//resolution constants
-    public static final int GAME_HEIGHT = 768;
+    public static final int GAME_WIDTH = 1920;//resolution constants
+    public static final int GAME_HEIGHT = 1080;
 
     //called when the user is carrying a wire attached to a component's output, and they change their mind and decide to discard
     //and start somewhere else

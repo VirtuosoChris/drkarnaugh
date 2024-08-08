@@ -65,6 +65,9 @@ public class HorrorWallMaze extends RenderableMaze {
 
     float time = 0.0f;
 
+    public static int NormalMapMinFilter = GL.GL_LINEAR_MIPMAP_LINEAR;
+    public static int NormalMapMagFIlter = GL.GL_LINEAR;
+
     public void initializedatabuffers(GL gl) {
         WallsVBO = HorrorWallMazeGeometry.buildWallsVBO(gl);
         numv = HorrorWallMazeGeometry.WallsVertices;
@@ -89,15 +92,15 @@ public class HorrorWallMaze extends RenderableMaze {
             gl.glClientActiveTexture(GL.GL_TEXTURE1);
             im = ImageIO.read(HorrorWallMaze.class.getResource("brickssurface.png"));
             bricksnormals = TextureIO.newTexture(im, true);
-            bricksnormals.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST_MIPMAP_NEAREST);
-            bricksnormals.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST);
+            bricksnormals.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, NormalMapMinFilter);
+            bricksnormals.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, NormalMapMagFIlter);
             bricksnormals.setTexParameteri(GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT);
             bricksnormals.setTexParameterf(GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
 
             im = ImageIO.read(HorrorWallMaze.class.getResource("plankssurface.png"));
             planksnormals = TextureIO.newTexture(im, true);
-            planksnormals.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST_MIPMAP_NEAREST);
-            planksnormals.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST);
+            planksnormals.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, NormalMapMinFilter);
+            planksnormals.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, NormalMapMagFIlter);
             planksnormals.setTexParameteri(GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT);
             planksnormals.setTexParameterf(GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
 

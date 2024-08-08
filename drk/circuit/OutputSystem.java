@@ -15,6 +15,9 @@ import drk.Vector3D;
 
 public abstract class OutputSystem extends MazeItem {
 
+    public static int NormalMapMinFilter = GL.GL_LINEAR_MIPMAP_LINEAR;
+    public static int NormalMapMagFIlter = GL.GL_LINEAR;
+
     public abstract boolean evaluate();
 
     public abstract int getNumInputs();
@@ -70,8 +73,8 @@ public abstract class OutputSystem extends MazeItem {
             gl.glClientActiveTexture(GL.GL_TEXTURE1);
             im = ImageIO.read(OutputSystem.class.getResource("metalsurf.png"));
             metalsurf = TextureIO.newTexture(im, true);
-            metalsurf.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST_MIPMAP_NEAREST);
-            metalsurf.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST);
+            metalsurf.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, NormalMapMinFilter);
+            metalsurf.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, NormalMapMagFIlter);
             metalsurf.setTexParameteri(GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT);
             metalsurf.setTexParameterf(GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
             gl.glActiveTexture(GL.GL_TEXTURE0);
