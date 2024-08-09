@@ -7,13 +7,19 @@ import javax.swing.*;
 import javax.media.opengl.*;
 import java.awt.*;
 import java.io.*;
+import java.nio.IntBuffer;
+
 import com.sun.opengl.util.*;
+import drk.game.KarnaughGame;
 import java.awt.event.*;
 import java.util.Map;
 import java.util.TreeMap;
-import java.awt.Robot;
 
 public abstract class GLRenderedGraphicsListener implements GLEventListener, KeyListener, MouseMotionListener, MouseListener {
+
+    public void init(GLAutoDrawable drawable) {
+
+    }
 
     public String ttString = null;
 
@@ -148,6 +154,18 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
         gl.glViewport(0, 0, width, height);
         camera.aspect_ratio = ((double) width) / ((double) height);
         camera.initialize(gl);
+
+        // GL gl = drawable.getGL();
+        gl.glEnable(GL.GL_MULTISAMPLE);
+
+        // Query the actual number of samples
+        IntBuffer samplesBuffer = IntBuffer.allocate(1);
+        gl.glGetIntegerv(GL.GL_SAMPLES, samplesBuffer);
+        int actualSamples = samplesBuffer.get(0);
+
+        KarnaughLog.log("Requested samples: " + drawable.getChosenGLCapabilities().getNumSamples());
+        KarnaughLog.log("Actual samples: " + actualSamples);
+        KarnaughLog.log("Chosen caps " + drawable.getChosenGLCapabilities());
     }
 
     public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged) {
@@ -251,7 +269,14 @@ public abstract class GLRenderedGraphicsListener implements GLEventListener, Key
 
     public void doMain(int w, int h, GLCapabilities glcaps, boolean runasFast) {
         jf = new JFrame("Dr. Karnaugh's Lab");
-        GLCanvas ad = new GLCanvas(glcaps);
+
+        //GLProfile glProfile = GLProfile.get(GLProfile.GL2);
+        // Create GLCapabilities object and enable multisampling
+        GLCapabilities capabilities = new GLCapabilities();
+        capabilities.setSampleBuffers(true);
+        capabilities.setNumSamples(4);  // You can set this to 2, 4, 8, etc.
+
+        GLCanvas ad = new GLCanvas(capabilities);
         //ad.addKeyListener(this);
 
         width = w;

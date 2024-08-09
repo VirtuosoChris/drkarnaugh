@@ -1,6 +1,8 @@
 package drk.circuit;
 
 import java.io.*;
+import java.nio.FloatBuffer;
+
 import drk.maze.MazeItem;
 import drk.game.KarnaughGame;
 import drk.graphics.game.HorrorWallMazeGeometry;
@@ -63,12 +65,22 @@ public abstract class OutputSystem extends MazeItem {
 
     void initialize(GL gl) {
         try {
+
+            FloatBuffer anisoBuffer = FloatBuffer.allocate(1);
+            gl.glGetFloatv(GL.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, anisoBuffer);
+
+            float aniso = anisoBuffer.get(0);
+            System.out.println("Max Anisotropy: " + aniso);
+
             BufferedImage im = ImageIO.read(OutputSystem.class.getResource("metal.jpg"));
             metal = TextureIO.newTexture(im, true);
             metal.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR_MIPMAP_LINEAR);
             metal.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
             metal.setTexParameteri(GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT);
             metal.setTexParameterf(GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
+
+            metal.setTexParameterf(GL.GL_TEXTURE_MAX_ANISOTROPY_EXT, aniso);
+
             gl.glActiveTexture(GL.GL_TEXTURE1);
             gl.glClientActiveTexture(GL.GL_TEXTURE1);
             im = ImageIO.read(OutputSystem.class.getResource("metalsurf.png"));
@@ -77,6 +89,9 @@ public abstract class OutputSystem extends MazeItem {
             metalsurf.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, NormalMapMagFIlter);
             metalsurf.setTexParameteri(GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT);
             metalsurf.setTexParameterf(GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
+            metalsurf.setTexParameterf(GL.GL_TEXTURE_MAX_ANISOTROPY_EXT, aniso);
+
+            //GL.GL_TEXTURE_MAX_ANISOTROPY_EXT 
             gl.glActiveTexture(GL.GL_TEXTURE0);
             gl.glClientActiveTexture(GL.GL_TEXTURE0);
         } catch (Exception e) {

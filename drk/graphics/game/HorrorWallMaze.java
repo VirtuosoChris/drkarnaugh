@@ -4,6 +4,8 @@ import javax.imageio.*;
 import javax.media.opengl.GL;
 import com.sun.opengl.util.texture.*;
 import java.awt.image.BufferedImage;
+import java.nio.FloatBuffer;
+
 import drk.Vector3D;
 import drk.maze.RenderableMaze;
 import drk.maze.Room;
@@ -75,18 +77,28 @@ public class HorrorWallMaze extends RenderableMaze {
 
     public void initialize(GL gl) {
         try {
+
+            FloatBuffer anisoBuffer = FloatBuffer.allocate(1);
+            gl.glGetFloatv(GL.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, anisoBuffer);
+
+            float aniso = anisoBuffer.get(0);
+            System.out.println("Max Anisotropy: " + aniso);
+
             BufferedImage im = ImageIO.read(HorrorWallMaze.class.getResource("planks.jpg"));
             this.planks = TextureIO.newTexture(im, true);
             planks.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR_MIPMAP_LINEAR);
             planks.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
             planks.setTexParameteri(GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT);
             planks.setTexParameterf(GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
+            planks.setTexParameterf(GL.GL_TEXTURE_MAX_ANISOTROPY_EXT, aniso);
+
             im = ImageIO.read(HorrorWallMaze.class.getResource("roughbricks.jpg"));
             this.bricks = TextureIO.newTexture(im, true);
             bricks.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR_MIPMAP_LINEAR);
             bricks.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
             bricks.setTexParameteri(GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT);
             bricks.setTexParameterf(GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
+            bricks.setTexParameterf(GL.GL_TEXTURE_MAX_ANISOTROPY_EXT, aniso);
 
             gl.glActiveTexture(GL.GL_TEXTURE1);
             gl.glClientActiveTexture(GL.GL_TEXTURE1);
@@ -96,6 +108,7 @@ public class HorrorWallMaze extends RenderableMaze {
             bricksnormals.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, NormalMapMagFIlter);
             bricksnormals.setTexParameteri(GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT);
             bricksnormals.setTexParameterf(GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
+            bricksnormals.setTexParameterf(GL.GL_TEXTURE_MAX_ANISOTROPY_EXT, aniso);
 
             im = ImageIO.read(HorrorWallMaze.class.getResource("plankssurface.png"));
             planksnormals = TextureIO.newTexture(im, true);
@@ -103,6 +116,7 @@ public class HorrorWallMaze extends RenderableMaze {
             planksnormals.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, NormalMapMagFIlter);
             planksnormals.setTexParameteri(GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT);
             planksnormals.setTexParameterf(GL.GL_TEXTURE_WRAP_T, GL.GL_REPEAT);
+            planksnormals.setTexParameterf(GL.GL_TEXTURE_MAX_ANISOTROPY_EXT, aniso);
 
             this.camlight = new GLLightSource(GL.GL_LIGHT0);
             camlight.Color = new Vector3D(1.0, .75, .4);
@@ -170,17 +184,10 @@ public class HorrorWallMaze extends RenderableMaze {
         return f;
     }
 
-    public void renderRoom(GL gl, Room r) {
-        gl.glPushMatrix();
-        Vector3D centerbottom = getRoomMiddle(r);
-        gl.glTranslated(centerbottom.x, centerbottom.y, centerbottom.z);
+    private void drawRoomFloor(GL gl) {
 
         float w = ROOM_WIDTH * 0.5f;
         float l = ROOM_LENGTH * 0.5f;
-
-        camlight.Position = this.getCamera().Position.minus(centerbottom);
-
-        camlight.render(gl);
 
         gl.glActiveTexture(GL.GL_TEXTURE1);
         planksnormals.enable();
@@ -252,13 +259,9 @@ public class HorrorWallMaze extends RenderableMaze {
             //gl.glEnd();
         }
         gl.glEnd();
+    }
 
-        l -= WALL_WIDTH * 0.5f;
-        w -= WALL_WIDTH * 0.5f;
-        float dheight = DOOR_HEIGHT;
-        float dw = DOOR_WIDTH * 0.5f;
-        float bs = 1.0f / BRICK_SCALE;
-
+    private void drawRoomWalls(GL gl) {
         gl.glActiveTexture(GL.GL_TEXTURE0);
         bricks.enable();
         bricks.bind();
@@ -282,6 +285,8 @@ public class HorrorWallMaze extends RenderableMaze {
         gl.glTexCoordPointer(3, GL.GL_FLOAT, 0, numv * 6 * 4);
 
         gl.glClientActiveTexture(GL.GL_TEXTURE0);
+
+        // actually draw here
         gl.glDrawArrays(GL.GL_QUADS, 0, numv);
 
         gl.glDisableClientState(GL.GL_TEXTURE_COORD_ARRAY);
@@ -290,69 +295,98 @@ public class HorrorWallMaze extends RenderableMaze {
         gl.glClientActiveTexture(GL.GL_TEXTURE0);
         gl.glDisableClientState(GL.GL_NORMAL_ARRAY);
         gl.glDisableClientState(GL.GL_VERTEX_ARRAY);
-        gl.glBegin(GL.GL_QUADS);
+    }
+
+    public void renderRoom(GL gl, Room r) {
+        gl.glPushMatrix();
+        Vector3D centerbottom = getRoomMiddle(r);
+        gl.glTranslated(centerbottom.x, centerbottom.y, centerbottom.z);
+
+        float w = ROOM_WIDTH * 0.5f;
+        float l = ROOM_LENGTH * 0.5f;
+
+        l -= WALL_WIDTH * 0.5f;
+        w -= WALL_WIDTH * 0.5f;
+
+        camlight.Position = this.getCamera().Position.minus(centerbottom);
+
+        camlight.render(gl);
+
+        drawRoomFloor(gl);
+
+        drawRoomWalls(gl);
+
+        float dheight = DOOR_HEIGHT;
+        float dw = DOOR_WIDTH * 0.5f;
+        float bs = 1.0f / BRICK_SCALE;
+
+        //if (false) 
         {
 
-            if (!r.Up()) {
-                gl.glNormal3f(0.0f, 0.0f, 1.0f);
+            gl.glBegin(GL.GL_QUADS);
+            {
 
-                Tangent = HorrorWallMazeGeometry.getTangent(new Vector3D(0.0, 0.0, 1.0));
-                gl.glMultiTexCoord3f(GL.GL_TEXTURE1, (float) Tangent.x, (float) Tangent.y, (float) Tangent.z);
+                if (!r.Up()) {
+                    gl.glNormal3f(0.0f, 0.0f, 1.0f);
 
-                gl.glMultiTexCoord2f(GL.GL_TEXTURE0, dw * bs, dheight * bs);
-                gl.glVertex3f(dw, dheight, -l);
-                gl.glMultiTexCoord2f(GL.GL_TEXTURE0, -dw * bs, dheight * bs);
-                gl.glVertex3f(-dw, dheight, -l);
-                gl.glMultiTexCoord2f(GL.GL_TEXTURE0, -dw * bs, 0.0f);
-                gl.glVertex3f(-dw, 0.0f, -l);
-                gl.glMultiTexCoord2f(GL.GL_TEXTURE0, dw * bs, 0.0f);
-                gl.glVertex3f(dw, 0.0f, -l);
+                    Vector3D Tangent = HorrorWallMazeGeometry.getTangent(new Vector3D(0.0, 0.0, 1.0));
+                    gl.glMultiTexCoord3f(GL.GL_TEXTURE1, (float) Tangent.x, (float) Tangent.y, (float) Tangent.z);
+
+                    gl.glMultiTexCoord2f(GL.GL_TEXTURE0, dw * bs, dheight * bs);
+                    gl.glVertex3f(dw, dheight, -l);
+                    gl.glMultiTexCoord2f(GL.GL_TEXTURE0, -dw * bs, dheight * bs);
+                    gl.glVertex3f(-dw, dheight, -l);
+                    gl.glMultiTexCoord2f(GL.GL_TEXTURE0, -dw * bs, 0.0f);
+                    gl.glVertex3f(-dw, 0.0f, -l);
+                    gl.glMultiTexCoord2f(GL.GL_TEXTURE0, dw * bs, 0.0f);
+                    gl.glVertex3f(dw, 0.0f, -l);
+                }
+                if (!r.Left()) {
+                    gl.glNormal3f(1.0f, 0.0f, 0.0f);
+
+                    Vector3D Tangent = HorrorWallMazeGeometry.getTangent(new Vector3D(1.0, 0.0, 0.0));
+                    gl.glMultiTexCoord3f(GL.GL_TEXTURE1, (float) Tangent.x, (float) Tangent.y, (float) Tangent.z);
+                    gl.glMultiTexCoord2f(GL.GL_TEXTURE0, dheight * bs, -dw * bs);
+                    gl.glVertex3f(-w, dheight, -dw);
+                    gl.glMultiTexCoord2f(GL.GL_TEXTURE0, dheight * bs, dw * bs);
+                    gl.glVertex3f(-w, dheight, dw);
+                    gl.glMultiTexCoord2f(GL.GL_TEXTURE0, 0.0f, dw * bs);
+                    gl.glVertex3f(-w, 0.0f, dw);
+                    gl.glMultiTexCoord2f(GL.GL_TEXTURE0, 0.0f, -dw * bs);
+                    gl.glVertex3f(-w, 0.0f, -dw);
+                }
+                if (!r.Down()) {
+                    gl.glNormal3f(0.0f, 0.0f, -1.0f);
+
+                    Vector3D Tangent = HorrorWallMazeGeometry.getTangent(new Vector3D(0.0, 0.0, -1.0));
+                    gl.glMultiTexCoord3f(GL.GL_TEXTURE1, (float) Tangent.x, (float) Tangent.y, (float) Tangent.z);
+                    gl.glMultiTexCoord2f(GL.GL_TEXTURE0, -dw * bs, dheight * bs);
+                    gl.glVertex3f(-dw, dheight, l);
+                    gl.glMultiTexCoord2f(GL.GL_TEXTURE0, dw * bs, dheight * bs);
+                    gl.glVertex3f(dw, dheight, l);
+                    gl.glMultiTexCoord2f(GL.GL_TEXTURE0, dw * bs, 0.0f);
+                    gl.glVertex3f(dw, 0.0f, l);
+                    gl.glMultiTexCoord2f(GL.GL_TEXTURE0, -dw * bs, 0.0f);
+                    gl.glVertex3f(-dw, 0.0f, l);
+                }
+                if (!r.Right()) {
+                    gl.glNormal3f(-1.0f, 0.0f, 0.0f);
+
+                    Vector3D Tangent = HorrorWallMazeGeometry.getTangent(new Vector3D(1.0, 0.0, 0.0));
+                    gl.glMultiTexCoord3f(GL.GL_TEXTURE1, (float) Tangent.x, (float) Tangent.y, (float) Tangent.z);
+                    gl.glMultiTexCoord2f(GL.GL_TEXTURE0, 0.0f, -dw * bs);
+                    gl.glVertex3f(w, 0.0f, -dw);
+                    gl.glMultiTexCoord2f(GL.GL_TEXTURE0, 0.0f, dw * bs);
+                    gl.glVertex3f(w, 0.0f, dw);
+                    gl.glMultiTexCoord2f(GL.GL_TEXTURE0, dheight * bs, dw * bs);
+                    gl.glVertex3f(w, dheight, dw);
+                    gl.glMultiTexCoord2f(GL.GL_TEXTURE0, dheight * bs, -dw * bs);
+                    gl.glVertex3f(w, dheight, -dw);
+                }
+                /*switch()*/
             }
-            if (!r.Left()) {
-                gl.glNormal3f(1.0f, 0.0f, 0.0f);
-
-                Tangent = HorrorWallMazeGeometry.getTangent(new Vector3D(1.0, 0.0, 0.0));
-                gl.glMultiTexCoord3f(GL.GL_TEXTURE1, (float) Tangent.x, (float) Tangent.y, (float) Tangent.z);
-                gl.glMultiTexCoord2f(GL.GL_TEXTURE0, dheight * bs, -dw * bs);
-                gl.glVertex3f(-w, dheight, -dw);
-                gl.glMultiTexCoord2f(GL.GL_TEXTURE0, dheight * bs, dw * bs);
-                gl.glVertex3f(-w, dheight, dw);
-                gl.glMultiTexCoord2f(GL.GL_TEXTURE0, 0.0f, dw * bs);
-                gl.glVertex3f(-w, 0.0f, dw);
-                gl.glMultiTexCoord2f(GL.GL_TEXTURE0, 0.0f, -dw * bs);
-                gl.glVertex3f(-w, 0.0f, -dw);
-            }
-            if (!r.Down()) {
-                gl.glNormal3f(0.0f, 0.0f, -1.0f);
-
-                Tangent = HorrorWallMazeGeometry.getTangent(new Vector3D(0.0, 0.0, -1.0));
-                gl.glMultiTexCoord3f(GL.GL_TEXTURE1, (float) Tangent.x, (float) Tangent.y, (float) Tangent.z);
-                gl.glMultiTexCoord2f(GL.GL_TEXTURE0, -dw * bs, dheight * bs);
-                gl.glVertex3f(-dw, dheight, l);
-                gl.glMultiTexCoord2f(GL.GL_TEXTURE0, dw * bs, dheight * bs);
-                gl.glVertex3f(dw, dheight, l);
-                gl.glMultiTexCoord2f(GL.GL_TEXTURE0, dw * bs, 0.0f);
-                gl.glVertex3f(dw, 0.0f, l);
-                gl.glMultiTexCoord2f(GL.GL_TEXTURE0, -dw * bs, 0.0f);
-                gl.glVertex3f(-dw, 0.0f, l);
-            }
-            if (!r.Right()) {
-                gl.glNormal3f(-1.0f, 0.0f, 0.0f);
-
-                Tangent = HorrorWallMazeGeometry.getTangent(new Vector3D(1.0, 0.0, 0.0));
-                gl.glMultiTexCoord3f(GL.GL_TEXTURE1, (float) Tangent.x, (float) Tangent.y, (float) Tangent.z);
-                gl.glMultiTexCoord2f(GL.GL_TEXTURE0, 0.0f, -dw * bs);
-                gl.glVertex3f(w, 0.0f, -dw);
-                gl.glMultiTexCoord2f(GL.GL_TEXTURE0, 0.0f, dw * bs);
-                gl.glVertex3f(w, 0.0f, dw);
-                gl.glMultiTexCoord2f(GL.GL_TEXTURE0, dheight * bs, dw * bs);
-                gl.glVertex3f(w, dheight, dw);
-                gl.glMultiTexCoord2f(GL.GL_TEXTURE0, dheight * bs, -dw * bs);
-                gl.glVertex3f(w, dheight, -dw);
-            }
-            /*switch()*/
+            gl.glEnd();
         }
-        gl.glEnd();
         //}
 
         if (r.getItem() != null) {
