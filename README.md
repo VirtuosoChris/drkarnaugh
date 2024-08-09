@@ -4,7 +4,7 @@ Sophomore Computer Science 2 class project, a 3D puzzle game made my myself and 
 
 You explore Dr. Karnaugh's spooky lab, solving binary logic puzzles with his mysterious equipment to get to the next level.  But don't dawdle or his evil killer bunny Stan will get you!
 
-At the time we were influenced by Portal, stuff we were learning in class (like Karnaugh maps and truth tables), the vorpal bunny from Monty Python, the Yeti from Ski Free, [Rocky's Boots](https://en.wikipedia.org/wiki/Rocky%27s_Boots), as well as just a general sense of 80's Apple II / home computer game kitsch.
+At the time we were influenced by Portal, stuff we were learning in class (like [Karnaugh maps](https://en.wikipedia.org/wiki/Karnaugh_map) and truth tables), the vorpal bunny from Monty Python, the Yeti from Ski Free, [Rocky's Boots](https://en.wikipedia.org/wiki/Rocky%27s_Boots), as well as just a general sense of 80's Apple II / home computer game kitsch.
 
 https://github.com/user-attachments/assets/fc82057c-696b-4c7f-b5ec-8bd51ea8d1fa
 
