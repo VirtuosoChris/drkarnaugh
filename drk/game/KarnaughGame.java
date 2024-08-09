@@ -2,9 +2,8 @@
 //if matches truth table, call winMap();
 package drk.game;
 
-import java.awt.event.KeyEvent;
 import java.io.*;
-import drk.KarnaughLog;
+
 import drk.*;
 import drk.maze.*;
 import drk.circuit.*;
@@ -39,9 +38,9 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener {
     public boolean hasWire = false;
 
     //public boolean ttMatched[] = null;
-    protected String mapName = "map01.kar";
+    protected String mapName = "maps/map01.kar";
 
-    protected static String tempmapName = "map01.kar";
+    protected static String tempmapName = "maps/map01.kar";
 
     private long longest = 0;
 
@@ -50,6 +49,8 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener {
 //	public ArrayList<Wire> wires = null; //collection of wires within the maze
     public static final int GAME_WIDTH = 1920;//resolution constants
     public static final int GAME_HEIGHT = 1080;
+
+    File[] bunnyThemeFiles = null;
 
     //called when the user is carrying a wire attached to a component's output, and they change their mind and decide to discard
     //and start somewhere else
@@ -60,6 +61,17 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener {
         overlays.currentCursor = overlays.cursor;
     }
 
+    public File randomBunnyMusic() {
+        if (bunnyThemeFiles != null && bunnyThemeFiles.length > 0) {
+            Random rand = new Random(System.nanoTime()); // Use System.nanoTime() to seed the Random instance
+            int randomIndex = rand.nextInt(bunnyThemeFiles.length);
+
+            return bunnyThemeFiles[randomIndex];
+        }
+
+        return null;
+    }
+
     //does super's initialization
     //sets up the game GUI
     public void initialize(GL gl) {
@@ -68,6 +80,16 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener {
         overlays = new KarnaughOverlays(this);
         overlays.initialize(gl);
 
+        final File f;
+
+        File bunnyThemeDir = new File("drk/sound/music/bunnythemes");
+        bunnyThemeFiles = bunnyThemeDir.listFiles((dir, name) -> name.toLowerCase().endsWith(".mp3"));
+
+        KarnaughLog.log("Available bunny themes:");
+
+        for (File tf : bunnyThemeFiles) {
+            KarnaughLog.log(tf.toString());
+        }
     }
 
     public KarnaughMaze getMaze() {
@@ -403,7 +425,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener {
                 System.out.println("new bunny");
 
                 Time = 0;
-                final File f = new File("drk/sound/music/mission.mp3");
+                final File f = randomBunnyMusic();
 
                 SoundStreamer.stopPlayImmediately(songID);
 
@@ -437,7 +459,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener {
         KarnaughLog.log("Starting Dr. Karnaugh's Lab");
 
         KarnaughGame m = new KarnaughGame();
-        m.loadMap("map01.kar");
+        m.loadMap("maps/map01.kar");
         m.camera.fovy = 30;
         m.doMain(GAME_WIDTH, GAME_HEIGHT, null, true);
         Menu.story.dispose();
@@ -463,7 +485,7 @@ public class KarnaughGame extends MazeGame implements Updatable, MouseListener {
 
         m.camera.fovy = 30;
 
-        m.loadMap("map03.kar");
+        m.loadMap("maps/map03.kar");
 
         m.doMain(GAME_WIDTH, GAME_HEIGHT, null, true);
 

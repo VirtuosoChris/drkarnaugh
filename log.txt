@@ -1,17 +1,19 @@
 Starting Dr. Karnaugh's Lab
-C:\Users\chris\GitHub\drkarnaugh\map04.kar
+C:\Users\chris\GitHub\drkarnaugh\maps\map03.kar
 
-Loading map C:\Users\chris\GitHub\drkarnaugh\map04.kar
-Maze is 1 by 10
-TimeLimit is 200 seconds
-Next map is C:\Users\chris\GitHub\drkarnaugh\map05.kar
+Loading map C:\Users\chris\GitHub\drkarnaugh\maps\map03.kar
+Maze is 2 by 3
+TimeLimit is 12 seconds
+Next map is C:\Users\chris\GitHub\drkarnaugh\maps\map04.kar
 There are 1 components in this maze
-Maze has 1inputs, therefore 2 truth table size
+Maze has 2inputs, therefore 4 truth table size
 
 Map Truth Table Solution:
 0:true
 1:false
-Song is LightlessDawn
+10:false
+11:false
+Song is ZombieHoodoo
 
 
 Successfully loaded map data
@@ -24,92 +26,64 @@ node 05:(2.5,0.0,2.5)active?true
 node 06:(7.5,0.0,2.5)active?true
 node 07:(2.5,0.0,7.5)active?true
 node 08:(7.5,0.0,7.5)active?true
-node 90:(5.0,0.0,10.0)active?true
-node 91:(5.0,0.0,20.0)active?true
-node 92:(5.0,0.0,15.0)active?true
-node 93:(0.0,0.0,15.0)active?false
-node 94:(10.0,0.0,15.0)active?false
-node 95:(2.5,0.0,12.5)active?true
-node 96:(7.5,0.0,12.5)active?true
-node 97:(2.5,0.0,17.5)active?true
-node 98:(7.5,0.0,17.5)active?true
-node 180:(5.0,0.0,20.0)active?true
-node 181:(5.0,0.0,30.0)active?true
-node 182:(5.0,0.0,25.0)active?true
-node 183:(0.0,0.0,25.0)active?false
-node 184:(10.0,0.0,25.0)active?false
-node 185:(2.5,0.0,22.5)active?true
-node 186:(7.5,0.0,22.5)active?true
-node 187:(2.5,0.0,27.5)active?true
-node 188:(7.5,0.0,27.5)active?true
-node 270:(5.0,0.0,30.0)active?true
-node 271:(5.0,0.0,40.0)active?true
-node 272:(5.0,0.0,35.0)active?true
-node 273:(0.0,0.0,35.0)active?false
-node 274:(10.0,0.0,35.0)active?false
-node 275:(2.5,0.0,32.5)active?true
-node 276:(7.5,0.0,32.5)active?true
-node 277:(2.5,0.0,37.5)active?true
-node 278:(7.5,0.0,37.5)active?true
-node 360:(5.0,0.0,40.0)active?true
-node 361:(5.0,0.0,50.0)active?true
-node 362:(5.0,0.0,45.0)active?true
-node 363:(0.0,0.0,45.0)active?false
-node 364:(10.0,0.0,45.0)active?false
-node 365:(2.5,0.0,42.5)active?true
-node 366:(7.5,0.0,42.5)active?true
-node 367:(2.5,0.0,47.5)active?true
-node 368:(7.5,0.0,47.5)active?true
-node 450:(5.0,0.0,50.0)active?true
-node 451:(5.0,0.0,60.0)active?true
-node 452:(5.0,0.0,55.0)active?false
-node 453:(0.0,0.0,55.0)active?false
-node 454:(10.0,0.0,55.0)active?false
-node 455:(2.5,0.0,52.5)active?true
-node 456:(7.5,0.0,52.5)active?true
-node 457:(2.5,0.0,57.5)active?true
-node 458:(7.5,0.0,57.5)active?true
-node 540:(5.0,0.0,60.0)active?true
-node 541:(5.0,0.0,70.0)active?true
-node 542:(5.0,0.0,65.0)active?false
-node 543:(0.0,0.0,65.0)active?false
-node 544:(10.0,0.0,65.0)active?false
-node 545:(2.5,0.0,62.5)active?true
-node 546:(7.5,0.0,62.5)active?true
-node 547:(2.5,0.0,67.5)active?true
-node 548:(7.5,0.0,67.5)active?true
-node 630:(5.0,0.0,70.0)active?true
-node 631:(5.0,0.0,80.0)active?true
-node 632:(5.0,0.0,75.0)active?true
-node 633:(0.0,0.0,75.0)active?false
-node 634:(10.0,0.0,75.0)active?false
-node 635:(2.5,0.0,72.5)active?true
-node 636:(7.5,0.0,72.5)active?true
-node 637:(2.5,0.0,77.5)active?true
-node 638:(7.5,0.0,77.5)active?true
-node 720:(5.0,0.0,80.0)active?true
-node 721:(5.0,0.0,90.0)active?true
-node 722:(5.0,0.0,85.0)active?true
-node 723:(0.0,0.0,85.0)active?false
-node 724:(10.0,0.0,85.0)active?false
-node 725:(2.5,0.0,82.5)active?true
-node 726:(7.5,0.0,82.5)active?true
-node 727:(2.5,0.0,87.5)active?true
-node 728:(7.5,0.0,87.5)active?true
-node 810:(5.0,0.0,90.0)active?true
-node 811:(5.0,0.0,100.0)active?false
-node 812:(5.0,0.0,95.0)active?false
-node 813:(0.0,0.0,95.0)active?false
-node 814:(10.0,0.0,95.0)active?false
-node 815:(2.5,0.0,92.5)active?true
-node 816:(7.5,0.0,92.5)active?true
-node 817:(2.5,0.0,97.5)active?true
-node 818:(7.5,0.0,97.5)active?true
+node 90:(15.0,0.0,0.0)active?false
+node 91:(15.0,0.0,10.0)active?true
+node 92:(15.0,0.0,5.0)active?false
+node 93:(10.0,0.0,5.0)active?false
+node 94:(20.0,0.0,5.0)active?false
+node 95:(12.5,0.0,2.5)active?true
+node 96:(17.5,0.0,2.5)active?true
+node 97:(12.5,0.0,7.5)active?true
+node 98:(17.5,0.0,7.5)active?true
+node 180:(5.0,0.0,10.0)active?true
+node 181:(5.0,0.0,20.0)active?false
+node 182:(5.0,0.0,15.0)active?false
+node 183:(0.0,0.0,15.0)active?false
+node 184:(10.0,0.0,15.0)active?true
+node 185:(2.5,0.0,12.5)active?true
+node 186:(7.5,0.0,12.5)active?true
+node 187:(2.5,0.0,17.5)active?true
+node 188:(7.5,0.0,17.5)active?true
+node 270:(15.0,0.0,10.0)active?true
+node 271:(15.0,0.0,20.0)active?true
+node 272:(15.0,0.0,15.0)active?false
+node 273:(10.0,0.0,15.0)active?true
+node 274:(20.0,0.0,15.0)active?false
+node 275:(12.5,0.0,12.5)active?true
+node 276:(17.5,0.0,12.5)active?true
+node 277:(12.5,0.0,17.5)active?true
+node 278:(17.5,0.0,17.5)active?true
+node 360:(5.0,0.0,20.0)active?false
+node 361:(5.0,0.0,30.0)active?false
+node 362:(5.0,0.0,25.0)active?true
+node 363:(0.0,0.0,25.0)active?false
+node 364:(10.0,0.0,25.0)active?true
+node 365:(2.5,0.0,22.5)active?true
+node 366:(7.5,0.0,22.5)active?true
+node 367:(2.5,0.0,27.5)active?true
+node 368:(7.5,0.0,27.5)active?true
+node 450:(15.0,0.0,20.0)active?true
+node 451:(15.0,0.0,30.0)active?false
+node 452:(15.0,0.0,25.0)active?false
+node 453:(10.0,0.0,25.0)active?true
+node 454:(20.0,0.0,25.0)active?false
+node 455:(12.5,0.0,22.5)active?true
+node 456:(17.5,0.0,22.5)active?true
+node 457:(12.5,0.0,27.5)active?true
+node 458:(17.5,0.0,27.5)active?true
 Fullscreen available = true
 SETTING FULLSCREEN DISPLAY MODE:
 1920x1080x32bpp@[Unknown refresh rate]
+Available bunny themes:
+drk\sound\music\bunnythemes\mission.mp3
+drk\sound\music\bunnythemes\Seven March.mp3
 Requested samples: 4
 Actual samples: 4
 Chosen caps GLCapabilities [DoubleBuffered: true, Stereo: false, HardwareAccelerated: true, DepthBits: 32, StencilBits: 0, Red: 8, Green: 8, Blue: 8, Alpha: 8, Red Accum: 0, Green Accum: 0, Blue Accum: 0, Alpha Accum: 0, Multisample: true, Num samples: 4 ]
-longest frametime: 835ms
-longest frametime: 910ms
+longest frametime: 412ms
+Bunny music index 1
+Bunny music index 0
+Bunny music index 1
+Bunny music index 1
+Bunny music index 0
+Bunny music index 0

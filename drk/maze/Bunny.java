@@ -41,6 +41,7 @@ public class Bunny implements drk.graphics.GLRenderable, Updatable {
 
 //collision radius
     public static final double distanceRadius = 0.25;
+    public static final double collisionScale = 2.0;
 
 //reference to the maze the bunny is in
     KarnaughMaze rm = null;
@@ -81,8 +82,6 @@ public class Bunny implements drk.graphics.GLRenderable, Updatable {
 
         position = rm.nodeGraph[currentNode].position;
 
-        //set target node
-        //targetNode = rm.PathTable[currentNode][closestNodePlayer()];
         if (targetNode < 0) {
             System.out.println("Target = -1");
             System.exit(0);
@@ -93,38 +92,9 @@ public class Bunny implements drk.graphics.GLRenderable, Updatable {
         }
         direction = new Vector3D(0, 0, 0);
 
-        //direction = (rm.nodeGraph[targetNode].position).minus(rm.nodeGraph[currentNode].position);
-        //direction = direction.normal();//.times(BUNNYSPEED);
         //set arrival time							 //distance / rate
         moveUntilTime = System.currentTimeMillis();// + (long)(((rm.nodeGraph[targetNode].position).distance(rm.nodeGraph[currentNode].position)) / BUNNYSPEED);
         moveStartedTime = lastUpdate = System.currentTimeMillis();
-
-//	System.out.println("Starting at node "+currentNode+"moving to "+targetNode);
-//	this.update();
-        /*
-//	this.position=((HorrorWallMaze)rm).getRoomMiddle(e.getRoom());
-	this.direction = new Vector3D(0,0,0); 
-	
-	
-//	room = e.getRoom();
-	//movingTo = room;
-	lastUpdate = System.currentTimeMillis();
-	
-	
-	for(int i = 0; i < rm.nodeGraph.length; i++){
-	if(rm.nodeGraph[i].active){
-	this.targetNode = rm.nodeGraph[i];}
-	}
-	
-	room = rm.RoomList.get(targetNode.roomID);
-	
-	this.position=((HorrorWallMaze)rm).getRoomMiddle(room);
-	
-	
-	moveUntilTime = System.currentTimeMillis();
-	
-	this.update();
-         */
     }
 
     public int closestNodePlayer() {
@@ -139,7 +109,6 @@ public class Bunny implements drk.graphics.GLRenderable, Updatable {
             if (!rm.nodeGraph[(rid * 9) + i].active) {
                 continue;
             }
-            //Vector3D tLoc = ;
 
             //distance from node to player
             double tDist = k.ec.Position.distance(rm.nodeGraph[(rid * 9) + i].position);
@@ -194,7 +163,7 @@ public MazeNode getClosestNode(){
 
         //System.out.println("Bunny"+position+" "+direction);
         //if the camera intersects the bunny-sphere its game over
-        if ((k.ec.isCollidedWith(this.position.plus(new Vector3D(0, k.ec.Position.y, 0)), distanceRadius))) {
+        if ((k.ec.isCollidedWith(this.position.plus(new Vector3D(0, k.ec.Position.y, 0)), distanceRadius * collisionScale))) {
             k.die();
         }
 
