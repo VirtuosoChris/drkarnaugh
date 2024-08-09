@@ -1,6 +1,6 @@
 ## Dr. Karnaugh's Lab (2008)
 
-Sophomore Computer Science 2 class project, a 3D puzzle game made my myself and 2 fellow Students in Java.
+Sophomore Computer Science 2 final class project, a 3D puzzle game made my myself and 2 fellow Students in Java.  This was my third game ever and the first that I worked on with a team.
 
 You explore Dr. Karnaugh's spooky lab, solving binary logic puzzles with his mysterious equipment to get to the next level.  But don't dawdle or his evil killer bunny Stan will get you!
 
