@@ -16,7 +16,7 @@ public class Menu extends KarnaughGame implements KeyListener {
     public ImageIcon icon; //Main menu background.
     public JFileChooser gameFile; //Get the file for single campaign.
     public String newline;
-    public JTextArea log;
+    //public JTextArea log;
     public static String userName = null; //Get the users name for highscore.
 
     private ActionListener loadMapActionListener() {
@@ -29,19 +29,22 @@ public class Menu extends KarnaughGame implements KeyListener {
                 gameFile.setAcceptAllFileFilterUsed(false);
                 gameFile.setFileFilter(ext);
 
+                gameFile.setCurrentDirectory(new File(System.getProperty("user.dir")));
+
                 int returnVal = gameFile.showOpenDialog(frame);
+
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = gameFile.getSelectedFile();
-                    log.append("Opening: " + file.getName() + "." + newline);
+                    //log.append("Opening: " + file.getName() + "." + newline);
                     //int index = file.getName().lastIndexOf('.'); //Gets just the filename without ext.
                     String fileName = file.getPath();
                     KarnaughGame single = new KarnaughGame();
                     single.setSingleMapCampaign(single, fileName);
 
                 } else {
-                    log.append("Open command cancelled by user." + newline);
+                    //log.append("Open command cancelled by user." + newline);
                 }
-                log.setCaretPosition(log.getDocument().getLength());
+                //log.setCaretPosition(log.getDocument().getLength());
 
             }
         };
