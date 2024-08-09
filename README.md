@@ -6,6 +6,8 @@ You explore Dr. Karnaugh's spooky lab, solving binary logic puzzles with his mys
 
 At the time we were influenced by Portal, stuff we were learning in class (like Karnaugh maps and truth tables), the vorpal bunny from Monty Python, the Yeti from Ski Free, [Rocky's Boots](https://en.wikipedia.org/wiki/Rocky%27s_Boots), as well as just a general sense of 80's Apple II / home computer game kitsch.
 
+https://github.com/user-attachments/assets/fc82057c-696b-4c7f-b5ec-8bd51ea8d1fa
+
 ![image](https://github.com/user-attachments/assets/b44aa59e-7f04-454e-a08b-b16cfa80f549)
 
 ![image](https://github.com/user-attachments/assets/e29e1116-1aef-4b9c-b930-f8d1390b7a62)
